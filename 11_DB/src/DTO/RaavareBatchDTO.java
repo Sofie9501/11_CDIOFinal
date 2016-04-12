@@ -11,7 +11,7 @@ public class RaavareBatchDTO{
 		this.maengde = maengde;
 	}
 
-	public int getRbId() {
+	public int getRbID() {
 		return rbID; 
 	}
 
@@ -19,12 +19,12 @@ public class RaavareBatchDTO{
 		this.rbID = rbID; 
 	}
 
-	public int getRaavareId() {
+	public int getRaavareID() {
 		return raavareID; 
 	}
 
-	public void setRaavareId(int raavareId) {
-		this.raavareID = raavareId; 
+	public void setRaavareID(int raavareID) {
+		this.raavareID = raavareID; 
 	}
 
 	public double getMaengde() {

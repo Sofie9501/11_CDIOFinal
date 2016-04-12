@@ -2,12 +2,14 @@ package DTO;
 
 public class OperatoerDTO {
 	private int oprID;
+	private int rolle;
 	private String oprNavn;
 	private String cpr;
 	private String password;
 
-	public OperatoerDTO(int oprID, String oprNavn, String cpr, String password){
+	public OperatoerDTO(int oprID, int rolle, String oprNavn, String cpr, String password){
 		this.oprID = oprID;
+		this.rolle = rolle;
 		this.oprNavn = oprNavn;
 		this.cpr = cpr;
 		this.password = password;
@@ -15,6 +17,7 @@ public class OperatoerDTO {
 
 	public OperatoerDTO(OperatoerDTO opr){
 		this.oprID = opr.getOprID();
+		this.rolle = opr.getRolle();
 		this.oprNavn = opr.getOprNavn();
 		this.cpr = opr.getCpr();
 		this.password = opr.getPassword();
@@ -26,6 +29,12 @@ public class OperatoerDTO {
 
 	public void setOprID(int oprID){
 		this.oprID = oprID;
+	}
+	public int getRolle(){
+		return rolle;
+	}
+	public void setRolle(int rolle){
+		this.rolle = rolle;
 	}
 
 	public String getOprNavn() { 

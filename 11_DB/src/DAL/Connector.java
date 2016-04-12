@@ -9,10 +9,10 @@ import java.sql.Statement;
 
 public class Connector {
 	private final String HOST = "localhost";
-	private final int PORT = 8000;
+	private final int PORT = 3306;
 	private final String DATABASE = "lab";		//Skal eventuelt �ndres
 	private final String USERNAME = "root";
-	private final String PASSWORD = "";
+	private final String PASSWORD = "admin";
 	private Connection connection;
 	private Statement stm;
 	
@@ -22,6 +22,7 @@ public class Connector {
 			String url = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 			connection = DriverManager.getConnection(url, USERNAME, PASSWORD);
 			stm = connection.createStatement();
+			
 		}catch (ClassNotFoundException | SQLException e){
 			e.printStackTrace();
 			System.exit(0);
@@ -32,7 +33,6 @@ public class Connector {
 		ResultSet res = null;
 		
 		try{
-			stm = connection.createStatement();
 			res = stm.executeQuery(query);
 			return res;	
 	

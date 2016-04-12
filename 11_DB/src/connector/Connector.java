@@ -1,5 +1,6 @@
 package connector;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -13,23 +14,47 @@ public class Connector {
 	private final String USERNAME = "root";
 	private final String PASSWORD = "";
 	private Connection connection;
+	private Statement stm;
 	
 	public Connector(){
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 			connection = DriverManager.getConnection(url, USERNAME, PASSWORD);
+			stm = connection.createStatement();
 		}catch (ClassNotFoundException | SQLException e){
 			e.printStackTrace();
 			System.exit(0);
 		}
 	}
 	
-	public Connection getConnection(){
-		return connection;
+	public ResultSet doQuery(String query){
+		ResultSet res = null;
+		
+		try{
+			stm = connection.createStatement();
+			res = stm.executeQuery(query);
+			return res;	
+	
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 	
-	
+	public boolean doUpdate(CallableStatement procedure){
+		boolean result = false;
+		
+		try {
+			result = procedure.execute();
+			procedure.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 
 }
 

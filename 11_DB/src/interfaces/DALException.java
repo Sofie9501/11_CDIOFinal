@@ -1,4 +1,4 @@
-package daointerfaces01917;
+package interfaces;
 
 public class DALException extends Exception
 {

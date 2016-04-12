@@ -2,7 +2,7 @@ package interfaces;
 
 import java.awt.List;
 
-import data.OperatoerDTO;
+import DTO.OperatoerDTO;
 
 public interface OperatoerDAO {
 	OperatoerDTO getOperatoer(int oprId) throws DALException;

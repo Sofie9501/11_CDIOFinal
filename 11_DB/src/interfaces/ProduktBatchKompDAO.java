@@ -2,7 +2,7 @@ package interfaces;
 
 import java.util.List;
 
-import data.ProduktBatchKompDTO;
+import DTO.ProduktBatchKompDTO;
 
 public interface ProduktBatchKompDAO {
 	ProduktBatchKompDTO getProduktBatchKomp(int pbId, int rbId) throws DALException;

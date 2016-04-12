@@ -1,4 +1,4 @@
-package connector;
+package DAL;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.Statement;
 public class Connector {
 	private final String HOST = "localhost";
 	private final int PORT = 8000;
-	private final String DATABASE = "lab";		//Skal eventuelt ændres
+	private final String DATABASE = "lab";		//Skal eventuelt ï¿½ndres
 	private final String USERNAME = "root";
 	private final String PASSWORD = "";
 	private Connection connection;

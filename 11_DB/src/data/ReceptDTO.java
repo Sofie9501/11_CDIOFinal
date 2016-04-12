@@ -1,32 +1,31 @@
 package data;
 
-/**
- * Recept Data Objekt
- * 
- * @author mn/tb
- * @version 1.2
- */
-
-public class ReceptDTO 
-{
-	/** Recept nr i omraadet 1-99999999 */
-	int receptId;
-	/** Receptnavn min. 2 max. 20 karakterer */
-	String receptNavn;
-	/** liste af kompenenter i recepten */
+public class ReceptDTO {
+	private int receptID;
+	private String receptNavn;
 	
-    
-	public ReceptDTO(int receptId, String receptNavn)
-	{
-        this.receptId = receptId;
+	public ReceptDTO(int receptId, String receptNavn){
+        this.receptID = receptId;
         this.receptNavn = receptNavn;
     }
 
-    public int getReceptId() { return receptId; }
-	public void setReceptId(int receptId) { this.receptId = receptId; }
-	public String getReceptNavn() { return receptNavn; }
-	public void setReceptNavn(String receptNavn) { this.receptNavn = receptNavn; }
+    public int getReceptId() {
+    	return receptID; 
+    	}
+    
+	public void setReceptId(int receptID) {
+		this.receptID = receptID; 
+		}
+	
+	public String getReceptNavn() {
+		return receptNavn; 
+		}
+	
+	public void setReceptNavn(String receptNavn) {
+		this.receptNavn = receptNavn; 
+		}
+	
 	public String toString() { 
-		return receptId + "\t" + receptNavn; 
+		return receptID + "\t" + receptNavn; 
 	}
 }

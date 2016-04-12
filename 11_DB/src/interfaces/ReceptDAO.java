@@ -2,7 +2,7 @@ package interfaces;
 
 import java.util.List;
 
-import dto01917.ReceptDTO;
+import data.ReceptDTO;
 
 public interface ReceptDAO {
 	ReceptDTO getRecept(int receptId) throws DALException;

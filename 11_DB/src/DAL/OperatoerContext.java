@@ -7,10 +7,11 @@ import interfaces.DALException;
 import interfaces.OperatoerDAO;
 
 public class OperatoerContext implements OperatoerDAO{
-
+	Connector c = new Connector();
 	@Override
 	public OperatoerDTO getOperatoer(int oprId) throws DALException {
-		String query = "Select * From Operatoer";
+		String query = "Select * From Operatoer where oprid = " + oprId;
+		c.doQuery(query);
 		return null;
 	}
 

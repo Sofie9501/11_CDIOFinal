@@ -1,7 +1,9 @@
 package DAL;
 
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import DTO.ProduktBatchDTO;
 import interfaces.DALException;
@@ -17,8 +19,8 @@ public class ProduktBatchContext implements ProduktBatchDAO{
 		ProduktBatchDTO pb = null;
 
 		if(res == null)
-			throw new DALException("No operators found");
-		
+			throw new DALException("No produktbatch found");
+
 		try {
 			if(res.next()){
 				pb = new ProduktBatchDTO(res.getInt(1), res.getInt(2), res.getInt(3));
@@ -38,8 +40,6 @@ public class ProduktBatchContext implements ProduktBatchDAO{
 
 	@Override
 	public void createProduktBatch(ProduktBatchDTO produktbatch) throws DALException {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

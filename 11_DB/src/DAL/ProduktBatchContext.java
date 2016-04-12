@@ -12,13 +12,12 @@ public class ProduktBatchContext implements ProduktBatchDAO{
 
 	@Override
 	public ProduktBatchDTO getProduktBatch(int pbID) throws DALException{
-		ProduktBatchDTO pb = null;
 		String query = "select * from produktbatch where pb_id = " + pbID;
 		ResultSet res = c.doQuery(query);
+		ProduktBatchDTO pb = null;
 
-		if(res == null){
+		if(res == null)
 			throw new DALException("No operators found");
-		}
 		
 		try {
 			if(res.next()){
@@ -28,7 +27,6 @@ public class ProduktBatchContext implements ProduktBatchDAO{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return pb;
 	}
 

@@ -1,24 +1,42 @@
 package data;
 
-public class ProduktBatchDTO 
-{
-	int pbId;                     // i omraadet 1-99999999
-	int status;					// 0: ikke paabegyndt, 1: under produktion, 2: afsluttet
-	int receptId;
+public class ProduktBatchDTO {
+	private int pbID;
+	private int status;
+	private int receptID;
 	
-	public ProduktBatchDTO(int pbId, int status, int receptId)
-	{
-		this.pbId = pbId;
+	public ProduktBatchDTO(int pbID, int status, int receptID){
+		this.pbID = pbID;
 		this.status = status;
-		this.receptId = receptId;
+		this.receptID = receptID;
 	}
 	
-	public int getPbId() { return pbId; }
-	public void setPbId(int pbId) { this.pbId = pbId; }
-	public int getStatus() { return status; }
-	public void setStatus(int status) { this.status = status; }
-	public int getReceptId() { return receptId; }
-	public void setReceptId(int receptId) { this.receptId = receptId; }
-	public String toString() { return pbId + "\t" + status + "\t" + receptId; }
+	public int getPbId() {
+		return pbID; 
+		}
+	
+	public void setPbId(int pbId) {
+		this.pbID = pbId; 
+		}
+	
+	public int getStatus() {
+		return status; 
+		}
+	
+	public void setStatus(int status) {
+		this.status = status; 
+		}
+	
+	public int getReceptId() {
+		return receptID; 
+		}
+	
+	public void setReceptId(int receptId) {
+		this.receptID = receptId; 
+		}
+	
+	public String toString() {
+		return pbID + "\t" + status + "\t" + receptID; 
+		}
 }
 

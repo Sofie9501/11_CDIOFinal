@@ -1,25 +1,41 @@
 package data;
 
-public class RaavareBatchDTO
-{
-	int rbId;                     // i omraadet 1-99999999
-	int raavareId;             // i omraadet 1-99999999
-	double maengde;             // kan vaere negativ 
+public class RaavareBatchDTO{
+	private int rbID;
+	private int raavareID;
+	private double maengde;
 
-	public RaavareBatchDTO(int rbId, int raavareId, double maengde)
-	{
-		this.rbId = rbId;
-		this.raavareId = raavareId;
+	public RaavareBatchDTO(int rbID, int raavareId, double maengde){
+		this.rbID = rbID;
+		this.raavareID = raavareId;
 		this.maengde = maengde;
 	}
-	
-	public int getRbId() { return rbId; }
-	public void setRbId(int rbId) { this.rbId = rbId; }
-	public int getRaavareId() { return raavareId; }
-	public void setRaavareId(int raavareId) { this.raavareId = raavareId; }
-	public double getMaengde() { return maengde; }
-	public void setMaengde(double maengde) { this.maengde = maengde; }
+
+	public int getRbId() {
+		return rbID; 
+	}
+
+	public void setRbId(int rbID) {
+		this.rbID = rbID; 
+	}
+
+	public int getRaavareId() {
+		return raavareID; 
+	}
+
+	public void setRaavareId(int raavareId) {
+		this.raavareID = raavareId; 
+	}
+
+	public double getMaengde() {
+		return maengde; 
+	}
+
+	public void setMaengde(double maengde) {
+		this.maengde = maengde; 
+	}
+
 	public String toString() { 
-		return rbId + "\t" + raavareId +"\t" + maengde; 
+		return rbID + "\t" + raavareID +"\t" + maengde; 
 	}
 }

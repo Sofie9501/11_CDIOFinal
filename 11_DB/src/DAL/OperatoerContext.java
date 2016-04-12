@@ -10,7 +10,7 @@ public class OperatoerContext implements OperatoerDAO{
 
 	@Override
 	public OperatoerDTO getOperatoer(int oprId) throws DALException {
-		// TODO Auto-generated method stub
+		String query = "Select * From Operatoer";
 		return null;
 	}
 

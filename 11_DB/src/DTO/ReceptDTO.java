@@ -8,7 +8,4 @@ public class ReceptDTO {
 		this.receptID = receptID;
 		this.receptNavn = receptNavn;
 	}
-	
-	
-
 }

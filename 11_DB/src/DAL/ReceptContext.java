@@ -47,7 +47,6 @@ public class ReceptContext implements ReceptDAO{
 		try{
 			while(result.next()){
 				list.add(new ReceptDTO(result.getInt(2), result.getString(1)));
-				
 			}	
 		}catch (SQLException e) {
 			e.printStackTrace();

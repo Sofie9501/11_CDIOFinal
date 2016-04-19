@@ -18,7 +18,7 @@ public class ReceptContextTest {
 	public void test() {
 		ReceptDAO dao = new ReceptContext();
 		try {
-			ReceptDTO dto = dao.getRecept(1);
+			ReceptDTO dto = dao.getRecept(90);
 			System.out.println(dto.toString());
 		} catch (DALException e) {
 			// TODO Auto-generated catch block

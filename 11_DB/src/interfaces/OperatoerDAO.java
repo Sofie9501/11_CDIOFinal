@@ -1,6 +1,8 @@
 package interfaces;
 
-import java.awt.List;
+
+
+import java.util.List;
 
 import DTO.OperatoerDTO;
 

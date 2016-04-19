@@ -7,7 +7,7 @@ public class OperatoerDTO {
 	private String cpr;
 	private String password;
 
-	public OperatoerDTO(int oprID, int rolle, String oprNavn, String cpr, String password){
+	public OperatoerDTO(int oprID, String oprNavn, String cpr, String password, int rolle){
 		this.oprID = oprID;
 		this.rolle = rolle;
 		this.oprNavn = oprNavn;

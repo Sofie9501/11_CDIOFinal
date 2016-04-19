@@ -4,7 +4,7 @@ public class ReceptDTO {
 	private int receptID;
 	private String receptNavn;
 
-	public ReceptDTO(int receptID, String receptNavn){
+	public ReceptDTO(String receptNavn, int receptID){
 		this.receptID = receptID;
 		this.receptNavn = receptNavn;
 	}

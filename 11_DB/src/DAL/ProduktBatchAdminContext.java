@@ -31,18 +31,18 @@ public class ProduktBatchAdminContext implements ProduktBatchAdminDAO{
 		try {
 			// is there a next row
 			if(result.next()){
-				pba = new ProduktBatchAdminDTO(result.getInt(1), result.getInt(2),result.getInt(3), result.getDate(4),result.getInt(5));
+				pba = new ProduktBatchAdminDTO(result.getInt(1), result.getInt(2),result.getLong(3),result.getDate(4), result.getInt(5));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// return operator.
+		// return produktbatch.
 		return pba;
 	}
 
 
 	@Override
-	public List getOperatoerList() throws DALException {
+	public List getProduktBatchAdminList() throws DALException {
 		query = "Select * From produktbatch_administration";
 		ResultSet result = c.doQuery(query);
 		
@@ -55,7 +55,7 @@ public class ProduktBatchAdminContext implements ProduktBatchAdminDAO{
 		try {
 			// is there a next row
 			while(result.next()){
-				produktBatchAdmin.add(new ProduktBatchAdminDTO(result.getInt(1), result.getInt(2),result.getInt(3), result.getDate(4),result.getInt(5)));
+				produktBatchAdmin.add(new ProduktBatchAdminDTO(result.getInt(1), result.getInt(2),result.getInt(3),result.getDate(4), result.getInt(5)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -37,9 +37,7 @@ public class ReceptContext implements ReceptDAO{
 	public List<ReceptDTO> getReceptList() throws DALException {
 		String query = "select recept_navn, recept_id from recept_administration group by recept_navn";
 		ResultSet result = c.doQuery(query);
-		if(result == null){
-			throw new DALException("No recepts");
-		}
+		
 		List<ReceptDTO> list = null;
 		try{
 			while(result.next()) {

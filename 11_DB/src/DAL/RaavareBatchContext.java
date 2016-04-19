@@ -19,7 +19,6 @@ public class RaavareBatchContext implements RaavareBatchDAO {
 
 	@Override
 	public RaavareBatchDTO getRaavareBatch(int rbID) throws DALException {
-		// TODO Auto-generated method stub
 		query = "Select * From raavarebatch_administration where rb_id =" + rbID;
 		ResultSet result = c.doQuery(query);
 
@@ -41,7 +40,6 @@ public class RaavareBatchContext implements RaavareBatchDAO {
 
 	@Override
 	public List<RaavareBatchDTO> getRaavareBatchList() throws DALException {
-		// TODO Auto-generated method stub
 		query = "Select * From raavarebatch_administration";
 		ResultSet result = c.doQuery(query);
 
@@ -63,7 +61,6 @@ public class RaavareBatchContext implements RaavareBatchDAO {
 
 	@Override
 	public List<RaavareBatchDTO> getRaavareBatchList(int raavareID) throws DALException {
-		// TODO Auto-generated method stub
 		query = "Select * From raavarebatch_administration where raavare_id =" + raavareID;
 		ResultSet result = c.doQuery(query);
 
@@ -85,18 +82,14 @@ public class RaavareBatchContext implements RaavareBatchDAO {
 
 	@Override
 	public void createRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException {
-		// TODO Auto-generated method stub
 		query = "Call opret_raavarebatch(" + raavarebatch.getRbID()+ ", " + raavarebatch.getRaavareID() + ", " + raavarebatch.getMaengde() + ")";
-
 		c.doQuery(query);
 
 	}
 
 	@Override
 	public void updateRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException {
-		// TODO Auto-generated method stub
 		query = "Call aendre_raavarebatch(" + raavarebatch.getRbID()+ ", " + raavarebatch.getRaavareID() + ", " + raavarebatch.getMaengde() + ")";
-
 		c.doQuery(query);
 
 	}

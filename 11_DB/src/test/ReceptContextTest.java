@@ -18,8 +18,10 @@ public class ReceptContextTest {
 	public void test() {
 		ReceptDAO dao = new ReceptContext();
 		try {
-			ReceptDTO dto = dao.getRecept(1);
-			System.out.println(dto.toString());
+			System.out.println(dao.getReceptList().size());
+			for(ReceptDTO r: dao.getReceptList()){
+				System.out.println(r.toString());
+			}
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

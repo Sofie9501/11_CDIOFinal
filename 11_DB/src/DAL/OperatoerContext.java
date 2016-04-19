@@ -29,7 +29,7 @@ public class OperatoerContext implements OperatoerDAO{
 		try {
 			// is there a next row
 			if(result.next()){
-				opr = new OperatoerDTO(result.getInt(1), result.getString(2),result.getString(3), result.getString(4),result.getInt(5));
+				opr = new OperatoerDTO(result.getInt(1), result.getString(2),result.getInt(3), result.getString(4),result.getString(5));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -52,7 +52,7 @@ public class OperatoerContext implements OperatoerDAO{
 		try {
 			// is there a next row
 			while(result.next()){
-				operatoers.add(new OperatoerDTO(result.getInt(1), result.getString(2),result.getString(3), result.getString(4),result.getInt(5)));
+				operatoers.add(new OperatoerDTO(result.getInt(1), result.getString(2),result.getInt(3), result.getString(4),result.getString(5)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

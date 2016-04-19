@@ -3,6 +3,7 @@ package DAL;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mysql.jdbc.CallableStatement;
@@ -48,7 +49,7 @@ public class RaavareBatchContext implements RaavareBatchDAO {
 			throw new DALException("No Raavarebatch found");
 
 		}
-		List<RaavareBatchDTO> rbd = null;
+		List<RaavareBatchDTO> rbd = new ArrayList<RaavareBatchDTO>();
 		try{
 			while(result.next()){
 				rbd.add(new RaavareBatchDTO(result.getInt(1),result.getString(2), result.getDouble(3), result.getInt(4)));

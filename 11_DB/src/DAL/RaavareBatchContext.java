@@ -82,8 +82,15 @@ public class RaavareBatchContext implements RaavareBatchDAO {
 
 	@Override
 	public void createRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException {
+		query = "select * from raavarebatch where rb_id ="+ raavarebatch.getRbID();
+		ResultSet result = c.doQuery(query);
+		if (result != null){
+			System.out.println("RB_ID already exsists");
+		}
+		else{
 		query = "Call opret_raavarebatch(" + raavarebatch.getRbID()+ ", " + raavarebatch.getRaavareID() + ", " + raavarebatch.getMaengde() + ")";
 		c.doQuery(query);
+		}
 
 	}
 

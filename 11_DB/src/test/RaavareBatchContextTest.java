@@ -30,8 +30,7 @@ public class RaavareBatchContextTest {
 			
 			try {
 				rbd.createRaavareBatch(raavare);
-			} catch (SQLException q){
-				q.printStackTrace();
+			
 			} catch (DALException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

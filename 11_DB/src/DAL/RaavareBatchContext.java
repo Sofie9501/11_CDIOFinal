@@ -51,7 +51,6 @@ public class RaavareBatchContext implements RaavareBatchDAO {
 		try{
 			while(result.next()){
 				rbd.add(new RaavareBatchDTO(result.getInt(1),result.getString(2), result.getDouble(3), result.getInt(4)));
-
 			}
 		} catch(SQLException e){
 			e.printStackTrace();
@@ -66,13 +65,11 @@ public class RaavareBatchContext implements RaavareBatchDAO {
 
 		if(result == null){
 			throw new DALException("No Raavarebatch found");
-
 		}
 		List<RaavareBatchDTO> rbd = null;
 		try{
 			while(result.next()){
 				rbd.add(new RaavareBatchDTO(result.getInt(1),result.getString(2), result.getDouble(3), result.getInt(4)));
-
 			}
 		} catch(SQLException e){
 			e.printStackTrace();
@@ -82,17 +79,10 @@ public class RaavareBatchContext implements RaavareBatchDAO {
 
 	@Override
 	public void createRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException {
-		query = "select * from raavarebatch where rb_id ="+ raavarebatch.getRbID();
-		ResultSet result = c.doQuery(query);
-		if (result != null){
-			System.out.println("RB_ID already exsists");
-		}
-		else{
 		query = "Call opret_raavarebatch(" + raavarebatch.getRbID()+ ", " + raavarebatch.getRaavareID() + ", " + raavarebatch.getMaengde() + ")";
 		c.doQuery(query);
-		}
-
 	}
+
 
 	@Override
 	public void updateRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException {

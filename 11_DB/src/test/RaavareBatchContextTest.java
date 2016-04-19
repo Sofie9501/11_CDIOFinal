@@ -33,7 +33,7 @@ public class RaavareBatchContextTest {
 			
 			} catch (DALException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 		
 			

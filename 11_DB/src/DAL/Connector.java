@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import interfaces.DALException;
+
 public class Connector {
 	private final String HOST = "localhost";
 	private final int PORT = 3306;
@@ -29,15 +31,15 @@ public class Connector {
 		}
 	}
 	
-	public ResultSet doQuery(String query){
+	public ResultSet doQuery(String query) throws DALException{
 		ResultSet res = null;
 		
 		try{
 			res = stm.executeQuery(query);
-			return res;	
 	
 		}catch(SQLException e){
-			e.printStackTrace();
+			DALException d = new DALException(e);
+			throw d;
 		}
 		
 		return res;

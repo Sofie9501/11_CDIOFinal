@@ -2,37 +2,31 @@ package DTO;
 
 public class RaavareBatchDTO {
 	private int rbID;
-	private int raavareID;
+	private String raavareNavn;
 	private double maengde;
-	
-public RaavareBatchDTO(int rbID, int raavareID, double maengde){
-	this.rbID = rbID;
-	this.raavareID = raavareID;
-	this.maengde = maengde;
-}
+	private int raavareID;
 
-public int getRbID() {
-	return rbID;
-}
+	public RaavareBatchDTO(int rbID, String raavareNavn, double maengde, int raavareID){
+		this.rbID = rbID;
+		this.raavareNavn = raavareNavn;
+		this.maengde = maengde;
+		this.raavareID = raavareID;
+	}
 
-public void setRbID(int rbID) {
-	this.rbID = rbID;
-}
+	public int getRbID() {
+		return rbID;
+	}
 
-public int getRaavareID() {
-	return raavareID;
-}
+	public String getRaavareNavn() {
+		return raavareNavn;
+	}
 
-public void setRaavareID(int raavareID) {
-	this.raavareID = raavareID;
-}
+	public double getMaengde() {
+		return maengde;
+	}
 
-public double getMaengde() {
-	return maengde;
-}
-
-public void setMaengde(double maengde) {
-	this.maengde = maengde;
-}
+	public int getRaavareID() {
+		return raavareID;
+	}
 
 }

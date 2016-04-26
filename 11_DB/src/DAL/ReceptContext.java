@@ -2,6 +2,7 @@ package DAL;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import DTO.ReceptDTO;
@@ -38,7 +39,7 @@ public class ReceptContext implements ReceptDAO{
 		String query = "select recept_navn, recept_id from recept_administration group by recept_navn";
 		ResultSet result = c.doQuery(query);
 		
-		List<ReceptDTO> list = null;
+		List<ReceptDTO> list = new ArrayList<ReceptDTO>();
 		try{
 			while(result.next()) {
 				list.add(new ReceptDTO(result.getString(1), result.getInt(2)));

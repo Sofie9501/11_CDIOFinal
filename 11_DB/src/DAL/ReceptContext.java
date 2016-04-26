@@ -54,12 +54,13 @@ public class ReceptContext implements ReceptDAO{
 
 	@Override
 	public void createRecept(ReceptDTO recept, ArrayList<ReceptKompDTO> komp) throws DALException {
+		String queryRecept = "call opret_recept(" + recept.getReceptID() + ", '" + recept.getReceptNavn() + "');";
+		c.doQuery(queryRecept);
+		
 		for (int i = 0; i < komp.size(); i++) {
 			String queryKomp = "call opret_receptkomponent(" + recept.getReceptID() + ", " + komp.get(i).getRaavareID() + ", " + komp.get(i).getNom_netto() + ", " + komp.get(i).getTolerence() + ");";
 			c.doQuery(queryKomp);
 		}
-		String queryRecept = "call opret_recept(" + recept.getReceptID() + ", '" + recept.getReceptNavn() + "');";
-		c.doQuery(queryRecept);
 	}
 
 	@Override

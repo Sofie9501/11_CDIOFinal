@@ -13,6 +13,7 @@ import interfaces.ReceptKompDAO;
 
 public class ReceptContext implements ReceptDAO{
 	Connector c = new Connector();
+	ReceptKompContext rkc = new ReceptKompContext();
 
 	@Override
 	public ReceptDTO getRecept(int receptID) throws DALException {
@@ -58,8 +59,7 @@ public class ReceptContext implements ReceptDAO{
 		c.doQuery(queryRecept);
 		
 		for (int i = 0; i < komp.size(); i++) {
-			String queryKomp = "call opret_receptkomponent(" + recept.getReceptID() + ", " + komp.get(i).getRaavareID() + ", " + komp.get(i).getNom_netto() + ", " + komp.get(i).getTolerence() + ");";
-			c.doQuery(queryKomp);
+			rkc.createReceptKomp(komp.get(i));
 		}
 	}
 

@@ -15,7 +15,7 @@ public class RaavareContext implements RaavareDAO{
 
 	@Override
 	public RaavareDTO getRaavare(int raavareId) throws DALException {
-		String query = "select raavare_navn from raavare where raavare_id ="+ 
+		String query = "select * from raavare where raavare_id ="+ 
 				raavareId + " group by raavare_navn";
 		ResultSet result = c.doQuery(query);
 

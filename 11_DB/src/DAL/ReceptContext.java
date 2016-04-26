@@ -36,7 +36,7 @@ public class ReceptContext implements ReceptDAO{
 
 	@Override
 	public List<ReceptDTO> getReceptList() throws DALException {
-		String query = "select recept_navn, recept_id from recept_administration group by recept_navn";
+		String query = "select recept_navn, recept_id from recept_administration group by recept_id";
 		ResultSet result = c.doQuery(query);
 		
 		List<ReceptDTO> list = new ArrayList<ReceptDTO>();

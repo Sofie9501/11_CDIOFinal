@@ -79,14 +79,16 @@ public class RaavareBatchContext implements RaavareBatchDAO {
 
 	@Override
 	public void createRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException {
-		query = "Call opret_raavarebatch(" + raavarebatch.getRbID()+ ", " + raavarebatch.getRaavareID() + ", " + raavarebatch.getMaengde() + ")";
+		query = "Call opret_raavarebatch(" + raavarebatch.getRbID()+ ", " + raavarebatch.getRaavareID() +
+				", " + raavarebatch.getMaengde() + ")";
 		c.doQuery(query);
 	}
 
 
 	@Override
 	public void updateRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException {
-		query = "Call aendre_raavarebatch(" + raavarebatch.getRbID()+ ", " + raavarebatch.getRaavareID() + ", " + raavarebatch.getMaengde() + ")";
+		query = "Call aendre_raavarebatch(" + raavarebatch.getRbID()+ ", " + raavarebatch.getRaavareID() +
+				", " + raavarebatch.getMaengde() + ")";
 		c.doQuery(query);
 
 	}

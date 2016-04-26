@@ -26,7 +26,7 @@ public class RaavareBatchContextTest {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			RaavareBatchDTO raavare = new RaavareBatchDTO(100,"ost" , 1500,5 );
+			RaavareBatchDTO raavare = new RaavareBatchDTO(103,"pest" , 1500,5 );
 			
 			try {
 				rbd.createRaavareBatch(raavare);

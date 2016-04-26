@@ -62,14 +62,16 @@ public class OperatoerContext implements OperatoerDAO{
 
 	@Override
 	public void createOperatoer(OperatoerDTO opr) throws DALException {
-		// TODO Auto-generated method stub
+		String query = "call opret_opr(" + opr.getOprID()+ ", " + opr.getRolle() + ", '"+ opr.getOprNavn()+ "', '"+
+						opr.getCpr() + "', '" + opr.getPassword() +"' );";
+		c.doQuery(query);
 		
 	}
 
 	@Override
 	public void updateOperatoer(OperatoerDTO opr) throws DALException {
-		// TODO Auto-generated method stub
-		
+		String query = "call aendre_opr(" + opr.getOprID() + ", " + opr.getRolle() + ", '" + opr.getOprNavn() + "', '" +
+						opr.getCpr() + "', '" + opr.getPassword() + "' );";
+		c.doQuery(query);
 	}
-
 }

@@ -18,7 +18,6 @@ public class ReceptContextTest {
 	public void test() {
 		ReceptDAO dao = new ReceptContext();
 		try {
-			System.out.println(dao.getReceptList().size());
 			for(ReceptDTO r: dao.getReceptList()){
 				System.out.println(r.toString());
 			}

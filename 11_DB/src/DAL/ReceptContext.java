@@ -38,7 +38,7 @@ public class ReceptContext implements ReceptDAO{
 	public List<ReceptDTO> getReceptList() throws DALException {
 		String query = "select recept_navn, recept_id from recept_administration group by recept_id";
 		ResultSet result = c.doQuery(query);
-		
+
 		List<ReceptDTO> list = new ArrayList<ReceptDTO>();
 		try{
 			while(result.next()) {
@@ -58,8 +58,9 @@ public class ReceptContext implements ReceptDAO{
 
 	@Override
 	public void updateRecept(ReceptDTO recept) throws DALException {
-		// TODO Auto-generated method stub
-
+		int ID = getRecept(recept.getReceptID()).getReceptID();
+		String query = "call aendre_recept(" + ID + ", " + recept.getReceptNavn() + ");";
+		c.doQuery(query);
 	}
 
 

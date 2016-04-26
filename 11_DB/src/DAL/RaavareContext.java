@@ -59,8 +59,9 @@ public class RaavareContext implements RaavareDAO{
 
 	@Override
 	public void updateRaavare(RaavareDTO raavare) throws DALException {
-		// TODO Auto-generated method stub
-
+		int ID = getRaavare(raavare.getRaavareID()).getRaavareID();
+		String query = "call aendre_raavare(" + ID + ", " + raavare.getRaavareNavn() + ");";
+		c.doQuery(query);
 	}
 
 }

@@ -4,7 +4,7 @@ public class ReceptDTO {
 	private int receptID;
 	private String receptNavn;
 
-	public ReceptDTO(String receptNavn, int receptID){
+	public ReceptDTO(int receptID, String receptNavn){
 		this.receptID = receptID;
 		this.receptNavn = receptNavn;
 	}
@@ -29,5 +29,6 @@ public class ReceptDTO {
 	public String toString(){
 		return receptID + "\t" + receptNavn;
 	}
+	
 	
 }

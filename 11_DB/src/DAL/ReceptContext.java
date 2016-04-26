@@ -52,8 +52,8 @@ public class ReceptContext implements ReceptDAO{
 
 	@Override
 	public void createRecept(ReceptDTO recept) throws DALException {
-		// TODO Auto-generated method stub
-
+		String query = "call opret_recept(" + recept.getReceptID() + ", " + recept.getReceptNavn() + ");";
+		c.doQuery(query);
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package DAL;
 import java.sql.ResultSet;
 
 import DTO.AfvejningDTO;
+import DTO.ProduktBatchKomponentDTO;
 import DTO.ReceptDTO;
 import interfaces.AfvejningDAO;
 import interfaces.DALException;
@@ -29,7 +30,13 @@ public class AfvejningContext implements AfvejningDAO {
 		}
 		
 		return dto;
-
-
 	}
+	@Override
+	public void createProduktbatchKomponent(ProduktBatchKomponentDTO pbDTO) throws DALException {
+		
+		String query = "call opret_produktbatchkomponent(" + pbDTO.getPbId() + ", " +pbDTO.getRbId() + ", " +  pbDTO.getTara() + ", " + pbDTO.getNetto() + ", " + pbDTO.getOpr_id() + " );";
+		c.doQuery(query);
+	}
+	
+
 }

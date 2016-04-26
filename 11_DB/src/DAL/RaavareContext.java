@@ -2,9 +2,11 @@ package DAL;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import DTO.RaavareDTO;
+import DTO.ReceptDTO;
 import interfaces.DALException;
 import interfaces.RaavareDAO;
 
@@ -13,7 +15,7 @@ public class RaavareContext implements RaavareDAO{
 
 	@Override
 	public RaavareDTO getRaavare(int raavareId) throws DALException {
-		String query = "select raavare_navn from raavare where raavare_id ="+ 
+		String query = "select * from raavare where raavare_id ="+ 
 				raavareId + " group by raavare_navn";
 		ResultSet result = c.doQuery(query);
 
@@ -26,7 +28,7 @@ public class RaavareContext implements RaavareDAO{
 			if(result.next()){
 				raavare = new RaavareDTO(raavareId, result.getString(1), result.getString(2));
 			}
-		} catch (SQLException e) {
+		} catch (SQLException e) { 
 			e.printStackTrace();
 		}
 		return raavare;
@@ -34,12 +36,12 @@ public class RaavareContext implements RaavareDAO{
 
 	@Override
 	public List<RaavareDTO> getRaavareList() throws DALException {
-		String query = "select raavare_navn, raavare_id from raavare group by raavare_navn";
+		String query = "select * from raavare group by raavare_navn";
 		ResultSet result = c.doQuery(query);
 		if(result == null){
 			throw new DALException("No results. ");
 		}
-		List<RaavareDTO> list = null;
+		List<RaavareDTO> list = new ArrayList<RaavareDTO>();
 		try{
 			while(result.next()){
 				list.add(new RaavareDTO(result.getInt(1), result.getString(2), result.getString(3)));

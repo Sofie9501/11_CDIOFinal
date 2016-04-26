@@ -1,16 +1,21 @@
 package DTO;
 
 public class ReceptKompDTO {
+	int receptID;
 	private String ravareName;
 	private int raavareID;
 	private double tolerence;
 	private double nom_netto;
 	
-	public ReceptKompDTO(String ravareName, int raavareID, double tolerence, double nom_netto) {
+	public ReceptKompDTO(int receptID, String ravareName, int raavareID, double tolerence, double nom_netto) {
+		this.receptID = receptID;
 		this.ravareName = ravareName;
 		this.raavareID = raavareID;
 		this.tolerence = tolerence;
 		this.nom_netto = nom_netto;
+	}
+	public int getReceptID(){
+		return receptID;
 	}
 
 	public String getRavareName() {

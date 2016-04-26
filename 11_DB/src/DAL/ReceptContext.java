@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DTO.ReceptDTO;
+import DTO.ReceptKompDTO;
 import interfaces.DALException;
 import interfaces.ReceptDAO;
+import interfaces.ReceptKompDAO;
 
 public class ReceptContext implements ReceptDAO{
 	Connector c = new Connector();
@@ -24,7 +26,7 @@ public class ReceptContext implements ReceptDAO{
 
 			// is there a next row
 			if(result.next()){
-				recept = new ReceptDTO(result.getString(1), receptID);
+				recept = new ReceptDTO(receptID, result.getString(1));
 			}
 		} catch (Exception e) {
 			System.out.println("Error in receiving table. ");
@@ -42,7 +44,7 @@ public class ReceptContext implements ReceptDAO{
 		List<ReceptDTO> list = new ArrayList<ReceptDTO>();
 		try{
 			while(result.next()) {
-				list.add(new ReceptDTO(result.getString(1), result.getInt(2)));
+				list.add(new ReceptDTO(result.getInt(2), result.getString(1)));
 			}	
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -51,15 +53,19 @@ public class ReceptContext implements ReceptDAO{
 	}
 
 	@Override
-	public void createRecept(ReceptDTO recept) throws DALException {
-		String query = "call opret_recept(" + recept.getReceptID() + ", " + recept.getReceptNavn() + ");";
-		c.doQuery(query);
+	public void createRecept(ReceptDTO recept, ArrayList<ReceptKompDTO> komp) throws DALException {
+		for (int i = 0; i < komp.size(); i++) {
+			String queryKomp = "call opret_receptkomponent(" + recept.getReceptID() + ", " + komp.get(i).getRaavareID() + ", " + komp.get(i).getNom_netto() + ", " + komp.get(i).getTolerence() + ");";
+			c.doQuery(queryKomp);
+		}
+		String queryRecept = "call opret_recept(" + recept.getReceptID() + ", '" + recept.getReceptNavn() + "');";
+		c.doQuery(queryRecept);
 	}
 
 	@Override
 	public void updateRecept(ReceptDTO recept) throws DALException {
 		int ID = getRecept(recept.getReceptID()).getReceptID();
-		String query = "call aendre_recept(" + ID + ", " + recept.getReceptNavn() + ");";
+		String query = "call aendre_recept(" + ID + ", '" + recept.getReceptNavn() + "');";
 		c.doQuery(query);
 	}
 

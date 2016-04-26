@@ -2,6 +2,7 @@ package DAL;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import DTO.RaavareBatchDTO;
@@ -43,7 +44,7 @@ public class ReceptKompContext implements ReceptKompDAO{
 			throw new DALException("No receptkomp found");
 		}
 		
-		List<ReceptKompDTO> list = null;
+		List<ReceptKompDTO> list =  new ArrayList<ReceptKompDTO>();
 		try {
 			while(result.next()){
 				list.add(new ReceptKompDTO(result.getInt(2),result.getString(3), result.getInt(4), result.getDouble(5), result.getDouble(6)));
@@ -63,7 +64,7 @@ public class ReceptKompContext implements ReceptKompDAO{
 			throw new DALException("No receptkomp found");
 		}
 		
-		List<ReceptKompDTO> list = null;
+		List<ReceptKompDTO> list = new ArrayList<ReceptKompDTO>();
 		try {
 			while(result.next()){
 				list.add(new ReceptKompDTO(result.getInt(2), result.getString(3), result.getInt(4), result.getDouble(5), result.getDouble(6)));

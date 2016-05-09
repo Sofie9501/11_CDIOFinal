@@ -34,7 +34,8 @@ public class AfvejningContext implements AfvejningDAO {
 	@Override
 	public void createProduktbatchKomponent(ProduktBatchKomponentDTO pbDTO) throws DALException {
 		
-		String query = "call opret_produktbatchkomponent(" + pbDTO.getPbId() + ", " +pbDTO.getRbId() + ", " +  pbDTO.getTara() + ", " + pbDTO.getNetto() + ", " + pbDTO.getOpr_id() + " );";
+		String query = "call afvejning(" + pbDTO.getPbId() + ", " +pbDTO.getRbId() + ","
+				+ " " +  pbDTO.getTara() + ", " + pbDTO.getNetto() + ", " + pbDTO.getOpr_id() + " );";
 		c.doQuery(query);
 	}
 	

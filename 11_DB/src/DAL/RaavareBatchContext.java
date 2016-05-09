@@ -85,13 +85,7 @@ public class RaavareBatchContext implements RaavareBatchDAO {
 	}
 
 
-	@Override
-	public void updateRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException {
-		query = "Call aendre_raavarebatch(" + raavarebatch.getRbID()+ ", " + raavarebatch.getRaavareID() +
-				", " + raavarebatch.getMaengde() + ")";
-		c.doQuery(query);
-
-	}
+	
 
 
 }

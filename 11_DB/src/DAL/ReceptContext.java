@@ -9,7 +9,6 @@ import DTO.ReceptDTO;
 import DTO.ReceptKompDTO;
 import interfaces.DALException;
 import interfaces.ReceptDAO;
-import interfaces.ReceptKompDAO;
 
 public class ReceptContext implements ReceptDAO{
 	Connector c = new Connector();

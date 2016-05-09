@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DTO.RaavareDTO;
-import DTO.ReceptDTO;
 import interfaces.DALException;
 import interfaces.RaavareDAO;
 

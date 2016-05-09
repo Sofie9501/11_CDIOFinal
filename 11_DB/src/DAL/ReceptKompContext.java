@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import DTO.RaavareBatchDTO;
 import DTO.ReceptKompDTO;
 import interfaces.DALException;
 import interfaces.ReceptKompDAO;

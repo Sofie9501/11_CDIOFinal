@@ -1,13 +1,10 @@
 package DAL;
 
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.jdbc.CallableStatement;
-import com.mysql.jdbc.Connection;
 
 import DTO.RaavareBatchDTO;
 import interfaces.DALException;

@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 
 import DTO.AfvejningDTO;
 import DTO.ProduktBatchKomponentDTO;
-import DTO.ReceptDTO;
 import interfaces.AfvejningDAO;
 import interfaces.DALException;
 

@@ -12,7 +12,7 @@ public class RaavareContextTest {
 	RaavareDAO dao = new RaavareContext();
 	@Test
 	public void getRaavareListTest() {
-		System.out.println("\ngetRaavareList Test");
+		System.out.println("\nGet RaavareList: ");
 		try {
 			for(RaavareDTO r: dao.getRaavareList()){
 				System.out.println(r.toString());
@@ -21,34 +21,29 @@ public class RaavareContextTest {
 			e.printStackTrace();
 		}
 	
-
-		System.out.println("\nCreate RaavareTest");
-		RaavareDTO dto = new RaavareDTO(120, "æblekage", "æblekagefabrikken");
+		System.out.println("\nCreate Raavare: ");
+		RaavareDTO dto = new RaavareDTO(120, "Roastbeef", "Mooh");
 		try {
 			dao.createRaavare(dto);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			System.out.println(dao.getRaavare(120));
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		System.out.println("\nUpdate RaavareTest");
-		dto = new RaavareDTO(120, "jordbærtærte", "jordbærkagefabrikken");
+		System.out.println("\nUpdate Raavare:");
+		dto = new RaavareDTO(120, "Budding", "Jello Fabrikken");
 		try {
 			dao.updateRaavare(dto);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			System.out.println(dao.getRaavare(120));
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

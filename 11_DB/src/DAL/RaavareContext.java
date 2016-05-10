@@ -25,7 +25,7 @@ public class RaavareContext implements RaavareDAO{
 		RaavareDTO raavare = null;
 		try {
 			if(result.next()){
-				raavare = new RaavareDTO(raavareId, result.getString(1), result.getString(2));
+				raavare = new RaavareDTO(result.getInt(1), result.getString(2), result.getString(3));
 			}
 		} catch (SQLException e) { 
 			e.printStackTrace();
@@ -35,7 +35,7 @@ public class RaavareContext implements RaavareDAO{
 
 	@Override
 	public List<RaavareDTO> getRaavareList() throws DALException {
-		String query = "select * from raavare group by raavare_navn";
+		String query = "select * from raavare";
 		ResultSet result = c.doQuery(query);
 		if(result == null){
 			throw new DALException("No results. ");
@@ -54,14 +54,14 @@ public class RaavareContext implements RaavareDAO{
 
 	@Override
 	public void createRaavare(RaavareDTO raavare) throws DALException {
-		String query = "call opret_raavare(" + raavare.getRaavareID() + ", " + raavare.getRaavareNavn() + ", " + raavare.getLeverandoer() + ");";
+		String query = "call opret_raavare(" + raavare.getRaavareID() + ", '" + raavare.getRaavareNavn() + "', '" + raavare.getLeverandoer() + "');";
 		c.doQuery(query);
 	}
 
 	@Override
 	public void updateRaavare(RaavareDTO raavare) throws DALException {
 		int ID = getRaavare(raavare.getRaavareID()).getRaavareID();
-		String query = "call aendre_raavare(" + ID + ", " + raavare.getRaavareNavn() + ");";
+		String query = "call aendre_raavare(" + ID + ", '" + raavare.getRaavareNavn() + "',' " +  raavare.getLeverandoer() +"');";
 		c.doQuery(query);
 	}
 

@@ -23,6 +23,7 @@ public class ReceptQueryTest {
 		
 		ArrayList<ReceptKompDTO> komp = new ArrayList<ReceptKompDTO>();
 		try {
+			System.out.println("Opretter komponenter... ");
 			ReceptKompDTO komp1 = new ReceptKompDTO(recept.getReceptID(), raavareDAO.getRaavare(1).getRaavareNavn(), 1, 0.1, 3);
 			ReceptKompDTO komp2 = new ReceptKompDTO(recept.getReceptID(), raavareDAO.getRaavare(5).getRaavareNavn(), 5, 0.5, 2);
 			
@@ -34,15 +35,25 @@ public class ReceptQueryTest {
 
 		
 		try {
+			System.out.println("\nCreate Recept... ");
 			receptDAO.createRecept(recept, komp);
 		} catch (DALException e1) {
 			e1.printStackTrace();
 		}
 
 		try {
+			System.out.println("\nGet Recept List: ");
 			for(ReceptDTO r: receptDAO.getReceptList()){
 				System.out.println(r.toString());
 			}
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			System.out.println("\nUpdate Recept 7: ");
+			receptDAO.updateRecept(new ReceptDTO(7, "olaf"));
+			System.out.println(receptDAO.getRecept(7));
 		} catch (DALException e) {
 			e.printStackTrace();
 		}

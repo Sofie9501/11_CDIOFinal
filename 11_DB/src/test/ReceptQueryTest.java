@@ -6,11 +6,13 @@ import org.junit.Test;
 
 import DAL.RaavareContext;
 import DAL.ReceptContext;
+import DAL.ReceptKompContext;
 import DTO.ReceptDTO;
 import DTO.ReceptKompDTO;
 import interfaces.DALException;
 import interfaces.RaavareDAO;
 import interfaces.ReceptDAO;
+import interfaces.ReceptKompDAO;
 
 public class ReceptQueryTest {
 
@@ -18,6 +20,7 @@ public class ReceptQueryTest {
 	public void test() {
 		ReceptDAO receptDAO = new ReceptContext();
 		RaavareDAO raavareDAO = new RaavareContext();
+		ReceptKompDAO kompDAO = new ReceptKompContext();
 		
 		ReceptDTO recept = new ReceptDTO(7, "erza");
 		
@@ -54,6 +57,18 @@ public class ReceptQueryTest {
 			System.out.println("\nUpdate Recept 7: ");
 			receptDAO.updateRecept(new ReceptDTO(7, "olaf"));
 			System.out.println(receptDAO.getRecept(7));
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			System.out.println("\nGet ReceptKomp 7, 1...");
+			System.out.println(kompDAO.getReceptKomp(7, 1));
+			
+			System.out.println("\nGet ReceptKomp List: ");
+			for(ReceptKompDTO r: kompDAO.getReceptKompList()){
+				System.out.println(r.toString());
+			}
 		} catch (DALException e) {
 			e.printStackTrace();
 		}

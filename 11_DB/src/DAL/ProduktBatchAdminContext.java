@@ -51,6 +51,7 @@ public class ProduktBatchAdminContext implements ProduktBatchAdminDAO{
 			throw new DALException("No produktbatches found");
 		}
 		
+		System.out.println("Print liste over produktbatches: ");
 		List<ProduktBatchAdminDTO> produktBatchAdmin = new ArrayList<ProduktBatchAdminDTO>();
 		try {
 			// is there a next row

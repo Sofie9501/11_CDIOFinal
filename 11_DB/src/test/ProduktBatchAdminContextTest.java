@@ -14,6 +14,7 @@ public class ProduktBatchAdminContextTest {
 
 	@Test
 	public void test() {
+		System.out.println("Get produktBtachAdmin med pbId = 4: ");
 		ProduktBatchAdminDAO dao = new ProduktBatchAdminContext();
 		try {
 			ProduktBatchAdminDTO dto = dao.getProduktBatchAdmin(4);

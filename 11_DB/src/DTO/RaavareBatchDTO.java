@@ -29,4 +29,10 @@ public class RaavareBatchDTO {
 		return raavareID;
 	}
 
+	@Override
+	public String toString() {
+		return "RaavareBatchDTO [rbID=" + rbID + ", raavareNavn=" + raavareNavn + ", maengde=" + maengde
+				+ ", raavareID=" + raavareID + "]";
+	}
+
 }

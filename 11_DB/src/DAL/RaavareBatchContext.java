@@ -55,6 +55,7 @@ public class RaavareBatchContext implements RaavareBatchDAO {
 		return rbd;
 	}
 
+	// Returnere en liste af RaavareBatchDTO'er på længden 0..*
 	@Override
 	public List<RaavareBatchDTO> getRaavareBatchList(int raavareID) throws DALException {
 		query = "Select * From raavarebatch_administration where raavare_id =" + raavareID;
@@ -63,7 +64,7 @@ public class RaavareBatchContext implements RaavareBatchDAO {
 		if(result == null){
 			throw new DALException("No Raavarebatch found");
 		}
-		List<RaavareBatchDTO> rbd = null;
+		List<RaavareBatchDTO> rbd = new ArrayList<RaavareBatchDTO>();
 		try{
 			while(result.next()){
 				rbd.add(new RaavareBatchDTO(result.getInt(1),result.getString(2), result.getDouble(3), result.getInt(4)));

@@ -19,6 +19,7 @@ public class ReceptContext implements ReceptDAO{
 		// Convert to Data Transfer Object
 		ReceptDTO recept = null;
 
+		//This function returns a receptDTO with the a chosen recpetID
 		try {
 			String query = "select recept_navn from recept_administration where recept_id ="+ 
 					receptID+ " group by recept_navn";
@@ -41,6 +42,7 @@ public class ReceptContext implements ReceptDAO{
 		String query = "select recept_navn, recept_id from recept_administration group by recept_id";
 		ResultSet result = c.doQuery(query);
 
+		//This function returns a list of all recepts in the database
 		List<ReceptDTO> list = new ArrayList<ReceptDTO>();
 		try{
 			while(result.next()) {
@@ -52,6 +54,7 @@ public class ReceptContext implements ReceptDAO{
 		return list;
 	}
 
+	//This function is used to create a recept, it needs an arraylist of receptkomponenter and a recept DTO
 	@Override
 	public void createRecept(ReceptDTO recept, ArrayList<ReceptKompDTO> komp) throws DALException {
 		String queryRecept = "call opret_recept(" + recept.getReceptID() + ", '" + recept.getReceptNavn() + "');";
@@ -61,7 +64,8 @@ public class ReceptContext implements ReceptDAO{
 			rkc.createReceptKomp(komp.get(i));
 		}
 	}
-
+	
+	//This function changes the name of a recept
 	@Override
 	public void updateRecept(ReceptDTO recept) throws DALException {
 		int ID = getRecept(recept.getReceptID()).getReceptID();

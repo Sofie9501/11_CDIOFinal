@@ -9,5 +9,5 @@ public interface ProduktBatchAdminDAO {
 
 	ProduktBatchAdminDTO getProduktBatchAdmin(int PbId) throws DALException;
 	List getProduktBatchAdminList() throws DALException;
-	void createProduktBatchKomp(ProduktBatchAdminDTO produktbatchkomponentadmin) throws DALException;
+	void createProduktBatch(ProduktBatchAdminDTO produktbatchkomponentadmin) throws DALException;
 }

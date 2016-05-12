@@ -12,6 +12,8 @@ import interfaces.DALException;
 public class AfvejningTest {
 
 	//Før denne test skal køres, skal ProduktBatchAdminContextTest køres først!!!
+	//Databasen må ikke nulstillet, før denne test, da den arbejder sammen
+	//med testen før!!!
 	@Test
 	public void test() {
 		AfvejningDAO dao = new AfvejningContext();

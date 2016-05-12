@@ -25,7 +25,7 @@ public class ProduktBatchAdminContextTest {
 		
 		System.out.println("\nOpretter ny produktbatch med pbID = 6: ");
 		try {
-			dao.createProduktBatch(new ProduktBatchAdminDTO(6, 2, "", 3, 0, null, 1));
+			dao.createProduktBatch(new ProduktBatchAdminDTO(6, 2, "", 3, 0,null, 0));
 			System.out.println(dao.getProduktBatchAdmin(6));
 		} catch (DALException e) {
 			e.printStackTrace();

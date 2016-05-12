@@ -67,7 +67,7 @@ public class ProduktBatchAdminContext implements ProduktBatchAdminDAO{
 
 	@Override
 	public void createProduktBatch(ProduktBatchAdminDTO produktbatch) throws DALException {
-		String query = "call opret_produktbatch(" + produktbatch.getPbId() + ", " + produktbatch.getSatus() + ", " + produktbatch.getReceptId() + ", " + produktbatch.getDate() + ");";
+		String query = "call opret_produktbatch(" + produktbatch.getPbId() + ", " + produktbatch.getSatus() + ", " + produktbatch.getReceptId()+");";
 		c.doQuery(query);
 	}
 

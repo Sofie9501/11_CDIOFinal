@@ -57,6 +57,16 @@ public class Connector {
 		
 		return result;
 	}
+	
+	@Override
+	protected void finalize(){
+		try {
+			stm.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
 

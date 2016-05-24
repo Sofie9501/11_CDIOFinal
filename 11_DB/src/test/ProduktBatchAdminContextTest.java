@@ -32,7 +32,7 @@ public class ProduktBatchAdminContextTest {
 		}
 		
 		System.out.println("\nList: ");
-		List list = new ArrayList<ProduktBatchAdminDTO>();
+		List<ProduktBatchAdminDTO> list = new ArrayList<ProduktBatchAdminDTO>();
 		try {
 			list = dao.getProduktBatchAdminList();
 			for (int i = 0; i < list.size(); i++) {

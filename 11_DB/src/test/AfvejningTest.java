@@ -1,6 +1,6 @@
 package test;
 
-import static org.junit.Assert.*;
+
 
 import org.junit.Test;
 
@@ -10,10 +10,10 @@ import interfaces.AfvejningDAO;
 import interfaces.DALException;
 
 public class AfvejningTest {
-
+	/************************OBS OBS OBS: LÆS LÆS LÆSs*****************************************
 	//Før denne test skal køres, skal ProduktBatchAdminContextTest køres først!!!
 	//Databasen må ikke nulstillet, før denne test, da den arbejder sammen
-	//med testen før!!!
+	//med testen før!!! */
 	@Test
 	public void test() {
 		AfvejningDAO dao = new AfvejningContext();

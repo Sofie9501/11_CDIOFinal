@@ -42,7 +42,7 @@ public class ProduktBatchAdminContext implements ProduktBatchAdminDAO{
 
 
 	@Override
-	public List getProduktBatchAdminList() throws DALException {
+	public List<ProduktBatchAdminDTO> getProduktBatchAdminList() throws DALException {
 		query = "Select * From produktbatch_administration";
 		ResultSet result = c.doQuery(query);
 		

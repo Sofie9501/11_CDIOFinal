@@ -8,6 +8,6 @@ import DTO.ProduktBatchAdminDTO;
 public interface ProduktBatchAdminDAO {
 
 	ProduktBatchAdminDTO getProduktBatchAdmin(int PbId) throws DALException;
-	List getProduktBatchAdminList() throws DALException;
+	List<ProduktBatchAdminDTO> getProduktBatchAdminList() throws DALException;
 	void createProduktBatch(ProduktBatchAdminDTO produktbatchkomponentadmin) throws DALException;
 }

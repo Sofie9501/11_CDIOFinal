@@ -1,0 +1,22 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+	<ui:style>
+	
+	</ui:style>
+	<g:HTMLPanel>
+	    <div ><table>
+	        <tr><td><h4>Operatør ID</h4></td></tr>
+	        <tr><td><b:TextBox ui:field="txt_username"/></td></tr>
+	        <tr><td><h4>Password</h4></td></tr>
+	        <tr><td><b:PasswordTextBox ui:field="txt_password"/></td></tr>
+	        <tr><td><b:Button type="PRIMARY" ui:field="btn_login">Log På</b:Button></td></tr>
+	        <tr><td><b:Modal ui:field="popup_login" title="Error" backdrop="STATIC" keyboard="true" animation="true">
+	            <b:ModalFooter>
+	                        <b:Button type="LINK" ui:field="btn_loginFail" >Ok</b:Button>
+	                    </b:ModalFooter>
+	                </b:Modal>
+	        </td></tr>
+	        </table></div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

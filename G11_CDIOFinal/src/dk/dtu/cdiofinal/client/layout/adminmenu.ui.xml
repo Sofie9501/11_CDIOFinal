@@ -1,0 +1,14 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+	<ui:style>
+	
+	</ui:style>
+	<g:HTMLPanel>
+	    <H4>Administrations Menu</H4>
+	    <table>
+	        <tr><td><b:Button ui:field="btn_opr">Operatør Administration</b:Button></td></tr>
+	        <tr><td><b:Button ui:field="btn_myDetails">Min Konto</b:Button></td></tr>
+	    </table>
+	</g:HTMLPanel>
+</ui:UiBinder> 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+	<ui:style>
+	.greyText {color: grey;}
+	</ui:style>
+	<g:HTMLPanel>
+	    <div align="left" style="width:500px"> <table>
+	        <tr><td style="width:200%"><u><h4>Operator ID</h4></u></td></tr>
+	        <tr ><td><b:Heading size="5" ui:field="txt_oprID"/></td></tr>
+	        <tr><td><u><h4>Navn</h4></u></td></tr>
+	        <tr bgcolor="#f1f1f1">
+	            <td ><b:Heading size="5" ui:field="txt_name"/></td>
+	            <td ><b:Button type="LINK" ui:field="btn_name">Edit</b:Button></td>
+	        </tr>
+	        <tr><td><u><h4>CPR nr</h4></u></td></tr>
+	        <tr bgcolor="#f1f1f1">
+	            <td><b:Heading size="5" ui:field="txt_CPRnr"/></td>
+	            <td><b:Button type="LINK" ui:field="btn_CPR">Edit</b:Button></td>
+	        </tr>
+	        <tr><td><u><h4>Rolle</h4></u></td></tr>
+	        <tr bgcolor="#f1f1f1">
+	            <td><b:Heading size="5" ui:field="txt_role"/></td>
+	            <td><b:Button type="LINK" ui:field="btn_rolle">Edit</b:Button></td>
+	        </tr>
+	        <tr><td><u><h4>Password</h4></u></td></tr>
+	        <tr bgcolor="#f1f1f1">
+	            <td><h4><b:Heading size="5" ui:field="txt_password"/></h4></td>
+	            <td><b:Button type="LINK" ui:field="btn_password">Edit</b:Button></td>
+	        </tr>
+	        <tr>
+	            <td>
+	                <b:Modal ui:field="popup" title="Error" backdrop="STATIC" keyboard="true" animation="true">
+	                    <b:TextBox ui:field="txt_edited"/>
+	                    <b:ModalFooter>
+	                        <b:Button icon="SAVE" type="LINK" ui:field="btn_save" >Save</b:Button>
+	                    </b:ModalFooter>
+	                </b:Modal>
+	            </td>
+	        </tr>
+	        
+	        </table></div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;11_CDIOFinal/src/dk/dtu/cdiofinal/_1_CDIOFinal.gwt.xml&apos; to &apos;11_CDIOFinal.gwt.xml&apos;" description="Rename resource &apos;_1_CDIOFinal.gwt.xml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/dk/dtu/cdiofinal/_1_CDIOFinal.gwt.xml" name="11_CDIOFinal.gwt.xml" stamp="1464957032097" updateReferences="true"/>
-</session>

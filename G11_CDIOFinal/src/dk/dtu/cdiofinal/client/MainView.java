@@ -1,12 +1,13 @@
 package dk.dtu.cdiofinal.client;
 
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import dk.dtu.cdiofinal.client.layout.Login;
 import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
-public class MainView {
+public class MainView extends Composite {
 
 	OperatoerDTO opr = new OperatoerDTO(12, "Cille123", 3, "0102003-2233", "loldppspa");
 

@@ -3,9 +3,11 @@ package dk.dtu.cdiofinal.client.serverconnection;
 import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
+@RemoteServiceRelativePath("service")
 public interface OperatorService extends RemoteService {
 	
 	int isLoggedIn();

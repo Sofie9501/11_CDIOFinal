@@ -14,7 +14,7 @@ target
 *.war
 
 # gwt caches and compiled units #
-war/11_CDIO3/
+war/g11_cdiofinal/
 gwt-unitCache/
 test-classes/
 www-test/

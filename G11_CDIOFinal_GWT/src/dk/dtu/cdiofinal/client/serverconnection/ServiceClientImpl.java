@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import dk.dtu.cdiofinal.shared.IngredientDTO;
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
 public class ServiceClientImpl implements OperatorServiceAsync{
@@ -51,6 +52,10 @@ public class ServiceClientImpl implements OperatorServiceAsync{
 	public void logout(AsyncCallback<Boolean> callback) {
 		this.service.logout(callback);
 		
+	}
+
+	public void createIngredient(IngredientDTO ingre, AsyncCallback<IngredientDTO> myCallback) {
+		this.service.createIngredient(callback);
 	}
 
 }

@@ -1,4 +1,4 @@
-package dk.dtu.cdiofinal.client.layout;
+package dk.dtu.cdiofinal.client.layout.operator;
 
 import com.github.gwtbootstrap.client.ui.*;
 import com.google.gwt.core.client.GWT;
@@ -8,6 +8,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.AbstractView;
+import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.ServiceClientImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
@@ -89,7 +90,7 @@ public class ChangePassword extends AbstractView{
 			if (result){
 				btn_save.setText(result.toString());
 				popup.setTitle("Succes");
-				ok.setText("Dine ændringer er blevet gemt");
+				ok.setText("Dine ï¿½ndringer er blevet gemt");
 				popup.toggle();
 			}
 			else{

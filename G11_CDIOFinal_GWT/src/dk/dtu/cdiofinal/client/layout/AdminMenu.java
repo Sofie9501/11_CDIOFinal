@@ -8,6 +8,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.AbstractView;
+import dk.dtu.cdiofinal.client.layout.operator.ChangePassword;
+import dk.dtu.cdiofinal.client.layout.operator.OprListView;
 import dk.dtu.cdiofinal.client.serverconnection.ServiceClientImpl;
 
 public class AdminMenu extends AbstractView{

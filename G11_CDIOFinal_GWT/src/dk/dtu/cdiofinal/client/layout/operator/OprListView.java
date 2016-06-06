@@ -1,4 +1,4 @@
-package dk.dtu.cdiofinal.client.layout;
+package dk.dtu.cdiofinal.client.layout.operator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
+import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.ServiceClientImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.OperatoerDTO;

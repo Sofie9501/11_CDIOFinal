@@ -1,4 +1,4 @@
-package dk.dtu.cdiofinal.client.layout;
+package dk.dtu.cdiofinal.client.layout.operator;
 
 import com.github.gwtbootstrap.client.ui.*;
 import com.google.gwt.core.client.GWT;

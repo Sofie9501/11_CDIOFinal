@@ -3,6 +3,7 @@ package dk.dtu.cdiofinal.server.DAL;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.dtu.cdiofinal.DAO.OperatoerDAO;
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
 

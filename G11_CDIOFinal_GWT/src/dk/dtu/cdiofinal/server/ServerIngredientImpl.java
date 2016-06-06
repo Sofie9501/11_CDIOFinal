@@ -9,7 +9,9 @@ import dk.dtu.cdiofinal.shared.IngredientDTO;
 
 @SuppressWarnings("serial")
 public class ServerIngredientImpl extends RemoteServiceServlet implements IngredientService{
-
+	
+	
+	
 	@Override
 	public List<IngredientDTO> getIngredients() {
 		// TODO Auto-generated method stub

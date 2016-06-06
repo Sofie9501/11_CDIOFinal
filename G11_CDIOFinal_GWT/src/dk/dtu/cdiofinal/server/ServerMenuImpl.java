@@ -4,9 +4,9 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import dk.dtu.cdiofinal.DAO.OperatoerDAO;
 import dk.dtu.cdiofinal.client.serverconnection.MenuService;
 import dk.dtu.cdiofinal.server.DAL.DALException;
-import dk.dtu.cdiofinal.server.DAL.OperatoerDAO;
 import dk.dtu.cdiofinal.server.DAL.OperatorDAOList;
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
 

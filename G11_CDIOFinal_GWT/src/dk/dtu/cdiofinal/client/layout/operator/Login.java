@@ -11,11 +11,11 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
 import dk.dtu.cdiofinal.client.MainView;
-import dk.dtu.cdiofinal.client.serverconnection.ServiceClientImpl;
+import dk.dtu.cdiofinal.client.serverconnection.operator.ServiceClientOperatorImpl;
 
 public class Login extends Composite{
 	private static LoginUiBinder uiBinder = GWT.create(LoginUiBinder.class);
-	private ServiceClientImpl serviceImpl;
+	private ServiceClientOperatorImpl serviceImpl;
 
 	@UiTemplate("login.ui.xml")
 	interface LoginUiBinder extends UiBinder<Widget, Login> {
@@ -44,7 +44,7 @@ public class Login extends Composite{
 
 	public Login(MainView v) {
 		this.mainView = v;
-		this.serviceImpl = new ServiceClientImpl();
+		this.serviceImpl = new ServiceClientOperatorImpl();
 
 		// Check if logged in
 		// v.changeToMenu()

@@ -9,7 +9,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
 import dk.dtu.cdiofinal.client.layout.operator.ChangePassword;
-import dk.dtu.cdiofinal.client.serverconnection.ServiceClientImpl;
+import dk.dtu.cdiofinal.client.serverconnection.operator.ServiceClientOperatorImpl;
 
 public class Menu extends Composite{
 
@@ -18,7 +18,7 @@ public class Menu extends Composite{
 	}
 	
 	private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
-	private ServiceClientImpl service = new ServiceClientImpl();
+	private ServiceClientOperatorImpl service = new ServiceClientOperatorImpl();
 	@UiField
 	Button back;
 	@UiField

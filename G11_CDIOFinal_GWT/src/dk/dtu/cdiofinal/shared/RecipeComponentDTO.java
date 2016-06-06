@@ -46,6 +46,12 @@ public class RecipeComponentDTO {
 	public void setTolerance(double tolerance) {
 		this.tolerance = tolerance;
 	}
+
+	@Override
+	public String toString() {
+		return "recipeComp ID = " + recipeComp_ID + "\tIngredient ID = " + ingredient_ID
+				+ "\tnom_netto = " + nom_netto + "\tTolerance = " + tolerance;
+	}
 	
 	
 }

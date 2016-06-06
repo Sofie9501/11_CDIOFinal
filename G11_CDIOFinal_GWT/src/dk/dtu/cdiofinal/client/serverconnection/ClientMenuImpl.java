@@ -1,4 +1,7 @@
 package dk.dtu.cdiofinal.client.serverconnection;
+
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 
@@ -6,7 +9,11 @@ public class ClientMenuImpl implements MenuServiceAsync{
 	
 	
 	private MenuServiceAsync service;
+	String url = GWT.getModuleBaseURL() + "menuService";
 	
+	public ClientMenuImpl(){
+		this.service = GWT.create(MenuService.class);
+	}
 	
 	@Override
 	public void isLoggedIn(AsyncCallback<Integer> callback) {

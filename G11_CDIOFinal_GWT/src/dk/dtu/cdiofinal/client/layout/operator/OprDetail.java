@@ -9,7 +9,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.serverconnection.ServiceClientImpl;
+import dk.dtu.cdiofinal.client.serverconnection.operator.ServiceClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
@@ -23,7 +23,7 @@ public class OprDetail extends AbstractView{
 
 	}
 	OperatoerDTO opr;
-	ServiceClientImpl serviceImpl;
+	ServiceClientOperatorImpl serviceImpl;
 
 	//Adds the main page texts
 	@UiField
@@ -59,7 +59,7 @@ public class OprDetail extends AbstractView{
 	public OprDetail(OperatoerDTO opr) {
 		this.opr=opr;
 		initWidget(uiBinder.createAndBindUi(this));
-		this.serviceImpl = new ServiceClientImpl();
+		this.serviceImpl = new ServiceClientOperatorImpl();
 
 		//Adds all the information on the operators
 		txt_oprID.setText(String.valueOf(opr.getOprID()));

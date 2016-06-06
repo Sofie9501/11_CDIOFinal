@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import dk.dtu.cdiofinal.client.serverconnection.OperatorService;
+import dk.dtu.cdiofinal.client.serverconnection.operator.OperatorService;
 import dk.dtu.cdiofinal.server.DAL.DALException;
 import dk.dtu.cdiofinal.server.DAL.OperatoerDAO;
 import dk.dtu.cdiofinal.server.DAL.OperatorDAOList;

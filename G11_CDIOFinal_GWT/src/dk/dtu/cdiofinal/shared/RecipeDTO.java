@@ -36,5 +36,10 @@ public class RecipeDTO {
 		this.isActive = active;
 	}
 
+	@Override
+	public String toString() {
+		return "ID = " + ID + "\tname = " + name + "\tisActive = " + isActive;
+	}
+
 	
 }

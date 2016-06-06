@@ -14,8 +14,8 @@ public class ProductBatchDTO {
 	private int status;
 	private boolean isActive;
 	
-	public ProductBatchDTO(long countComponents, long countFinished, String name, int r_ID, int pb_ID, Date start_date,
-			Date end_date, int status, boolean isActive) {
+	public ProductBatchDTO(int pb_ID, int r_ID, String name, Date start_date,
+			Date end_date, int status, boolean isActive, long countComponents, long countFinished) {
 		this.countComponents = countComponents;
 		this.countFinished = countFinished;
 		this.name = name;
@@ -93,6 +93,12 @@ public class ProductBatchDTO {
 	
 	public void setIsActive(boolean b){
 		this.isActive = b;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductBatch ID = " + productBatch_ID + "\tIngredient ID = " + ingredient_ID + "\tname = " + name + "\tActive = " + isActive + "\nStart date = " + start_date + "\tEnd date = " + end_date +
+				"\tComponents = " + countComponents + "\tFinished = " + countFinished;
 	}
 
 	

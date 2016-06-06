@@ -2,26 +2,29 @@ package dk.dtu.cdiofinal.shared;
 
 public class IngredientBatchDTO {
 	
-	private int ingredientBatch_ID;
+	private int ingredientBatchID;
 	private String name;
-	private int ingredient_ID;
+	private int ingredientID;
 	private double amount;
 	private boolean isActive;
+	private String date;
 	
-	public IngredientBatchDTO(int ingredientBatch_ID, String name, int ingredient_ID, double amount, boolean isActive) {
-		this.ingredientBatch_ID = ingredientBatch_ID;
+	public IngredientBatchDTO(int ingredientBatch_ID, String name, int ingredient_ID, double amount, boolean isActive
+			, String date){
+		this.ingredientBatchID = ingredientBatch_ID;
 		this.name = name;
-		this.ingredient_ID = ingredient_ID;
+		this.ingredientID = ingredient_ID;
 		this.amount = amount;
 		this.isActive = isActive;
+		this.date = date;
 	}
 
 	public int getIngredientBatch_ID() {
-		return ingredientBatch_ID;
+		return ingredientBatchID;
 	}
 
 	public void setIngredientBatch_ID(int ingredientBatch_ID) {
-		this.ingredientBatch_ID = ingredientBatch_ID;
+		this.ingredientBatchID = ingredientBatch_ID;
 	}
 
 	public String getName() {
@@ -33,11 +36,11 @@ public class IngredientBatchDTO {
 	}
 
 	public int getIngredient_ID() {
-		return ingredient_ID;
+		return ingredientID;
 	}
 
 	public void setIngredient_ID(int ingredient_ID) {
-		this.ingredient_ID = ingredient_ID;
+		this.ingredientID = ingredient_ID;
 	}
 
 	public double getAmount() {
@@ -55,11 +58,15 @@ public class IngredientBatchDTO {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+	
+	public String getDate(){
+		return date;
+	}
 
 	@Override
 	public String toString() {
-		return "IngredientBatchDTO [ingredientBatch_ID=" + ingredientBatch_ID + ", name=" + name + ", ingredient_ID="
-				+ ingredient_ID + ", amount=" + amount + ", isActive=" + isActive + "]";
+		return "IngredientBatchDTO [ingredientBatch_ID=" + ingredientBatchID + ", name=" + name + ", ingredient_ID="
+				+ ingredientID + ", amount=" + amount + ", isActive=" + isActive +  ", date=" + date + "]";
 	}
 
 	

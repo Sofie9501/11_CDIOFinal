@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+	<ui:style>
+	.greyText {color: grey;}
+	</ui:style>
+	<g:HTMLPanel>
+	    <div align="left" style="width:500px"> <table>
+	        <tr><td style="width:200%"><u><h4>IngredientBatch ID</h4></u></td></tr>
+	        <tr ><td><b:Heading size="5" ui:field="txt_IB_ID"/></td></tr>
+	        <td ><b:Button type="LINK" ui:field="btn_IB">Edit</b:Button></td>
+	        <tr><td><u><h4>Ingredient Name</h4></u></td></tr>
+	        <tr bgcolor="#f1f1f1">
+	            <td ><b:Heading size="5" ui:field="txt_name"/></td>
+	            <td ><b:Button type="LINK" ui:field="btn_name">Edit</b:Button></td>
+	        </tr>
+	        <tr><td><u><h4>Ingredient ID</h4></u></td></tr>
+	        <tr bgcolor="#f1f1f1">
+	            <td><b:Heading size="5" ui:field="txt_IN_ID"/></td>
+	            <td><b:Button type="LINK" ui:field="btn_IN_ID">Edit</b:Button></td>
+	        </tr>
+	        <tr><td><u><h4>Amount</h4></u></td></tr>
+	        <tr bgcolor="#f1f1f1">
+	            <td><b:Heading size="5" ui:field="txt_amount"/></td>
+	            <td><b:Button type="LINK" ui:field="btn_amount">Edit</b:Button></td>
+	        </tr>
+	        <tr><td><u><h4>Date</h4></u></td></tr>
+	        <tr bgcolor="#f1f1f1">
+	            <td><h4><b:Heading size="5" ui:field="txt_date"/></h4></td>
+	        </tr>
+	        <tr><td><u><h4>Active</h4></u></td></tr>
+	        <tr bgcolor="#f1f1f1">
+	            <td><h4><b:Heading size="5" ui:field="txt_active"/></h4></td>
+	            <td><b:Button type="LINK" ui:field="btn_active">Edit</b:Button></td>
+	        </tr>
+	        <tr>
+	            <td>
+	                <b:Modal ui:field="popup" title="Error" backdrop="STATIC" keyboard="true" animation="true">
+	                    <b:TextBox ui:field="txt_edited"/>
+	                    <b:ModalFooter>
+	                        <b:Button icon="SAVE" type="LINK" ui:field="btn_save" >Save</b:Button>
+	                    </b:ModalFooter>
+	                </b:Modal>
+	            </td>
+	        </tr>
+	        
+	        </table></div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

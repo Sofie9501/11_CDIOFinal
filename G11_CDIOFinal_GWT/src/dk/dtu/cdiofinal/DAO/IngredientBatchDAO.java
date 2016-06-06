@@ -1,5 +1,5 @@
 package dk.dtu.cdiofinal.DAO;
 
-public class IngredientBatchDAO {
+public interface IngredientBatchDAO {
 
 }

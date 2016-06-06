@@ -1,5 +1,7 @@
 package dk.dtu.cdiofinal.DAO;
 
-public class IngredientDAO {
+public interface IngredientDAO {
+	
+	
 
 }

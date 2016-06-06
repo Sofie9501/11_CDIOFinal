@@ -1,0 +1,33 @@
+/build
+/classes
+*.jar
+*.class
+*~
+*/web-app/gwt
+*/web-app/WEB-INF/classes
+target
+
+*.class
+
+# Package Files #
+*.jar
+*.war
+
+# gwt caches and compiled units #
+*/war/g11_cdiofinal/
+*/gwt-unitCache/
+*/test-classes/
+*/www-test/
+
+# boilerplate generated classes #
+.apt_generated/
+
+# more caches and things from deploy #
+*/war/WEB-INF/deploy/
+*/war/WEB-INF/classes/
+
+# App engine generated #
+*/war/WEB-INF/appengine-generated/
+
+!*/war/gwt-bootstrap-2.3.2.0.jar
+!*/war/mysqlcon.jar

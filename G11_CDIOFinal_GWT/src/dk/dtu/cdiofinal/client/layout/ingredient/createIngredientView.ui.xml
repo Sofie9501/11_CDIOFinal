@@ -1,26 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
 	<ui:style>
-	.cellTable {
-      border-bottom: 1px solid #ccc;
-      text-align: left;
-      margin-bottom: 4px;
-	}
+
 	</ui:style>
 	<g:HTMLPanel>
-		 <table cellspacing='0' cellpadding='0' style='width:100%;'>
-      <tr>
-        <td
-          valign='top'>
-          <b:CellTable
-            addStyleNames='{style.cellTable}'
-            pageSize='100'
-            ui:field='cellTable'
-            bordered="false" condensed="false" striped="true" />
-        </td>
-      </tr>
-    </table>
+		 <div align="left" style="width:500px"> <table>
+	        
+		    <tr><td><h4>ID</h4></td></tr>
+	        <tr>
+	            <td><b:TextBox ui:field="txt_id"></b:TextBox></td>
+	        </tr>
+	        
+	        <tr><td><h4>Raavare Navn</h4></td></tr>
+	        <tr>
+	            <td><b:TextBox ui:field="txt_name"></b:TextBox></td>
+	        </tr>
+
+	        <tr><td><h4>Leverandør</h4></td></tr>
+	        <tr>
+	            <td><b:TextBox ui:field="txt_supplier"></b:TextBox></td>
+	        </tr>
+	        
+	       	<tr><td><h4>Aktiv</h4></td></tr>
+	        <tr>
+	            <td><b:TextBox ui:field="txt_active"></b:TextBox></td>
+	        </tr>
+	        
+	       <tr>
+	            <td><b:Button icon="SAVE" type="LINK" ui:field="btn_save" >Save</b:Button> </td>
+	        </tr>
+	        <tr>
+	            <td>
+	                <b:Modal ui:field="popup" title="Succes" backdrop="STATIC" keyboard="true" animation="true">
+	                    <b:Heading size="5" ui:field="ok"></b:Heading>
+	                    <b:ModalFooter>
+	                        <b:Button type="LINK" ui:field="btn_ok">Ok</b:Button>                        
+	                    </b:ModalFooter>
+	                </b:Modal>
+	            </td>
+	        </tr>
+	        </table></div>
+	        
     <b:Button type="LINK" ui:field="btn_create">Create ingredient </b:Button>
 	</g:HTMLPanel>
 </ui:UiBinder> 

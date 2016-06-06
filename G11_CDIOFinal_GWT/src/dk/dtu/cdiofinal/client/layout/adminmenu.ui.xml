@@ -6,6 +6,7 @@
 	</ui:style>
 	<g:HTMLPanel>
 	    <H4>Administrations Menu</H4>
+	    <b:Alert ui:field="alert_opr" type="DEFAULT" close="false" animation="true">Du har ingen rettigheder</b:Alert>
 	    <table>
 	        <tr><td><b:Button ui:field="btn_opr">Operatør Administration</b:Button></td></tr>
 	        <tr><td><b:Button ui:field="btn_myDetails">Min Konto</b:Button></td></tr>

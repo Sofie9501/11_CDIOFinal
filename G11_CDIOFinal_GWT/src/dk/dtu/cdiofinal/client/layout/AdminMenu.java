@@ -1,5 +1,6 @@
 package dk.dtu.cdiofinal.client.layout;
 
+import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.*;
@@ -29,6 +30,9 @@ public class AdminMenu extends AbstractView{
 	
 	@UiField
 	Button btn_myDetails;
+	
+	@UiField
+	Alert alert_opr;
 	
 	
 	public AdminMenu(ProdView v) {
@@ -79,6 +83,9 @@ public class AdminMenu extends AbstractView{
 			
 			// No breaks. we want  
 			switch(result){
+			case 4:
+				alert_opr.setVisible(true);
+				break;
 			case 1:
 				btn_opr.setVisible(true);
 			case 2:

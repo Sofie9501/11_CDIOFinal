@@ -2,14 +2,18 @@ package dk.dtu.cdiofinal.client.layout;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.*;
-import com.google.gwt.uibinder.client.*;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.layout.operator.ChangePassword;
-import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
+import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
 
 public class Menu extends Composite{
 
@@ -18,7 +22,7 @@ public class Menu extends Composite{
 	}
 	
 	private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
-	private ClientOperatorImpl service = new ClientOperatorImpl();
+	private ClientMenuImpl service = new ClientMenuImpl();
 	@UiField
 	Button back;
 	@UiField

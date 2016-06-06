@@ -7,7 +7,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 
-@RemoteServiceRelativePath("service")
+@RemoteServiceRelativePath("IngredientBatchService")
 public interface IngredientBatchService extends RemoteService {
 	
 	List<IngredientBatchDTO> getIngredientBatches();

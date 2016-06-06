@@ -7,7 +7,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
-@RemoteServiceRelativePath("service")
+@RemoteServiceRelativePath("OperatorService")
 public interface OperatorService extends RemoteService {
 	
 	

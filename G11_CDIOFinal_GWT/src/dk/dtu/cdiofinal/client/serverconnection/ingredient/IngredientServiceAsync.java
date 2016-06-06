@@ -9,5 +9,6 @@ import dk.dtu.cdiofinal.shared.IngredientDTO;
 public interface IngredientServiceAsync {
 
 	void getIngredient(AsyncCallback<List<IngredientDTO>> callback);
+	void createIngredient(IngredientDTO ingre, AsyncCallback<Boolean> callback);
 	
 }

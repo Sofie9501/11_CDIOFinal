@@ -25,18 +25,18 @@ import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
+import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
 import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
 
-
 public class IngredientListView extends AbstractView {
 	
 	final ProdView prod;
 
-	private ClientOperatorImpl serviceImpl;
+	private ClientIngredientImpl serviceImpl;
 	private List<IngredientDTO> list = new ArrayList<>();
 	ListDataProvider<IngredientDTO> dataProvider;
 	private static IngredientListViewUiBinder uiBinder = GWT.create(IngredientListViewUiBinder .class);
@@ -55,7 +55,7 @@ public class IngredientListView extends AbstractView {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.dataProvider = new ListDataProvider<IngredientDTO>();
 		this.prod = prod;
-		this.serviceImpl = new ClientOperatorImpl();
+		this.serviceImpl = new ClientIngredientImpl();
 
 
 		TextColumn<IngredientDTO> IDColumn = new TextColumn<IngredientDTO>(){
@@ -74,13 +74,21 @@ public class IngredientListView extends AbstractView {
 		};
 		cellTable.addColumn(nameColumn);
 
-		TextColumn<IngredientDTO> SupplierColumn = new TextColumn<IngredientDTO>(){
+		TextColumn<IngredientDTO> supplierColumn = new TextColumn<IngredientDTO>(){
 			@Override
 			public String getValue(IngredientDTO object) {
-				return FieldVerifier.cprFormat(object.getSupplier());
+				return object.getSupplier();
 			}
 		};
-		cellTable.addColumn(SupplierColumn);		
+		cellTable.addColumn(supplierColumn);	
+		
+		TextColumn<IngredientDTO> activeColumn = new TextColumn<IngredientDTO>(){
+			@Override
+			public String getValue(IngredientDTO object) {
+				return String.valueOf(object.isActive());
+			}
+		};
+		cellTable.addColumn(activeColumn);	
 
 		Column<IngredientDTO, String> editColumn = new Column<IngredientDTO, String>(new ButtonCell(IconType.WRENCH,ButtonType.LINK, ButtonSize.SMALL)){
 			@Override
@@ -102,7 +110,7 @@ public class IngredientListView extends AbstractView {
 		dataProvider.addDataDisplay(cellTable);
 		cellTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 		btn_create.addClickHandler((ClickHandler)new CreateClickHandler());
-		this.serviceImpl.getOperators(new ListCallback());
+		this.serviceImpl.getIngredient(new ListCallback());
 	}
 	
 	private class CreateClickHandler implements ClickHandler{
@@ -136,7 +144,7 @@ public class IngredientListView extends AbstractView {
 	public void Update() {
 		list.clear();
 		dataProvider.setList(list);
-		this.serviceImpl.getOperators(new ListCallback());
+		this.serviceImpl.getIngredient(new ListCallback());
 	}
 
 }

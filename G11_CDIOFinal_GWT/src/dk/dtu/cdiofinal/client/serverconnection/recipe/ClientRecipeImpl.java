@@ -1,5 +1,5 @@
 package dk.dtu.cdiofinal.client.serverconnection.recipe;
 
-public class ClientRecipeImpl {
+public class ClientRecipeImpl implements RecipeServiceAsync{
 
 }

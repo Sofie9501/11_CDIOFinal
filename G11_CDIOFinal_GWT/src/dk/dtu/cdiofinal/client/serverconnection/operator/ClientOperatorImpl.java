@@ -9,7 +9,7 @@ import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
 public class ClientOperatorImpl implements OperatorServiceAsync{
 	
-	private MenuServiceAsync service;
+	private OperatorServiceAsync service;
 	String url = GWT.getModuleBaseURL() + "service";
 	
 	public ClientOperatorImpl(){
@@ -37,10 +37,6 @@ public class ClientOperatorImpl implements OperatorServiceAsync{
 		this.service.getOperator(callback);		
 	}
 
-	@Override
-	public void logout(AsyncCallback<Boolean> callback) {
-		this.service.logout(callback);
-		
-	}
+	
 
 }

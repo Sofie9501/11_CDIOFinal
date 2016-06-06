@@ -1,5 +1,5 @@
 package dk.dtu.cdiofinal.client.serverconnection.productbatch;
 
-public class ClientProducktBatchImpl {
+public class ClientProducktBatchImpl implements ProductBatchServiceAsync{
 
 }

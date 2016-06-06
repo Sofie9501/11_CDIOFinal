@@ -1,5 +1,5 @@
 package dk.dtu.cdiofinal.client.serverconnection.ingredientbatch;
 
-public class ClientIngredientBatchImpl {
+public class ClientIngredientBatchImpl implements IngredientBatchServiceAsync{
 
 }

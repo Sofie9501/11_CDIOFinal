@@ -12,9 +12,6 @@ public interface MenuServiceAsync {
 	void isLoggedIn(AsyncCallback<Integer> callback);
 	void login(int oprId, String password, AsyncCallback<Boolean> callback);
 	void logout(AsyncCallback<Boolean> callback);
-	void getOperators(AsyncCallback<List<OperatoerDTO>> callback);
-	void getOperator(AsyncCallback<OperatoerDTO> callback);
-	void updateOperator(OperatoerDTO opr, AsyncCallback<Boolean> callback);
-	void createOperator(OperatoerDTO opr, AsyncCallback<Boolean> callback);
+	
 	
 }

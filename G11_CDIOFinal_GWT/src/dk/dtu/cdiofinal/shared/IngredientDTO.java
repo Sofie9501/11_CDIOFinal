@@ -45,6 +45,11 @@ public class IngredientDTO {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+
+	@Override
+	public String toString() {
+		return "IngredientDTO [ID=" + ID + ", name=" + name + ", supplier=" + supplier + ", active=" + active + "]";
+	}
 	
 	
 

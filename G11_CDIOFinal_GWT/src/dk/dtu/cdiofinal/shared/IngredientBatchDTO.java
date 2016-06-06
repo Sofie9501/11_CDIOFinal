@@ -56,6 +56,12 @@ public class IngredientBatchDTO {
 		this.isActive = isActive;
 	}
 
+	@Override
+	public String toString() {
+		return "IngredientBatchDTO [ingredientBatch_ID=" + ingredientBatch_ID + ", name=" + name + ", ingredient_ID="
+				+ ingredient_ID + ", amount=" + amount + ", isActive=" + isActive + "]";
+	}
+
 	
 
 }

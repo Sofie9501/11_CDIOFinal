@@ -9,7 +9,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.serverconnection.ServiceClientImpl;
+import dk.dtu.cdiofinal.client.serverconnection.operator.ServiceClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
@@ -22,7 +22,7 @@ public class CreateOprView extends AbstractView {
 
 	}
 	OperatoerDTO opr;
-	ServiceClientImpl serviceImpl;
+	ServiceClientOperatorImpl serviceImpl;
 
 	@UiField
 	TextBox txt_name;
@@ -44,7 +44,7 @@ public class CreateOprView extends AbstractView {
 
 	public CreateOprView(){
 		initWidget(uiBinder.createAndBindUi(this));
-		this.serviceImpl = new ServiceClientImpl();
+		this.serviceImpl = new ServiceClientOperatorImpl();
 		//Clickhandler
 		btn_save.addClickHandler(new SaveClickHandler());
 		btn_ok.addClickHandler((ClickHandler)new OkClickHandler());

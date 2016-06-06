@@ -2,13 +2,15 @@ package dk.dtu.cdiofinal.DAO;
 
 import java.util.List;
 
+import dk.dtu.cdiofinal.server.DAL.DALException;
+import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 
 public interface IngredientBatchDAO {
 	
-	ingredientBatchDTO getIngredientBatch(int ID) throws DALException;
-	List<ingredientBatchDTO> getIngredientBatchList() throws DALException;
-	List<ingredientBatchDTO> getIngredientBatchList(int ID) throws DALException;
-	void createIngredientBatch(ingredientBatchDTO ingredientBatch) throws DALException;
-	boolean isActive(ingredientBatchDTO ingredientBatch) throws DALException;
+	IngredientBatchDTO getIngredientBatch(int ID) throws DALException;
+	List<IngredientBatchDTO> getIngredientBatchList() throws DALException;
+	List<IngredientBatchDTO> getIngredientBatchList(int ID) throws DALException;
+	void createIngredientBatch(IngredientBatchDTO ingredientBatch) throws DALException;
+	boolean isActive(IngredientBatchDTO ingredientBatch) throws DALException;
 
 }

@@ -1,0 +1,26 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+	<ui:style>
+	.cellTable {
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+      margin-bottom: 4px;
+	}
+	</ui:style>
+	<g:HTMLPanel>
+		 <table cellspacing='0' cellpadding='0' style='width:100%;'>
+      <tr>
+        <td
+          valign='top'>
+          <b:CellTable
+            addStyleNames='{style.cellTable}'
+            pageSize='100'
+            ui:field='cellTable'
+            bordered="false" condensed="false" striped="true" />
+        </td>
+      </tr>
+    </table>
+    <b:Button type="LINK" ui:field="btn_create">Create ingredient </b:Button>
+	</g:HTMLPanel>
+</ui:UiBinder> 

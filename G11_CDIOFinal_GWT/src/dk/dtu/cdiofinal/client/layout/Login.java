@@ -1,4 +1,4 @@
-package dk.dtu.cdiofinal.client.layout.operator;
+package dk.dtu.cdiofinal.client.layout;
 
 import com.github.gwtbootstrap.client.ui.*;
 import com.github.gwtbootstrap.client.ui.Button;
@@ -12,7 +12,6 @@ import com.google.gwt.user.client.ui.*;
 
 import dk.dtu.cdiofinal.client.MainView;
 import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
-import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 
 public class Login extends Composite{
 	private static LoginUiBinder uiBinder = GWT.create(LoginUiBinder.class);

@@ -110,7 +110,7 @@ public class IngredientListView extends AbstractView {
 		dataProvider.addDataDisplay(cellTable);
 		cellTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 		btn_create.addClickHandler((ClickHandler)new CreateClickHandler());
-		this.serviceImpl.getIngredient(new ListCallback());
+		this.serviceImpl.getIngredients(new ListCallback());
 	}
 	
 	private class CreateClickHandler implements ClickHandler{
@@ -144,7 +144,7 @@ public class IngredientListView extends AbstractView {
 	public void Update() {
 		list.clear();
 		dataProvider.setList(list);
-		this.serviceImpl.getIngredient(new ListCallback());
+		this.serviceImpl.getIngredients(new ListCallback());
 	}
 
 }

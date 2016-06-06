@@ -8,11 +8,11 @@ import com.google.gwt.user.client.ui.*;
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.MainView;
 import dk.dtu.cdiofinal.client.helpers.Stack;
-import dk.dtu.cdiofinal.client.serverconnection.operator.ServiceClientOperatorImpl;
+import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 
 public class ProdView extends Composite{
 	
-	private ServiceClientOperatorImpl service = new ServiceClientOperatorImpl();
+	private ClientOperatorImpl service = new ClientOperatorImpl();
 	private static ProdViewUiBinder uiBinder = GWT.create(ProdViewUiBinder.class);
 	@UiTemplate("prod.ui.xml")
 	interface ProdViewUiBinder extends UiBinder<Widget, ProdView> {

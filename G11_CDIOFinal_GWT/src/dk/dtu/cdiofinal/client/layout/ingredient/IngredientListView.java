@@ -25,7 +25,7 @@ import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
-import dk.dtu.cdiofinal.client.serverconnection.operator.ServiceClientOperatorImpl;
+import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
@@ -36,7 +36,7 @@ public class IngredientListView extends AbstractView {
 	
 	final ProdView prod;
 
-	private ServiceClientOperatorImpl serviceImpl;
+	private ClientOperatorImpl serviceImpl;
 	private List<IngredientDTO> list = new ArrayList<>();
 	ListDataProvider<IngredientDTO> dataProvider;
 	private static IngredientListViewUiBinder uiBinder = GWT.create(IngredientListViewUiBinder .class);
@@ -55,7 +55,7 @@ public class IngredientListView extends AbstractView {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.dataProvider = new ListDataProvider<IngredientDTO>();
 		this.prod = prod;
-		this.serviceImpl = new ServiceClientOperatorImpl();
+		this.serviceImpl = new ClientOperatorImpl();
 
 
 		TextColumn<IngredientDTO> IDColumn = new TextColumn<IngredientDTO>(){

@@ -7,12 +7,12 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
-public class ServiceClientOperatorImpl implements OperatorServiceAsync{
+public class ClientOperatorImpl implements OperatorServiceAsync{
 	
 	private OperatorServiceAsync service;
 	String url = GWT.getModuleBaseURL() + "service";
 	
-	public ServiceClientOperatorImpl(){
+	public ClientOperatorImpl(){
 		this.service = GWT.create(OperatorService.class);
 	}
 

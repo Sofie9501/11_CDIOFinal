@@ -9,14 +9,14 @@ import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
-import dk.dtu.cdiofinal.client.serverconnection.operator.ServiceClientOperatorImpl;
+import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
 public class ChangePassword extends AbstractView{
 
 	private static ChangePasswordUiBinder uiBinder = GWT.create(ChangePasswordUiBinder.class);
-	private ServiceClientOperatorImpl serviceImpl;
+	private ClientOperatorImpl serviceImpl;
 	private ProdView prodView;
 	private OperatoerDTO opr;
 	private final int MIN_LENGTH = 7;
@@ -49,7 +49,7 @@ public class ChangePassword extends AbstractView{
 
 	public ChangePassword(ProdView pv) {
 		this.prodView = pv;
-		this.serviceImpl = new ServiceClientOperatorImpl();
+		this.serviceImpl = new ClientOperatorImpl();
 		initWidget(uiBinder.createAndBindUi(this));
 		btn_ok.addClickHandler(new OkPopupClickHandler());
 		btn_save.addClickHandler(new SaveChangesClickHandler());

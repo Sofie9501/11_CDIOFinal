@@ -25,7 +25,7 @@ import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
-import dk.dtu.cdiofinal.client.serverconnection.operator.ServiceClientOperatorImpl;
+import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
@@ -35,7 +35,7 @@ public class OprListView extends AbstractView {
 	
 	final ProdView prod;
 
-	private ServiceClientOperatorImpl serviceImpl;
+	private ClientOperatorImpl serviceImpl;
 	private List<OperatoerDTO> opr = new ArrayList<>();
 	ListDataProvider<OperatoerDTO> dataProvider;
 	private static OprListViewUiBinder uiBinder = GWT.create(OprListViewUiBinder.class);
@@ -54,7 +54,7 @@ public class OprListView extends AbstractView {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.dataProvider = new ListDataProvider<OperatoerDTO>();
 		this.prod = prod;
-		this.serviceImpl = new ServiceClientOperatorImpl();
+		this.serviceImpl = new ClientOperatorImpl();
 
 
 		TextColumn<OperatoerDTO> IDColumn = new TextColumn<OperatoerDTO>(){

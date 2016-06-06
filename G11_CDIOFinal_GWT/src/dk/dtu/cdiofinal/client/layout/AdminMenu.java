@@ -10,11 +10,11 @@ import com.google.gwt.user.client.ui.Widget;
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.operator.ChangePassword;
 import dk.dtu.cdiofinal.client.layout.operator.OprListView;
-import dk.dtu.cdiofinal.client.serverconnection.operator.ServiceClientOperatorImpl;
+import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 
 public class AdminMenu extends AbstractView{
 	private static AdminMenuUiBinder uiBinder = GWT.create(AdminMenuUiBinder.class);
-	private ServiceClientOperatorImpl serviceImpl;
+	private ClientOperatorImpl serviceImpl;
 	
 	private ProdView prodView;
 	
@@ -33,7 +33,7 @@ public class AdminMenu extends AbstractView{
 	
 	public AdminMenu(ProdView v) {
 		this.prodView = v;
-		this.serviceImpl = new ServiceClientOperatorImpl();
+		this.serviceImpl = new ClientOperatorImpl();
 		
 		// Check if logged in
 		// v.changeToMenu()

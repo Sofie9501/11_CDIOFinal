@@ -13,7 +13,7 @@
   
   <servlet-mapping>
     <servlet-name>ServerOperatorImpl</servlet-name>
-    <url-pattern>/g11_cdiofinal/OperatorService</url-pattern>
+    <url-pattern>/g11_cdiofinal/service</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->

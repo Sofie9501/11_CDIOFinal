@@ -85,11 +85,7 @@ public class ProdView extends Composite{
 			if(result == 0){
 				return;
 			}
-
-
 		}
-
-
 	}
 
 }

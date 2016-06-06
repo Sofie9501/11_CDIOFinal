@@ -17,34 +17,27 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
-import dk.dtu.cdiofinal.client.layout.operator.CreateOprView;
-import dk.dtu.cdiofinal.client.layout.operator.CreateOprView.CreateOprViewUiBinder;
-import dk.dtu.cdiofinal.client.layout.operator.CreateOprView.EnterHandler;
-import dk.dtu.cdiofinal.client.layout.operator.CreateOprView.MyCallback;
-import dk.dtu.cdiofinal.client.layout.operator.CreateOprView.OkClickHandler;
-import dk.dtu.cdiofinal.client.layout.operator.CreateOprView.SaveClickHandler;
-import dk.dtu.cdiofinal.client.serverconnection.ServiceClientImpl;
+import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
-import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
-public class CreateIngredientView {
-	private static CreateOprViewUiBinder uiBinder = GWT.create(CreateOprViewUiBinder.class);
+public class CreateIngredientView extends AbstractView{
+	private static CreateIngriViewUiBinder uiBinder = GWT.create(CreateIngriViewUiBinder.class);
 
-	@UiTemplate("CreateIngredientView.ui.xml")
-	interface CreateOprViewUiBinder extends UiBinder<Widget, CreateOprView>{
+	@UiTemplate("createIngredientView.ui.xml")
+	interface CreateIngriViewUiBinder extends UiBinder<Widget, CreateIngredientView>{
 
 	}
 	IngredientDTO ingre;
 	ClientIngredientImpl serviceImpl;
 
 	@UiField
-	TextBox txt_ingredientname;
+	TextBox txt_name;
 	@UiField
 	TextBox txt_id;
 	@UiField
-	TextBox txt_supplorname;
+	TextBox txt_supplier;
 	@UiField
 	Button btn_save;
 
@@ -61,11 +54,12 @@ public class CreateIngredientView {
 		//Clickhandler
 		btn_save.addClickHandler(new SaveClickHandler());
 		btn_ok.addClickHandler((ClickHandler)new OkClickHandler());
+		txt_supplier.addKeyDownHandler(new EnterHandler());		
 	}
 	private boolean changeSucces(){
 		String alert = "";
 		boolean succes = true;
-		if(!FieldVerifier.nameValid(txt_ingredientname.getText())){
+		if(!FieldVerifier.nameValid(txt_name.getText())){
 //			txt_name.setErrorLabel(errorLabel);
 			alert+="Fejl - Du skal skrive et navn \n";
 			succes = false;
@@ -74,7 +68,7 @@ public class CreateIngredientView {
 			alert += "Fejl - id er ikke korrekt \n";
 			succes = false;
 		}
-		if(!FieldVerifier.nameValid(txt_supplorname.getText())){
+		if(!FieldVerifier.nameValid(txt_supplier.getText())){
 //			txt_name.setErrorLabel(errorLabel);
 			alert+="Fejl - Du skal skrive et navn \n";
 			succes = false;
@@ -86,7 +80,7 @@ public class CreateIngredientView {
 	private void saveChanges(){
 		// Checks to see if there is no errors
 		if(changeSucces()){
-			ingre = new IngredientDTO(Integer.parseInt(txt_id.getText()), txt_ingredientname.getText(), txt_supplorname.getText(),true);
+			ingre = new IngredientDTO(Integer.parseInt(txt_id.getText()), txt_name.getText(), txt_supplier.getText(),true);
 			ok.setText("Dine oplysninger er blevet gemt");
 			//Updates the DB with the new operator
 			serviceImpl.createIngredient(ingre, new MyCallback());
@@ -130,9 +124,9 @@ public class CreateIngredientView {
 		public void onSuccess(Boolean result) {
 			if(result){
 			popup.toggle();
-			txt_ingredientname.setText("");
+			txt_name.setText("");
 			txt_id.setText("");
-			txt_supplorname.setText("");
+			txt_supplier.setText("");
 			}
 			else{
 				popup.setTitle("Fejl");
@@ -141,9 +135,9 @@ public class CreateIngredientView {
 			}
 		}		
 	}
-//	@Override
-//	public void Update() {
-//		// TODO Auto-generated method stub
-//		
-//	}
+	@Override
+	public void Update() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -3,19 +3,23 @@ package dk.dtu.cdiofinal.client.layout;
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.*;
-import com.google.gwt.uibinder.client.*;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.operator.ChangePassword;
 import dk.dtu.cdiofinal.client.layout.operator.OprListView;
+import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
 import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 
 public class AdminMenu extends AbstractView{
 	private static AdminMenuUiBinder uiBinder = GWT.create(AdminMenuUiBinder.class);
-	private ClientOperatorImpl serviceImpl;
+	private ClientMenuImpl serviceImpl;
 	
 	private ProdView prodView;
 	
@@ -37,7 +41,7 @@ public class AdminMenu extends AbstractView{
 	
 	public AdminMenu(ProdView v) {
 		this.prodView = v;
-		this.serviceImpl = new ClientOperatorImpl();
+		this.serviceImpl = new ClientMenuImpl();
 		
 		// Check if logged in
 		// v.changeToMenu()

@@ -24,6 +24,7 @@ import dk.dtu.cdiofinal.client.layout.operator.CreateOprView.MyCallback;
 import dk.dtu.cdiofinal.client.layout.operator.CreateOprView.OkClickHandler;
 import dk.dtu.cdiofinal.client.layout.operator.CreateOprView.SaveClickHandler;
 import dk.dtu.cdiofinal.client.serverconnection.ServiceClientImpl;
+import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
@@ -36,7 +37,7 @@ public class CreateIngredientView {
 
 	}
 	IngredientDTO ingre;
-	ServiceClientImpl serviceImpl;
+	ClientIngredientImpl serviceImpl;
 
 	@UiField
 	TextBox txt_ingredientname;
@@ -54,11 +55,9 @@ public class CreateIngredientView {
 	@UiField
 	Heading ok;
 
-
-
 	public CreateIngredientView(){
 		initWidget(uiBinder.createAndBindUi(this));
-		this.serviceImpl = new ServiceClientImpl();
+		this.serviceImpl = new ClientIngredientImpl();
 		//Clickhandler
 		btn_save.addClickHandler(new SaveClickHandler());
 		btn_ok.addClickHandler((ClickHandler)new OkClickHandler());
@@ -71,7 +70,7 @@ public class CreateIngredientView {
 			alert+="Fejl - Du skal skrive et navn \n";
 			succes = false;
 		}
-		if(!FieldVerifier.numberValid(txt_id.getText())){
+		if(!FieldVerifier.numberValid(Integer.parseInt(txt_id.getText()))){
 			alert += "Fejl - id er ikke korrekt \n";
 			succes = false;
 		}

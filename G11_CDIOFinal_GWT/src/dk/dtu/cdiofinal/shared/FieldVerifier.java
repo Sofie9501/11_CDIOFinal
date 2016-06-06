@@ -59,5 +59,13 @@ public class FieldVerifier {
 			return true;
 		}
 	}
+
+	public static boolean numberValid(int i) {
+		if(i >= 0 && i <= 99999999){
+			return true;
+		}else{
+		return false;
+		}
+	}
 }
 

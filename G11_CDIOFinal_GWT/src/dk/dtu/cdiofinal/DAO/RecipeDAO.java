@@ -3,6 +3,9 @@ package dk.dtu.cdiofinal.DAO;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.dtu.cdiofinal.server.DAL.DALException;
+import dk.dtu.cdiofinal.shared.RecipeDTO;
+
 public interface RecipeDAO {
 	
 	RecipeDTO getRecipe(int ID) throws DALException;

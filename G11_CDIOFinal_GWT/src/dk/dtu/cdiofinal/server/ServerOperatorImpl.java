@@ -14,35 +14,8 @@ import dk.dtu.cdiofinal.server.DAL.OperatorDAOList;
 import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
 @SuppressWarnings("serial")
-public class OperatorServiceImpl extends RemoteServiceServlet implements OperatorService {
+public class ServerOperatorImpl extends RemoteServiceServlet implements OperatorService {
 	OperatoerDAO dao = new OperatorDAOList();
-	@Override
-	public int isLoggedIn() {
-		HttpSession session = this.getThreadLocalRequest().getSession();
-
-		// return 0 if not loggedIn
-		if(session.getAttribute("loggedIn") == null)
-			return 0;
-		else // return role number if loggedIn
-			return (int)session.getAttribute("loggedIn");
-	}
-
-	@Override
-	public boolean login(int oprId, String password) {
-		OperatoerDTO opr;
-		try {
-			opr = dao.getOperatoer(oprId);
-		} catch (DALException e) {
-			return false; 
-		}
-		if(opr != null)
-			if(password.equals(opr.getPassword())){
-				HttpSession session = this.getThreadLocalRequest().getSession();
-				session.setAttribute("loggedIn", opr.getRolle());
-				return true;
-			}
-		return false;
-	}
 
 	@Override
 	public List<OperatoerDTO> getOperators() {
@@ -140,15 +113,6 @@ public class OperatorServiceImpl extends RemoteServiceServlet implements Operato
 		return ((int)(Math.random()*(max-min)+min));
 	}
 
-	@Override
-	public boolean logout() {
-		HttpSession session = this.getThreadLocalRequest().getSession();
-		if(session.getAttribute("loggedIn") == null)
-			return true;
-		
-		session.setAttribute("loggedIn", 0);
-		return true;
-		
-	}
+	
 }
 

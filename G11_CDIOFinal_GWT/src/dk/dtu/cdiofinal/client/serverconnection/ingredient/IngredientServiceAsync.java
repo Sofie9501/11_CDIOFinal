@@ -1,5 +1,5 @@
 package dk.dtu.cdiofinal.client.serverconnection.ingredient;
 
-public class IngredientServiceAsync {
+public interface IngredientServiceAsync {
 
 }

@@ -9,21 +9,11 @@ import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
 public class ClientOperatorImpl implements OperatorServiceAsync{
 	
-	private OperatorServiceAsync service;
+	private MenuServiceAsync service;
 	String url = GWT.getModuleBaseURL() + "service";
 	
 	public ClientOperatorImpl(){
 		this.service = GWT.create(OperatorService.class);
-	}
-
-	@Override
-	public void isLoggedIn(AsyncCallback<Integer> callback) {
-		this.service.isLoggedIn(callback);
-	}
-
-	@Override
-	public void login(int username, String password, AsyncCallback<Boolean> callback) {
-		this.service.login(username, password, callback);
 	}
 
 	@Override

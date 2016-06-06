@@ -5,10 +5,13 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import dk.dtu.cdiofinal.shared.IngredientDTO;
+import dk.dtu.cdiofinal.shared.ProductBatchDTO;
 
 public interface IngredientServiceAsync {
 
-	void getIngredient(AsyncCallback<List<IngredientDTO>> callback);
-	void createIngredient(IngredientDTO ingre, AsyncCallback<Boolean> callback);
+	void getIngredients(AsyncCallback<List<IngredientDTO>> callback);
+	void getIngredient(AsyncCallback<IngredientDTO> callback);
+	void updateIngredient(IngredientDTO ingredient, AsyncCallback<Boolean> callback);
+	void createIngredient(IngredientDTO ingredient, AsyncCallback<Boolean> callback);
 	
 }

@@ -11,6 +11,7 @@ public class ClientMenuImpl implements MenuServiceAsync{
 	private MenuServiceAsync service;
 	String url = GWT.getModuleBaseURL() + "menuService";
 	
+	// Constructor vigtig. Husk at ændre create(MenuService.class) til et eller andet andet .class
 	public ClientMenuImpl(){
 		this.service = GWT.create(MenuService.class);
 	}

@@ -4,7 +4,7 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
 	<ui:style>
-
+	.greyText {color: grey;}
 	</ui:style>
 	<g:HTMLPanel>
 		 <div align="left" style="width:500px"> <table>
@@ -12,32 +12,33 @@
 		    <tr><td><h4>ID</h4></td></tr>
 	        <tr>
 	            <td><b:TextBox ui:field="txt_id"></b:TextBox></td>
+	            <td ><b:Button type="LINK" ui:field="btn_id">Edit</b:Button></td>
 	        </tr>
 	        
 	        <tr><td><h4>Raavare Navn</h4></td></tr>
 	        <tr>
 	            <td><b:TextBox ui:field="txt_name"></b:TextBox></td>
+	            <td ><b:Button type="LINK" ui:field="btn_name">Edit</b:Button></td>
 	        </tr>
 
 	        <tr><td><h4>Leverandør</h4></td></tr>
 	        <tr>
 	            <td><b:TextBox ui:field="txt_supplier"></b:TextBox></td>
+	            <td ><b:Button type="LINK" ui:field="btn_supplier">Edit</b:Button></td>
 	        </tr>
 	        
 	       	<tr><td><h4>Aktiv</h4></td></tr>
 	        <tr>
 	            <td><b:TextBox ui:field="txt_active"></b:TextBox></td>
+	            <td ><b:Button type="LINK" ui:field="btn_active">Edit</b:Button></td>
 	        </tr>
 	        
 	       <tr>
-	            <td><b:Button icon="SAVE" type="LINK" ui:field="btn_save" >Save</b:Button> </td>
-	        </tr>
-	        <tr>
 	            <td>
-	                <b:Modal ui:field="popup" title="Succes" backdrop="STATIC" keyboard="true" animation="true">
-	                    <b:Heading size="5" ui:field="ok"></b:Heading>
+	                <b:Modal ui:field="popup" title="Error" backdrop="STATIC" keyboard="true" animation="true">
+	                    <b:TextBox ui:field="txt_edited"/>
 	                    <b:ModalFooter>
-	                        <b:Button type="LINK" ui:field="btn_ok">Ok</b:Button>                        
+	                        <b:Button icon="SAVE" type="LINK" ui:field="btn_save" >Save</b:Button>
 	                    </b:ModalFooter>
 	                </b:Modal>
 	            </td>

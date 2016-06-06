@@ -1,16 +1,24 @@
 package dk.dtu.cdiofinal.client.layout.ingredient;
 
-import com.github.gwtbootstrap.client.ui.*;
+import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.Heading;
+import com.github.gwtbootstrap.client.ui.Modal;
+import com.github.gwtbootstrap.client.ui.TextBox;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.*;
-import com.google.gwt.uibinder.client.*;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.layout.operator.OprDetail.MyCallback;
-import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
+import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
 
@@ -18,14 +26,14 @@ public class IngredientDetail extends AbstractView {
 	private static IngredientDetailUiBinder uiBinder = GWT.create(IngredientDetailUiBinder.class);
 
 	@UiTemplate("ingredientDetail.ui.xml")
-	interface IngredientDetailUiBinder extends UiBinder<Widget, CreateIngredientView>{
+	interface IngredientDetailUiBinder extends UiBinder<Widget, IngredientDetail>{
 	}
 
 	IngredientDTO ingredient;
-	ClientOperatorImpl serviceImpl;
+	ClientIngredientImpl serviceImpl;
 
 	@UiField
-	Heading txt_ID; 
+	Heading txt_id; 
 	@UiField
 	Heading txt_name; 
 	@UiField
@@ -34,7 +42,7 @@ public class IngredientDetail extends AbstractView {
 	Heading txt_active;
 
 	@UiField
-	Button btn_ID;
+	Button btn_id;
 	@UiField
 	Button btn_name;
 	@UiField
@@ -52,22 +60,22 @@ public class IngredientDetail extends AbstractView {
 	public IngredientDetail(IngredientDTO ingredient) {
 		this.ingredient = ingredient;
 		initWidget(uiBinder.createAndBindUi(this));
-		this.serviceImpl = new ClientOperatorImpl();
+		this.serviceImpl = new ClientIngredientImpl();
 
-		txt_ID.setText(String.valueOf(ingredient.getID()));
+		txt_id.setText(String.valueOf(ingredient.getID()));
 		txt_name.setText(ingredient.getName());
 		txt_supplier.setText(ingredient.getSupplier());
 		txt_active.setText(String.valueOf(ingredient.isActive()));
 
 		btn_name.addClickHandler((ClickHandler)new EditNameClickHandler());
-		btn_ID.addClickHandler((ClickHandler) new EditIDClickHandler());
+		btn_id.addClickHandler((ClickHandler) new EditIDClickHandler());
 		btn_supplier.addClickHandler((ClickHandler) new EditSupplierClickHandler());
 		btn_active.addClickHandler((ClickHandler) new EditActiveClickHandler());
 		btn_save.addClickHandler((ClickHandler) new SaveClickHandler());
 		txt_edited.addKeyDownHandler((KeyDownHandler) new EnterHandler());
 	}
 
-	// Makes it posible to hit ENTER instead of the Save button.
+	// Makes it possible to hit ENTER instead of the Save button.
 	private class EnterHandler implements KeyDownHandler {
 
 		@Override
@@ -77,7 +85,7 @@ public class IngredientDetail extends AbstractView {
 			}		
 		}	
 	}
-	//Clickhandlers for all the different buttons.
+	//Click handlers for all the different buttons.
 	private class EditNameClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
@@ -139,7 +147,7 @@ public class IngredientDetail extends AbstractView {
 		case "ID":
 			if(FieldVerifier.cprValid(txt_edited.getText())){
 				ingredient.setID(Integer.parseInt((txt_edited.getText())));
-				txt_ID.setText(String.valueOf(ingredient.getID()));
+				txt_id.setText(String.valueOf(ingredient.getID()));
 			}
 			else{
 				Window.alert("FEJL - Forkert input");
@@ -157,7 +165,27 @@ public class IngredientDetail extends AbstractView {
 		case "active":
 			ingredient.setActive(true);
 		}
+		
 		serviceImpl.updateIngredient(ingredient, new MyCallback());
+	}
+	
+	private class MyCallback implements AsyncCallback<Boolean>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			popup.setTitle("Fejl");
+			
+		}
+		@Override
+		public void onSuccess(Boolean result) {
+			if(result){
+			popup.toggle();
+			}
+			else{
+				popup.setTitle("Fejl");
+						
+			}
+		}		
 	}
 
 }

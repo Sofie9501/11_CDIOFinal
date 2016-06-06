@@ -136,6 +136,7 @@ public class IngredientBatchDetail extends AbstractView{
 			txt_amount.setText(String.valueOf(batch.getAmount()));
 			break;
 		}
+		//update the batch in DB
 		serviceImpl.updateIngredientBatch(batch, new MyCallback());
 	}
 	private class MyCallback implements AsyncCallback<Boolean>{

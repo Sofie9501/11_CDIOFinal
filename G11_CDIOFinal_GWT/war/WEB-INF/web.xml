@@ -5,7 +5,10 @@
          version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee">
 
-  <!-- Servlets -->
+
+    <!-- Servlets -->
+    
+  <!-- Operators -->
   <servlet>
     <servlet-name>ServerOperatorImpl</servlet-name>
     <servlet-class>dk.dtu.cdiofinal.server.ServerOperatorImpl</servlet-class>
@@ -15,6 +18,19 @@
     <servlet-name>ServerOperatorImpl</servlet-name>
     <url-pattern>/g11_cdiofinal/service</url-pattern>
   </servlet-mapping>
+  
+    <!-- LOGGIN HANDLING -->
+  <servlet>
+  	<servlet-name>ServerMenuImpl</servlet-name>
+  	<servlet-class>dk.dtu.cdiofinal.server.ServerMenuImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+      <servlet-name>ServerMenuImpl</servlet-name>
+      <url-pattern>/g11_cdiofinal/MenuService</url-pattern>
+  </servlet-mapping>
+
+  
   
   <!-- Default page to serve -->
   <welcome-file-list>

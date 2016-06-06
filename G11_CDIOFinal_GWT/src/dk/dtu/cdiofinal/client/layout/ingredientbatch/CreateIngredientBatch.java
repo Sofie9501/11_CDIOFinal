@@ -26,7 +26,6 @@ import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 public class CreateIngredientBatch extends AbstractView {
 
 	final ProdView prod;
-
 	private ClientIngredientBatchImpl serviceImpl;
 	private static createIngredientbatchUiBinder uiBinder = GWT.create(createIngredientbatchUiBinder.class);
 	private IngredientBatchDTO batch;
@@ -36,7 +35,7 @@ public class CreateIngredientBatch extends AbstractView {
 
 	}
 
-
+	//Textbox, buttons, heading and modal
 	@UiField
 	TextBox txt_B_ID;
 	@UiField
@@ -61,7 +60,7 @@ public class CreateIngredientBatch extends AbstractView {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.prod=prod;
 		this.serviceImpl = new ClientIngredientBatchImpl();
-		//Clickhandler
+		//Add click and key handler to buttons and last textbox
 		btn_save.addClickHandler(new SaveClickHandler());
 		btn_ok.addClickHandler((ClickHandler)new OkClickHandler());
 		txt_amount.addKeyDownHandler((KeyDownHandler)new EnterHandler());
@@ -71,7 +70,6 @@ public class CreateIngredientBatch extends AbstractView {
 		String alert = "";
 		boolean succes = true;
 		if(!FieldVerifier.numberValid(Integer.parseInt(txt_B_ID.getText()))){
-//			txt_name.setErrorLabel(errorLabel);
 			alert+="Error - You need to write a valid batch ID \n";
 			succes = false;
 		}

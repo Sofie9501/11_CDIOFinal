@@ -7,13 +7,13 @@
 
   <!-- Servlets -->
   <servlet>
-    <servlet-name>OperatorServiceImpl</servlet-name>
-    <servlet-class>dk.dtu.cdiofinal.server.OperatorServiceImpl</servlet-class>
+    <servlet-name>ServerOperatorImpl</servlet-name>
+    <servlet-class>dk.dtu.cdiofinal.server.ServerOperatorImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>OperatorServiceImpl</servlet-name>
-    <url-pattern>/g11_cdiofinal/service</url-pattern>
+    <servlet-name>ServerOperatorImpl</servlet-name>
+    <url-pattern>/g11_cdiofinal/OperatorService</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->

@@ -39,9 +39,11 @@ public class IngredientBatchListView extends AbstractView{
 	interface IngredientBatchListUiBinder extends UiBinder<Widget, IngredientBatchListView> {
 	}
 
+	//table
 	@UiField
 	CellTable<IngredientBatchDTO> cellTable;
 
+	//to create a new batch
 	@UiField
 	Button btn_create;
 
@@ -51,7 +53,7 @@ public class IngredientBatchListView extends AbstractView{
 		this.prod = prod;
 		this.serviceImpl = new ClientIngredientBatchImpl();
 
-
+		//First column with ID
 		TextColumn<IngredientBatchDTO> IDColumn = new TextColumn<IngredientBatchDTO>(){
 			@Override
 			public String getValue(IngredientBatchDTO object) {
@@ -60,6 +62,7 @@ public class IngredientBatchListView extends AbstractView{
 		};
 		cellTable.addColumn(IDColumn);
 
+		//Column with name of the ingredient
 		TextColumn<IngredientBatchDTO> nameColumn = new TextColumn<IngredientBatchDTO>(){
 			@Override
 			public String getValue(IngredientBatchDTO object) {
@@ -68,6 +71,16 @@ public class IngredientBatchListView extends AbstractView{
 		};
 		cellTable.addColumn(nameColumn);
 
+		//First column with ingredient ID
+		TextColumn<IngredientBatchDTO> ID = new TextColumn<IngredientBatchDTO>(){
+			@Override
+			public String getValue(IngredientBatchDTO object) {
+				return String.valueOf(object.getIngredient_ID());
+			}
+		};
+		cellTable.addColumn(ID);
+		
+		//Column with amount
 		TextColumn<IngredientBatchDTO> amountColumn = new TextColumn<IngredientBatchDTO>(){
 			@Override
 			public String getValue(IngredientBatchDTO object) {
@@ -75,7 +88,8 @@ public class IngredientBatchListView extends AbstractView{
 			}
 		};
 		cellTable.addColumn(amountColumn);		
-		
+
+		//column with active
 		TextColumn<IngredientBatchDTO> activeColumn = new TextColumn<IngredientBatchDTO>(){
 			@Override
 			public String getValue(IngredientBatchDTO object) {
@@ -83,7 +97,8 @@ public class IngredientBatchListView extends AbstractView{
 			}
 		};
 		cellTable.addColumn(activeColumn);	
-		
+
+		//column with date
 		TextColumn<IngredientBatchDTO> dateColumn = new TextColumn<IngredientBatchDTO>(){
 			@Override
 			public String getValue(IngredientBatchDTO object) {
@@ -92,6 +107,7 @@ public class IngredientBatchListView extends AbstractView{
 		};
 		cellTable.addColumn(dateColumn);	
 
+		//Column with edit buttons
 		Column<IngredientBatchDTO, String> editColumn = new Column<IngredientBatchDTO, String>(new ButtonCell(IconType.WRENCH,ButtonType.LINK, ButtonSize.SMALL)){
 			@Override
 			public String getValue(IngredientBatchDTO object) {
@@ -114,7 +130,8 @@ public class IngredientBatchListView extends AbstractView{
 		btn_create.addClickHandler((ClickHandler)new CreateClickHandler());
 		this.serviceImpl.getIngredientBatches(new ListCallback());
 	}
-	
+
+	//clickhandler for create new batch
 	private class CreateClickHandler implements ClickHandler{
 
 		@Override
@@ -128,7 +145,7 @@ public class IngredientBatchListView extends AbstractView{
 		@Override
 		public void onFailure(Throwable caught) {
 		}
-		
+
 		@Override
 		public void onSuccess(List<IngredientBatchDTO> result) {
 			inb.clear();
@@ -138,10 +155,10 @@ public class IngredientBatchListView extends AbstractView{
 				}
 				dataProvider.refresh();
 			}
-				
+
 		}
 	}
-	
+
 	@Override
 	public void Update() {
 		inb.clear();

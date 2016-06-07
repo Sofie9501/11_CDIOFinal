@@ -23,7 +23,7 @@ public class TerminalController extends Thread{
 	int oprID;
 	int pbID;
 	float tare;
-	float netto;
+	float net;
 	int rbID;
 
 
@@ -107,7 +107,7 @@ public class TerminalController extends Thread{
 							return reply.substring(8, (reply.length()-1));
 						}
 						try {
-							this.sleep(1000);
+							sleep(1000);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -236,14 +236,16 @@ public class TerminalController extends Thread{
 			if(db.checkRbId(rbID)){
 
 				// Gets the net weight
-				netto = Float.parseFloat(waitForReply("S"));
+				net = Float.parseFloat(waitForReply("S"));
 
 				// Create new productbatch component
-
+				db.createProductBatchComp(pbID, rbID, tare, net, oprID);
+				
+				sendData("Productbatch component was successfully made");
+				state = State.PREPARE_WEIGHT;
 			}
 			else
 				throw new DALException("ID does not exist.");
-
 
 		}catch(Exception e){
 			waitForReply("WRONG INPUT, PRESS ENTER");

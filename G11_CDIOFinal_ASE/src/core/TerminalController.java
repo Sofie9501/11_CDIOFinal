@@ -103,31 +103,23 @@ public class TerminalController extends Thread{
 	
 	
 	private void operatorLogin(){
-		// Request operator id
-		String msg = "RM20 8 \"Enter OPR ID\" \"\" \"&3\"";
-		sendData(msg);
-		String msgReceived = waitForReply(5);
-		
-		// Check messaged recieved if not correct answer return and try again
-		if(!msgReceived.equals("RM20 B"))
-			return;
-		
 		while(true){
-			try {
-				sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			msgReceived = recieveData();
+			String msgReceived = waitForReply("Enter OPR ID");
 			int oprId;
 			// tester det er et tal der er modtaget
 			try{
-				Integer.parseInt(msgReceived);
+				
+				String oprName =db.getOperator(Integer.parseInt(msgReceived));
+				if((waitForReply("OPR NAME:" + oprName)).equals(EXIT_CHAR))
+					return;
+				else{
+					state = State.PRODUCTBATCH_SELECTION;
+					return;
+				}
+				
 			}catch(Exception e){
-				msg = "RM20 8 \"WRONG INPUT, PRESS ANY KEY\" \"\" \"&3\"";
-				sendData(msg);
+				waitForReply("WRONG INPUT, PRESS ENTER");
+					return;
 			}
 			
 		}

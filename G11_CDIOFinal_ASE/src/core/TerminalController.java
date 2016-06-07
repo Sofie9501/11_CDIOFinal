@@ -57,7 +57,6 @@ public class TerminalController extends Thread{
 
 	}
 	
-	
 	private void sendData(String data){
 		try {
 			outToServer.writeBytes(data);
@@ -78,16 +77,76 @@ public class TerminalController extends Thread{
 		return data;
 	}
 	
+	// This method sends the message it has been called with and awaits for the second reply (RM20 A)
+	private String waitForReply(String message){
+		sendData(message);
+		long time = System.currentTimeMillis();
+		String reply = null;
+		
+		while(System.currentTimeMillis() - time < 5000){
+			reply = recieveData();
+			
+			if(reply.toUpperCase().startsWith("RM20 B")){
+				break;
+			}
+		}
+		
+		while(true){
+			reply = recieveData();
+			
+			if(reply.toUpperCase().startsWith("RM20 A")){
+				return reply;
+			}
+		}
+	}
+	
 	
 	private void operatorLogin(){
-		
+		while(true){
+			String msgReceived = waitForReply("Enter OPR ID");
+			int oprId;
+			// tester det er et tal der er modtaget
+			try{
+				
+				String oprName =db.getOperator(Integer.parseInt(msgReceived));
+				if((waitForReply("OPR NAME:" + oprName)).equals(EXIT_CHAR))
+					return;
+				else{
+					state = State.PRODUCTBATCH_SELECTION;
+					return;
+				}
+				
+			}catch(Exception e){
+				waitForReply("WRONG INPUT, PRESS ENTER");
+					return;
+			}
+			
+		}
 	}
 	
 	private void productBatchSelection(){
+		try {
+			String msgToDisplay = "RM20 8 \"Enter pb-id\"";
+			String msgFromDisplay;
+
+			sendData(msgToDisplay);
+			msgFromDisplay = recieveData();
+			int ID = Integer.parseInt(msgFromDisplay);
+			
+			String query = "select * from productbatch where " + ID + " = pb_id;";
+			
+			
+			
 		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 	}
 
 	private void prepareWeight(){
+		
 		
 	}
 	

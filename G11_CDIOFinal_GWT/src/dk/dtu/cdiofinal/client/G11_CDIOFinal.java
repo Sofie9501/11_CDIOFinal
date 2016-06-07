@@ -10,7 +10,7 @@ public class G11_CDIOFinal implements EntryPoint {
 
 	public void onModuleLoad() {
 		
-		RootPanel.get("title").add(new Label("CDIO3"));
+		RootPanel.get("title").add(new Label("CDIO Final"));
 		RootPanel.get("content").add(new MainView());
 	//	RootPanel.get("content").add(new ProdView(null));
 	}

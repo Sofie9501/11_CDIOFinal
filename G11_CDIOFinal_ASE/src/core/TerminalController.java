@@ -47,7 +47,7 @@ public class TerminalController extends Thread{
 				prepareWeight(); // 5, 6 og 7
 				break;
 			case ADD_CONTAINER:
-				addContainer(); // 8 og 8
+				addContainer(); // 8 og 9
 				break;
 			case WEIGHING:
 				weighing(); // 10, 11 og 12
@@ -61,7 +61,6 @@ public class TerminalController extends Thread{
 		try {
 			outToServer.writeBytes(data);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -71,7 +70,6 @@ public class TerminalController extends Thread{
 		try {
 			data = inFromServer.readLine();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return data;
@@ -90,24 +88,28 @@ public class TerminalController extends Thread{
 			
 			// If the message has been received, it breaks out of the loop
 			if(reply.toUpperCase().startsWith("RM20 B")){
-				break;
-			}
-			
-			// If the message isn't receive, the thread is killed.
-			else{
-				this.stop();
+				// Waits eternally for the second response "RM20 A"
+				while(true){
+					reply = recieveData();
+					
+					// If the message has been received, it returns it
+					if(reply.toUpperCase().startsWith("RM20 A")){
+						
+						//Sorts "RM20 A" and the quotation marks away from the String
+						return reply.substring(8, (reply.length()-1));
+					}
+					try {
+						this.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
+		// If the message isn't received, the thread is killed.
+		this.stop();
 		
-		// Waits eternally for the second response "RM20 A"
-		while(true){
-			reply = recieveData();
-			
-			// If the message has been received, it returns it
-			if(reply.toUpperCase().startsWith("RM20 A")){
-				return reply;
-			}
-		}
+		return null;
 	}
 	
 	
@@ -137,20 +139,17 @@ public class TerminalController extends Thread{
 	private void productBatchSelection(){
 		try {
 			String msgToDisplay = "RM20 8 \"Enter pb-id\"";
-			String msgFromDisplay;
-
 			sendData(msgToDisplay);
-			msgFromDisplay = recieveData();
-			int ID = Integer.parseInt(msgFromDisplay);
 			
-			String query = "select * from productbatch where " + ID + " = pb_id;";
+			String dbReplay = db.getProductRecipeName(Integer.parseInt(recieveData()));
 			
-			
-			
+			waitForReply(dbReplay);
 		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (DALException e){
+			
 		}
 	
 	}
@@ -160,8 +159,20 @@ public class TerminalController extends Thread{
 		
 	}
 	
+	// The operator is asked to place the first container so the weight can tare
 	private void addContainer(){
-		
+		try {
+			// The reply means the operator giving consent
+			String reply = waitForReply("RM20 8 \"Place first container\"");
+			
+			// The tare is saved
+			int tare = Integer.parseInt(waitForReply("T"));
+			
+			state = State.WEIGHING;			
+		}catch(Exception e){
+			waitForReply("WRONG INPUT, PRESS ENTER");
+				return;
+		}
 	}
 	
 	private void weighing(){

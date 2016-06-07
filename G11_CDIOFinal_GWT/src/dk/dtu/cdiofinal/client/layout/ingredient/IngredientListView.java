@@ -26,10 +26,7 @@ import com.google.gwt.view.client.ListDataProvider;
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
-import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
-import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
-import dk.dtu.cdiofinal.shared.OperatoerDTO;
 
 
 public class IngredientListView extends AbstractView {

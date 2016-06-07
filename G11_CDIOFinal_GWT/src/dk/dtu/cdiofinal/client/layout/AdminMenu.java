@@ -15,7 +15,6 @@ import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.operator.ChangePassword;
 import dk.dtu.cdiofinal.client.layout.operator.OprListView;
 import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
-import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 
 public class AdminMenu extends AbstractView{
 	private static AdminMenuUiBinder uiBinder = GWT.create(AdminMenuUiBinder.class);

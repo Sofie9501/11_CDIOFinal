@@ -78,22 +78,32 @@ public class TerminalController extends Thread{
 	}
 	
 	// This method sends the message it has been called with and awaits for the second reply (RM20 A)
+	@SuppressWarnings("deprecation")
 	private String waitForReply(String message){
 		sendData(message);
 		long time = System.currentTimeMillis();
 		String reply = null;
 		
+		// Waits 5 seconds to receive "RM20 B"
 		while(System.currentTimeMillis() - time < 5000){
 			reply = recieveData();
 			
+			// If the message has been received, it breaks out of the loop
 			if(reply.toUpperCase().startsWith("RM20 B")){
 				break;
 			}
+			
+			// If the message isn't receive, the thread is killed.
+			else{
+				this.stop();
+			}
 		}
 		
+		// Waits eternally for the second response "RM20 A"
 		while(true){
 			reply = recieveData();
 			
+			// If the message has been received, it returns it
 			if(reply.toUpperCase().startsWith("RM20 A")){
 				return reply;
 			}

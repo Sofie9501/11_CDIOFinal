@@ -12,6 +12,10 @@ public class OperatorDTO implements Serializable{
 	private String password;
 	private boolean isActive;
 	
+	public OperatorDTO(){
+		
+	}
+	
 	public OperatorDTO(int oprID, String name, String cpr, 
 			String password,int role, boolean isActive){
 		this.oprID = oprID;

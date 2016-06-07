@@ -22,8 +22,8 @@ public class ClientOperatorImpl implements OperatorServiceAsync{
 	}
 
 	@Override
-	public void updateOperator(OperatorDTO opr, AsyncCallback<Boolean> callback) {
-		this.service.updateOperator(opr, callback);
+	public void updateOperator(OperatorDTO opr, int oldID, AsyncCallback<Boolean> callback) {
+		this.service.updateOperator(opr, oldID, callback);
 	}
 
 	@Override

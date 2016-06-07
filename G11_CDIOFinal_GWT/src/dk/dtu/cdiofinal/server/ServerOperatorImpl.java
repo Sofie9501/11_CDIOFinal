@@ -31,9 +31,9 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 	}
 
 	@Override
-	public boolean updateOperator(OperatorDTO opr) {
+	public boolean updateOperator(OperatorDTO opr, int oldID) {
 		try {
-			dao.updateOperator(opr);
+			dao.updateOperator(opr, oldID);
 			return true;
 		} catch (DALException e) {
 			e.printStackTrace();
@@ -86,7 +86,7 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 			e1.printStackTrace();
 		}
 		try {
-			dao.createOperatoer(opr);
+			dao.createOperator(opr);
 			return true;
 		} catch (DALException e) {
 			e.printStackTrace();
@@ -101,7 +101,7 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 		Integer oprId = (Integer)session.getAttribute("loggedIn");
 		if(oprId != null){
 			try {
-				opr = new OperatorDTO(dao.getOperator(oprId));
+				opr = dao.getOperator(oprId);
 			} catch (DALException e) {
 				e.printStackTrace();
 			}

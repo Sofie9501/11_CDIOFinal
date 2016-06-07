@@ -10,7 +10,7 @@ public interface OperatorServiceAsync {
 	
 	void getOperators(AsyncCallback<List<OperatorDTO>> callback);
 	void getOperator(AsyncCallback<OperatorDTO> callback);
-	void updateOperator(OperatorDTO opr, AsyncCallback<Boolean> callback);
+	void updateOperator(OperatorDTO opr,int oldID, AsyncCallback<Boolean> callback);
 	void createOperator(OperatorDTO opr, AsyncCallback<Boolean> callback);
 
 }

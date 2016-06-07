@@ -44,11 +44,13 @@ public class AdminMenu extends AbstractView{
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		// hidden until login verified
+		alert_opr.setVisible(false);
 		btn_opr.setVisible(false);
 		btn_opr.addClickHandler(new OprClickHandler());
 		serviceImpl.isLoggedIn(new LoggedInCallback());
 				
 	}
+	
 	
 	
 	private class OprClickHandler implements ClickHandler{
@@ -76,11 +78,15 @@ public class AdminMenu extends AbstractView{
 			case 4:
 				alert_opr.setVisible(true);
 				break;
+				
 			case 1:
 				btn_opr.setVisible(true);
+				
 			case 2:
 				
+				
 			case 3:
+				
 				break;
 				default:
 			}

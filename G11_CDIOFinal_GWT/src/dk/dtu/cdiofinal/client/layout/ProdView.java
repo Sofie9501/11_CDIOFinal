@@ -9,7 +9,6 @@ import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.MainView;
 import dk.dtu.cdiofinal.client.helpers.Stack;
 import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
-import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 
 public class ProdView extends Composite{
 	

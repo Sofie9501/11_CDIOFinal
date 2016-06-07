@@ -26,10 +26,11 @@ import com.google.gwt.view.client.ListDataProvider;
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
-import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
-import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
+<<<<<<< HEAD
 import dk.dtu.cdiofinal.shared.OperatorDTO;
+=======
+>>>>>>> branch 'master' of https://github.com/Sofie9501/11_CDIOFinal.git
 
 
 public class IngredientListView extends AbstractView {

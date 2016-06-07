@@ -20,6 +20,11 @@ public class TerminalController extends Thread{
 	DatabaseCom db = new ListImpl();
 	DataOutputStream outToServer;
 	BufferedReader inFromServer;
+	int oprID;
+	int pbID;
+	float tare;
+	float netto;
+	int rbID;
 	
 	
 	State state = State.OPERATOR_LOGIN;
@@ -47,21 +52,19 @@ public class TerminalController extends Thread{
 				prepareWeight(); // 5, 6 og 7
 				break;
 			case ADD_CONTAINER:
-				addContainer(); // 8 og 8
+				addContainer(); // 8 og 9
 				break;
 			case WEIGHING:
 				weighing(); // 10, 11 og 12
 				break;
 			}	
 		}
-
 	}
 	
 	private void sendData(String data){
 		try {
 			outToServer.writeBytes(data);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -71,33 +74,46 @@ public class TerminalController extends Thread{
 		try {
 			data = inFromServer.readLine();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return data;
 	}
 	
 	// This method sends the message it has been called with and awaits for the second reply (RM20 A)
+	@SuppressWarnings("deprecation")
 	private String waitForReply(String message){
-		sendData(message);
+		sendData("RM20 8 \"" + message + "\"");
 		long time = System.currentTimeMillis();
 		String reply = null;
 		
+		// Waits 5 seconds to receive "RM20 B"
 		while(System.currentTimeMillis() - time < 5000){
 			reply = recieveData();
 			
+			// If the message has been received, it breaks out of the loop
 			if(reply.toUpperCase().startsWith("RM20 B")){
-				break;
+				// Waits eternally for the second response "RM20 A"
+				while(true){
+					reply = recieveData();
+					
+					// If the message has been received, it returns it
+					if(reply.toUpperCase().startsWith("RM20 A")){
+						
+						//Sorts "RM20 A" and the quotation marks away from the String
+						return reply.substring(8, (reply.length()-1));
+					}
+					try {
+						this.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
+		// If the message isn't received, the thread is killed.
+		this.stop();
 		
-		while(true){
-			reply = recieveData();
-			
-			if(reply.toUpperCase().startsWith("RM20 A")){
-				return reply;
-			}
-		}
+		return null;
 	}
 	
 	
@@ -125,24 +141,25 @@ public class TerminalController extends Thread{
 	}
 	
 	private void productBatchSelection(){
-		try {
-			String msgToDisplay = "RM20 8 \"Enter pb-id\"";
-			String msgFromDisplay;
-
-			sendData(msgToDisplay);
-			msgFromDisplay = recieveData();
-			int ID = Integer.parseInt(msgFromDisplay);
-			
-			String query = "select * from productbatch where " + ID + " = pb_id;";
-			
-			
-			
 		
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		while(true){
+			try {
+				String msgToDisplay = "Enter ProductBatch ID";
+				pbID = Integer.parseInt(waitForReply(msgToDisplay));
+				
+				String dbReplay = "Recipe: " + db.getProductRecipeName(pbID) + ",Press Enter";
+				
+				if(!dbReplay.equals(EXIT_CHAR)){
+					sendData(dbReplay);
+					state = State.ADD_CONTAINER;
+					break;
+				}else {
+					break;
+				}
+			}  catch (DALException e){
+				waitForReply(e.getMessage() + ", Press Enter");
+			}
 		}
-	
 	}
 
 	private void prepareWeight(){
@@ -150,11 +167,39 @@ public class TerminalController extends Thread{
 		
 	}
 	
+	// The operator is asked to place the first container so the weight can tare
 	private void addContainer(){
-		
+		try {
+			// The reply means the operator giving consent
+			String reply = waitForReply("Place first container");
+			
+			// The tare is saved
+			tare = Float.parseFloat(waitForReply("T"));
+			
+			state = State.WEIGHING;			
+		}catch(Exception e){
+			waitForReply("WRONG INPUT, PRESS ENTER");
+				return;
+		}
 	}
 	
 	private void weighing(){
+		try {
+			// The operator is asked to enter an ID for the ingredientbatch (raavarebatch)
+			rbID = Integer.parseInt(waitForReply("Enter rb ID"));
+			
+			// The ID is checked that it exsists
+			if(db.checkRbId(rbID)){
+				
+			}
+			else
+				throw new DALException("ID does not exist.");
+			
+			
+		}catch(Exception e){
+			waitForReply("WRONG INPUT, PRESS ENTER");
+				return;
+		}
 		
 	}
 	

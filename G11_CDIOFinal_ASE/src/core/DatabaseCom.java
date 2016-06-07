@@ -2,6 +2,8 @@ package core;
 
 public interface DatabaseCom {
 	public String getOperator(int operatorId);
-	public int getProductBatchID(int pb_id);
+	public String getProductRecipeName(int pb_id) throws DALException;
+	public boolean checkRbId(int rb_id) throws DALException;
+	
 	
 }

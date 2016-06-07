@@ -38,7 +38,7 @@ public class IngredientListView extends AbstractView {
 
 	private ClientIngredientImpl serviceImpl;
 	private List<IngredientDTO> list = new ArrayList<>();
-	ListDataProvider<IngredientDTO> dataProvider;
+	private ListDataProvider<IngredientDTO> dataProvider;
 	private static IngredientListViewUiBinder uiBinder = GWT.create(IngredientListViewUiBinder .class);
 
 	@UiTemplate("ingredientListView.ui.xml")
@@ -102,7 +102,7 @@ public class IngredientListView extends AbstractView {
 
 			@Override
 			public void update(int index, IngredientDTO object, String value) {
-				(IngredientListView.this).prod.setView(new IngredientDetail(object));
+				//(IngredientListView.this).prod.setView(new IngredientDetail(object));
 			}
 
 		});

@@ -12,10 +12,10 @@ public class OperatorDAOList implements OperatorDAO{
 	private List<OperatorDTO> oprs = new ArrayList<OperatorDTO>();
 
 	public OperatorDAOList(){
-		oprs.add(new OperatoerDTO(1, "Morten Due", 1, "260184xxxx", "qwer1234"));
-		oprs.add(new OperatoerDTO(2, "Casper Danielsen", 2, "010885xxxx", "qwer1234"));
-		oprs.add(new OperatoerDTO(3, "Sofie Larsen", 3, "241299xxxx", "qwer1234"));
-		oprs.add(new OperatoerDTO(4, "Brain Christensen", 4, "100685xxxx", "qwer1234"));
+		oprs.add(new OperatorDTO(1, "Morten Due", "260184xxxx", "qwer1234", 1, true));
+		oprs.add(new OperatorDTO(2, "Casper Danielsen", "010885xxxx", "qwer1234", 2, true));
+		oprs.add(new OperatorDTO(3, "Sofie Larsen", "241299xxxx", "qwer1234", 3, true));
+		oprs.add(new OperatorDTO(4, "Brain Christensen", "100685xxxx", "qwer1234", 4, true));
 
 	}
 	@Override
@@ -34,13 +34,13 @@ public class OperatorDAOList implements OperatorDAO{
 	}
 
 	@Override
-	public void createOperatoer(OperatorDTO opr) throws DALException {
+	public void createOperator(OperatorDTO opr) throws DALException {
 		oprs.add(opr);
 	}
 
 
 	@Override
-	public void updateOperatoer(OperatorDTO opr) throws DALException {
+	public void updateOperator(OperatorDTO opr, int oldID) throws DALException {
 		OperatorDTO oprOld = getOperator(opr.getOprID());
 		oprs.remove(oprOld);
 		oprs.add(opr);

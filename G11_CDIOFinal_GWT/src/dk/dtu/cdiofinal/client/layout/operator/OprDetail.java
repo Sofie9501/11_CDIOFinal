@@ -63,11 +63,11 @@ public class OprDetail extends AbstractView{
 
 		//Adds all the information on the operators
 		txt_oprID.setText(String.valueOf(opr.getOprID()));
-		txt_name.setText(opr.getOprNavn());
+		txt_name.setText(opr.getName());
 		
 		
 		txt_CPRnr.setText(FieldVerifier.cprFormat(opr.getCpr()));
-		txt_role.setText(String.valueOf(opr.getRolle()));
+		txt_role.setText(String.valueOf(opr.getRole()));
 		txt_password.setText(opr.getPassword());
 
 		//Clickhandlers for all the buttons
@@ -86,8 +86,8 @@ public class OprDetail extends AbstractView{
 				Window.alert("Fejl - Du SKAL skrive et navn");
 			}
 			else{
-				opr.setOprNavn(txt_edited.getText());
-				txt_name.setText(opr.getOprNavn());
+				opr.setName(txt_edited.getText());
+				txt_name.setText(opr.getName());
 			}
 			break;
 		case "CPR":
@@ -104,8 +104,8 @@ public class OprDetail extends AbstractView{
 				Window.alert("Fejl - Forkert input");
 			}
 			else{
-				opr.setRolle(Integer.parseInt(txt_edited.getText()));
-				txt_role.setText(String.valueOf(opr.getRolle()));
+				opr.setRole(Integer.parseInt(txt_edited.getText()));
+				txt_role.setText(String.valueOf(opr.getRole()));
 			}
 			break;
 		case "Password":
@@ -115,7 +115,7 @@ public class OprDetail extends AbstractView{
 			Window.alert("FEJL - Password følger ikke reglerne");
 
 		}
-		serviceImpl.updateOperator(opr, new MyCallback());
+		serviceImpl.updateOperator(opr, opr.getOprID(), new MyCallback());
 	}
 	private class MyCallback implements AsyncCallback<Boolean>{
 
@@ -151,7 +151,7 @@ public class OprDetail extends AbstractView{
 		public void onClick(ClickEvent event) {
 			popup.setTitle("Ændre navn");
 			popup.setId("Name");
-			txt_edited.setText(opr.getOprNavn());
+			txt_edited.setText(opr.getName());
 			popup.toggle();		
 		}	
 	}
@@ -169,7 +169,7 @@ public class OprDetail extends AbstractView{
 		public void onClick(ClickEvent event) {
 			popup.setTitle("Ændre Rolle");
 			popup.setId("Rolle");
-			txt_edited.setText(String.valueOf(opr.getRolle()));
+			txt_edited.setText(String.valueOf(opr.getRole()));
 			popup.toggle();		
 		}	
 	}

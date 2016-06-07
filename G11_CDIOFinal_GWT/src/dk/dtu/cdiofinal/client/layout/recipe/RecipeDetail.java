@@ -18,10 +18,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.serverconnection.ingredientbatch.ClientIngredientBatchImpl;
 import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
-import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 public class RecipeDetail extends AbstractView{
@@ -74,7 +72,7 @@ public class RecipeDetail extends AbstractView{
 		txt_active.setText(String.valueOf(rec.isActive()));
 
 		//Clickhandlers for all the buttons
-		btn_ID.addClickHandler((ClickHandler)new EditIB_IDClickHandler());
+		btn_ID.addClickHandler((ClickHandler)new Edit_IDClickHandler());
 		btn_name.addClickHandler((ClickHandler)new EditNameClickHandler());
 		btn_active.addClickHandler((ClickHandler) new EditActiveClickHandler());
 		btn_save.addClickHandler((ClickHandler) new SaveClickHandler());
@@ -113,7 +111,7 @@ public class RecipeDetail extends AbstractView{
 			break;
 		}
 
-		//update the batch in DB
+		//update the recipe in DB
 		serviceImpl.updateRecipe(rec, new MyCallback());
 	}
 	private class MyCallback implements AsyncCallback<Boolean>{
@@ -145,9 +143,9 @@ public class RecipeDetail extends AbstractView{
 			}		
 		}
 	}
-	//Clickhandlers for all the different buttons.
 
-	private class EditIB_IDClickHandler implements ClickHandler{
+	//Clickhandlers for all the different buttons.
+	private class Edit_IDClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
 			popup.setTitle("Change ID");
@@ -183,6 +181,7 @@ public class RecipeDetail extends AbstractView{
 		}	
 	}
 
+	//This should make it possible to update components 
 	private class CompHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {		
@@ -192,8 +191,6 @@ public class RecipeDetail extends AbstractView{
 
 	@Override
 	public void Update() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

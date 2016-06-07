@@ -110,7 +110,7 @@ public class ChangePassword extends AbstractView{
 				if(FieldVerifier.passwordValid(txt_password.getText())){
 					opr.setPassword(txt_password.getText());
 					txt_password.setText(opr.getPassword());
-					serviceImpl.updateOperator(opr, new ChangePasswordCallback());
+					serviceImpl.updateOperator(opr, opr.getOprID(), new ChangePasswordCallback());
 				}
 				else{
 					popup.setTitle("Fejl");
@@ -134,7 +134,7 @@ public class ChangePassword extends AbstractView{
 					if(FieldVerifier.passwordValid(txt_password.getText())){
 						opr.setPassword(txt_password.getText());
 						txt_password.setText(opr.getPassword());
-						serviceImpl.updateOperator(opr, new ChangePasswordCallback());
+						serviceImpl.updateOperator(opr, opr.getOprID(), new ChangePasswordCallback());
 					}
 					else{
 						popup.setTitle("Fejl");

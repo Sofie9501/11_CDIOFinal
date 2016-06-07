@@ -13,7 +13,7 @@ public interface OperatorService extends RemoteService {
 	
 	List<OperatorDTO> getOperators();
 	OperatorDTO getOperator();
-	boolean updateOperator(OperatorDTO opr);
+	boolean updateOperator(OperatorDTO opr, int oldID);
 	boolean createOperator(OperatorDTO opr);
 
 }

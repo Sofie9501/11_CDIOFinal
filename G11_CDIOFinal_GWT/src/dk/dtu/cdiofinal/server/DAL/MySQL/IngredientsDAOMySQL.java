@@ -61,8 +61,8 @@ public class IngredientsDAOMySQL implements IngredientDAO{
 		// Hvordan skal den fungere??
 	@Override
 	public void updateIngredient(IngredientDTO ingredient, int oldID) throws DALException {
-		String query = "call update_ingredient(" + oldID + ", '" + ingredient.getID() + ", '" + ingredient.getName() +
-				"',' " + ingredient.getSupplier() +"');";
+		String query = "call update_ingredient(" + oldID + ", " + ingredient.getID() + ", '" + ingredient.getName() +
+				"',' " + ingredient.getSupplier() +"', " + ingredient.isActive() +");";
 		c.doQuery(query);
 		
 	}

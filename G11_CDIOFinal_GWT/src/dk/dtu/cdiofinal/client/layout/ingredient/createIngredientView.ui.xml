@@ -23,12 +23,6 @@
 	        <tr>
 	            <td><b:TextBox ui:field="txt_supplier"></b:TextBox></td>
 	        </tr>
-	        
-	       	<tr><td><h4>Aktiv</h4></td></tr>
-	        <tr>
-	            <td><b:TextBox ui:field="txt_active"></b:TextBox></td>
-	        </tr>
-	        
 	       <tr>
 	            <td><b:Button icon="SAVE" type="LINK" ui:field="btn_save" >Save</b:Button> </td>
 	        </tr>
@@ -44,6 +38,5 @@
 	        </tr>
 	        </table></div>
 	        
-    <b:Button type="LINK" ui:field="btn_create">Create ingredient </b:Button>
 	</g:HTMLPanel>
 </ui:UiBinder> 

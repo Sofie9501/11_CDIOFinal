@@ -145,8 +145,12 @@ public class TerminalController extends Thread{
 				
 				String dbReplay = "Recipe: " + db.getProductRecipeName(Integer.parseInt(reply)) + ",Press Enter";
 				
-				sendData(dbReplay);
-				break;
+				if(!dbReplay.equals('x')){
+					sendData(dbReplay);
+					break;
+				}else {
+					break;
+				}
 			}  catch (DALException e){
 				waitForReply(e.getMessage() + ", Press Enter");
 			}

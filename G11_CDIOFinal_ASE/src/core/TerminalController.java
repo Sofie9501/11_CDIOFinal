@@ -47,7 +47,7 @@ public class TerminalController extends Thread{
 				prepareWeight(); // 5, 6 og 7
 				break;
 			case ADD_CONTAINER:
-				addContainer(); // 8 og 8
+				addContainer(); // 8 og 9
 				break;
 			case WEIGHING:
 				weighing(); // 10, 11 og 12
@@ -61,7 +61,6 @@ public class TerminalController extends Thread{
 		try {
 			outToServer.writeBytes(data);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -71,7 +70,6 @@ public class TerminalController extends Thread{
 		try {
 			data = inFromServer.readLine();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return data;

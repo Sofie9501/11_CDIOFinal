@@ -89,6 +89,7 @@ public class TerminalController extends Thread{
 
 	private void prepareWeight(){
 		
+		
 	}
 	
 	private void addContainer(){

@@ -145,17 +145,18 @@ public class TerminalController extends Thread{
 		while(true){
 			try {
 				String msgToDisplay = "Enter ProductBatch ID";
-				pbID = Integer.parseInt(waitForReply(msgToDisplay));
+				String recieve = waitForReply(msgToDisplay);
+				if(recieve.equalsIgnoreCase(EXIT_CHAR)){
+					state = State.OPERATOR_LOGIN;
+					break;
+				}
+				pbID = Integer.parseInt(recieve);
 				
 				String dbReplay = "Recipe: " + db.getProductRecipeName(pbID) + ",Press Enter";
 				
-				if(!dbReplay.equals(EXIT_CHAR)){
-					sendData(dbReplay);
-					state = State.ADD_CONTAINER;
-					break;
-				}else {
-					break;
-				}
+				sendData(dbReplay);
+				state = State.ADD_CONTAINER;
+				break;
 			}  catch (DALException e){
 				waitForReply(e.getMessage() + ", Press Enter");
 			}

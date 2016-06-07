@@ -154,8 +154,19 @@ public class TerminalController extends Thread{
 	}
 
 	private void prepareWeight(){
-		
-		
+		if((waitForReply("Tjek vægten er ubelastet, press enter")).equalsIgnoreCase(EXIT_CHAR)){
+			state = State.OPERATOR_LOGIN;
+			return;
+		}
+		try {
+			db.setPbStatus();
+		} catch (DALException e) {
+			waitForReply("Error setting production status, press any key");
+			waitForReply("contact supervisor, press any key");
+			state = State.OPERATOR_LOGIN;
+		}
+		sendData("T");
+		state = State.ADD_CONTAINER;
 	}
 	
 	// The operator is asked to place the first container so the weight can tare

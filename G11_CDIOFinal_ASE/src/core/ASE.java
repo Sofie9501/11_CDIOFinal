@@ -1,7 +1,6 @@
 package core;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -14,27 +13,33 @@ public class ASE {
 		BufferedReader connectionReader = null;
 		try {
 			 connectionReader = new BufferedReader(new FileReader(FILEPATH));
-		} catch (FileNotFoundException e) {
-			System.err.println("FILE READING ERROR!");
-			System.err.println(e.getMessage());
-			return;
-		}
+		
 		
 		while(true){
 			String connectionString = null;
-			try {
+			
 				connectionString = connectionReader.readLine();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		
 			
 			if(connectionString == null)
-				return;
+				break;
 			
 			String[] details = connectionString.split(",");
 			System.out.println(details[0] + ", " + details[1]);
 		}
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}finally{
+			try {
+				if(connectionReader != null){
+					connectionReader.close();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 			
 	}
 	

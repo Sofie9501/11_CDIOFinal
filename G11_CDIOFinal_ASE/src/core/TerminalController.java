@@ -88,24 +88,28 @@ public class TerminalController extends Thread{
 			
 			// If the message has been received, it breaks out of the loop
 			if(reply.toUpperCase().startsWith("RM20 B")){
-				break;
-			}
-			
-			// If the message isn't received, the thread is killed.
-			else{
-				this.stop();
+				// Waits eternally for the second response "RM20 A"
+				while(true){
+					reply = recieveData();
+					
+					// If the message has been received, it returns it
+					if(reply.toUpperCase().startsWith("RM20 A")){
+						
+						//Sorts "RM20 A" and the quotation marks away from the String
+						return reply.substring(8, (reply.length()-1));
+					}
+					try {
+						this.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
+		// If the message isn't received, the thread is killed.
+		this.stop();
 		
-		// Waits eternally for the second response "RM20 A"
-		while(true){
-			reply = recieveData();
-			
-			// If the message has been received, it returns it
-			if(reply.toUpperCase().startsWith("RM20 A")){
-				return reply;
-			}
-		}
+		return null;
 	}
 	
 	
@@ -158,8 +162,18 @@ public class TerminalController extends Thread{
 		
 	}
 	
+	// The operator is asked to place the first container so the weight can tare
 	private void addContainer(){
-		
+		try {
+			String reply = waitForReply("RM20 8 \"Place first container\"");
+			
+			if()
+			
+			
+		}catch(Exception e){
+			waitForReply("WRONG INPUT, PRESS ENTER");
+				return;
+		}
 	}
 	
 	private void weighing(){

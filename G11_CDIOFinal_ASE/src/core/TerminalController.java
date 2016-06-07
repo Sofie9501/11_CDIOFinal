@@ -86,12 +86,8 @@ public class TerminalController extends Thread{
 	@SuppressWarnings("deprecation")
 	private String waitForReply(String message){
 		String reply = null;
-		sendData("RM20 8 \"" + message + "\"");
+		sendData("RM20 8 \"" + message + "\" \"\" \"&3\"");
 		long time = System.currentTimeMillis();
-
-		// Waits 5 seconds to receive "RM20 B"
-		while(System.currentTimeMillis() - time < 5000){
-			reply = recieveData();
 
 			// Waits 5 seconds to receive "RM20 B"
 			while(System.currentTimeMillis() - time < 5000000){
@@ -118,9 +114,7 @@ public class TerminalController extends Thread{
 		}
 		// If the message isn't received, the thread is killed.
 		this.stop();
-		}
 		return null;
-		
 	}
 	
 	private String sendTare(String message){

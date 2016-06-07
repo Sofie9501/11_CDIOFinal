@@ -137,21 +137,20 @@ public class TerminalController extends Thread{
 	}
 	
 	private void productBatchSelection(){
-		try {
-			String msgToDisplay = "RM20 8 \"Enter pb-id\"";
-			sendData(msgToDisplay);
-			
-			String dbReplay = db.getProductRecipeName(Integer.parseInt(recieveData()));
-			
-			waitForReply(dbReplay);
 		
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (DALException e){
-			
+		while(true){
+			try {
+				String msgToDisplay = "Enter ProductBatch ID";
+				 String reply = waitForReply(msgToDisplay);
+				
+				String dbReplay = "Recipe: " + db.getProductRecipeName(Integer.parseInt(reply)) + ",Press Enter";
+				
+				sendData(dbReplay);
+				break;
+			}  catch (DALException e){
+				waitForReply(e.getMessage() + ", Press Enter");
+			}
 		}
-	
 	}
 
 	private void prepareWeight(){

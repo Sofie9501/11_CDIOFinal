@@ -39,7 +39,7 @@ public class IngredientListView extends AbstractView {
 	private ClientIngredientImpl serviceImpl;
 	private List<IngredientDTO> list = new ArrayList<>();
 	private ListDataProvider<IngredientDTO> dataProvider;
-	private static IngredientListViewUiBinder uiBinder = GWT.create(IngredientListViewUiBinder .class);
+	private static IngredientListViewUiBinder uiBinder = GWT.create(IngredientListViewUiBinder.class);
 
 	@UiTemplate("ingredientListView.ui.xml")
 	interface IngredientListViewUiBinder  extends UiBinder<Widget, IngredientListView> {

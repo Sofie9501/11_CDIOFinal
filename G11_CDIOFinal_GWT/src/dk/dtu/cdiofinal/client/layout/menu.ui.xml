@@ -11,12 +11,9 @@
 			<b:Button ui:field="menu">Hovedmenu</b:Button>
 		</div>
 		<div align="right" style="float:right;">
-			<b:Button ui:field="account">Konto</b:Button>
 			<b:Button ui:field='log_out'>Log ud</b:Button>
 		</div>
 	
 	</g:HTMLPanel>
-
-
 
 </ui:UiBinder>

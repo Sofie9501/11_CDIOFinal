@@ -78,7 +78,7 @@ public class TerminalController extends Thread{
 	// This method sends the message it has been called with and awaits for the second reply (RM20 A)
 	@SuppressWarnings("deprecation")
 	private String waitForReply(String message){
-		sendData(message);
+		sendData("RM20 8 \"" + message + "\"");
 		long time = System.currentTimeMillis();
 		String reply = null;
 		
@@ -162,10 +162,10 @@ public class TerminalController extends Thread{
 	private void addContainer(){
 		try {
 			// The reply means the operator giving consent
-			String reply = waitForReply("RM20 8 \"Place first container\"");
+			String reply = waitForReply("Place first container");
 			
 			// The tare is saved
-			int tare = Integer.parseInt(waitForReply("T"));
+			float tare = Float.parseFloat(waitForReply("T"));
 			
 			state = State.WEIGHING;			
 		}catch(Exception e){
@@ -175,6 +175,22 @@ public class TerminalController extends Thread{
 	}
 	
 	private void weighing(){
+		try {
+			// The operator is asked to enter an ID for the ingredientbatch (raavarebatch)
+			int rbID = Integer.parseInt(waitForReply("Enter rb ID"));
+			
+			// The ID is checked. 
+			
+			// It is checked, 
+			
+			// Current date is added
+			
+			// 
+			
+		}catch(Exception e){
+			waitForReply("WRONG INPUT, PRESS ENTER");
+				return;
+		}
 		
 	}
 	

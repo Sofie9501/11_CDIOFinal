@@ -125,8 +125,8 @@ public class CreateIngredientBatch extends AbstractView {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			popup.setTitle("Fejl");
-			ok.setText("Der er sket en fejl og resultatet er ikke blevet gemt");
+			popup.setTitle("Error");
+			ok.setText("An error has occurred, and your information has not been saved.");
 			popup.toggle();
 		}
 		@Override

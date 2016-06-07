@@ -1,10 +1,18 @@
 package dk.dtu.cdiofinal.shared;
 
-public class RecipeDTO {
+import java.io.Serializable;
+
+public class RecipeDTO implements Serializable{
 	
+
+	private static final long serialVersionUID = 1L;
 	private int ID;
 	private String name;
 	private boolean isActive;
+	
+	public RecipeDTO(){
+		
+	}
 	
 	public RecipeDTO(int ID, String name, boolean isActive){
 		this.ID = ID;

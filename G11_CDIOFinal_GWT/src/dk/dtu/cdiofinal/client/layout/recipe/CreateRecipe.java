@@ -19,10 +19,8 @@ import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
-import dk.dtu.cdiofinal.client.serverconnection.ingredientbatch.ClientIngredientBatchImpl;
 import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
-import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 public class CreateRecipe extends AbstractView {

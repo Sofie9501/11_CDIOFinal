@@ -78,7 +78,7 @@ public class TerminalController extends Thread{
 	// This method sends the message it has been called with and awaits for the second reply (RM20 A)
 	@SuppressWarnings("deprecation")
 	private String waitForReply(String message){
-		sendData(message);
+		sendData("RM20 8 \"" + message + "\"");
 		long time = System.currentTimeMillis();
 		String reply = null;
 		
@@ -176,6 +176,22 @@ public class TerminalController extends Thread{
 	}
 	
 	private void weighing(){
+		try {
+			// The operator is asked to enter an ID for the ingredientbatch (raavarebatch)
+			int rbID = Integer.parseInt(waitForReply("RM20 8 \"Enter rb ID\""));
+			
+			// The ID is checked. 
+			
+			// It is checked, 
+			
+			// Current date is added
+			
+			// 
+			
+		}catch(Exception e){
+			waitForReply("WRONG INPUT, PRESS ENTER");
+				return;
+		}
 		
 	}
 	

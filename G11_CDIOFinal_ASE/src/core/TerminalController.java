@@ -162,7 +162,7 @@ public class TerminalController extends Thread{
 	private void addContainer(){
 		try {
 			// The reply means the operator giving consent
-			String reply = waitForReply("RM20 8 \"Place first container\"");
+			String reply = waitForReply("Place first container");
 			
 			// The tare is saved
 			float tare = Float.parseFloat(waitForReply("T"));
@@ -177,7 +177,7 @@ public class TerminalController extends Thread{
 	private void weighing(){
 		try {
 			// The operator is asked to enter an ID for the ingredientbatch (raavarebatch)
-			int rbID = Integer.parseInt(waitForReply("RM20 8 \"Enter rb ID\""));
+			int rbID = Integer.parseInt(waitForReply("Enter rb ID"));
 			
 			// The ID is checked. 
 			

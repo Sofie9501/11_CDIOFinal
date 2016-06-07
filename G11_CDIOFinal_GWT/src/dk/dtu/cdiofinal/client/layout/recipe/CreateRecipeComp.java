@@ -1,6 +1,7 @@
 package dk.dtu.cdiofinal.client.layout.recipe;
 
 import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.Heading;
 import com.github.gwtbootstrap.client.ui.Modal;
 import com.github.gwtbootstrap.client.ui.TextBox;
@@ -23,15 +24,15 @@ import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
-public class CreateRecipe extends AbstractView {
+public class CreateRecipeComp extends AbstractView {
 
 	final ProdView prod;
 	private ClientRecipeImpl serviceImpl;
-	private static createRecipeUiBinder uiBinder = GWT.create(createRecipeUiBinder.class);
+	private static createRecipeCompUiBinder uiBinder = GWT.create(createRecipeCompUiBinder.class);
 	private RecipeDTO batch;
 
-	@UiTemplate("createRecipe.ui.xml")
-	interface createRecipeUiBinder extends UiBinder<Widget, CreateRecipe>{
+	@UiTemplate("createRecipeComp.ui.xml")
+	interface createRecipeCompUiBinder extends UiBinder<Widget, CreateRecipeComp>{
 
 	}
 
@@ -51,17 +52,19 @@ public class CreateRecipe extends AbstractView {
 	Button btn_ok;
 	@UiField
 	Heading ok;
+	
+	@UiField
+	CellTable<RecipeDTO> cellTable;
 
 
 
-	public CreateRecipe(ProdView prod){
+	public CreateRecipeComp(ProdView prod){
 		initWidget(uiBinder.createAndBindUi(this));
 		this.prod=prod;
 		this.serviceImpl = new ClientRecipeImpl();
 		//Add click and key handler to buttons and last textbox
 		btn_save.addClickHandler(new SaveClickHandler());
 		btn_ok.addClickHandler((ClickHandler)new OkClickHandler());
-		btn_add.addClickHandler(new AddClickHandler());
 		txt_name.addKeyDownHandler((KeyDownHandler)new EnterHandler());
 
 	}
@@ -106,17 +109,6 @@ public class CreateRecipe extends AbstractView {
 
 		}
 	}
-	
-	
-	private class AddClickHandler implements ClickHandler{
-
-		@Override
-		public void onClick(ClickEvent event) {
-			prod.setView(new CreateRecipeComp(prod));
-
-		}
-	}
-	
 	private class EnterHandler implements KeyDownHandler {
 
 		@Override

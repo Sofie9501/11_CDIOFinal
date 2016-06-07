@@ -88,15 +88,7 @@ public class IngredientBatchListView extends AbstractView{
 			}
 		};
 		cellTable.addColumn(amountColumn);		
-
-		//column with active
-		TextColumn<IngredientBatchDTO> activeColumn = new TextColumn<IngredientBatchDTO>(){
-			@Override
-			public String getValue(IngredientBatchDTO object) {
-				return String.valueOf(object.isActive());
-			}
-		};
-		cellTable.addColumn(activeColumn);	
+	
 
 		//column with date
 		TextColumn<IngredientBatchDTO> dateColumn = new TextColumn<IngredientBatchDTO>(){

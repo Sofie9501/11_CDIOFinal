@@ -33,6 +33,7 @@ public class IngredientBatchDetail extends AbstractView{
 	}
 	private IngredientBatchDTO batch;
 	private ClientIngredientBatchImpl serviceImpl;
+	private int oldID;
 
 	//Adds the main page texts
 	@UiField
@@ -71,6 +72,7 @@ public class IngredientBatchDetail extends AbstractView{
 
 	public IngredientBatchDetail(IngredientBatchDTO object){
 		this.batch=object;
+		oldID = object.getIngredientBatch_ID();
 		initWidget(uiBinder.createAndBindUi(this));
 		this.serviceImpl = new ClientIngredientBatchImpl();
 
@@ -137,7 +139,7 @@ public class IngredientBatchDetail extends AbstractView{
 			break;
 		}
 		//update the batch in DB
-		serviceImpl.updateIngredientBatch(batch, new MyCallback());
+		serviceImpl.updateIngredientBatch(batch, oldID, new MyCallback());
 	}
 	private class MyCallback implements AsyncCallback<Boolean>{
 

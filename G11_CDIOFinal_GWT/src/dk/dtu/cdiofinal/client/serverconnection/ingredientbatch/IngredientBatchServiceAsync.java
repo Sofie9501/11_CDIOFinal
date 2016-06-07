@@ -11,7 +11,7 @@ public interface IngredientBatchServiceAsync {
 	
 	void getIngredientBatches(AsyncCallback<List<IngredientBatchDTO>> callback);
 	void getIngredientBatch(AsyncCallback<IngredientBatchDTO> callback);
-	void updateIngredientBatch(IngredientBatchDTO opr, AsyncCallback<Boolean> callback);
+	void updateIngredientBatch(IngredientBatchDTO opr, int oldID, AsyncCallback<Boolean> callback);
 	void createIngredientBatch(IngredientBatchDTO opr, AsyncCallback<Boolean> callback);
 
 }

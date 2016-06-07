@@ -11,11 +11,12 @@ import dk.dtu.cdiofinal.DAO.OperatorDAO;
 import dk.dtu.cdiofinal.client.serverconnection.operator.OperatorService;
 import dk.dtu.cdiofinal.server.DAL.DALException;
 import dk.dtu.cdiofinal.server.DAL.OperatorDAOList;
+import dk.dtu.cdiofinal.server.DAL.MySQL.OperatorDAOMySql;
 import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 @SuppressWarnings("serial")
 public class ServerOperatorImpl extends RemoteServiceServlet implements OperatorService {
-	OperatorDAO dao = new OperatorDAOList();
+	OperatorDAO dao = new OperatorDAOMySql();
 
 	@Override
 	public List<OperatorDTO> getOperators() {

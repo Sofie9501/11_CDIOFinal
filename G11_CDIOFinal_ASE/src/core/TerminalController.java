@@ -125,16 +125,9 @@ public class TerminalController extends Thread{
 	private void productBatchSelection(){
 		try {
 			String msgToDisplay = "RM20 8 \"Enter pb-id\"";
-			String msgFromDisplay;
-
 			sendData(msgToDisplay);
-			msgFromDisplay = recieveData();
-			int ID = Integer.parseInt(msgFromDisplay);
-			
-			String query = "select * from productbatch where " + ID + " = pb_id;";
-			
-			
-			
+			String dbReplay = getProductRecipeName(Integer.parseInt(recieveData()));
+			waitForReply();
 		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -93,10 +93,7 @@ public class TerminalController extends Thread{
 	
 	
 	private void operatorLogin(){
-		// Request operator id
-		String msg = "RM20 8 \"Enter OPR ID\" \"\" \"&3\"";
-		sendData(msg);
-		String msgReceived = waitForReply(5);
+		String msgReceived = waitForReply("Enter OPR ID");
 		
 		// Check messaged recieved if not correct answer return and try again
 		if(!msgReceived.equals("RM20 B"))

@@ -166,7 +166,7 @@ public class TerminalController extends Thread{
 			String reply = waitForReply("RM20 8 \"Place first container\"");
 			
 			// The tare is saved
-			int tare = Integer.parseInt(waitForReply("T"));
+			float tare = Float.parseFloat(waitForReply("T"));
 			
 			state = State.WEIGHING;			
 		}catch(Exception e){

@@ -61,16 +61,16 @@ public class CreateIngredientView extends AbstractView{
 		boolean succes = true;
 		if(!FieldVerifier.nameValid(txt_name.getText())){
 //			txt_name.setErrorLabel(errorLabel);
-			alert+="Fejl - Du skal skrive et navn \n";
+			alert+="Error - You need to write a name \n";
 			succes = false;
 		}
 		if(!FieldVerifier.numberValid(Integer.parseInt(txt_id.getText()))){
-			alert += "Fejl - id er ikke korrekt \n";
+			alert += "Wrong - id is not valid \n";
 			succes = false;
 		}
 		if(!FieldVerifier.nameValid(txt_supplier.getText())){
 //			txt_name.setErrorLabel(errorLabel);
-			alert+="Fejl - Du skal skrive et navn \n";
+			alert+="Error - You need to write a name \n";
 			succes = false;
 		}
 		if(!alert.equals(""))
@@ -81,7 +81,7 @@ public class CreateIngredientView extends AbstractView{
 		// Checks to see if there is no errors
 		if(changeSucces()){
 			ingre = new IngredientDTO(Integer.parseInt(txt_id.getText()), txt_name.getText(), txt_supplier.getText(),true);
-			ok.setText("Dine oplysninger er blevet gemt");
+			ok.setText("Your information has been saved");
 			//Updates the DB with the new operator
 			serviceImpl.createIngredient(ingre, new MyCallback());
 			
@@ -116,8 +116,8 @@ public class CreateIngredientView extends AbstractView{
 
 		@Override
 		public void onFailure(Throwable caught) {
-			popup.setTitle("Fejl");
-			ok.setText("Der er sket en fejl og resultatet er ikke blevet gemt");
+			popup.setTitle("Error");
+			ok.setText("An error has occured, and the information has not been saved");
 			popup.toggle();
 		}
 		@Override
@@ -129,8 +129,8 @@ public class CreateIngredientView extends AbstractView{
 			txt_supplier.setText("");
 			}
 			else{
-				popup.setTitle("Fejl");
-				ok.setText("Der er sket en fejl og resultatet er ikke blevet gemt");
+				popup.setTitle("Error");
+				ok.setText("An error has occured, and the information has not been saved");
 				popup.toggle();
 			}
 		}		

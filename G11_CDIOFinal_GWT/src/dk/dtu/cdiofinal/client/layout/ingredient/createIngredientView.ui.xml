@@ -9,17 +9,17 @@
 	<g:HTMLPanel>
 		 <div align="left" style="width:500px"> <table>
 	        
-		    <tr><td><h4>ID</h4></td></tr>
+		    <tr><td><h4>Ingredient ID</h4></td></tr>
 	        <tr>
 	            <td><b:TextBox ui:field="txt_id"></b:TextBox></td>
 	        </tr>
 	        
-	        <tr><td><h4>Raavare Navn</h4></td></tr>
+	        <tr><td><h4>Ingredient Name</h4></td></tr>
 	        <tr>
 	            <td><b:TextBox ui:field="txt_name"></b:TextBox></td>
 	        </tr>
 
-	        <tr><td><h4>Leverandør</h4></td></tr>
+	        <tr><td><h4>Supplier</h4></td></tr>
 	        <tr>
 	            <td><b:TextBox ui:field="txt_supplier"></b:TextBox></td>
 	        </tr>

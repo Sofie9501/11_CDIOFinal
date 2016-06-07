@@ -109,7 +109,7 @@ public class IngredientBatchDetail extends AbstractView{
 				txt_name.setText(batch.getName());
 			}
 			else{
-				Window.alert("FEJL - Forkert input");
+				Window.alert("Error - Wrong input");
 			}
 			break;
 		case "ID":
@@ -143,7 +143,7 @@ public class IngredientBatchDetail extends AbstractView{
 
 		@Override
 		public void onFailure(Throwable caught) {
-			popup.setTitle("Fejl");
+			popup.setTitle("Error");
 
 		}
 		@Override
@@ -152,7 +152,7 @@ public class IngredientBatchDetail extends AbstractView{
 				popup.toggle();
 			}
 			else{
-				popup.setTitle("Fejl");
+				popup.setTitle("Error");
 
 			}
 		}		

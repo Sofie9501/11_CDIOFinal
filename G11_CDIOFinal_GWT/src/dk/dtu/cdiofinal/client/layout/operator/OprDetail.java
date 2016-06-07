@@ -163,7 +163,7 @@ public class OprDetail extends AbstractView{
 	private class EditNameClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
-			popup.setTitle("Change name");
+			popup.setTitle("Change Name");
 			popup.setId("Name");
 			txt_edited.setText(opr.getName());
 			popup.toggle();		
@@ -181,7 +181,7 @@ public class OprDetail extends AbstractView{
 	private class EditCprClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
-			popup.setTitle("Ændre CPR nummer");
+			popup.setTitle("Change CPR number");
 			popup.setId("CPR");
 			txt_edited.setText(FieldVerifier.cprFormat(opr.getCpr()));
 			popup.toggle();		
@@ -190,7 +190,7 @@ public class OprDetail extends AbstractView{
 	private class EditRoleClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
-			popup.setTitle("Ændre Rolle");
+			popup.setTitle("Change Role");
 			popup.setId("Rolle");
 			txt_edited.setText(String.valueOf(opr.getRole()));
 			popup.toggle();		
@@ -199,7 +199,7 @@ public class OprDetail extends AbstractView{
 	private class EditPasswordClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
-			popup.setTitle("Ændre Password");
+			popup.setTitle("Change Password");
 			popup.setId("Password");
 			txt_edited.setText(opr.getPassword());
 			popup.toggle();		

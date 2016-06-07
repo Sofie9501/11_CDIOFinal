@@ -98,6 +98,11 @@ public class TerminalController extends Thread{
 						//Sorts "RM20 A" and the quotation marks away from the String
 						return reply.substring(8, (reply.length()-1));
 					}
+					try {
+						this.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}

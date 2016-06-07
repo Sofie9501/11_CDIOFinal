@@ -34,14 +34,33 @@ public class TerminalController extends Thread{
 		
 		this.hostAddress = hostAddress;
 		this.port = port;
-		sock = new Socket(hostAddress, port);
-		outToServer = new DataOutputStream(sock.getOutputStream());
-		inFromServer = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+
 		start();
 	}
 
 	@Override
 	public void run(){
+		try {
+			sock = new Socket(hostAddress, port);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			outToServer = new DataOutputStream(sock.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			inFromServer = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		while(true){
 			switch(state){
 			case OPERATOR_LOGIN:
@@ -86,23 +105,26 @@ public class TerminalController extends Thread{
 	@SuppressWarnings("deprecation")
 	private String waitForReply(String message){
 		String reply = null;
-		sendData("RM20 8 \"" + message + "\" \"\" \"&3\"");
+		String sData = "RM20 8 \"" + message + "\" \"\" \"&3\"\n";
+		System.out.println("Sent data " + sData);
+		sendData(sData);
+		
 		long time = System.currentTimeMillis();
 
 			// Waits 5 seconds to receive "RM20 B"
 			while(System.currentTimeMillis() - time < 5000000){
 				reply = recieveData();
 			// If the message has been received, it breaks out of the loop
-			if(reply.toUpperCase().startsWith("RM20 B")){
+				if(reply != null && reply.toUpperCase().startsWith("RM20 B")){
 				// Waits eternally for the second response "RM20 A"
 				while(true){
 					reply = recieveData();
 
 					// If the message has been received, it returns it
-					if(reply.toUpperCase().startsWith("RM20 A")){
-
+					if(reply != null && reply.toUpperCase().startsWith("RM20 A")){
 						//Sorts "RM20 A" and the quotation marks away from the String
-						return reply.substring(8, (reply.length()-1));
+						System.out.println(reply.substring(8, (reply.length()-2)));
+						return reply.substring(8, (reply.length()-2));
 					}
 					try {
 						sleep(1000);

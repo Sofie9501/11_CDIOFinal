@@ -161,11 +161,13 @@ public class TerminalController extends Thread{
 	// The operator is asked to place the first container so the weight can tare
 	private void addContainer(){
 		try {
+			// The reply means the operator giving consent
 			String reply = waitForReply("RM20 8 \"Place first container\"");
 			
-			if()
+			// The tare is saved
+			int tare = Integer.parseInt(waitForReply("T"));
 			
-			
+			state = State.WEIGHING;			
 		}catch(Exception e){
 			waitForReply("WRONG INPUT, PRESS ENTER");
 				return;

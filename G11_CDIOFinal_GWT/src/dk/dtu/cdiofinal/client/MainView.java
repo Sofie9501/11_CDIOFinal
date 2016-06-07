@@ -9,7 +9,7 @@ import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 public class MainView extends Composite {
 
-	OperatorDTO opr = new OperatorDTO(12, "Cille123", 3, "0102003-2233", "loldppspa");
+	
 
 	private VerticalPanel vPanel =  new VerticalPanel();
 	

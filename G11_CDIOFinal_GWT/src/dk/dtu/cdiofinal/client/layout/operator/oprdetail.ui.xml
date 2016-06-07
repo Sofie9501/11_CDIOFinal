@@ -9,7 +9,10 @@
 	<g:HTMLPanel>
 	    <div align="left" style="width:500px"> <table>
 	        <tr><td style="width:200%"><u><h4>Operator ID</h4></u></td></tr>
-	        <tr ><td><b:Heading size="5" ui:field="txt_oprID"/></td></tr>
+	        <tr bgcolor="#f1f1f1">
+	            <td ><b:Heading size="5" ui:field="txt_oprID"/></td>
+	            <td ><b:Button type="LINK" ui:field="btn_oprID">Edit</b:Button></td>
+	        </tr>
 	        <tr><td><u><h4>Navn</h4></u></td></tr>
 	        <tr bgcolor="#f1f1f1">
 	            <td ><b:Heading size="5" ui:field="txt_name"/></td>

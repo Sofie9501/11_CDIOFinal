@@ -22,8 +22,9 @@ public class OprDetail extends AbstractView{
 	interface OprDetailUiBinder extends UiBinder<Widget, OprDetail>{
 
 	}
-	OperatorDTO opr;
-	ClientOperatorImpl serviceImpl;
+	private OperatorDTO opr;
+	private ClientOperatorImpl serviceImpl;
+	private int oldID;
 
 	//Adds the main page texts
 	@UiField
@@ -46,6 +47,8 @@ public class OprDetail extends AbstractView{
 	Button btn_rolle;
 	@UiField
 	Button btn_password;
+	@UiField
+	Button btn_oprID;
 
 	//Add editpopup with save button
 	@UiField
@@ -58,6 +61,7 @@ public class OprDetail extends AbstractView{
 	//Constuctor
 	public OprDetail(OperatorDTO opr) {
 		this.opr=opr;
+		oldID=opr.getOprID();
 		initWidget(uiBinder.createAndBindUi(this));
 		this.serviceImpl = new ClientOperatorImpl();
 
@@ -71,11 +75,12 @@ public class OprDetail extends AbstractView{
 		txt_password.setText(opr.getPassword());
 
 		//Clickhandlers for all the buttons
-		btn_name.addClickHandler((ClickHandler)new EditNameClickHandler());
-		btn_CPR.addClickHandler((ClickHandler) new EditCprClickHandler());
-		btn_rolle.addClickHandler((ClickHandler) new EditRoleClickHandler());
-		btn_password.addClickHandler((ClickHandler) new EditPasswordClickHandler());
-		btn_save.addClickHandler((ClickHandler) new SaveClickHandler());
+		btn_name.addClickHandler(new EditNameClickHandler());
+		btn_CPR.addClickHandler(new EditCprClickHandler());
+		btn_rolle.addClickHandler(new EditRoleClickHandler());
+		btn_password.addClickHandler(new EditPasswordClickHandler());
+		btn_oprID.addClickHandler(new EditIDClickHandler());
+		btn_save.addClickHandler(new SaveClickHandler());
 		txt_edited.addKeyDownHandler((KeyDownHandler) new EnterHandler());
 	}
 	//Checkes the ID of the popup to see what kind of edit it is, validates input and saves it.
@@ -83,11 +88,20 @@ public class OprDetail extends AbstractView{
 		switch(popup.getId()){
 		case "Name":
 			if (!FieldVerifier.nameValid(txt_edited.getText())){
-				Window.alert("Fejl - Du SKAL skrive et navn");
+				Window.alert("Error - You need to write a name");
 			}
 			else{
 				opr.setName(txt_edited.getText());
 				txt_name.setText(opr.getName());
+			}
+			break;
+		case "ID":
+			if (!FieldVerifier.numberValid(Integer.parseInt(txt_edited.getText()))){
+				Window.alert("Error - ID not valid");
+			}
+			else{
+				opr.setOprID(Integer.parseInt(txt_edited.getText()));
+				txt_oprID.setText(String.valueOf(opr.getOprID()));
 			}
 			break;
 		case "CPR":
@@ -96,12 +110,12 @@ public class OprDetail extends AbstractView{
 				txt_CPRnr.setText(opr.getCpr());
 			}
 			else{
-				Window.alert("FEJL - Forkert input");
+				Window.alert("Error - Wrong input");
 			}
 			break;
 		case "Rolle":
 			if(!FieldVerifier.rolleValid(Integer.parseInt(txt_edited.getText()))){
-				Window.alert("Fejl - Forkert input");
+				Window.alert("Error - Wtong input");
 			}
 			else{
 				opr.setRole(Integer.parseInt(txt_edited.getText()));
@@ -112,16 +126,16 @@ public class OprDetail extends AbstractView{
 			if(FieldVerifier.passwordValid(txt_edited.getText())){
 				break;
 			}
-			Window.alert("FEJL - Password følger ikke reglerne");
+			Window.alert("Error - Password does  not follow the rules");
 
 		}
-		serviceImpl.updateOperator(opr, opr.getOprID(), new MyCallback());
+		serviceImpl.updateOperator(opr, oldID, new MyCallback());
 	}
 	private class MyCallback implements AsyncCallback<Boolean>{
 
 		@Override
 		public void onFailure(Throwable caught) {
-			popup.setTitle("Fejl");
+			popup.setTitle("Error");
 			
 		}
 		@Override
@@ -130,7 +144,7 @@ public class OprDetail extends AbstractView{
 			popup.toggle();
 			}
 			else{
-				popup.setTitle("Fejl");
+				popup.setTitle("Error");
 						
 			}
 		}		
@@ -149,9 +163,18 @@ public class OprDetail extends AbstractView{
 	private class EditNameClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
-			popup.setTitle("Ændre navn");
+			popup.setTitle("Change name");
 			popup.setId("Name");
 			txt_edited.setText(opr.getName());
+			popup.toggle();		
+		}	
+	}
+	private class EditIDClickHandler implements ClickHandler{
+		@Override
+		public void onClick(ClickEvent event) {
+			popup.setTitle("Change ID");
+			popup.setId("ID");
+			txt_edited.setText(String.valueOf(opr.getOprID()));
 			popup.toggle();		
 		}	
 	}

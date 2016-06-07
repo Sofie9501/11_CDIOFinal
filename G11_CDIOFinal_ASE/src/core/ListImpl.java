@@ -17,10 +17,13 @@ public class ListImpl implements DatabaseCom{
 	public String getProductRecipeName(int pb_id) throws DALException {
 		
 		String query = "select * from productbatch where " + pb_id + " = pb_id;";
+		
 		try {
-			ResultSet responseSet = c.doQuery(query); 
-			if(responseSet.next()){
-				return responseSet.getString(2);
+			ResultSet responseSet1 = c.doQuery(query);
+			if(responseSet1.next()){
+				if(responseSet1.getInt(8) != 2){
+					return responseSet1.getString(2);
+				}
 			} else {
 				throw new DALException("No result was found");
 			}
@@ -32,6 +35,12 @@ public class ListImpl implements DatabaseCom{
 		throw e;
 		}
 		return "Der er sket en slem slem fejl i systemet";
+	}
+
+	@Override
+	public boolean checkRbId(int rb_id) throws DALException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

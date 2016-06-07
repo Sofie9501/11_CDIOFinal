@@ -20,6 +20,10 @@ public class TerminalController extends Thread{
 	DatabaseCom db = new ListImpl();
 	DataOutputStream outToServer;
 	BufferedReader inFromServer;
+	int oprID;
+	int pbID;
+	float tara;
+	int rbID;
 	
 	
 	State state = State.OPERATOR_LOGIN;
@@ -145,8 +149,12 @@ public class TerminalController extends Thread{
 				
 				String dbReplay = "Recipe: " + db.getProductRecipeName(Integer.parseInt(reply)) + ",Press Enter";
 				
-				sendData(dbReplay);
-				break;
+				if(!dbReplay.equals('x')){
+					sendData(dbReplay);
+					break;
+				}else {
+					break;
+				}
 			}  catch (DALException e){
 				waitForReply(e.getMessage() + ", Press Enter");
 			}
@@ -188,15 +196,13 @@ public class TerminalController extends Thread{
 	private void weighing(){
 		try {
 			// The operator is asked to enter an ID for the ingredientbatch (raavarebatch)
-			int rbID = Integer.parseInt(waitForReply("Enter rb ID"));
+			rbID = Integer.parseInt(waitForReply("Enter rb ID"));
 			
-			// The ID is checked. 
+			// The ID is checked that it exsists
+			if(db.checkRbId(rbID)){
+				
+			}
 			
-			// It is checked, 
-			
-			// Current date is added
-			
-			// 
 			
 		}catch(Exception e){
 			waitForReply("WRONG INPUT, PRESS ENTER");

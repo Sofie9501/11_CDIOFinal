@@ -89,7 +89,7 @@ public class IngredientDetail extends AbstractView {
 	private class EditNameClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
-			popup.setTitle("Ã†ndre navn");
+			popup.setTitle("Change Name");
 			popup.setId("Name");
 			txt_edited.setText(ingredient.getName());
 			popup.toggle();		
@@ -98,7 +98,7 @@ public class IngredientDetail extends AbstractView {
 	private class EditIDClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
-			popup.setTitle("Ã†ndre ID nummer");
+			popup.setTitle("Change ID");
 			popup.setId("ID");
 			txt_edited.setText(String.valueOf(ingredient.getID()));
 			popup.toggle();		
@@ -107,7 +107,7 @@ public class IngredientDetail extends AbstractView {
 	private class EditSupplierClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
-			popup.setTitle("Ã†ndre leverandør");
+			popup.setTitle("Change Supplier");
 			popup.setId("supplier");
 			txt_edited.setText(ingredient.getSupplier());
 			popup.toggle();		
@@ -116,8 +116,9 @@ public class IngredientDetail extends AbstractView {
 	private class EditActiveClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
-			popup.setTitle("Den er ny aktiv");
+			popup.setTitle("Change active status");
 			popup.setId("Active");
+			txt_edited.setText(String.valueOf(ingredient.isActive()));
 			popup.toggle();		
 		}	
 	}
@@ -137,7 +138,7 @@ public class IngredientDetail extends AbstractView {
 		switch(popup.getId()){
 		case "Name":
 			if (!FieldVerifier.nameValid(txt_edited.getText())){
-				Window.alert("Fejl - Du SKAL skrive et navn");
+				Window.alert("Error - You need to write a name");
 			}
 			else{
 				ingredient.setName(txt_edited.getText());
@@ -145,17 +146,17 @@ public class IngredientDetail extends AbstractView {
 			}
 			break;
 		case "ID":
-			if(FieldVerifier.cprValid(txt_edited.getText())){
+			if(FieldVerifier.numberValid(Integer.parseInt(txt_edited.getText()))){
 				ingredient.setID(Integer.parseInt((txt_edited.getText())));
 				txt_id.setText(String.valueOf(ingredient.getID()));
 			}
 			else{
-				Window.alert("FEJL - Forkert input");
+				Window.alert("Error - Wrong input");
 			}
 			break;
 		case "supplier":
 			if (!FieldVerifier.nameValid(txt_edited.getText())){
-				Window.alert("Fejl - Du SKAL skrive et navn");
+				Window.alert("Error - You have to write a name");
 			}
 			else{
 				ingredient.setSupplier((txt_edited.getText()));
@@ -163,7 +164,14 @@ public class IngredientDetail extends AbstractView {
 			}
 			break;
 		case "active":
-			ingredient.setActive(true);
+			if(txt_edited.getText().equals(true)||txt_edited.getText().equals(false)){
+				ingredient.setActive(Boolean.parseBoolean(txt_edited.getText()));
+				txt_active.setText(String.valueOf(ingredient.isActive()));	
+			}
+			else{
+				Window.alert("Error - Active input not valid");
+			}
+			break;
 		}
 		
 		serviceImpl.updateIngredient(ingredient, new MyCallback());
@@ -173,7 +181,7 @@ public class IngredientDetail extends AbstractView {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			popup.setTitle("Fejl");
+			popup.setTitle("Error");
 			
 		}
 		@Override
@@ -182,7 +190,7 @@ public class IngredientDetail extends AbstractView {
 			popup.toggle();
 			}
 			else{
-				popup.setTitle("Fejl");
+				popup.setTitle("Error");
 						
 			}
 		}		

@@ -21,6 +21,11 @@ public class RecipeDAOMySQL implements RecipeDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public List<RecipeComponentDTO> getRecipeComponentList() throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public void createRecipe(RecipeDTO recipe, ArrayList<RecipeComponentDTO> komp) throws DALException {
@@ -39,5 +44,7 @@ public class RecipeDAOMySQL implements RecipeDAO{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	
 
 }

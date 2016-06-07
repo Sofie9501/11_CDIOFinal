@@ -2,25 +2,34 @@ package dk.dtu.cdiofinal.shared;
 
 public class RecipeComponentDTO {
 	
-	private int recipeComp_ID;
+	private int recipe_ID;
 	private int ingredient_ID;
 	private double nom_netto;
 	private double tolerance;
+	private String ingredientName;
 	
-	public RecipeComponentDTO(int recipeComp_ID, int ingredient_ID, double nom_netto, double tolerance) {
-		super();
-		this.recipeComp_ID = recipeComp_ID;
+	public RecipeComponentDTO(int recipe_ID, int ingredient_ID, String ingredientName , double tolerance, double nom_netto) {
+		this.recipe_ID = recipe_ID;
 		this.ingredient_ID = ingredient_ID;
+		this.ingredientName = ingredientName;
 		this.nom_netto = nom_netto;
 		this.tolerance = tolerance;
 	}
 
-	public int getRecipeComp_ID() {
-		return recipeComp_ID;
+	public String getIngredientName() {
+		return ingredientName;
 	}
 
-	public void setRecipeComp_ID(int recipeComp_ID) {
-		this.recipeComp_ID = recipeComp_ID;
+	public void setIngredientName(String ingredientName) {
+		this.ingredientName = ingredientName;
+	}
+
+	public int getRecipe_ID() {
+		return recipe_ID;
+	}
+
+	public void setRecipe_ID(int recipe_ID) {
+		this.recipe_ID = recipe_ID;
 	}
 
 	public int getIngredient_ID() {
@@ -49,7 +58,7 @@ public class RecipeComponentDTO {
 
 	@Override
 	public String toString() {
-		return "recipeComp ID = " + recipeComp_ID + "\tIngredient ID = " + ingredient_ID
+		return "recipeComp ID = " + recipe_ID + "\tIngredient ID = " + ingredient_ID
 				+ "\tnom_netto = " + nom_netto + "\tTolerance = " + tolerance;
 	}
 	

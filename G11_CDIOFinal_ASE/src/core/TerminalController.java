@@ -181,7 +181,7 @@ public class TerminalController extends Thread{
 	private void weighing(){
 		try {
 			// The operator is asked to enter an ID for the ingredientbatch (raavarebatch)
-			int rbID = Integer.parseInt(waitForReply("Enter rb ID"));
+			rbID = Integer.parseInt(waitForReply("Enter rb ID"));
 			
 			// The ID is checked that it exsists
 			if(db.checkRbId(rbID)){

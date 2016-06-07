@@ -44,48 +44,6 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 
 	@Override
 	public boolean createOperator(OperatorDTO opr) {
-		int passLength = 7;
-		String password = ""; // hold the password to be generated
-		String chars = ".-_+!?="; // String of allowed chars.
-		password += (char)randInt(48, 57); //chooses a random number between 0 and 9
-		password += (char)randInt(65, 90); //chooses a random capital letter between A and Z
-		password += (char)randInt(97,122); //chooses a random letter between A and Z
-		password += chars.charAt(randInt(0,6)); ////chooses a random char in the string "chars" 
-		//Generates random chars after the 4. char. Between numbers, capital letters, letter, and symbols has in shown "chars"
-		//It runs ,4 - password length, times.
-		for(int i =4; i<passLength; i++){
-			switch((int)(Math.random()*4)){
-			case 0:	password += (char)randInt(48, 58); break;
-			case 1:	password += (char)randInt(65, 91); break;
-			case 2:	password += (char)randInt(97,123); break;
-			case 3:	password += chars.charAt(randInt(0,7)); break;
-			}
-		}
-
-		List<OperatorDTO> oprs;
-		try {
-			oprs = dao.getOperatorList();
-			int oprId = oprs.size()+1;
-			while (true){
-				int same = 0;
-				for (int i = 0; i < oprs.size(); i++) {
-					if(oprId==oprs.get(i).getOprID()){
-						same++;
-					}
-				}
-				if (same==0){
-					break;
-				}
-				else{
-					oprId++;
-				}
-			}
-			opr.setOprID(oprId);
-			opr.setPassword(password);
-		} catch (DALException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		try {
 			dao.createOperator(opr);
 			return true;

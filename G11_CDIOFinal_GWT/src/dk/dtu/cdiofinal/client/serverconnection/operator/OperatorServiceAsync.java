@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import dk.dtu.cdiofinal.shared.OperatoerDTO;
+import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 public interface OperatorServiceAsync {
 	
-	void getOperators(AsyncCallback<List<OperatoerDTO>> callback);
-	void getOperator(AsyncCallback<OperatoerDTO> callback);
-	void updateOperator(OperatoerDTO opr, AsyncCallback<Boolean> callback);
-	void createOperator(OperatoerDTO opr, AsyncCallback<Boolean> callback);
+	void getOperators(AsyncCallback<List<OperatorDTO>> callback);
+	void getOperator(AsyncCallback<OperatorDTO> callback);
+	void updateOperator(OperatorDTO opr, AsyncCallback<Boolean> callback);
+	void createOperator(OperatorDTO opr, AsyncCallback<Boolean> callback);
 
 }

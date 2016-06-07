@@ -28,6 +28,9 @@ import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
 
+import dk.dtu.cdiofinal.shared.OperatorDTO;
+
+
 
 public class IngredientListView extends AbstractView {
 	

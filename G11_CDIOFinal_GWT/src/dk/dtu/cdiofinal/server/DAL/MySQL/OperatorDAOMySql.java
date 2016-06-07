@@ -5,25 +5,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dk.dtu.cdiofinal.DAO.OperatoerDAO;
+import dk.dtu.cdiofinal.DAO.OperatorDAO;
 import dk.dtu.cdiofinal.server.DAL.Connector;
 import dk.dtu.cdiofinal.server.DAL.DALException;
-import dk.dtu.cdiofinal.shared.OperatoerDTO;
+import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 
-public class OperatorDAOMySql implements OperatoerDAO {
+public class OperatorDAOMySql implements OperatorDAO {
 
 	Connector c = new Connector();
 	String query;
 
-	public OperatoerDTO getOperatoer(int oprId) throws DALException {
+	public OperatorDTO getOperator(int oprId) throws DALException {
 		// Query for Object
-		OperatoerDTO opr = null;
-		query = "Select * From operators where opr_id = " + oprId;
+		OperatorDTO opr = null;
+		query = "Select * From operator where opr_id = " + oprId;
   		ResultSet result = c.doQuery(query);		  		
 		try {
 			if(result.next()){
-				opr = new OperatoerDTO(result.getInt(1), result.getString(2),result.getInt(3), result.getString(4),result.getString(5));
+				opr = new OperatorDTO(result.getInt(1), result.getString(2),result.getString(3),
+						result.getString(4), result.getInt(5), result.getBoolean(6));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -33,8 +34,8 @@ public class OperatorDAOMySql implements OperatoerDAO {
 	}
 
 	@Override
-	public List<OperatoerDTO> getOperatoerList() throws DALException {
-		query = "Select * From operators";
+	public List<OperatorDTO> getOperatorList() throws DALException {
+		query = "Select * From operator";
 		ResultSet result = c.doQuery(query);
 		
 		// Throw exception if no results found
@@ -42,11 +43,12 @@ public class OperatorDAOMySql implements OperatoerDAO {
 			throw new DALException("No operators found");
 		}
 		
-		List<OperatoerDTO> operatoers = new ArrayList<OperatoerDTO>();
+		List<OperatorDTO> operatoers = new ArrayList<OperatorDTO>();
 		try {
 			// is there a next row
 			while(result.next()){
-				operatoers.add(new OperatoerDTO(result.getInt(1), result.getString(2),result.getInt(3), result.getString(4),result.getString(5)));
+				operatoers.add(new OperatorDTO(result.getInt(1), result.getString(2),result.getString(3),
+						result.getString(4), result.getInt(5), result.getBoolean(6)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -55,15 +57,15 @@ public class OperatorDAOMySql implements OperatoerDAO {
 	}
 	
 	@Override
-	public void createOperatoer(OperatoerDTO opr) throws DALException {
-		String query = "call opret_opr(" + opr.getOprID()+ ", " + opr.getRolle() + ", '"+ opr.getOprNavn()+ "', '"+
+	public void createOperator(OperatorDTO opr) throws DALException {
+		String query = "call create_opr(" + opr.getOprID()+ ", " +opr.getRole() + ", '"+ opr.getName()+ "', '"+
 						opr.getCpr() + "', '" + opr.getPassword() +"' );";
 		c.doQuery(query);
 	}
 
 	@Override
-	public void updateOperatoer(OperatoerDTO opr) throws DALException {
-		String query = "call aendre_opr(" + opr.getOprID() + ", " + opr.getRolle() + ", '" + opr.getOprNavn() + "', '" +
+	public void updateOperator(OperatorDTO opr, int oldID) throws DALException {
+		String query = "call update_opr(" + oldID + ", " + opr.getOprID() + ", " + opr.getRole() + ", '" + opr.getName() + "', '" +
 						opr.getCpr() + "', '" + opr.getPassword() + "' );";
 		c.doQuery(query);
 	}

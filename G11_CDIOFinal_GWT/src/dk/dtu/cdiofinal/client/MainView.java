@@ -5,11 +5,11 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import dk.dtu.cdiofinal.client.layout.Login;
 import dk.dtu.cdiofinal.client.layout.ProdView;
-import dk.dtu.cdiofinal.shared.OperatoerDTO;
+import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 public class MainView extends Composite {
 
-	OperatoerDTO opr = new OperatoerDTO(12, "Cille123", 3, "0102003-2233", "loldppspa");
+	OperatorDTO opr = new OperatorDTO(12, "Cille123", 3, "0102003-2233", "loldppspa");
 
 	private VerticalPanel vPanel =  new VerticalPanel();
 	

@@ -11,15 +11,15 @@ import dk.dtu.cdiofinal.DAO.OperatoerDAO;
 import dk.dtu.cdiofinal.client.serverconnection.operator.OperatorService;
 import dk.dtu.cdiofinal.server.DAL.DALException;
 import dk.dtu.cdiofinal.server.DAL.OperatorDAOList;
-import dk.dtu.cdiofinal.shared.OperatoerDTO;
+import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 @SuppressWarnings("serial")
 public class ServerOperatorImpl extends RemoteServiceServlet implements OperatorService {
 	OperatoerDAO dao = new OperatorDAOList();
 
 	@Override
-	public List<OperatoerDTO> getOperators() {
-		List<OperatoerDTO> list = new ArrayList<OperatoerDTO>();
+	public List<OperatorDTO> getOperators() {
+		List<OperatorDTO> list = new ArrayList<OperatorDTO>();
 
 		try {
 			list = dao.getOperatoerList();
@@ -31,7 +31,7 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 	}
 
 	@Override
-	public boolean updateOperator(OperatoerDTO opr) {
+	public boolean updateOperator(OperatorDTO opr) {
 		try {
 			dao.updateOperatoer(opr);
 			return true;
@@ -42,7 +42,7 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 	}
 
 	@Override
-	public boolean createOperator(OperatoerDTO opr) {
+	public boolean createOperator(OperatorDTO opr) {
 		int passLength = 7;
 		String password = ""; // hold the password to be generated
 		String chars = ".-_+!?="; // String of allowed chars.
@@ -61,7 +61,7 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 			}
 		}
 
-		List<OperatoerDTO> oprs;
+		List<OperatorDTO> oprs;
 		try {
 			oprs = dao.getOperatoerList();
 			int oprId = oprs.size()+1;
@@ -95,13 +95,13 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 	}
 
 	@Override
-	public OperatoerDTO getOperator() {
-		OperatoerDTO opr = null;
+	public OperatorDTO getOperator() {
+		OperatorDTO opr = null;
 		HttpSession session = this.getThreadLocalRequest().getSession();
 		Integer oprId = (Integer)session.getAttribute("loggedIn");
 		if(oprId != null){
 			try {
-				opr = new OperatoerDTO(dao.getOperatoer(oprId));
+				opr = new OperatorDTO(dao.getOperatoer(oprId));
 			} catch (DALException e) {
 				e.printStackTrace();
 			}

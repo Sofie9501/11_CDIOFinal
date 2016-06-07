@@ -8,7 +8,7 @@ import dk.dtu.cdiofinal.DAO.OperatoerDAO;
 import dk.dtu.cdiofinal.client.serverconnection.MenuService;
 import dk.dtu.cdiofinal.server.DAL.DALException;
 import dk.dtu.cdiofinal.server.DAL.OperatorDAOList;
-import dk.dtu.cdiofinal.shared.OperatoerDTO;
+import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 @SuppressWarnings("serial")
 public class ServerMenuImpl extends RemoteServiceServlet implements MenuService{
@@ -30,7 +30,7 @@ public class ServerMenuImpl extends RemoteServiceServlet implements MenuService{
 
 	@Override
 	public boolean login(int oprId, String password) {
-		OperatoerDTO opr;
+		OperatorDTO opr;
 		try {
 			opr = dao.getOperatoer(oprId);
 		} catch (DALException e) {

@@ -29,7 +29,7 @@ import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
 import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
-import dk.dtu.cdiofinal.shared.OperatoerDTO;
+import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 
 public class IngredientListView extends AbstractView {

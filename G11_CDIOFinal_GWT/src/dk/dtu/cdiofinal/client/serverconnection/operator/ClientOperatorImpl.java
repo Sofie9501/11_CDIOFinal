@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import dk.dtu.cdiofinal.shared.OperatoerDTO;
+import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 public class ClientOperatorImpl implements OperatorServiceAsync{
 	
@@ -17,23 +17,23 @@ public class ClientOperatorImpl implements OperatorServiceAsync{
 	}
 
 	@Override
-	public void getOperators(AsyncCallback<List<OperatoerDTO>> callback) {
+	public void getOperators(AsyncCallback<List<OperatorDTO>> callback) {
 		this.service.getOperators(callback);
 	}
 
 	@Override
-	public void updateOperator(OperatoerDTO opr, AsyncCallback<Boolean> callback) {
+	public void updateOperator(OperatorDTO opr, AsyncCallback<Boolean> callback) {
 		this.service.updateOperator(opr, callback);
 	}
 
 	@Override
-	public void createOperator(OperatoerDTO opr, AsyncCallback<Boolean> callback) {
+	public void createOperator(OperatorDTO opr, AsyncCallback<Boolean> callback) {
 		this.service.createOperator(opr, callback);
 	}
 
 	// returns operatordto of loggedin operator
 	@Override
-	public void getOperator(AsyncCallback<OperatoerDTO> callback) {
+	public void getOperator(AsyncCallback<OperatorDTO> callback) {
 		this.service.getOperator(callback);		
 	}
 

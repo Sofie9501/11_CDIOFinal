@@ -22,7 +22,8 @@ public class TerminalController extends Thread{
 	BufferedReader inFromServer;
 	int oprID;
 	int pbID;
-	float tara;
+	float tare;
+	float netto;
 	int rbID;
 	
 	
@@ -145,16 +146,18 @@ public class TerminalController extends Thread{
 		while(true){
 			try {
 				String msgToDisplay = "Enter ProductBatch ID";
-				 String reply = waitForReply(msgToDisplay);
-				
-				String dbReplay = "Recipe: " + db.getProductRecipeName(Integer.parseInt(reply)) + ",Press Enter";
-				
-				if(!dbReplay.equals('x')){
-					sendData(dbReplay);
-					break;
-				}else {
+				String recieve = waitForReply(msgToDisplay);
+				if(recieve.equalsIgnoreCase(EXIT_CHAR)){
+					state = State.OPERATOR_LOGIN;
 					break;
 				}
+				pbID = Integer.parseInt(recieve);
+				
+				String dbReplay = "Recipe: " + db.getProductRecipeName(pbID) + ",Press Enter";
+				
+				sendData(dbReplay);
+				state = State.ADD_CONTAINER;
+				break;
 			}  catch (DALException e){
 				waitForReply(e.getMessage() + ", Press Enter");
 			}
@@ -184,7 +187,7 @@ public class TerminalController extends Thread{
 			String reply = waitForReply("Place first container");
 			
 			// The tare is saved
-			float tare = Float.parseFloat(waitForReply("T"));
+			tare = Float.parseFloat(waitForReply("T"));
 			
 			state = State.WEIGHING;			
 		}catch(Exception e){
@@ -202,6 +205,8 @@ public class TerminalController extends Thread{
 			if(db.checkRbId(rbID)){
 				
 			}
+			else
+				throw new DALException("ID does not exist.");
 			
 			
 		}catch(Exception e){

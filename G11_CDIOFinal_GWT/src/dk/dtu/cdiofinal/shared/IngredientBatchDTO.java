@@ -1,13 +1,23 @@
 package dk.dtu.cdiofinal.shared;
 
-public class IngredientBatchDTO {
+import java.io.Serializable;
+
+public class IngredientBatchDTO implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int ingredientBatchID;
 	private String name;
 	private int ingredientID;
 	private double amount;
 	private boolean isActive;
 	private String date;
+	
+	public IngredientBatchDTO(){
+		
+	}
 	
 	public IngredientBatchDTO(int ingredientBatch_ID, String name, int ingredient_ID, double amount, boolean isActive
 			, String date){

@@ -29,8 +29,8 @@ public class CreateIngredientView extends AbstractView{
 	interface CreateIngriViewUiBinder extends UiBinder<Widget, CreateIngredientView>{
 
 	}
-	IngredientDTO ingre;
-	ClientIngredientImpl serviceImpl;
+	private IngredientDTO ingre;
+	private ClientIngredientImpl serviceImpl;
 
 	@UiField
 	TextBox txt_name;

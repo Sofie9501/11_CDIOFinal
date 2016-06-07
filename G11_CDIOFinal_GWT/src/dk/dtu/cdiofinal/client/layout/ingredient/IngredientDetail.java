@@ -29,8 +29,8 @@ public class IngredientDetail extends AbstractView {
 	interface IngredientDetailUiBinder extends UiBinder<Widget, IngredientDetail>{
 	}
 
-	IngredientDTO ingredient;
-	ClientIngredientImpl serviceImpl;
+	private IngredientDTO ingredient;
+	private ClientIngredientImpl serviceImpl;
 
 	@UiField
 	Heading txt_id; 

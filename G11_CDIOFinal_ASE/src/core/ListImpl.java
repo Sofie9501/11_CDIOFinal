@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class ListImpl implements DatabaseCom{
 
-	Connector c = new Connector();
+	//Connector c = new Connector();
 	
 	@Override
 	public String getOperator(int operatorId) {
@@ -16,25 +16,26 @@ public class ListImpl implements DatabaseCom{
 	@Override
 	public String getProductRecipeName(int pb_id) throws DALException {
 		
-		String query = "select * from productbatch where " + pb_id + " = pb_id;";
-		
-		try {
-			ResultSet responseSet1 = c.doQuery(query);
-			if(responseSet1.next()){
-				if(responseSet1.getInt(8) != 2){
-					return responseSet1.getString(2);
-				}
-			} else {
-				throw new DALException("No result was found");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch (DALException e) {
-		// TODO Auto-generated catch block
-		throw e;
-		}
-		return "Der er sket en slem slem fejl i systemet";
+//		String query = "select * from productbatch where " + pb_id + " = pb_id;";
+//		
+//		try {
+			//ResultSet responseSet1 = c.doQuery(query);
+//			if(responseSet1.next()){
+//				if(responseSet1.getInt(8) != 2){
+//					return responseSet1.getString(2);
+//				}
+//			} else {
+//				throw new DALException("No result was found");
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}catch (DALException e) {
+//		// TODO Auto-generated catch block
+//		throw e;
+//		}
+//		return "Der er sket en slem slem fejl i systemet";
+		return null;
 	}
 
 	@Override

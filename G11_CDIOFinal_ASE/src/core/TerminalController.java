@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -30,6 +31,7 @@ public class TerminalController extends Thread{
 	State state = State.OPERATOR_LOGIN;
 
 	public TerminalController(String hostAddress, int port) throws UnknownHostException, IOException{
+		
 		this.hostAddress = hostAddress;
 		this.port = port;
 		sock = new Socket(hostAddress, port);
@@ -91,7 +93,7 @@ public class TerminalController extends Thread{
 			long time = System.currentTimeMillis();
 
 			// Waits 5 seconds to receive "RM20 B"
-			while(System.currentTimeMillis() - time < 5000){
+			while(System.currentTimeMillis() - time < 5000000){
 				reply = recieveData();
 
 				// If the message has been received, it breaks out of the loop

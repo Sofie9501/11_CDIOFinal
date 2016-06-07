@@ -59,7 +59,7 @@ public class TerminalController extends Thread{
 				break;
 			}	
 		}
-		
+
 	}
 
 	private void sendData(String data){
@@ -84,66 +84,63 @@ public class TerminalController extends Thread{
 	@SuppressWarnings("deprecation")
 	private String waitForReply(String message){
 		String reply = null;
+		sendData("RM20 8 \"" + message + "\"");
+		long time = System.currentTimeMillis();
 
-		// If the message is of type RM20 8
-		if(message.toUpperCase().startsWith("RM20 8")){
-			sendData("RM20 8 \"" + message + "\"");
-			long time = System.currentTimeMillis();
+		// Waits 5 seconds to receive "RM20 B"
+		while(System.currentTimeMillis() - time < 5000){
+			reply = recieveData();
 
-			// Waits 5 seconds to receive "RM20 B"
-			while(System.currentTimeMillis() - time < 5000){
-				reply = recieveData();
+			// If the message has been received, it breaks out of the loop
+			if(reply.toUpperCase().startsWith("RM20 B")){
+				// Waits eternally for the second response "RM20 A"
+				while(true){
+					reply = recieveData();
 
-				// If the message has been received, it breaks out of the loop
-				if(reply.toUpperCase().startsWith("RM20 B")){
-					// Waits eternally for the second response "RM20 A"
-					while(true){
-						reply = recieveData();
+					// If the message has been received, it returns it
+					if(reply.toUpperCase().startsWith("RM20 A")){
 
-						// If the message has been received, it returns it
-						if(reply.toUpperCase().startsWith("RM20 A")){
-
-							//Sorts "RM20 A" and the quotation marks away from the String
-							return reply.substring(8, (reply.length()-1));
-						}
-						try {
-							sleep(1000);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
+						//Sorts "RM20 A" and the quotation marks away from the String
+						return reply.substring(8, (reply.length()-1));
+					}
+					try {
+						sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
 					}
 				}
 			}
-			// If the message isn't received, the thread is killed.
-			this.stop();
 		}
+		// If the message isn't received, the thread is killed.
+		this.stop();
 		
-		// The message is a "T"
-		else if(message.toUpperCase().startsWith("T")){
-			sendData(message);
-			
-			while(true){
-				reply = recieveData();
-				
-				if(reply.toUpperCase().startsWith("T")){
-					return reply.substring(9);
-				}
+		return null;
+	}
+	
+	private String sendTare(String message){
+		String reply = null;
+		sendData(message);
+
+		while(true){
+			reply = recieveData();
+
+			if(reply.toUpperCase().startsWith("T")){
+				return reply.substring(9);
 			}
 		}
-		
-		// The message is a "D"
-		else if(message.toUpperCase().startsWith("D")){
-			sendData(message);
-			
-			while(true){
-				reply = recieveData();
-				
-				if(reply.toUpperCase().startsWith("D")){
-					return reply;
-				}
-			}		
+	}
+	
+	private String sendS(String message){
+		String reply = null;
+		sendData(message);
+
+		while(true){
+			reply = recieveData();
+
+			if(reply.toUpperCase().startsWith("S")){
+				return reply.substring(9);
+			}
 		}
-		return null;
 	}
 
 
@@ -196,7 +193,7 @@ public class TerminalController extends Thread{
 	private void prepareWeight(){
 
 
-		if((waitForReply("Tjek vægten er ubelastet, press enter")).equalsIgnoreCase(EXIT_CHAR)){
+		if((sendTare("Make sure the weight is empty")).equalsIgnoreCase(EXIT_CHAR)){
 			state = State.OPERATOR_LOGIN;
 			return;
 		}
@@ -218,7 +215,7 @@ public class TerminalController extends Thread{
 			String reply = waitForReply("Place first container");
 
 			// The tare is saved
-			tare = Float.parseFloat(waitForReply("T"));
+			tare = Float.parseFloat(sendTare("T"));
 
 			state = State.WEIGHING;			
 		}catch(Exception e){
@@ -236,11 +233,11 @@ public class TerminalController extends Thread{
 			if(db.checkRbId(rbID)){
 
 				// Gets the net weight
-				net = Float.parseFloat(waitForReply("S"));
+				net = Float.parseFloat(sendS("S"));
 
 				// Create new productbatch component
 				db.createProductBatchComp(pbID, rbID, tare, net, oprID);
-				
+
 				sendData("Productbatch component was successfully made");
 				state = State.PREPARE_WEIGHT;
 			}

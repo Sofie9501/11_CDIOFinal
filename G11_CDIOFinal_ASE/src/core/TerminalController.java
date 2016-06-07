@@ -77,17 +77,28 @@ public class TerminalController extends Thread{
 		return data;
 	}
 	
-	// checker for svar i tidsrummet second, returnere null hvis der ikke er noget svar inden for tiden.
-	private String waitForReply(long seconds){
-		long startTime = System.currentTimeMillis();
-		while(System.currentTimeMillis() - startTime < seconds*1000){
-			String data = recieveData();
-			if(data != null){
-				return data;
-			}
+	// This method sends the message it has been called with and awaits for the second reply (RM20 A)
+	private String waitForReply(String message){
+		sendData(message);
+		long time = System.currentTimeMillis();
+		String replyB = null;	
+		String replyA = null;
+		
+		while(System.currentTimeMillis() - time < 5000){
+			replyB = recieveData();
 			
+			if(replyB.toUpperCase().startsWith("RM20 B")){
+				break;
+			}
 		}
-		return null;
+		
+//		while(true){
+//			replyA = recieveData();
+//			
+//			if(replyA.toUpperCase().startsWith("RM20 A")){
+//				return replyA;
+//			}
+//		}
 	}
 	
 	

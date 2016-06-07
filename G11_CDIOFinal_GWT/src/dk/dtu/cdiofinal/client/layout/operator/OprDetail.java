@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.Widget;
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
-import dk.dtu.cdiofinal.shared.OperatoerDTO;
+import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 public class OprDetail extends AbstractView{
 	
@@ -22,7 +22,7 @@ public class OprDetail extends AbstractView{
 	interface OprDetailUiBinder extends UiBinder<Widget, OprDetail>{
 
 	}
-	OperatoerDTO opr;
+	OperatorDTO opr;
 	ClientOperatorImpl serviceImpl;
 
 	//Adds the main page texts
@@ -56,7 +56,7 @@ public class OprDetail extends AbstractView{
 	Button btn_save;
 
 	//Constuctor
-	public OprDetail(OperatoerDTO opr) {
+	public OprDetail(OperatorDTO opr) {
 		this.opr=opr;
 		initWidget(uiBinder.createAndBindUi(this));
 		this.serviceImpl = new ClientOperatorImpl();

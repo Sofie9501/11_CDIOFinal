@@ -21,7 +21,6 @@
         </td>
       </tr>
     </table>
-    <b:Button type="LINK" ui:field="btn_create">Create ingredientbatch
-     </b:Button>
+    <b:Button type="LINK" ui:field="btn_create">Create recipe </b:Button>
 	</g:HTMLPanel>
 </ui:UiBinder> 

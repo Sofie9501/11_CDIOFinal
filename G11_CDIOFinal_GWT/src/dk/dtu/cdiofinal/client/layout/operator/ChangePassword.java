@@ -11,14 +11,14 @@ import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
-import dk.dtu.cdiofinal.shared.OperatoerDTO;
+import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 public class ChangePassword extends AbstractView{
 
 	private static ChangePasswordUiBinder uiBinder = GWT.create(ChangePasswordUiBinder.class);
 	private ClientOperatorImpl serviceImpl;
 	private ProdView prodView;
-	private OperatoerDTO opr;
+	private OperatorDTO opr;
 	private final int MIN_LENGTH = 7;
 	private final int MAX_LENGTH = 8;
 
@@ -57,7 +57,7 @@ public class ChangePassword extends AbstractView{
 		txt_password_again.addKeyDownHandler((new EnterHandler()));
 	}
 
-	private class CallbackGet implements AsyncCallback<OperatoerDTO>{
+	private class CallbackGet implements AsyncCallback<OperatorDTO>{
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -65,7 +65,7 @@ public class ChangePassword extends AbstractView{
 		}
 
 		@Override
-		public void onSuccess(OperatoerDTO result) {
+		public void onSuccess(OperatorDTO result) {
 			if(result.equals(null)){
 				prodView.PreviousView();
 			}

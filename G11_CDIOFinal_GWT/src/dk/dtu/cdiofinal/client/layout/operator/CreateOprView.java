@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.Widget;
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
-import dk.dtu.cdiofinal.shared.OperatoerDTO;
+import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 public class CreateOprView extends AbstractView {
 
@@ -21,7 +21,7 @@ public class CreateOprView extends AbstractView {
 	interface CreateOprViewUiBinder extends UiBinder<Widget, CreateOprView>{
 
 	}
-	OperatoerDTO opr;
+	OperatorDTO opr;
 	ClientOperatorImpl serviceImpl;
 
 	@UiField
@@ -74,7 +74,7 @@ public class CreateOprView extends AbstractView {
 	private void saveChanges(){
 		// Checks to see if there is no errors
 		if(changeSucces()){
-			opr = new OperatoerDTO(0, txt_name.getText(), Integer.parseInt(txt_rolle.getText())
+			opr = new OperatorDTO(0, txt_name.getText(), Integer.parseInt(txt_rolle.getText())
 					, txt_cpr.getText(), null);
 			ok.setText("Dine oplysninger er blevet gemt");
 			//Updates the DB with the new operator

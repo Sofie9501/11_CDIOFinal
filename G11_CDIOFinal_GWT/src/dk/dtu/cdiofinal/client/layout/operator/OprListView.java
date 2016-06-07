@@ -27,7 +27,7 @@ import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
-import dk.dtu.cdiofinal.shared.OperatoerDTO;
+import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 
 
@@ -36,8 +36,8 @@ public class OprListView extends AbstractView {
 	final ProdView prod;
 
 	private ClientOperatorImpl serviceImpl;
-	private List<OperatoerDTO> opr = new ArrayList<>();
-	ListDataProvider<OperatoerDTO> dataProvider;
+	private List<OperatorDTO> opr = new ArrayList<>();
+	ListDataProvider<OperatorDTO> dataProvider;
 	private static OprListViewUiBinder uiBinder = GWT.create(OprListViewUiBinder.class);
 
 	@UiTemplate("oprListView.ui.xml")
@@ -45,54 +45,54 @@ public class OprListView extends AbstractView {
 	}
 
 	@UiField
-	CellTable<OperatoerDTO> cellTable;
+	CellTable<OperatorDTO> cellTable;
 
 	@UiField
 	Button btn_create;
 
 	public OprListView(ProdView prod){
 		initWidget(uiBinder.createAndBindUi(this));
-		this.dataProvider = new ListDataProvider<OperatoerDTO>();
+		this.dataProvider = new ListDataProvider<OperatorDTO>();
 		this.prod = prod;
 		this.serviceImpl = new ClientOperatorImpl();
 
 
-		TextColumn<OperatoerDTO> IDColumn = new TextColumn<OperatoerDTO>(){
+		TextColumn<OperatorDTO> IDColumn = new TextColumn<OperatorDTO>(){
 			@Override
-			public String getValue(OperatoerDTO object) {
+			public String getValue(OperatorDTO object) {
 				return String.valueOf(object.getOprID());
 			}
 		};
 		cellTable.addColumn(IDColumn);
 
-		TextColumn<OperatoerDTO> nameColumn = new TextColumn<OperatoerDTO>(){
+		TextColumn<OperatorDTO> nameColumn = new TextColumn<OperatorDTO>(){
 			@Override
-			public String getValue(OperatoerDTO object) {
+			public String getValue(OperatorDTO object) {
 				return object.getOprNavn();
 			}
 		};
 		cellTable.addColumn(nameColumn);
 
-		TextColumn<OperatoerDTO> CPRColumn = new TextColumn<OperatoerDTO>(){
+		TextColumn<OperatorDTO> CPRColumn = new TextColumn<OperatorDTO>(){
 			@Override
-			public String getValue(OperatoerDTO object) {
+			public String getValue(OperatorDTO object) {
 				return FieldVerifier.cprFormat(object.getCpr());
 			}
 		};
 		cellTable.addColumn(CPRColumn);		
 
-		Column<OperatoerDTO, String> editColumn = new Column<OperatoerDTO, String>(new ButtonCell(IconType.WRENCH,ButtonType.LINK, ButtonSize.SMALL)){
+		Column<OperatorDTO, String> editColumn = new Column<OperatorDTO, String>(new ButtonCell(IconType.WRENCH,ButtonType.LINK, ButtonSize.SMALL)){
 			@Override
-			public String getValue(OperatoerDTO object) {
+			public String getValue(OperatorDTO object) {
 				return "Mere...";
 			}
 		};
 		cellTable.addColumn(editColumn);
 
-		editColumn.setFieldUpdater(new FieldUpdater<OperatoerDTO, String>(){
+		editColumn.setFieldUpdater(new FieldUpdater<OperatorDTO, String>(){
 
 			@Override
-			public void update(int index, OperatoerDTO object, String value) {
+			public void update(int index, OperatorDTO object, String value) {
 				(OprListView.this).prod.setView(new OprDetail(object));
 			}
 
@@ -112,17 +112,17 @@ public class OprListView extends AbstractView {
 		}
 	}
 
-	private class ListCallback implements AsyncCallback<List <OperatoerDTO>>{
+	private class ListCallback implements AsyncCallback<List <OperatorDTO>>{
 
 		@Override
 		public void onFailure(Throwable caught) {
 		}
 		
 		@Override
-		public void onSuccess(List<OperatoerDTO> result) {
+		public void onSuccess(List<OperatorDTO> result) {
 			opr.clear();
 			if(!result.isEmpty()){
-				for(OperatoerDTO d: result){
+				for(OperatorDTO d: result){
 					opr.add(d);
 				}
 				dataProvider.refresh();

@@ -1,4 +1,4 @@
-package dk.dtu.cdiofinal.client.layout.ingredientbatch;
+package dk.dtu.cdiofinal.client.layout.recipe;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.Heading;
@@ -20,30 +20,28 @@ import com.google.gwt.user.client.ui.Widget;
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.ingredientbatch.ClientIngredientBatchImpl;
+import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
+import dk.dtu.cdiofinal.shared.RecipeDTO;
 
-public class CreateIngredientBatch extends AbstractView {
+public class CreateRecipe extends AbstractView {
 
 	final ProdView prod;
-	private ClientIngredientBatchImpl serviceImpl;
-	private static createIngredientbatchUiBinder uiBinder = GWT.create(createIngredientbatchUiBinder.class);
-	private IngredientBatchDTO batch;
+	private ClientRecipeImpl serviceImpl;
+	private static createRecipeUiBinder uiBinder = GWT.create(createRecipeUiBinder.class);
+	private RecipeDTO batch;
 
-	@UiTemplate("createIngredientBatch.ui.xml")
-	interface createIngredientbatchUiBinder extends UiBinder<Widget, CreateIngredientBatch>{
+	@UiTemplate("createRecipe.ui.xml")
+	interface createRecipeUiBinder extends UiBinder<Widget, CreateRecipe>{
 
 	}
 
 	//Textbox, buttons, heading and modal
 	@UiField
-	TextBox txt_B_ID;
+	TextBox txt_ID;
 	@UiField
-	TextBox txt_I_ID;
-	@UiField
-	TextBox txt_amount;
-	@UiField
-	TextBox txt_I_Name;
+	TextBox txt_name;
 	@UiField
 	Button btn_save;
 
@@ -56,29 +54,25 @@ public class CreateIngredientBatch extends AbstractView {
 
 
 
-	public CreateIngredientBatch(ProdView prod){
+	public CreateRecipe(ProdView prod){
 		initWidget(uiBinder.createAndBindUi(this));
 		this.prod=prod;
-		this.serviceImpl = new ClientIngredientBatchImpl();
+		this.serviceImpl = new ClientRecipeImpl();
 		//Add click and key handler to buttons and last textbox
 		btn_save.addClickHandler(new SaveClickHandler());
 		btn_ok.addClickHandler((ClickHandler)new OkClickHandler());
-		txt_amount.addKeyDownHandler((KeyDownHandler)new EnterHandler());
+		txt_name.addKeyDownHandler((KeyDownHandler)new EnterHandler());
 
 	}
 	private boolean changeSucces(){
 		String alert = "";
 		boolean succes = true;
-		if(!FieldVerifier.numberValid(Integer.parseInt(txt_B_ID.getText()))){
+		if(!FieldVerifier.numberValid(Integer.parseInt(txt_ID.getText()))){
 			alert+="Error - You need to write a valid batch ID \n";
 			succes = false;
 		}
-		if(!FieldVerifier.numberValid(Integer.parseInt(txt_I_ID.getText()))){
-			alert += "Fejl - ID for ingredient is not valid \n";
-			succes = false;
-		}
-		if(!FieldVerifier.isValidName(txt_I_Name.getText())){
-			alert += "Fejl - Name for ingredient is not valid \n";
+		if(!FieldVerifier.isValidName(txt_name.getText())){
+			alert += "Fejl - Name for Reipe is not valid \n";
 			succes = false;
 		}
 		if(!alert.equals(""))
@@ -88,11 +82,10 @@ public class CreateIngredientBatch extends AbstractView {
 	private void saveChanges(){
 		// Checks to see if there is no errors
 		if(changeSucces()){
-			batch = new IngredientBatchDTO(Integer.parseInt(txt_B_ID.getText()), txt_I_Name.getText(), Integer.parseInt(txt_I_ID.getText())
-					,Double.parseDouble(txt_amount.getText()), true, null);
+			batch = new RecipeDTO(Integer.parseInt(txt_ID.getText()), txt_name.getText(), true);
 			ok.setText("Your information has been saved");
 			//Updates the DB with the new operator
-			serviceImpl.createIngredientBatch(batch, new MyCallback());
+			serviceImpl.createRecipe(batch, new MyCallback());
 			
 		}	
 
@@ -133,10 +126,8 @@ public class CreateIngredientBatch extends AbstractView {
 		public void onSuccess(Boolean result) {
 			if(result){
 			popup.toggle();
-			txt_B_ID.setText("");
-			txt_I_ID.setText("");
-			txt_I_Name.setText("");
-			txt_amount.setText("");
+			txt_ID.setText("");
+			txt_name.setText("");
 			}
 			else{
 				popup.setTitle("Error");

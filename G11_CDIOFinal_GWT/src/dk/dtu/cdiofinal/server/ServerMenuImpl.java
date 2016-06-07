@@ -4,17 +4,17 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import dk.dtu.cdiofinal.DAO.OperatoerDAO;
+import dk.dtu.cdiofinal.DAO.OperatorDAO;
 import dk.dtu.cdiofinal.client.serverconnection.MenuService;
 import dk.dtu.cdiofinal.server.DAL.DALException;
 import dk.dtu.cdiofinal.server.DAL.OperatorDAOList;
-import dk.dtu.cdiofinal.shared.OperatoerDTO;
+import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 @SuppressWarnings("serial")
 public class ServerMenuImpl extends RemoteServiceServlet implements MenuService{
 	
 	// FOR TEST ONLY!!
-	OperatoerDAO dao = new OperatorDAOList();
+	OperatorDAO dao = new OperatorDAOList();
 	// END OF TEST
 	
 	@Override
@@ -30,16 +30,16 @@ public class ServerMenuImpl extends RemoteServiceServlet implements MenuService{
 
 	@Override
 	public boolean login(int oprId, String password) {
-		OperatoerDTO opr;
+		OperatorDTO opr;
 		try {
-			opr = dao.getOperatoer(oprId);
+			opr = dao.getOperator(oprId);
 		} catch (DALException e) {
 			return false; 
 		}
 		if(opr != null)
 			if(password.equals(opr.getPassword())){
 				HttpSession session = this.getThreadLocalRequest().getSession();
-				session.setAttribute("loggedIn", opr.getRolle());
+				session.setAttribute("loggedIn", opr.getRole());
 				return true;
 			}
 		return false;

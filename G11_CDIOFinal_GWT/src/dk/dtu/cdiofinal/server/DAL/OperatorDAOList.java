@@ -14,8 +14,8 @@ public class OperatorDAOList implements OperatoerDAO{
 	public OperatorDAOList(){
 		oprs.add(new OperatoerDTO(1, "Morten Due", 1, "260184xxxx", "qwer1234"));
 		oprs.add(new OperatoerDTO(2, "Casper Danielsen", 2, "010885xxxx", "qwer1234"));
-		oprs.add(new OperatoerDTO(3, "Sofie Larsen", 2, "241299xxxx", "qwer1234"));
-		oprs.add(new OperatoerDTO(4, "Brain Christensen", 3, "100685xxxx", "qwer1234"));
+		oprs.add(new OperatoerDTO(3, "Sofie Larsen", 3, "241299xxxx", "qwer1234"));
+		oprs.add(new OperatoerDTO(4, "Brain Christensen", 4, "100685xxxx", "qwer1234"));
 	}
 	@Override
 	public OperatoerDTO getOperatoer(int oprId) throws DALException {

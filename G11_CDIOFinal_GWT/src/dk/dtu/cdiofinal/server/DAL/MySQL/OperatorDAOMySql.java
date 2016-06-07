@@ -5,18 +5,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dk.dtu.cdiofinal.DAO.OperatoerDAO;
+import dk.dtu.cdiofinal.DAO.OperatorDAO;
 import dk.dtu.cdiofinal.server.DAL.Connector;
 import dk.dtu.cdiofinal.server.DAL.DALException;
 import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 
-public class OperatorDAOMySql implements OperatoerDAO {
+public class OperatorDAOMySql implements OperatorDAO {
 
 	Connector c = new Connector();
 	String query;
 
-	public OperatorDTO getOperatoer(int oprId) throws DALException {
+	public OperatorDTO getOperator(int oprId) throws DALException {
 		// Query for Object
 		OperatorDTO opr = null;
 		query = "Select * From operator where opr_id = " + oprId;
@@ -34,7 +34,7 @@ public class OperatorDAOMySql implements OperatoerDAO {
 	}
 
 	@Override
-	public List<OperatorDTO> getOperatoerList() throws DALException {
+	public List<OperatorDTO> getOperatorList() throws DALException {
 		query = "Select * From operator";
 		ResultSet result = c.doQuery(query);
 		

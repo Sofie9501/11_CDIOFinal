@@ -3,11 +3,11 @@ package dk.dtu.cdiofinal.server.DAL;
 import java.util.ArrayList;
 import java.util.List;
 
-import dk.dtu.cdiofinal.DAO.OperatoerDAO;
+import dk.dtu.cdiofinal.DAO.OperatorDAO;
 import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 
-public class OperatorDAOList implements OperatoerDAO{
+public class OperatorDAOList implements OperatorDAO{
 
 	private List<OperatorDTO> oprs = new ArrayList<OperatorDTO>();
 
@@ -18,7 +18,7 @@ public class OperatorDAOList implements OperatoerDAO{
 		oprs.add(new OperatorDTO(4, "Brain Christensen", 3, "100685xxxx", "qwer1234"));
 	}
 	@Override
-	public OperatorDTO getOperatoer(int oprId) throws DALException {
+	public OperatorDTO getOperator(int oprId) throws DALException {
 		for(OperatorDTO d: oprs){
 			if(d.getOprID() == oprId){
 				return d;
@@ -28,7 +28,7 @@ public class OperatorDAOList implements OperatoerDAO{
 	}
 
 	@Override
-	public List<OperatorDTO> getOperatoerList() throws DALException {
+	public List<OperatorDTO> getOperatorList() throws DALException {
 		return oprs;
 	}
 
@@ -40,7 +40,7 @@ public class OperatorDAOList implements OperatoerDAO{
 
 	@Override
 	public void updateOperatoer(OperatorDTO opr) throws DALException {
-		OperatorDTO oprOld = getOperatoer(opr.getOprID());
+		OperatorDTO oprOld = getOperator(opr.getOprID());
 		oprs.remove(oprOld);
 		oprs.add(opr);
 	}

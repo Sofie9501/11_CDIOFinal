@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import dk.dtu.cdiofinal.DAO.OperatoerDAO;
+import dk.dtu.cdiofinal.DAO.OperatorDAO;
 import dk.dtu.cdiofinal.client.serverconnection.operator.OperatorService;
 import dk.dtu.cdiofinal.server.DAL.DALException;
 import dk.dtu.cdiofinal.server.DAL.OperatorDAOList;
@@ -15,14 +15,14 @@ import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 @SuppressWarnings("serial")
 public class ServerOperatorImpl extends RemoteServiceServlet implements OperatorService {
-	OperatoerDAO dao = new OperatorDAOList();
+	OperatorDAO dao = new OperatorDAOList();
 
 	@Override
 	public List<OperatorDTO> getOperators() {
 		List<OperatorDTO> list = new ArrayList<OperatorDTO>();
 
 		try {
-			list = dao.getOperatoerList();
+			list = dao.getOperatorList();
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
@@ -33,7 +33,7 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 	@Override
 	public boolean updateOperator(OperatorDTO opr) {
 		try {
-			dao.updateOperatoer(opr);
+			dao.updateOperator(opr);
 			return true;
 		} catch (DALException e) {
 			e.printStackTrace();
@@ -63,7 +63,7 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 
 		List<OperatorDTO> oprs;
 		try {
-			oprs = dao.getOperatoerList();
+			oprs = dao.getOperatorList();
 			int oprId = oprs.size()+1;
 			while (true){
 				int same = 0;
@@ -101,7 +101,7 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 		Integer oprId = (Integer)session.getAttribute("loggedIn");
 		if(oprId != null){
 			try {
-				opr = new OperatorDTO(dao.getOperatoer(oprId));
+				opr = new OperatorDTO(dao.getOperator(oprId));
 			} catch (DALException e) {
 				e.printStackTrace();
 			}

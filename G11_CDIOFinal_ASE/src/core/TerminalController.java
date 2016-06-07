@@ -47,7 +47,7 @@ public class TerminalController extends Thread{
 				prepareWeight(); // 5, 6 og 7
 				break;
 			case ADD_CONTAINER:
-				addContainer(); // 8 og 8
+				addContainer(); // 8 og 9
 				break;
 			case WEIGHING:
 				weighing(); // 10, 11 og 12
@@ -61,7 +61,6 @@ public class TerminalController extends Thread{
 		try {
 			outToServer.writeBytes(data);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -71,52 +70,67 @@ public class TerminalController extends Thread{
 		try {
 			data = inFromServer.readLine();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return data;
 	}
 	
-	// checker for svar i tidsrummet second, returnere null hvis der ikke er noget svar inden for tiden.
-	private String waitForReply(long seconds){
-		long startTime = System.currentTimeMillis();
-		while(System.currentTimeMillis() - startTime < seconds*1000){
-			String data = recieveData();
-			if(data != null){
-				return data;
-			}
+	// This method sends the message it has been called with and awaits for the second reply (RM20 A)
+	@SuppressWarnings("deprecation")
+	private String waitForReply(String message){
+		sendData(message);
+		long time = System.currentTimeMillis();
+		String reply = null;
+		
+		// Waits 5 seconds to receive "RM20 B"
+		while(System.currentTimeMillis() - time < 5000){
+			reply = recieveData();
 			
+			// If the message has been received, it breaks out of the loop
+			if(reply.toUpperCase().startsWith("RM20 B")){
+				// Waits eternally for the second response "RM20 A"
+				while(true){
+					reply = recieveData();
+					
+					// If the message has been received, it returns it
+					if(reply.toUpperCase().startsWith("RM20 A")){
+						
+						//Sorts "RM20 A" and the quotation marks away from the String
+						return reply.substring(8, (reply.length()-1));
+					}
+					try {
+						this.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
 		}
+		// If the message isn't received, the thread is killed.
+		this.stop();
+		
 		return null;
 	}
 	
 	
 	private void operatorLogin(){
-		// Request operator id
-		String msg = "RM20 8 \"Enter OPR ID\" \"\" \"&3\"";
-		sendData(msg);
-		String msgReceived = waitForReply(5);
-		
-		// Check messaged recieved if not correct answer return and try again
-		if(!msgReceived.equals("RM20 B"))
-			return;
-		
 		while(true){
-			try {
-				sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			msgReceived = recieveData();
+			String msgReceived = waitForReply("Enter OPR ID");
 			int oprId;
 			// tester det er et tal der er modtaget
 			try{
-				Integer.parseInt(msgReceived);
+				
+				String oprName =db.getOperator(Integer.parseInt(msgReceived));
+				if((waitForReply("OPR NAME:" + oprName)).equals(EXIT_CHAR))
+					return;
+				else{
+					state = State.PRODUCTBATCH_SELECTION;
+					return;
+				}
+				
 			}catch(Exception e){
-				msg = "RM20 8 \"WRONG INPUT, PRESS ANY KEY\" \"\" \"&3\"";
-				sendData(msg);
+				waitForReply("WRONG INPUT, PRESS ENTER");
+					return;
 			}
 			
 		}
@@ -142,10 +156,21 @@ public class TerminalController extends Thread{
 
 	private void prepareWeight(){
 		
+		
 	}
 	
+	// The operator is asked to place the first container so the weight can tare
 	private void addContainer(){
-		
+		try {
+			String reply = waitForReply("RM20 8 \"Place first container\"");
+			
+			if()
+			
+			
+		}catch(Exception e){
+			waitForReply("WRONG INPUT, PRESS ENTER");
+				return;
+		}
 	}
 	
 	private void weighing(){

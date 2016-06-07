@@ -71,7 +71,7 @@ public class CreateOprView extends AbstractView {
 			succes = false;
 		}
 		if(!FieldVerifier.passwordValid(txt_password.getText())){
-			alert += "Error - CPR number not correct \n";
+			alert += "Error - Password does nor follow the rules \n";
 			succes = false;
 		}
 		if(FieldVerifier.rolleValid(Integer.parseInt(txt_rolle.getText()))){

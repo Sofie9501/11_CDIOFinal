@@ -4,8 +4,8 @@ import java.sql.Date;
 
 public class ProductBatchDTO {
 	
-	private long countComponents;
-	private long countFinished;
+	private int countComponents;
+	private int countFinished;
 	private String name;
 	private int ingredient_ID;
 	private int productBatch_ID;
@@ -14,8 +14,8 @@ public class ProductBatchDTO {
 	private int status;
 	private boolean isActive;
 	
-	public ProductBatchDTO(int pb_ID, int r_ID, String name, Date start_date,
-			Date end_date, int status, boolean isActive, long countComponents, long countFinished) {
+	public ProductBatchDTO(int pb_ID, int r_ID, String name, int countComponents,
+			int countFinished, Date start_date,Date end_date, int status, boolean isActive) {
 		this.countComponents = countComponents;
 		this.countFinished = countFinished;
 		this.name = name;
@@ -25,21 +25,22 @@ public class ProductBatchDTO {
 		this.end_date = end_date;
 		this.status = status;
 		this.isActive = isActive;
+		
 	}
 
-	public long getCountComponents() {
+	public int getCountComponents() {
 		return countComponents;
 	}
 
-	public void setCountComponents(long countComponents) {
+	public void setCountComponents(int countComponents) {
 		this.countComponents = countComponents;
 	}
 
-	public long getCountFinished() {
+	public int getCountFinished() {
 		return countFinished;
 	}
 
-	public void setCountFinished(long countFinished) {
+	public void setCountFinished(int countFinished) {
 		this.countFinished = countFinished;
 	}
 
@@ -87,17 +88,18 @@ public class ProductBatchDTO {
 		this.status = status;
 	}
 	
-	public boolean getIsActive(){
+	public boolean isActive(){
 		return isActive;
 	}
-	
-	public void setIsActive(boolean b){
-		this.isActive = b;
+	public void setActive(boolean b){
+		this.isActive();
 	}
+	
+	
 
 	@Override
 	public String toString() {
-		return "ProductBatch ID = " + productBatch_ID + "\tIngredient ID = " + ingredient_ID + "\tname = " + name + "\tActive = " + isActive + "\nStart date = " + start_date + "\tEnd date = " + end_date +
+		return "ProductBatch ID = " + productBatch_ID + "\tIngredient ID = " + ingredient_ID + "\tname = " + name +  "\nStart date = " + start_date + "\tEnd date = " + end_date +
 				"\tComponents = " + countComponents + "\tFinished = " + countFinished;
 	}
 

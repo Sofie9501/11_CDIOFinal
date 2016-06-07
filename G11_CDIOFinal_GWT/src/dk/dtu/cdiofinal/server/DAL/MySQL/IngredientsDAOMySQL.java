@@ -53,17 +53,16 @@ public class IngredientsDAOMySQL implements IngredientDAO{
 
 	@Override
 	public void createIngredient(IngredientDTO ingredient) throws DALException {
-		String query = "call create_ingredient(" + ingredient.getID() + ", '" + ingredient.getName() +,
+		String query = "call create_ingredient(" + ingredient.getID() + ", '" + ingredient.getName() +
 				"', '" + ingredient.getSupplier() + "');";
 		c.doQuery(query);
 		
 	}
-		// Jeg er nået hertil
+		// Hvordan skal den fungere??
 	@Override
-	public void updateIngredient(IngredientDTO ingredient) throws DALException {
-		int ID = getIngredient(ingredient.getID()).getID();
-		String query = "call update_ingredient(" + ID + ", '" + ingredient.getName() +
-				"',' " +  raavare.getLeverandoer() +"');";
+	public void updateIngredient(IngredientDTO ingredient, int oldID) throws DALException {
+		String query = "call update_ingredient(" + oldID + ", '" + ingredient.getID() + ", '" + ingredient.getName() +
+				"',' " + ingredient.getSupplier() +"');";
 		c.doQuery(query);
 		
 	}

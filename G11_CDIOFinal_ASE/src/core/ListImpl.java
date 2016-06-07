@@ -43,4 +43,16 @@ public class ListImpl implements DatabaseCom{
 		return false;
 	}
 
+	@Override
+	public void createProductBatchComp(int pbID, int rbID, float tare, float net, int oprID) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPbStatus() throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

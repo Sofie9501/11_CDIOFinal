@@ -11,8 +11,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-
-import dk.dtu.cdiofinal.client.layout.operator.ChangePassword;
 import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
 
 public class Menu extends Composite{
@@ -24,9 +22,8 @@ public class Menu extends Composite{
 	private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 	private ClientMenuImpl service = new ClientMenuImpl();
 	@UiField
+	
 	Button back;
-	@UiField
-	Button account;  
 	@UiField
 	Button log_out;
 	@UiField
@@ -40,7 +37,6 @@ public class Menu extends Composite{
 		back.addClickHandler(new BackClickHandler());
 		menu.addClickHandler(new MenuClickHandler());
 		log_out.addClickHandler(new LogOutClickHandler());
-		account.addClickHandler(new AccountClickHandler());
 	}
 
 	// tell parent view to move back one level
@@ -51,15 +47,6 @@ public class Menu extends Composite{
 			v.PreviousView();
 
 		} 
-	}
-
-
-	// Go to account / opr details for current opr
-	private class AccountClickHandler implements ClickHandler{
-		@Override
-		public void onClick(ClickEvent event) {
-			v.setView(new ChangePassword(v));
-		}
 	}
 
 	// Should tell server to log user out and redirect to login screen

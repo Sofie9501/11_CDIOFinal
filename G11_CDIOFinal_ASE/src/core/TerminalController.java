@@ -47,7 +47,7 @@ public class TerminalController extends Thread{
 				prepareWeight(); // 5, 6 og 7
 				break;
 			case ADD_CONTAINER:
-				addContainer(); // 8 og 8
+				addContainer(); // 8 og 9
 				break;
 			case WEIGHING:
 				weighing(); // 10, 11 og 12
@@ -61,7 +61,6 @@ public class TerminalController extends Thread{
 		try {
 			outToServer.writeBytes(data);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -71,23 +70,42 @@ public class TerminalController extends Thread{
 		try {
 			data = inFromServer.readLine();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return data;
 	}
 	
-	// checker for svar i tidsrummet second, returnere null hvis der ikke er noget svar inden for tiden.
-	private String waitForReply(long seconds){
-		long startTime = System.currentTimeMillis();
-		while(System.currentTimeMillis() - startTime < seconds*1000){
-			String data = recieveData();
-			if(data != null){
-				return data;
+	// This method sends the message it has been called with and awaits for the second reply (RM20 A)
+	@SuppressWarnings("deprecation")
+	private String waitForReply(String message){
+		sendData(message);
+		long time = System.currentTimeMillis();
+		String reply = null;
+		
+		// Waits 5 seconds to receive "RM20 B"
+		while(System.currentTimeMillis() - time < 5000){
+			reply = recieveData();
+			
+			// If the message has been received, it breaks out of the loop
+			if(reply.toUpperCase().startsWith("RM20 B")){
+				break;
 			}
 			
+			// If the message isn't received, the thread is killed.
+			else{
+				this.stop();
+			}
 		}
-		return null;
+		
+		// Waits eternally for the second response "RM20 A"
+		while(true){
+			reply = recieveData();
+			
+			// If the message has been received, it returns it
+			if(reply.toUpperCase().startsWith("RM20 A")){
+				return reply;
+			}
+		}
 	}
 	
 	

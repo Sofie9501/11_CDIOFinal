@@ -13,7 +13,7 @@ public interface IngredientService extends RemoteService{
 	
 	List<IngredientDTO> getIngredients();
 	IngredientDTO getIngredient();
-	boolean updateIngredient(IngredientDTO ingredient);
 	boolean createIngredient(IngredientDTO ingredient);
+	boolean updateIngredient(IngredientDTO ingredient, int oldID);
 
 }

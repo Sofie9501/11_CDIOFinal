@@ -31,6 +31,7 @@ public class IngredientDetail extends AbstractView {
 
 	private IngredientDTO ingredient;
 	private ClientIngredientImpl serviceImpl;
+	private int oldID;
 
 	@UiField
 	Heading txt_id; 
@@ -59,6 +60,7 @@ public class IngredientDetail extends AbstractView {
 
 	public IngredientDetail(IngredientDTO ingredient) {
 		this.ingredient = ingredient;
+		oldID=ingredient.getID();
 		initWidget(uiBinder.createAndBindUi(this));
 		this.serviceImpl = new ClientIngredientImpl();
 
@@ -174,7 +176,7 @@ public class IngredientDetail extends AbstractView {
 			break;
 		}
 		
-		serviceImpl.updateIngredient(ingredient, new MyCallback());
+		serviceImpl.updateIngredient(ingredient, oldID, new MyCallback());
 	}
 	
 	private class MyCallback implements AsyncCallback<Boolean>{

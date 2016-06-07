@@ -81,24 +81,23 @@ public class TerminalController extends Thread{
 	private String waitForReply(String message){
 		sendData(message);
 		long time = System.currentTimeMillis();
-		String replyB = null;	
-		String replyA = null;
+		String reply = null;
 		
 		while(System.currentTimeMillis() - time < 5000){
-			replyB = recieveData();
+			reply = recieveData();
 			
-			if(replyB.toUpperCase().startsWith("RM20 B")){
+			if(reply.toUpperCase().startsWith("RM20 B")){
 				break;
 			}
 		}
 		
-//		while(true){
-//			replyA = recieveData();
-//			
-//			if(replyA.toUpperCase().startsWith("RM20 A")){
-//				return replyA;
-//			}
-//		}
+		while(true){
+			reply = recieveData();
+			
+			if(reply.toUpperCase().startsWith("RM20 A")){
+				return reply;
+			}
+		}
 	}
 	
 	

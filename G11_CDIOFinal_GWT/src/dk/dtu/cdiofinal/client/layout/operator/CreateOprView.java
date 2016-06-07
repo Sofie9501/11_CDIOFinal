@@ -74,9 +74,9 @@ public class CreateOprView extends AbstractView {
 	private void saveChanges(){
 		// Checks to see if there is no errors
 		if(changeSucces()){
-			opr = new OperatorDTO(0, txt_name.getText(), Integer.parseInt(txt_rolle.getText())
-					, txt_cpr.getText(), null);
-			ok.setText("Dine oplysninger er blevet gemt");
+			opr = new OperatorDTO(0, txt_name.getText(), txt_cpr.getText(), "", Integer.parseInt(txt_rolle.getText())
+					, true);
+			ok.setText("Your information has been saved");
 			//Updates the DB with the new operator
 			serviceImpl.createOperator(opr, new MyCallback());
 			

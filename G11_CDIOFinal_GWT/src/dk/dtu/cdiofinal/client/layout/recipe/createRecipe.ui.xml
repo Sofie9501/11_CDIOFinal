@@ -9,26 +9,16 @@
 	<g:HTMLPanel>
 	    <div align="left" style="width:500px"> <table>
 	        
-	        <tr><td><h4>IngredientBatch ID</h4></td></tr>
+	        <tr><td><h4>Recipe ID</h4></td></tr>
 	        <tr>
-	            <td><b:TextBox ui:field="txt_B_ID"></b:TextBox></td>
+	            <td><b:TextBox ui:field="txt_ID"></b:TextBox></td>
 	            
 	        </tr>
-	        <tr><td><h4>Ingredient ID</h4></td></tr>
+	        <tr><td><h4>Recipe Name</h4></td></tr>
 	        <tr>
-	            <td><b:TextBox ui:field="txt_I_ID"></b:TextBox></td>
+	            <td><b:TextBox ui:field="txt_name"></b:TextBox></td>
 	        </tr>
-	        <tr><td><h4>Ingredient Name</h4></td></tr>
-	        <tr>
-	            <td><b:TextBox ui:field="txt_I_Name"></b:TextBox></td>
-	        </tr>
-	        <tr><td><h4>Amount</h4></td></tr>
-	        <tr>
-	            <td><b:TextBox ui:field="txt_amount"></b:TextBox></td>
-	        </tr>
-	       <tr>
 	            <td><b:Button icon="SAVE" type="LINK" ui:field="btn_save" >Save</b:Button> </td>
-	        </tr>
 	        <tr>
 	            <td>
 	                <b:Modal ui:field="popup" title="Succes" backdrop="STATIC" keyboard="true" animation="true">

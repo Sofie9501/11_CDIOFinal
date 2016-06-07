@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import DTO.ProduktBatchAdminDTO;
+
 import dk.dtu.cdiofinal.DAO.ProductBatchDAO;
 import dk.dtu.cdiofinal.server.DAL.Connector;
 import dk.dtu.cdiofinal.server.DAL.DALException;
@@ -60,7 +60,7 @@ public class ProductBatchDAOMySQL implements ProductBatchDAO{
 			while(result.next()){
 				pb.add(new ProductBatchDTO(result.getInt(1), result.getInt(2),result.getString(3),
 						result.getInt(4), result.getInt(5), result.getDate(6), result.getDate(7),
-						result.getInt(8), result.getBoolean(9));
+						result.getInt(8), result.getBoolean(9)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -70,7 +70,15 @@ public class ProductBatchDAOMySQL implements ProductBatchDAO{
 
 	@Override
 	public void createProductBatch(ProductBatchDTO productBatch) throws DALException {
-		query = 
+		query = "call create_productBatch(" + productBatch.getPb_ID() + ", " + productBatch.getR_ID();
+		c.doQuery(query);
+		
+	}
+	@Override
+	public void updateProductBatch(ProductBatchDTO pb, int oldID) throws DALException {
+		query = "call update_productBatch(" + oldID + ", " + pb.getPb_ID() + ", " + pb.getStatus() + ", " + 
+						pb.getR_ID() + ", " + pb.isActive();
+		c.doQuery(query);
 		
 	}
 
@@ -79,5 +87,7 @@ public class ProductBatchDAOMySQL implements ProductBatchDAO{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	
 
 }

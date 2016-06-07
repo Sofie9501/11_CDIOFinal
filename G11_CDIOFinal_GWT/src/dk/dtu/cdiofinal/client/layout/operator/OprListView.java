@@ -68,7 +68,7 @@ public class OprListView extends AbstractView {
 		TextColumn<OperatorDTO> nameColumn = new TextColumn<OperatorDTO>(){
 			@Override
 			public String getValue(OperatorDTO object) {
-				return object.getOprNavn();
+				return object.getName();
 			}
 		};
 		cellTable.addColumn(nameColumn);

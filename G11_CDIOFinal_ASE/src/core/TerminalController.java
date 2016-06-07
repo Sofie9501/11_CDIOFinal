@@ -93,7 +93,7 @@ public class TerminalController extends Thread{
 				break;
 			}
 			
-			// If the message isn't receive, the thread is killed.
+			// If the message isn't received, the thread is killed.
 			else{
 				this.stop();
 			}

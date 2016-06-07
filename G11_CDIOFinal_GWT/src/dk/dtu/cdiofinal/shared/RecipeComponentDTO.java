@@ -8,7 +8,8 @@ public class RecipeComponentDTO {
 	private double tolerance;
 	private String ingredientName;
 	
-	public RecipeComponentDTO(int recipe_ID, int ingredient_ID, String ingredientName , double tolerance, double nom_netto) {
+	public RecipeComponentDTO(int recipe_ID, int ingredient_ID, String ingredientName , 
+					double tolerance, double nom_netto) {
 		this.recipe_ID = recipe_ID;
 		this.ingredient_ID = ingredient_ID;
 		this.ingredientName = ingredientName;

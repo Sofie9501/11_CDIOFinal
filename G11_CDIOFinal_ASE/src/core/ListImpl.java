@@ -24,15 +24,14 @@ public class ListImpl implements DatabaseCom{
 			} else {
 				throw new DALException("No result was found");
 			}
-			
-		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}catch (DALException e) {
 		// TODO Auto-generated catch block
 		throw e;
-		return "Der var ikke nogen recipe";
+		}
+		return "Der er sket en slem slem fejl i systemet";
 	}
 
 }

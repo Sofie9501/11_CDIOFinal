@@ -137,24 +137,20 @@ public class TerminalController extends Thread{
 	}
 	
 	private void productBatchSelection(){
-		try {
-			String msgToDisplay = "RM20 8 \"Enter pb-id\"";
-			String msgFromDisplay;
-
-			sendData(msgToDisplay);
-			msgFromDisplay = recieveData();
-			int ID = Integer.parseInt(msgFromDisplay);
-			
-			String query = "select * from productbatch where " + ID + " = pb_id;";
-			
-			
-			
 		
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		while(true){
+			try {
+				String msgToDisplay = "Enter ProductBatch ID";
+				 String reply = waitForReply(msgToDisplay);
+				
+				String dbReplay = "Recipe: " + db.getProductRecipeName(Integer.parseInt(reply)) + ",Press Enter";
+				
+				sendData(dbReplay);
+				break;
+			}  catch (DALException e){
+				waitForReply(e.getMessage() + ", Press Enter");
+			}
 		}
-	
 	}
 
 	private void prepareWeight(){
@@ -165,11 +161,13 @@ public class TerminalController extends Thread{
 	// The operator is asked to place the first container so the weight can tare
 	private void addContainer(){
 		try {
+			// The reply means the operator giving consent
 			String reply = waitForReply("RM20 8 \"Place first container\"");
 			
-			if()
+			// The tare is saved
+			int tare = Integer.parseInt(waitForReply("T"));
 			
-			
+			state = State.WEIGHING;			
 		}catch(Exception e){
 			waitForReply("WRONG INPUT, PRESS ENTER");
 				return;

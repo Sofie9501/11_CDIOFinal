@@ -59,6 +59,7 @@ public class TerminalController extends Thread{
 				break;
 			}	
 		}
+		
 	}
 
 	private void sendData(String data){
@@ -174,17 +175,18 @@ public class TerminalController extends Thread{
 		while(true){
 			try {
 				String msgToDisplay = "Enter ProductBatch ID";
-				pbID = Integer.parseInt(waitForReply(msgToDisplay));
+				String recieve = waitForReply(msgToDisplay);
+				if(recieve.equalsIgnoreCase(EXIT_CHAR)){
+					state = State.OPERATOR_LOGIN;
+					break;
+				}
+				pbID = Integer.parseInt(recieve);
 
 				String dbReplay = "Recipe: " + db.getProductRecipeName(pbID) + ",Press Enter";
 
-				if(!dbReplay.equals(EXIT_CHAR)){
-					sendData(dbReplay);
-					state = State.ADD_CONTAINER;
-					break;
-				}else {
-					break;
-				}
+				sendData(dbReplay);
+				state = State.ADD_CONTAINER;
+				break;
 			}  catch (DALException e){
 				waitForReply(e.getMessage() + ", Press Enter");
 			}
@@ -194,6 +196,19 @@ public class TerminalController extends Thread{
 	private void prepareWeight(){
 
 
+		if((waitForReply("Tjek vægten er ubelastet, press enter")).equalsIgnoreCase(EXIT_CHAR)){
+			state = State.OPERATOR_LOGIN;
+			return;
+		}
+		try {
+			db.setPbStatus();
+		} catch (DALException e) {
+			waitForReply("Error setting production status, press any key");
+			waitForReply("contact supervisor, press any key");
+			state = State.OPERATOR_LOGIN;
+		}
+		sendData("T");
+		state = State.ADD_CONTAINER;
 	}
 
 	// The operator is asked to place the first container so the weight can tare

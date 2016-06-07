@@ -20,6 +20,10 @@ public class TerminalController extends Thread{
 	DatabaseCom db = new ListImpl();
 	DataOutputStream outToServer;
 	BufferedReader inFromServer;
+	int oprID;
+	int pbID;
+	float tara;
+	int rbID;
 	
 	
 	State state = State.OPERATOR_LOGIN;
@@ -179,13 +183,11 @@ public class TerminalController extends Thread{
 			// The operator is asked to enter an ID for the ingredientbatch (raavarebatch)
 			int rbID = Integer.parseInt(waitForReply("Enter rb ID"));
 			
-			// The ID is checked. 
+			// The ID is checked that it exsists
+			if(db.checkRbId(rbID)){
+				
+			}
 			
-			// It is checked, 
-			
-			// Current date is added
-			
-			// 
 			
 		}catch(Exception e){
 			waitForReply("WRONG INPUT, PRESS ENTER");

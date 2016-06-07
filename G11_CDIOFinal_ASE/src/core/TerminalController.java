@@ -4,15 +4,16 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class TerminalController extends Thread{
 	// Class should open a connection to a terminal to a terminal.
 	// if connection is lost it should try reconnecting and continue where it left off
-	
+
 	final String EXIT_CHAR = "x";
-	
+
 	enum State {OPERATOR_LOGIN,PRODUCTBATCH_SELECTION,PREPARE_WEIGHT, ADD_CONTAINER, WEIGHING}
 	String hostAddress;
 	int port;
@@ -23,13 +24,14 @@ public class TerminalController extends Thread{
 	int oprID;
 	int pbID;
 	float tare;
-	float netto;
+	float net;
 	int rbID;
-	
-	
+
+
 	State state = State.OPERATOR_LOGIN;
-	
+
 	public TerminalController(String hostAddress, int port) throws UnknownHostException, IOException{
+		
 		this.hostAddress = hostAddress;
 		this.port = port;
 		sock = new Socket(hostAddress, port);
@@ -37,7 +39,7 @@ public class TerminalController extends Thread{
 		inFromServer = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 		start();
 	}
-	
+
 	@Override
 	public void run(){
 		while(true){
@@ -59,8 +61,9 @@ public class TerminalController extends Thread{
 				break;
 			}	
 		}
+
 	}
-	
+
 	private void sendData(String data){
 		try {
 			outToServer.writeBytes(data);
@@ -68,7 +71,7 @@ public class TerminalController extends Thread{
 			e.printStackTrace();
 		}
 	}
-	
+
 	private String recieveData(){
 		String data = null;
 		try {
@@ -78,32 +81,31 @@ public class TerminalController extends Thread{
 		}
 		return data;
 	}
-	
+
 	// This method sends the message it has been called with and awaits for the second reply (RM20 A)
 	@SuppressWarnings("deprecation")
 	private String waitForReply(String message){
-		sendData("RM20 8 \"" + message + "\"");
-		long time = System.currentTimeMillis();
 		String reply = null;
-		
-		// Waits 5 seconds to receive "RM20 B"
-		while(System.currentTimeMillis() - time < 5000){
-			reply = recieveData();
-			
+		sendData("RM20 8 \"" + message + "\" \"\" \"&3\"");
+		long time = System.currentTimeMillis();
+
+			// Waits 5 seconds to receive "RM20 B"
+			while(System.currentTimeMillis() - time < 5000000){
+				reply = recieveData();
 			// If the message has been received, it breaks out of the loop
 			if(reply.toUpperCase().startsWith("RM20 B")){
 				// Waits eternally for the second response "RM20 A"
 				while(true){
 					reply = recieveData();
-					
+
 					// If the message has been received, it returns it
 					if(reply.toUpperCase().startsWith("RM20 A")){
-						
+
 						//Sorts "RM20 A" and the quotation marks away from the String
 						return reply.substring(8, (reply.length()-1));
 					}
 					try {
-						this.sleep(1000);
+						sleep(1000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -112,18 +114,43 @@ public class TerminalController extends Thread{
 		}
 		// If the message isn't received, the thread is killed.
 		this.stop();
-		
 		return null;
 	}
 	
+	private String sendTare(String message){
+		String reply = null;
+		sendData(message);
+
+		while(true){
+			reply = recieveData();
+
+			if(reply.toUpperCase().startsWith("T")){
+				return reply.substring(9);
+			}
+		}
+	}
 	
+	private String sendS(String message){
+		String reply = null;
+		sendData(message);
+
+		while(true){
+			reply = recieveData();
+
+			if(reply.toUpperCase().startsWith("S")){
+				return reply.substring(9);
+			}
+		}
+	}
+
+
 	private void operatorLogin(){
 		while(true){
 			String msgReceived = waitForReply("Enter OPR ID");
 			int oprId;
 			// tester det er et tal der er modtaget
 			try{
-				
+
 				String oprName =db.getOperator(Integer.parseInt(msgReceived));
 				if((waitForReply("OPR NAME:" + oprName)).equals(EXIT_CHAR))
 					return;
@@ -131,31 +158,32 @@ public class TerminalController extends Thread{
 					state = State.PRODUCTBATCH_SELECTION;
 					return;
 				}
-				
+
 			}catch(Exception e){
 				waitForReply("WRONG INPUT, PRESS ENTER");
-					return;
+				return;
 			}
-			
+
 		}
 	}
-	
+
 	private void productBatchSelection(){
-		
+
 		while(true){
 			try {
 				String msgToDisplay = "Enter ProductBatch ID";
-				pbID = Integer.parseInt(waitForReply(msgToDisplay));
-				
-				String dbReplay = "Recipe: " + db.getProductRecipeName(pbID) + ",Press Enter";
-				
-				if(!dbReplay.equals(EXIT_CHAR)){
-					sendData(dbReplay);
-					state = State.ADD_CONTAINER;
-					break;
-				}else {
+				String recieve = waitForReply(msgToDisplay);
+				if(recieve.equalsIgnoreCase(EXIT_CHAR)){
+					state = State.OPERATOR_LOGIN;
 					break;
 				}
+				pbID = Integer.parseInt(recieve);
+
+				String dbReplay = "Recipe: " + db.getProductRecipeName(pbID) + ",Press Enter";
+
+				sendData(dbReplay);
+				state = State.ADD_CONTAINER;
+				break;
 			}  catch (DALException e){
 				waitForReply(e.getMessage() + ", Press Enter");
 			}
@@ -163,45 +191,65 @@ public class TerminalController extends Thread{
 	}
 
 	private void prepareWeight(){
-		
-		
+
+
+		if((sendTare("Make sure the weight is empty")).equalsIgnoreCase(EXIT_CHAR)){
+			state = State.OPERATOR_LOGIN;
+			return;
+		}
+		try {
+			db.setPbStatus();
+		} catch (DALException e) {
+			waitForReply("Error setting production status, press any key");
+			waitForReply("contact supervisor, press any key");
+			state = State.OPERATOR_LOGIN;
+		}
+		sendData("T");
+		state = State.ADD_CONTAINER;
 	}
-	
+
 	// The operator is asked to place the first container so the weight can tare
 	private void addContainer(){
 		try {
 			// The reply means the operator giving consent
 			String reply = waitForReply("Place first container");
-			
+
 			// The tare is saved
-			tare = Float.parseFloat(waitForReply("T"));
-			
+			tare = Float.parseFloat(sendTare("T"));
+
 			state = State.WEIGHING;			
 		}catch(Exception e){
 			waitForReply("WRONG INPUT, PRESS ENTER");
-				return;
+			return;
 		}
 	}
-	
+
 	private void weighing(){
 		try {
 			// The operator is asked to enter an ID for the ingredientbatch (raavarebatch)
 			rbID = Integer.parseInt(waitForReply("Enter rb ID"));
-			
+
 			// The ID is checked that it exsists
 			if(db.checkRbId(rbID)){
-				
+
+				// Gets the net weight
+				net = Float.parseFloat(sendS("S"));
+
+				// Create new productbatch component
+				db.createProductBatchComp(pbID, rbID, tare, net, oprID);
+
+				sendData("Productbatch component was successfully made");
+				state = State.PREPARE_WEIGHT;
 			}
 			else
 				throw new DALException("ID does not exist.");
-			
-			
+
 		}catch(Exception e){
 			waitForReply("WRONG INPUT, PRESS ENTER");
-				return;
+			return;
 		}
-		
+
 	}
-	
+
 
 }

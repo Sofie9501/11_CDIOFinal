@@ -25,7 +25,10 @@ import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
+import dk.dtu.cdiofinal.client.layout.ingredientbatch.IngredientBatchDetail;
+import dk.dtu.cdiofinal.client.layout.ingredientbatch.IngredientBatchListView;
 import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
+import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
 
 import dk.dtu.cdiofinal.shared.OperatorDTO;
@@ -96,16 +99,18 @@ public class IngredientListView extends AbstractView {
 				return "More...";
 			}
 		};
-		cellTable.addColumn(editColumn);
 
+		cellTable.addColumn(editColumn);
+		
 		editColumn.setFieldUpdater(new FieldUpdater<IngredientDTO, String>(){
 
 			@Override
 			public void update(int index, IngredientDTO object, String value) {
-				//(IngredientListView.this).prod.setView(new IngredientDetail(object));
+				(IngredientListView.this).prod.setView(new IngredientDetail(object));
 			}
 
 		});
+		
 		dataProvider.setList(list); 
 		dataProvider.addDataDisplay(cellTable);
 		cellTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);

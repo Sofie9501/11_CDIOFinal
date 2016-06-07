@@ -25,7 +25,7 @@ public class ASE {
 				break;
 			
 			String[] details = connectionString.split(",");
-			System.out.println(details[0] + ", " + details[1]);
+			new TerminalController(details[0],Integer.parseInt(details[1]));
 		}
 		}catch(Exception e){
 			System.out.println(e.getMessage());

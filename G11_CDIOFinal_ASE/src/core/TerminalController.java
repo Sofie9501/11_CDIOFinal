@@ -126,12 +126,16 @@ public class TerminalController extends Thread{
 		try {
 			String msgToDisplay = "RM20 8 \"Enter pb-id\"";
 			sendData(msgToDisplay);
-			String dbReplay = getProductRecipeName(Integer.parseInt(recieveData()));
-			waitForReply();
+			
+			String dbReplay = db.getProductRecipeName(Integer.parseInt(recieveData()));
+			
+			waitForReply(dbReplay);
 		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (DALException e){
+			
 		}
 	
 	}

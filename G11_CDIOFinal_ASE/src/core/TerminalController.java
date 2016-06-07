@@ -25,7 +25,19 @@ public class TerminalController extends Thread{
 	
 	@Override
 	public void run(){
+		while(true){
+			switch(state){
+			case OPERATOR_LOGIN:
+			
+				break;
+		
+		
+			}	
+		}
 		// Do all logic here
+	}
+	public operatorLogin(){
+		
 	}
 
 }

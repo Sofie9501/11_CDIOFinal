@@ -10,9 +10,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
-
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.layout.operator.ChangePassword;
 import dk.dtu.cdiofinal.client.layout.operator.OprListView;
 import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
 
@@ -31,8 +29,6 @@ public class AdminMenu extends AbstractView{
 	@UiField
 	Button btn_opr;
 	
-	@UiField
-	Button btn_myDetails;
 	
 	@UiField
 	Alert alert_opr;
@@ -50,7 +46,6 @@ public class AdminMenu extends AbstractView{
 		// hidden until login verified
 		btn_opr.setVisible(false);
 		btn_opr.addClickHandler(new OprClickHandler());
-		btn_myDetails.addClickHandler(new DetailsClickHandler());
 		serviceImpl.isLoggedIn(new LoggedInCallback());
 				
 	}
@@ -62,14 +57,6 @@ public class AdminMenu extends AbstractView{
 		public void onClick(ClickEvent event) {
 			prodView.setView(new OprListView(prodView));
 		}	
-	}
-	
-	private class DetailsClickHandler implements ClickHandler{
-
-		@Override
-		public void onClick(ClickEvent event) {
-			prodView.setView(new ChangePassword(prodView));
-		}
 	}
 	
 	private class LoggedInCallback implements AsyncCallback<Integer>{

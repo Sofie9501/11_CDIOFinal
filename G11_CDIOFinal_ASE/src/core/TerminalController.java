@@ -54,7 +54,7 @@ public class TerminalController extends Thread{
 				break;
 			}	
 		}
-
+		
 	}
 	
 	private void sendData(String data){

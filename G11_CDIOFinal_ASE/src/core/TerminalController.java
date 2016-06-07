@@ -57,7 +57,6 @@ public class TerminalController extends Thread{
 
 	}
 	
-	
 	private void sendData(String data){
 		try {
 			outToServer.writeBytes(data);
@@ -84,7 +83,24 @@ public class TerminalController extends Thread{
 	}
 	
 	private void productBatchSelection(){
+		try {
+			String msgToDisplay = "RM20 8 \"Enter pb-id\"";
+			String msgFromDisplay;
+
+			sendData(msgToDisplay);
+			msgFromDisplay = recieveData();
+			int ID = Integer.parseInt(msgFromDisplay);
+			
+			String query = "select * from productbatch where " + ID + " = pb_id;";
+			
+			
+			
 		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 	}
 
 	private void prepareWeight(){

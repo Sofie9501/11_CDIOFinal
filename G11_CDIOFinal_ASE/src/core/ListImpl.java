@@ -34,25 +34,20 @@ public class ListImpl implements DatabaseCom{
 //		throw e;
 //		}
 //		return "Der er sket en slem slem fejl i systemet";
-		return null;
+		return "Citronvand";
 	}
 
 	@Override
 	public boolean checkRbId(int rb_id) throws DALException {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public void createProductBatchComp(int pbID, int rbID, float tare, float net, int oprID) throws DALException {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void setPbStatus() throws DALException {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

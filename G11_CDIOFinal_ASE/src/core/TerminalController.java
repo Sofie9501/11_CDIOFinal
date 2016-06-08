@@ -146,8 +146,9 @@ public class TerminalController extends Thread{
 		while(true){
 			reply = recieveData();
 
+			System.out.println(reply);
 			if(reply.toUpperCase().startsWith("T")){
-				return reply.substring(9);
+				return reply.substring(9, reply.length()-5);
 			}
 		}
 	}
@@ -174,7 +175,7 @@ public class TerminalController extends Thread{
 			try{
 
 				String oprName =db.getOperator(Integer.parseInt(msgReceived));
-				if((waitForReply("OPR NAME:" + oprName)).equals(EXIT_CHAR))
+				if((waitForReply("opr name: " + oprName + ", press enter")).equals(EXIT_CHAR))
 					return;
 				else{
 					state = State.PRODUCTBATCH_SELECTION;
@@ -193,29 +194,27 @@ public class TerminalController extends Thread{
 
 		while(true){
 			try {
-				String msgToDisplay = "Enter ProductBatch ID";
-				String recieve = waitForReply(msgToDisplay);
+				String recieve = waitForReply("Enter ProductBatch ID");
+				
 				if(recieve.equalsIgnoreCase(EXIT_CHAR)){
 					state = State.OPERATOR_LOGIN;
-					break;
+					return;
 				}
 				pbID = Integer.parseInt(recieve);
 
-				String dbReplay = "Recipe: " + db.getProductRecipeName(pbID) + ",Press Enter";
+				String dbReplay = "Recipe: " + db.getProductRecipeName(pbID) + ", press enter";
 
-				sendData(dbReplay);
-				state = State.ADD_CONTAINER;
-				break;
+				waitForReply(dbReplay);
+				state = State.PREPARE_WEIGHT;
+				return;
 			}  catch (DALException e){
-				waitForReply(e.getMessage() + ", Press Enter");
+				waitForReply(e.getMessage() + ", press enter");
 			}
 		}
 	}
 
 	private void prepareWeight(){
-
-
-		if((sendTare("Make sure the weight is empty")).equalsIgnoreCase(EXIT_CHAR)){
+		if((waitForReply("Press enter when the weight is empty")).equalsIgnoreCase(EXIT_CHAR)){
 			state = State.OPERATOR_LOGIN;
 			return;
 		}
@@ -226,7 +225,7 @@ public class TerminalController extends Thread{
 			waitForReply("contact supervisor, press any key");
 			state = State.OPERATOR_LOGIN;
 		}
-		sendData("T");
+		sendTare("T");
 		state = State.ADD_CONTAINER;
 	}
 
@@ -234,7 +233,7 @@ public class TerminalController extends Thread{
 	private void addContainer(){
 		try {
 			// The reply means the operator giving consent
-			String reply = waitForReply("Place first container");
+			waitForReply("Place first container");
 
 			// The tare is saved
 			tare = Float.parseFloat(sendTare("T"));

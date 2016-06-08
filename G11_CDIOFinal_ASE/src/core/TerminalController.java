@@ -140,28 +140,9 @@ public class TerminalController extends Thread{
 	}
 	
 	private String sendTare(){
-		sendData("T");
 		String reply = null;
 		reply = recieveData();
-		return reply;
-		
-//		if(reply.toUpperCase().equals("T")){
-//			return reply;
-//		}
-		
-		
-		
-//		String reply = null;
-//		sendData(message);
-//
-//		while(true){
-//			reply = recieveData();
-//
-//			System.out.println(reply);
-//			if(reply.toUpperCase().startsWith("T")){
-//				return reply.substring(9, reply.length()-5);
-//			}
-//		}
+		return reply.substring(9, reply.length()-5);
 	}
 	
 	private String sendS(String message){
@@ -172,7 +153,7 @@ public class TerminalController extends Thread{
 			reply = recieveData();
 
 			if(reply.toUpperCase().startsWith("S")){
-				return reply.substring(9);
+				return reply.substring(9,reply.length()-5);
 			}
 		}
 	}
@@ -254,6 +235,7 @@ public class TerminalController extends Thread{
 
 			state = State.WEIGHING;			
 		}catch(Exception e){
+			System.out.println(e.getMessage());
 			waitForReply("WRONG INPUT, PRESS ENTER");
 			return;
 		}

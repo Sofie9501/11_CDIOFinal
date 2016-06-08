@@ -103,15 +103,15 @@ public class TerminalController extends Thread{
 	// This method sends the message it has been called with and awaits for the second reply (RM20 A)
 	@SuppressWarnings("deprecation")
 	private String waitForReply(String message){
+		sendData("DW");
 		String reply = null;
-		String sData = "RM20 8 \"" + message + "\" \"\" \"&3\"\n";
-		System.out.println("Sent data " + sData);
-		sendData(sData);
-		
 		long time = System.currentTimeMillis();
 
 			// Waits 5 seconds to receive "RM20 B"
 			while(System.currentTimeMillis() - time < 5000000){
+				String sData = "RM20 8 \"" + message + "\" \"\" \"&3\"\n";
+				sendData(sData);
+				
 				reply = recieveData();
 				
 			// If the message has been received, it breaks out of the loop
@@ -123,7 +123,6 @@ public class TerminalController extends Thread{
 					// If the message has been received, it returns it
 					if(reply != null && reply.toUpperCase().startsWith("RM20 A")){
 						//Sorts "RM20 A" and the quotation marks away from the String
-						System.out.println(reply.substring(8, (reply.length()-2)));
 						return reply.substring(8, (reply.length()-2));
 					}
 					try {
@@ -254,7 +253,7 @@ public class TerminalController extends Thread{
 
 				// Create new productbatch component
 				db.createProductBatchComp(pbID, rbID, tare, net, oprID);
-
+				
 				waitForReply("Productbatch component was successfully made, press enter");
 				state = State.PREPARE_WEIGHT;
 			}

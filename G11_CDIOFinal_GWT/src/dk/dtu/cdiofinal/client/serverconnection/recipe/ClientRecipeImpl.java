@@ -1,10 +1,12 @@
 package dk.dtu.cdiofinal.client.serverconnection.recipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 public class ClientRecipeImpl implements RecipeServiceAsync{
@@ -23,20 +25,20 @@ public class ClientRecipeImpl implements RecipeServiceAsync{
 	}
 
 	@Override
-	public void getRecipe(AsyncCallback<RecipeDTO> callback) {
-		this.service.getRecipe(callback);
+	public void getRecipe(int ID, AsyncCallback<RecipeDTO> callback) {
+		this.service.getRecipe(ID, callback);
 		
 	}
 
 	@Override
-	public void updateRecipe(RecipeDTO recipe, AsyncCallback<Boolean> callback) {
-		this.service.updateRecipe(recipe, callback);
+	public void updateRecipe(RecipeDTO recipe, int oldID, AsyncCallback<Boolean> callback) {
+		this.service.updateRecipe(recipe, oldID, callback);
 		
 	}
 
 	@Override
-	public void createRecipe(RecipeDTO recipe, AsyncCallback<Boolean> callback) {
-		this.service.createRecipe(recipe, callback);
+	public void createRecipe(RecipeDTO recipe, ArrayList<RecipeComponentDTO> list, AsyncCallback<Boolean> callback) {
+		this.service.createRecipe(recipe, list, callback);
 		
 	}
 

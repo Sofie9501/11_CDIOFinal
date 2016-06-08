@@ -1,5 +1,7 @@
 package dk.dtu.cdiofinal.client.layout.recipe;
 
+import java.util.ArrayList;
+
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.Heading;
 import com.github.gwtbootstrap.client.ui.Modal;
@@ -21,6 +23,7 @@ import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
+import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 public class CreateRecipe extends AbstractView {
@@ -29,6 +32,7 @@ public class CreateRecipe extends AbstractView {
 	private ClientRecipeImpl serviceImpl;
 	private static createRecipeUiBinder uiBinder = GWT.create(createRecipeUiBinder.class);
 	private RecipeDTO batch;
+	private ArrayList<RecipeComponentDTO> list;
 
 	@UiTemplate("createRecipe.ui.xml")
 	interface createRecipeUiBinder extends UiBinder<Widget, CreateRecipe>{
@@ -86,7 +90,7 @@ public class CreateRecipe extends AbstractView {
 			batch = new RecipeDTO(Integer.parseInt(txt_ID.getText()), txt_name.getText(), true);
 			ok.setText("Your information has been saved");
 			//Updates the DB with the new operator
-			serviceImpl.createRecipe(batch, new MyCallback());
+			serviceImpl.createRecipe(batch, list, new MyCallback());
 			
 		}	
 
@@ -112,8 +116,7 @@ public class CreateRecipe extends AbstractView {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			prod.setView(new CreateRecipeComp(prod));
-
+			
 		}
 	}
 	

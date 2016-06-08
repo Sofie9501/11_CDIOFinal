@@ -64,7 +64,7 @@ public class RecipeListView extends AbstractView{
 		};
 		cellTable.addColumn(IDColumn);
 
-		//Column with name of the ingredient
+		//Column with name of the recipe
 		TextColumn<RecipeDTO> nameColumn = new TextColumn<RecipeDTO>(){
 			@Override
 			public String getValue(RecipeDTO object) {

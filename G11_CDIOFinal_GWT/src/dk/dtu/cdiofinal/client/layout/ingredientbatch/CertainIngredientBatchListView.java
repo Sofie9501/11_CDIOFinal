@@ -27,16 +27,17 @@ import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.ingredientbatch.ClientIngredientBatchImpl;
 import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 
-public class IngredientBatchListView extends AbstractView{
+public class CertainIngredientBatchListView extends AbstractView{
 	final ProdView prod;
-
+	
 	private ClientIngredientBatchImpl serviceImpl;
+	private int cID;
 	private List<IngredientBatchDTO> inb = new ArrayList<>();
 	private ListDataProvider<IngredientBatchDTO> dataProvider;
-	private static IngredientBatchListUiBinder uiBinder = GWT.create(IngredientBatchListUiBinder.class);
+	private static CertainIngredientBatchListUiBinder uiBinder = GWT.create(CertainIngredientBatchListUiBinder.class);
 
-	@UiTemplate("ingredientBatchListView.ui.xml")
-	interface IngredientBatchListUiBinder extends UiBinder<Widget, IngredientBatchListView> {
+	@UiTemplate("certainIngredientBatchListView.ui.xml")
+	interface CertainIngredientBatchListUiBinder extends UiBinder<Widget, CertainIngredientBatchListView> {
 	}
 
 	//table
@@ -47,10 +48,11 @@ public class IngredientBatchListView extends AbstractView{
 	@UiField
 	Button btn_create;
 
-	public IngredientBatchListView(ProdView prod){
+	public CertainIngredientBatchListView(ProdView prod, int cID){
+		this.prod = prod;
+		this.cID = cID;
 		initWidget(uiBinder.createAndBindUi(this));
 		this.dataProvider = new ListDataProvider<IngredientBatchDTO>();
-		this.prod = prod;
 		this.serviceImpl = new ClientIngredientBatchImpl();
 
 		//First column with ID
@@ -111,8 +113,8 @@ public class IngredientBatchListView extends AbstractView{
 		editColumn.setFieldUpdater(new FieldUpdater<IngredientBatchDTO, String>(){
 
 			@Override
-			public void update(int index, IngredientBatchDTO dto, String value) {
-				(IngredientBatchListView.this).prod.setView(new IngredientBatchDetail(dto));
+			public void update(int index, IngredientBatchDTO object, String value) {
+				(CertainIngredientBatchListView.this).prod.setView(new IngredientBatchDetail(object));
 			}
 
 		});
@@ -120,7 +122,7 @@ public class IngredientBatchListView extends AbstractView{
 		dataProvider.addDataDisplay(cellTable);
 		cellTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 		btn_create.addClickHandler((ClickHandler)new CreateClickHandler());
-		this.serviceImpl.getIngredientBatches(new ListCallback());
+		this.serviceImpl.getIngredientBatchesList(cID, new ListCallback());
 	}
 
 	//clickhandler for create new batch
@@ -128,7 +130,7 @@ public class IngredientBatchListView extends AbstractView{
 
 		@Override
 		public void onClick(ClickEvent event) {
-			prod.setView(new CreateIngredientBatch(prod));
+			(CertainIngredientBatchListView.this).prod.setView(new CreateCertainIngredientBatch(prod, cID));
 		}
 	}
 

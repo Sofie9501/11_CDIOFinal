@@ -33,6 +33,7 @@ public class RecipeDetail extends AbstractView{
 	}
 	private RecipeDTO rec;
 	private ClientRecipeImpl serviceImpl;
+	private int oldID;
 
 	//Adds the main page texts
 	@UiField
@@ -63,6 +64,7 @@ public class RecipeDetail extends AbstractView{
 
 	public RecipeDetail(RecipeDTO object){
 		this.rec=object;
+		oldID = rec.getID();
 		initWidget(uiBinder.createAndBindUi(this));
 		this.serviceImpl = new ClientRecipeImpl();
 
@@ -112,7 +114,7 @@ public class RecipeDetail extends AbstractView{
 		}
 
 		//update the recipe in DB
-		serviceImpl.updateRecipe(rec, new MyCallback());
+		serviceImpl.updateRecipe(rec, oldID, new MyCallback());
 	}
 	private class MyCallback implements AsyncCallback<Boolean>{
 

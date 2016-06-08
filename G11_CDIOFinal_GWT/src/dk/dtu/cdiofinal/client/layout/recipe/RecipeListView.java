@@ -25,12 +25,7 @@ import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
-import dk.dtu.cdiofinal.client.layout.ingredientbatch.CreateIngredientBatch;
-import dk.dtu.cdiofinal.client.layout.ingredientbatch.IngredientBatchDetail;
-import dk.dtu.cdiofinal.client.layout.ingredientbatch.IngredientBatchListView;
-import dk.dtu.cdiofinal.client.serverconnection.ingredientbatch.ClientIngredientBatchImpl;
 import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
-import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 public class RecipeListView extends AbstractView{
@@ -50,7 +45,7 @@ public class RecipeListView extends AbstractView{
 	@UiField
 	CellTable<RecipeDTO> cellTable;
 
-	//to create a new batch
+	//to create a new recipe
 	@UiField
 	Button btn_create;
 
@@ -69,7 +64,7 @@ public class RecipeListView extends AbstractView{
 		};
 		cellTable.addColumn(IDColumn);
 
-		//Column with name of the ingredient
+		//Column with name of the recipe
 		TextColumn<RecipeDTO> nameColumn = new TextColumn<RecipeDTO>(){
 			@Override
 			public String getValue(RecipeDTO object) {
@@ -102,7 +97,7 @@ public class RecipeListView extends AbstractView{
 		this.serviceImpl.getRecipies(new ListCallback());
 	}
 
-	//clickhandler for create new batch
+	//clickhandler for create new recipe
 	private class CreateClickHandler implements ClickHandler{
 
 		@Override

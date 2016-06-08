@@ -1,4 +1,4 @@
-package dk.dtu.cdiofinal.client.layout.ingredient;
+package dk.dtu.cdiofinal.client.layout.ingredientbatch;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.Heading;
@@ -18,26 +18,32 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
+import dk.dtu.cdiofinal.client.layout.ProdView;
+import dk.dtu.cdiofinal.client.serverconnection.ingredientbatch.ClientIngredientBatchImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
-import dk.dtu.cdiofinal.shared.IngredientDTO;
+import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 
-public class CreateIngredientView extends AbstractView{
-	private static CreateIngriViewUiBinder uiBinder = GWT.create(CreateIngriViewUiBinder.class);
+public class CreateCertainIngredientBatch extends AbstractView {
 
-	@UiTemplate("createIngredientView.ui.xml")
-	interface CreateIngriViewUiBinder extends UiBinder<Widget, CreateIngredientView>{
+	final ProdView prod;
+	private ClientIngredientBatchImpl serviceImpl;
+	private static createCertainIngredientbatchUiBinder uiBinder = GWT.create(createCertainIngredientbatchUiBinder.class);
+	private IngredientBatchDTO batch;
+
+	@UiTemplate("createCertainIngredientBatch.ui.xml")
+	interface createCertainIngredientbatchUiBinder extends UiBinder<Widget, CreateCertainIngredientBatch>{
 
 	}
-	private IngredientDTO ingre;
-	private ClientIngredientImpl serviceImpl;
 
+	//Textbox, buttons, heading and modal
 	@UiField
-	TextBox txt_name;
+	TextBox txt_B_ID;
 	@UiField
-	TextBox txt_id;
+	TextBox txt_I_ID;
 	@UiField
-	TextBox txt_supplier;
+	TextBox txt_amount;
+	@UiField
+	TextBox txt_I_Name;
 	@UiField
 	Button btn_save;
 
@@ -48,29 +54,32 @@ public class CreateIngredientView extends AbstractView{
 	@UiField
 	Heading ok;
 
-	public CreateIngredientView(){
+
+
+	public CreateCertainIngredientBatch(ProdView prod, int ID){
 		initWidget(uiBinder.createAndBindUi(this));
-		this.serviceImpl = new ClientIngredientImpl();
-		//Clickhandler
+		this.prod=prod;
+		this.serviceImpl = new ClientIngredientBatchImpl();
+		txt_I_ID.setText(String.valueOf(ID));
+		//Add click and key handler to buttons and last textbox
 		btn_save.addClickHandler(new SaveClickHandler());
 		btn_ok.addClickHandler((ClickHandler)new OkClickHandler());
-		txt_supplier.addKeyDownHandler(new EnterHandler());		
+		txt_amount.addKeyDownHandler((KeyDownHandler)new EnterHandler());
+
 	}
 	private boolean changeSucces(){
 		String alert = "";
 		boolean succes = true;
-		if(!FieldVerifier.nameValid(txt_name.getText())){
-//			txt_name.setErrorLabel(errorLabel);
-			alert+="Error - You need to write a name \n";
+		if(!FieldVerifier.numberValid(Integer.parseInt(txt_B_ID.getText()))){
+			alert+="Error - You need to write a valid batch ID \n";
 			succes = false;
 		}
-		if(!FieldVerifier.numberValid(Integer.parseInt(txt_id.getText()))){
-			alert += "Wrong - id is not valid \n";
+		if(!FieldVerifier.numberValid(Integer.parseInt(txt_I_ID.getText()))){
+			alert += "Error - ID for ingredient is not valid \n";
 			succes = false;
 		}
-		if(!FieldVerifier.nameValid(txt_supplier.getText())){
-//			txt_name.setErrorLabel(errorLabel);
-			alert+="Error - You need to write a name \n";
+		if(!FieldVerifier.isValidName(txt_I_Name.getText())){
+			alert += "Error - Name for ingredient is not valid \n";
 			succes = false;
 		}
 		if(!alert.equals(""))
@@ -80,10 +89,11 @@ public class CreateIngredientView extends AbstractView{
 	private void saveChanges(){
 		// Checks to see if there is no errors
 		if(changeSucces()){
-			ingre = new IngredientDTO(Integer.parseInt(txt_id.getText()), txt_name.getText(), txt_supplier.getText(),true);
+			batch = new IngredientBatchDTO(Integer.parseInt(txt_B_ID.getText()), txt_I_Name.getText(), Integer.parseInt(txt_I_ID.getText())
+					,Double.parseDouble(txt_amount.getText()), true, null);
 			ok.setText("Your information has been saved");
 			//Updates the DB with the new operator
-			serviceImpl.createIngredient(ingre, new MyCallback());
+			serviceImpl.createIngredientBatch(batch, new MyCallback());
 			
 		}	
 
@@ -117,20 +127,21 @@ public class CreateIngredientView extends AbstractView{
 		@Override
 		public void onFailure(Throwable caught) {
 			popup.setTitle("Error");
-			ok.setText("An error has occured, and the information has not been saved");
+			ok.setText("An error has occurred, and your information has not been saved.");
 			popup.toggle();
 		}
 		@Override
 		public void onSuccess(Boolean result) {
 			if(result){
 			popup.toggle();
-			txt_name.setText("");
-			txt_id.setText("");
-			txt_supplier.setText("");
+			txt_B_ID.setText("");
+			txt_I_ID.setText("");
+			txt_I_Name.setText("");
+			txt_amount.setText("");
 			}
 			else{
 				popup.setTitle("Error");
-				ok.setText("An error has occured, and the information has not been saved");
+				ok.setText("An error has occurred, and your information has not been saved.");
 				popup.toggle();
 			}
 		}		
@@ -140,4 +151,5 @@ public class CreateIngredientView extends AbstractView{
 		// TODO Auto-generated method stub
 		
 	}
+
 }

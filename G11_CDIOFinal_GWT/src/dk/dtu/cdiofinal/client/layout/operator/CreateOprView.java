@@ -31,6 +31,10 @@ public class CreateOprView extends AbstractView {
 	@UiField
 	TextBox txt_rolle;
 	@UiField
+	TextBox txt_ID;
+	@UiField
+	TextBox txt_password;
+	@UiField
 	Button btn_save;
 
 	@UiField
@@ -55,16 +59,23 @@ public class CreateOprView extends AbstractView {
 		String alert = "";
 		boolean succes = true;
 		if(!FieldVerifier.nameValid(txt_name.getText())){
-//			txt_name.setErrorLabel(errorLabel);
-			alert+="Fejl - Du skal skrive et navn \n";
+			alert+="Error - You need to write a name \n";
+			succes = false;
+		}
+		if(!FieldVerifier.numberValid(Integer.parseInt(txt_ID.getText()))){
+			alert+="Error - Input for ID not valid \n";
 			succes = false;
 		}
 		if(!FieldVerifier.cprValid(txt_cpr.getText())){
-			alert += "Fejl - Cprnummer er ikke korrekt \n";
+			alert += "Error - CPR number not correct \n";
+			succes = false;
+		}
+		if(!FieldVerifier.passwordValid(txt_password.getText())){
+			alert += "Error - Password does nor follow the rules \n";
 			succes = false;
 		}
 		if(FieldVerifier.rolleValid(Integer.parseInt(txt_rolle.getText()))){
-			alert += "Fejl - Rolle findes ikke \n";
+			alert += "Error - Role does not exist \n";
 			succes = false;
 		}
 		if(!alert.equals(""))
@@ -74,7 +85,7 @@ public class CreateOprView extends AbstractView {
 	private void saveChanges(){
 		// Checks to see if there is no errors
 		if(changeSucces()){
-			opr = new OperatorDTO(0, txt_name.getText(), txt_cpr.getText(), "", Integer.parseInt(txt_rolle.getText())
+			opr = new OperatorDTO(Integer.parseInt(txt_ID.getText()), txt_name.getText(), txt_cpr.getText(), txt_password.getText(), Integer.parseInt(txt_rolle.getText())
 					, true);
 			ok.setText("Your information has been saved");
 			//Updates the DB with the new operator
@@ -111,8 +122,8 @@ public class CreateOprView extends AbstractView {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			popup.setTitle("Fejl");
-			ok.setText("Der er sket en fejl og resultatet er ikke blevet gemt");
+			popup.setTitle("Error");
+			ok.setText("An error has occured, and the information has not been saved");
 			popup.toggle();
 		}
 		@Override
@@ -122,10 +133,12 @@ public class CreateOprView extends AbstractView {
 			txt_name.setText("");
 			txt_cpr.setText("");
 			txt_rolle.setText("");
+			txt_ID.setText("");
+			txt_password.setText("");
 			}
 			else{
-				popup.setTitle("Fejl");
-				ok.setText("Der er sket en fejl og resultatet er ikke blevet gemt");
+				popup.setTitle("Error");
+				ok.setText("An error has occured, and the information has not been saved");
 				popup.toggle();
 			}
 		}		

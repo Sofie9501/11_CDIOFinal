@@ -31,8 +31,8 @@ public class ClientIngredientImpl implements IngredientServiceAsync {
 	}
 
 	@Override
-	public void updateIngredient(IngredientDTO ingredient, AsyncCallback<Boolean> callback) {
-		this.service.updateIngredient(ingredient, callback);
+	public void updateIngredient(IngredientDTO ingredient, int oldID, AsyncCallback<Boolean> callback) {
+		this.service.updateIngredient(ingredient, oldID, callback);
 		
 	}
 

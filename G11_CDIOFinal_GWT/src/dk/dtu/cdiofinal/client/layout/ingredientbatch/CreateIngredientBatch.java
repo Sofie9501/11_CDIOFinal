@@ -74,11 +74,11 @@ public class CreateIngredientBatch extends AbstractView {
 			succes = false;
 		}
 		if(!FieldVerifier.numberValid(Integer.parseInt(txt_I_ID.getText()))){
-			alert += "Fejl - ID for ingredient is not valid \n";
+			alert += "Error - ID for ingredient is not valid \n";
 			succes = false;
 		}
 		if(!FieldVerifier.isValidName(txt_I_Name.getText())){
-			alert += "Fejl - Name for ingredient is not valid \n";
+			alert += "Error - Name for ingredient is not valid \n";
 			succes = false;
 		}
 		if(!alert.equals(""))

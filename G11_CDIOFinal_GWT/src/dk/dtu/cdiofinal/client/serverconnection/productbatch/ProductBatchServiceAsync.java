@@ -10,8 +10,8 @@ import dk.dtu.cdiofinal.shared.ProductBatchDTO;
 public interface ProductBatchServiceAsync {
 	
 	void getProductBatches(AsyncCallback<List<ProductBatchDTO>> callback);
-	void getProductBatch(AsyncCallback<ProductBatchDTO> callback);
-	void updateProductBatch(ProductBatchDTO proBatch, AsyncCallback<Boolean> callback);
+	void getProductBatch(int pbID, AsyncCallback<ProductBatchDTO> callback);
+	void updateProductBatch(ProductBatchDTO proBatch, int oldID, AsyncCallback<Boolean> callback);
 	void createProductBatch(ProductBatchDTO proBatch, AsyncCallback<Boolean> callback);
 
 }

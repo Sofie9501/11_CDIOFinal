@@ -25,13 +25,9 @@ import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
-import dk.dtu.cdiofinal.client.layout.ingredientbatch.IngredientBatchDetail;
-import dk.dtu.cdiofinal.client.layout.ingredientbatch.IngredientBatchListView;
+import dk.dtu.cdiofinal.client.layout.ingredientbatch.CertainIngredientBatchListView;
 import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
-import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
-
-import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 
 
@@ -43,6 +39,7 @@ public class IngredientListView extends AbstractView {
 	private List<IngredientDTO> list = new ArrayList<>();
 	private ListDataProvider<IngredientDTO> dataProvider;
 	private static IngredientListViewUiBinder uiBinder = GWT.create(IngredientListViewUiBinder.class);
+	private ProdView prod1;
 
 	@UiTemplate("ingredientListView.ui.xml")
 	interface IngredientListViewUiBinder  extends UiBinder<Widget, IngredientListView> {
@@ -58,6 +55,7 @@ public class IngredientListView extends AbstractView {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.dataProvider = new ListDataProvider<IngredientDTO>();
 		this.prod = prod;
+		this.prod1=prod;
 		this.serviceImpl = new ClientIngredientImpl();
 
 
@@ -93,6 +91,25 @@ public class IngredientListView extends AbstractView {
 		};
 		cellTable.addColumn(activeColumn);	
 
+
+		Column<IngredientDTO, String> seeBatchColumn = new Column<IngredientDTO, String>(new ButtonCell(IconType.PLUS,ButtonType.LINK, ButtonSize.SMALL)){
+			@Override
+			public String getValue(IngredientDTO object) {
+				return "See batches";
+			}
+		};
+
+		cellTable.addColumn(seeBatchColumn);
+		
+		seeBatchColumn.setFieldUpdater(new FieldUpdater<IngredientDTO, String>(){
+
+			@Override
+			public void update(int index, IngredientDTO object, String value) {
+				(IngredientListView.this).prod.setView(new CertainIngredientBatchListView((IngredientListView.this).prod, object.getID()));
+			}
+
+		});
+		
 		Column<IngredientDTO, String> editColumn = new Column<IngredientDTO, String>(new ButtonCell(IconType.WRENCH,ButtonType.LINK, ButtonSize.SMALL)){
 			@Override
 			public String getValue(IngredientDTO object) {

@@ -16,7 +16,7 @@
   
   <servlet-mapping>
     <servlet-name>ServerOperatorImpl</servlet-name>
-    <url-pattern>/g11_cdiofinal/service</url-pattern>
+    <url-pattern>/g11_cdiofinal/OperatorService</url-pattern>
   </servlet-mapping>
   
     <!-- LOGGIN HANDLING -->
@@ -30,6 +30,53 @@
       <url-pattern>/g11_cdiofinal/MenuService</url-pattern>
   </servlet-mapping>
 
+      <!-- Ingredients -->
+  <servlet>
+  	<servlet-name>ServerIngredientImpl</servlet-name>
+  	<servlet-class>dk.dtu.cdiofinal.server.ServerIngredientImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+      <servlet-name>ServerIngredientImpl</servlet-name>
+      <url-pattern>/g11_cdiofinal/IngredientService</url-pattern>
+  </servlet-mapping>
+  
+      <!-- IngredientBatch -->
+  <servlet>
+  	<servlet-name>ServerIngredientBatchImpl</servlet-name>
+  	<servlet-class>dk.dtu.cdiofinal.server.ServerIngredientBatchImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+      <servlet-name>ServerIngredientBatchImpl</servlet-name>
+      <url-pattern>/g11_cdiofinal/IngredientBatchService</url-pattern>
+  </servlet-mapping>
+  
+        <!-- ProductBatch -->
+  <servlet>
+  	<servlet-name>ServerProductBatchImpl</servlet-name>
+  	<servlet-class>dk.dtu.cdiofinal.server.ServerProductBatchImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+      <servlet-name>ServerProductBatchImpl</servlet-name>
+      <url-pattern>/g11_cdiofinal/ProductBatchService</url-pattern>
+  </servlet-mapping>
+  
+          <!-- Recipe -->
+  <servlet>
+  	<servlet-name>ServerRecipeImpl</servlet-name>
+  	<servlet-class>dk.dtu.cdiofinal.server.ServerRecipeImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+      <servlet-name>ServerRecipeImpl</servlet-name>
+      <url-pattern>/g11_cdiofinal/RecipeService</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
   
   
   <!-- Default page to serve -->

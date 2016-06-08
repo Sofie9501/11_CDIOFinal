@@ -7,11 +7,11 @@
 	<g:HTMLPanel>
 
 		<div align="left" style="float:left;">
-			<b:Button ui:field="back">Tilbage</b:Button>
-			<b:Button ui:field="menu">Hovedmenu</b:Button>
+			<b:Button ui:field="back">Back</b:Button>
+			<b:Button ui:field="menu">Main menu</b:Button>
 		</div>
 		<div align="right" style="float:right;">
-			<b:Button ui:field='log_out'>Log ud</b:Button>
+			<b:Button ui:field='log_out'>Log out</b:Button>
 		</div>
 	
 	</g:HTMLPanel>

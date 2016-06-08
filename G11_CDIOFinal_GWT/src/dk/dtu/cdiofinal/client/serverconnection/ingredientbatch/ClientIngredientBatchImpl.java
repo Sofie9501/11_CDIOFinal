@@ -29,14 +29,20 @@ public class ClientIngredientBatchImpl implements IngredientBatchServiceAsync{
 	}
 
 	@Override
-	public void updateIngredientBatch(IngredientBatchDTO IngredientBatch, AsyncCallback<Boolean> callback) {
-		this.service.updateIngredientBatch(IngredientBatch, callback);
+	public void updateIngredientBatch(IngredientBatchDTO IngredientBatch, int oldID, AsyncCallback<Boolean> callback) {
+		this.service.updateIngredientBatch(IngredientBatch, oldID, callback);
 		
 	}
 
 	@Override
 	public void createIngredientBatch(IngredientBatchDTO IngredientBatch, AsyncCallback<Boolean> callback) {
 		this.service.createIngredientBatch(IngredientBatch, callback);
+		
+	}
+	
+	@Override
+	public void getIngredientBatchesList(int ID, AsyncCallback<List<IngredientBatchDTO>> callback) {
+		this.service.getIngredientBatchesList(ID, callback);
 		
 	}
 

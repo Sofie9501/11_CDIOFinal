@@ -4,28 +4,31 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
 	<ui:style>
-	.cellTable {
-      border-bottom: 1px solid #ccc;
-      text-align: left;
-      margin-bottom: 4px;
-	}
+	
 	</ui:style>
 	<g:HTMLPanel>
 	    <div align="left" style="width:500px"> <table>
 	        
-	        <tr><td><h4>Recipe ID</h4></td></tr>
+	        <tr><td><h4>IngredientBatch ID</h4></td></tr>
 	        <tr>
-	            <td><b:TextBox ui:field="txt_ID"></b:TextBox></td>
+	            <td><b:TextBox ui:field="txt_B_ID"></b:TextBox></td>
 	            
 	        </tr>
-	        <tr><td><h4>Recipe Name</h4></td></tr>
+	        <tr><td><h4>Ingredient ID</h4></td></tr>
 	        <tr>
-	            <td><b:TextBox ui:field="txt_name"></b:TextBox></td>
+	            <td><b:TextBox ui:field="txt_I_ID"></b:TextBox></td>
 	        </tr>
+	        <tr><td><h4>Ingredient Name</h4></td></tr>
 	        <tr>
-	        <td><b:Button icon="PLUS" type="LINK" ui:field="btn_add" >Add new component</b:Button> </td>
+	            <td><b:TextBox ui:field="txt_I_Name"></b:TextBox></td>
 	        </tr>
+	        <tr><td><h4>Amount</h4></td></tr>
+	        <tr>
+	            <td><b:TextBox ui:field="txt_amount"></b:TextBox></td>
+	        </tr>
+	       <tr>
 	            <td><b:Button icon="SAVE" type="LINK" ui:field="btn_save" >Save</b:Button> </td>
+	        </tr>
 	        <tr>
 	            <td>
 	                <b:Modal ui:field="popup" title="Succes" backdrop="STATIC" keyboard="true" animation="true">
@@ -36,19 +39,8 @@
 	                </b:Modal>
 	            </td>
 	        </tr>
-	        </table></div>
+	       
 	        
-		 <table cellspacing='0' cellpadding='0' style='width:100%;'>
-      <tr>
-        <td
-          valign='top'>
-          <b:CellTable
-            addStyleNames='{style.cellTable}'
-            pageSize='100'
-            ui:field='cellTable'
-            bordered="false" condensed="false" striped="true" />
-        </td>
-      </tr>
-    </table>
+	        </table></div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

@@ -66,7 +66,7 @@ public class OperatorDAOMySql implements OperatorDAO {
 	@Override
 	public void updateOperator(OperatorDTO opr, int oldID) throws DALException {
 		String query = "call update_opr(" + oldID + ", " + opr.getOprID() + ", " + opr.getRole() + ", '" + opr.getName() + "', '" +
-						opr.getCpr() + "', '" + opr.getPassword() + "' );";
+						opr.getCpr() + "', '" + opr.getPassword() + "', " + opr.isActive() + " );";
 		c.doQuery(query);
 	}
 	

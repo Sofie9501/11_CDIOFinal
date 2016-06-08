@@ -11,7 +11,7 @@ public interface IngredientServiceAsync {
 
 	void getIngredients(AsyncCallback<List<IngredientDTO>> callback);
 	void getIngredient(AsyncCallback<IngredientDTO> callback);
-	void updateIngredient(IngredientDTO ingredient, AsyncCallback<Boolean> callback);
+	void updateIngredient(IngredientDTO ingredient, int oldID, AsyncCallback<Boolean> callback);
 	void createIngredient(IngredientDTO ingredient, AsyncCallback<Boolean> callback);
 	
 }

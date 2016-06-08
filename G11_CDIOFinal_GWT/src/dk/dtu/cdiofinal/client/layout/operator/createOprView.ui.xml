@@ -9,16 +9,25 @@
 	<g:HTMLPanel>
 	    <div align="left" style="width:500px"> <table>
 	        
-	        <tr><td><h4>Navn</h4></td></tr>
+	        <tr><td><h4>Operator ID</h4></td></tr>
+	        <tr>
+	            <td><b:TextBox ui:field="txt_ID"></b:TextBox></td>
+	            
+	        </tr>
+	        <tr><td><h4>Name</h4></td></tr>
 	        <tr>
 	            <td><b:TextBox ui:field="txt_name"></b:TextBox></td>
 	            
 	        </tr>
-	        <tr><td><h4>CPR nr</h4></td></tr>
+	        <tr><td><h4>CPR number</h4></td></tr>
 	        <tr>
 	            <td><b:TextBox ui:field="txt_cpr"></b:TextBox></td>
 	        </tr>
-	        <tr><td><h4>Rolle</h4></td></tr>
+	        <tr><td><h4>Password</h4></td></tr>
+	        <tr>
+	            <td><b:TextBox ui:field="txt_password"></b:TextBox></td>
+	        </tr>
+	        <tr><td><h4>Role</h4></td></tr>
 	        <tr>
 	            <td><b:TextBox ui:field="txt_rolle"></b:TextBox></td>
 	        </tr>

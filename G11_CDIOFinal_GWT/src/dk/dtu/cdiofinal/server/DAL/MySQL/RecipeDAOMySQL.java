@@ -84,7 +84,7 @@ public class RecipeDAOMySQL implements RecipeDAO{
 
 	@Override
 	public void createRecipe(RecipeDTO recipe, ArrayList<RecipeComponentDTO> komp) throws DALException {
-		query = "call create_recipe(" + recipe.getID() + ", " + recipe.getName();
+		query = "call create_recipe(" + recipe.getID() + ", '" + recipe.getName()+ "')";
 		c.doQuery(query);
 		
 		for (int i = 0; i < komp.size(); i++) {

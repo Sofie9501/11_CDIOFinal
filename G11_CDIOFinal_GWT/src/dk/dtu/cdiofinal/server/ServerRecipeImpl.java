@@ -64,4 +64,10 @@ public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeServ
 		}
 	}
 
+
+	@Override
+	public List<RecipeComponentDTO> getRecipiesComp(ArrayList<RecipeComponentDTO> list) {
+		return list;
+	}
+
 }

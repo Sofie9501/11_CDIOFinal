@@ -226,10 +226,13 @@ public class TerminalController extends Thread{
 	}
 
 	private void prepareWeight(){
-		if((waitForReply("Press enter when the weight is empty, then press t")).equalsIgnoreCase(EXIT_CHAR)){
+		String recieve = waitForReply("Press enter when the weight is empty");
+		
+		if(recieve.equalsIgnoreCase(EXIT_CHAR)){
 			state = State.OPERATOR_LOGIN;
 			return;
 		}
+
 		try {
 			db.setPbStatus();
 		} catch (DALException e) {

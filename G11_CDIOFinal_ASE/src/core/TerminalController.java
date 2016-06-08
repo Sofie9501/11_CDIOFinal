@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -232,7 +231,7 @@ public class TerminalController extends Thread{
 			state = State.OPERATOR_LOGIN;
 			return;
 		}
-
+		
 		try {
 			db.setPbStatus();
 		} catch (DALException e) {
@@ -240,8 +239,7 @@ public class TerminalController extends Thread{
 			waitForReply("contact supervisor, press any key");
 			state = State.OPERATOR_LOGIN;
 		}
-		String bla = sendTare();
-		sendData("D \"" + bla + "\"");
+		sendTare();
 		state = State.ADD_CONTAINER;
 	}
 
@@ -249,7 +247,7 @@ public class TerminalController extends Thread{
 	private void addContainer(){
 		try {
 			// The reply means the operator giving consent
-			String bla = waitForReply("Place first container");
+			waitForReply("Place first container");
 
 			// The tare is saved
 			tare = Float.parseFloat(sendTare());

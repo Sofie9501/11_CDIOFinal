@@ -12,8 +12,8 @@ import dk.dtu.cdiofinal.shared.ProductBatchDTO;
 public interface ProductBatchService extends RemoteService{
 	
 	List<ProductBatchDTO> getProductBatches();
-	ProductBatchDTO getProductBatch();
-	boolean updateProductBatch(ProductBatchDTO proBatch);
+	ProductBatchDTO getProductBatch(int pbID);
+	boolean updateProductBatch(ProductBatchDTO proBatch, int oldID);
 	boolean createProductBatch(ProductBatchDTO proBatch);
 
 }

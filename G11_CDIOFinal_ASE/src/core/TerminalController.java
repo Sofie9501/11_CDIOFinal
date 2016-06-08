@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -104,16 +103,17 @@ public class TerminalController extends Thread{
 	// This method sends the message it has been called with and awaits for the second reply (RM20 A)
 	@SuppressWarnings("deprecation")
 	private String waitForReply(String message){
+		sendData("DW");
 		String reply = null;
-		String sData = "RM20 8 \"" + message + "\" \"\" \"&3\"\n";
-		System.out.println("Sent data " + sData);
-		sendData(sData);
-		
 		long time = System.currentTimeMillis();
 
 			// Waits 5 seconds to receive "RM20 B"
 			while(System.currentTimeMillis() - time < 5000000){
+				String sData = "RM20 8 \"" + message + "\" \"\" \"&3\"\n";
+				sendData(sData);
+				
 				reply = recieveData();
+				
 			// If the message has been received, it breaks out of the loop
 				if(reply != null && reply.toUpperCase().startsWith("RM20 B")){
 				// Waits eternally for the second response "RM20 A"
@@ -123,7 +123,6 @@ public class TerminalController extends Thread{
 					// If the message has been received, it returns it
 					if(reply != null && reply.toUpperCase().startsWith("RM20 A")){
 						//Sorts "RM20 A" and the quotation marks away from the String
-						System.out.println(reply.substring(8, (reply.length()-2)));
 						return reply.substring(8, (reply.length()-2));
 					}
 					try {
@@ -139,18 +138,10 @@ public class TerminalController extends Thread{
 		return null;
 	}
 	
-	private String sendTare(String message){
+	private String sendTare(){
 		String reply = null;
-		sendData(message);
-
-		while(true){
-			reply = recieveData();
-
-			System.out.println(reply);
-			if(reply.toUpperCase().startsWith("T")){
-				return reply.substring(9, reply.length()-5);
-			}
-		}
+		reply = recieveData();
+		return reply.substring(9, reply.length()-5);
 	}
 	
 	private String sendS(String message){
@@ -161,7 +152,7 @@ public class TerminalController extends Thread{
 			reply = recieveData();
 
 			if(reply.toUpperCase().startsWith("S")){
-				return reply.substring(9);
+				return reply.substring(9,reply.length()-5);
 			}
 		}
 	}
@@ -214,10 +205,13 @@ public class TerminalController extends Thread{
 	}
 
 	private void prepareWeight(){
-		if((waitForReply("Press enter when the weight is empty")).equalsIgnoreCase(EXIT_CHAR)){
+		String recieve = waitForReply("Press enter when the weight is empty, then press t to tare");
+
+		if(recieve.equalsIgnoreCase(EXIT_CHAR)){
 			state = State.OPERATOR_LOGIN;
 			return;
 		}
+		
 		try {
 			db.setPbStatus();
 		} catch (DALException e) {
@@ -225,7 +219,7 @@ public class TerminalController extends Thread{
 			waitForReply("contact supervisor, press any key");
 			state = State.OPERATOR_LOGIN;
 		}
-		sendTare("T");
+		sendTare();
 		state = State.ADD_CONTAINER;
 	}
 
@@ -233,13 +227,14 @@ public class TerminalController extends Thread{
 	private void addContainer(){
 		try {
 			// The reply means the operator giving consent
-			waitForReply("Place first container");
+			waitForReply("Press enter when the container is placed, then press t to tare");
 
 			// The tare is saved
-			tare = Float.parseFloat(sendTare("T"));
+			tare = Float.parseFloat(sendTare());
 
 			state = State.WEIGHING;			
 		}catch(Exception e){
+			System.out.println(e.getMessage());
 			waitForReply("WRONG INPUT, PRESS ENTER");
 			return;
 		}
@@ -248,7 +243,7 @@ public class TerminalController extends Thread{
 	private void weighing(){
 		try {
 			// The operator is asked to enter an ID for the ingredientbatch (raavarebatch)
-			rbID = Integer.parseInt(waitForReply("Enter rb ID"));
+			rbID = Integer.parseInt(waitForReply("Enter ib ID, then press s to weight"));
 
 			// The ID is checked that it exsists
 			if(db.checkRbId(rbID)){
@@ -258,8 +253,8 @@ public class TerminalController extends Thread{
 
 				// Create new productbatch component
 				db.createProductBatchComp(pbID, rbID, tare, net, oprID);
-
-				sendData("Productbatch component was successfully made");
+				
+				waitForReply("Productbatch component was successfully made, press enter");
 				state = State.PREPARE_WEIGHT;
 			}
 			else

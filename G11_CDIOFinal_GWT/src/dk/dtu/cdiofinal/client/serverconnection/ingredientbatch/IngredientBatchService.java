@@ -11,6 +11,7 @@ import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 public interface IngredientBatchService extends RemoteService {
 	
 	List<IngredientBatchDTO> getIngredientBatches();
+	List<IngredientBatchDTO> getIngredientBatchesList(int ID);
 	IngredientBatchDTO getIngredientBatch();
 	boolean updateIngredientBatch(IngredientBatchDTO opr, int oldID);
 	boolean createIngredientBatch(IngredientBatchDTO opr);

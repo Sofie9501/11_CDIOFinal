@@ -31,6 +31,7 @@ public class CertainIngredientBatchListView extends AbstractView{
 	final ProdView prod;
 	
 	private ClientIngredientBatchImpl serviceImpl;
+	private int cID;
 	private List<IngredientBatchDTO> inb = new ArrayList<>();
 	private ListDataProvider<IngredientBatchDTO> dataProvider;
 	private static CertainIngredientBatchListUiBinder uiBinder = GWT.create(CertainIngredientBatchListUiBinder.class);
@@ -49,6 +50,7 @@ public class CertainIngredientBatchListView extends AbstractView{
 
 	public CertainIngredientBatchListView(ProdView prod, int cID){
 		this.prod = prod;
+		this.cID = cID;
 		initWidget(uiBinder.createAndBindUi(this));
 		this.dataProvider = new ListDataProvider<IngredientBatchDTO>();
 		this.serviceImpl = new ClientIngredientBatchImpl();
@@ -128,7 +130,7 @@ public class CertainIngredientBatchListView extends AbstractView{
 
 		@Override
 		public void onClick(ClickEvent event) {
-			prod.setView(new CreateIngredientBatch(prod));
+			(CertainIngredientBatchListView.this).prod.setView(new CreateCertainIngredientBatch(prod, cID));
 		}
 	}
 

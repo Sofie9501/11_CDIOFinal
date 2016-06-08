@@ -56,4 +56,17 @@ public class ServerIngredientBatchImpl extends RemoteServiceServlet implements I
 		}
 	}
 
+	@Override
+	public List<IngredientBatchDTO> getIngredientBatchesList(int ID) {
+		List<IngredientBatchDTO> list = new ArrayList<IngredientBatchDTO>();
+
+		try {
+			list = dao.getIngredientBatchList(ID);
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
 }

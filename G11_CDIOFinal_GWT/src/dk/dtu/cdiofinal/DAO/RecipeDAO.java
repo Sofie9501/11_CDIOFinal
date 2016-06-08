@@ -10,7 +10,7 @@ import dk.dtu.cdiofinal.shared.RecipeDTO;
 public interface RecipeDAO {
 	
 	RecipeDTO getRecipe(int ID) throws DALException;
-	List<RecipeDTO> getRecipeList() throws DALException;
+	List<RecipeDTO> getRecipes() throws DALException;
 	List<RecipeComponentDTO> getRecipeComponentList (int ID) throws DALException; 
 	void createRecipe(RecipeDTO recipe, ArrayList<RecipeComponentDTO> komp) throws DALException;
 	void updateRecipe(RecipeDTO recipe, int oldRecipeID) throws DALException;

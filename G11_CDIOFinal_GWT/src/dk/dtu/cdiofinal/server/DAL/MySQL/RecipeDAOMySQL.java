@@ -40,7 +40,7 @@ public class RecipeDAOMySQL implements RecipeDAO{
 	
 	// Get a list of all Recipes
 	@Override
-	public List<RecipeDTO> getRecipeList() throws DALException {
+	public List<RecipeDTO> getRecipes() throws DALException {
 		query = "select * from recipe";
 		ResultSet result = c.doQuery(query);
 		
@@ -58,6 +58,8 @@ public class RecipeDAOMySQL implements RecipeDAO{
 		}
 		return list;
 	}
+	
+	//get components of certain recipe
 	@Override
 	public List<RecipeComponentDTO> getRecipeComponentList(int ID) throws DALException {
 		query = "select * from recipe_administration where recipe_id = " + ID;

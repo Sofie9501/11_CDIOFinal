@@ -23,14 +23,14 @@ public class ClientProductBatchImpl implements ProductBatchServiceAsync{
 	}
 
 	@Override
-	public void getProductBatch(AsyncCallback<ProductBatchDTO> callback) {
-		this.service.getProductBatch(callback);
+	public void getProductBatch(int pbID,  AsyncCallback<ProductBatchDTO> callback) {
+		this.service.getProductBatch(pbID, callback);
 		
 	}
 
 	@Override
-	public void updateProductBatch(ProductBatchDTO proBatch, AsyncCallback<Boolean> callback) {
-		this.service.updateProductBatch(proBatch, callback);
+	public void updateProductBatch(ProductBatchDTO proBatch,int pbID, AsyncCallback<Boolean> callback) {
+		this.service.updateProductBatch(proBatch, pbID, callback);
 		
 	}
 

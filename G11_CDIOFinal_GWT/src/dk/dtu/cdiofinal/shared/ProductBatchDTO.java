@@ -14,6 +14,9 @@ public class ProductBatchDTO {
 	private int status;
 	private boolean isActive;
 	
+	public ProductBatchDTO(){
+		
+	}
 	public ProductBatchDTO(int pb_ID, int r_ID, String name, int countComponents,
 			int countFinished, Date start_date,Date end_date, int status, boolean isActive) {
 		this.countComponents = countComponents;
@@ -54,6 +57,10 @@ public class ProductBatchDTO {
 
 	public int getR_ID() {
 		return ingredient_ID;
+	}
+	
+	public void setR_ID(int r_ID){
+		this.ingredient_ID = r_ID;
 	}
 
 	public int getPb_ID() {

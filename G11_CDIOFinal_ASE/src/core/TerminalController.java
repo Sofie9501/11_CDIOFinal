@@ -226,7 +226,7 @@ public class TerminalController extends Thread{
 
 	private void prepareWeight(){
 		String recieve = waitForReply("Press enter when the weight is empty");
-		
+
 		if(recieve.equalsIgnoreCase(EXIT_CHAR)){
 			state = State.OPERATOR_LOGIN;
 			return;

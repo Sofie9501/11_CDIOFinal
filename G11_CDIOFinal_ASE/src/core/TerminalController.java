@@ -146,8 +146,9 @@ public class TerminalController extends Thread{
 		while(true){
 			reply = recieveData();
 
+			System.out.println(reply);
 			if(reply.toUpperCase().startsWith("T")){
-				return reply.substring(9);
+				return reply.substring(9, reply.length()-5);
 			}
 		}
 	}
@@ -201,7 +202,7 @@ public class TerminalController extends Thread{
 				}
 				pbID = Integer.parseInt(recieve);
 
-				String dbReplay = "Recipe: " + db.getProductRecipeName(pbID);
+				String dbReplay = "Recipe: " + db.getProductRecipeName(pbID) + ", press enter";
 
 				waitForReply(dbReplay);
 				state = State.PREPARE_WEIGHT;
@@ -213,7 +214,7 @@ public class TerminalController extends Thread{
 	}
 
 	private void prepareWeight(){
-		if((sendTare("Make sure the weight is empty")).equalsIgnoreCase(EXIT_CHAR)){
+		if((waitForReply("Press enter when the weight is empty")).equalsIgnoreCase(EXIT_CHAR)){
 			state = State.OPERATOR_LOGIN;
 			return;
 		}
@@ -224,7 +225,7 @@ public class TerminalController extends Thread{
 			waitForReply("contact supervisor, press any key");
 			state = State.OPERATOR_LOGIN;
 		}
-		sendData("T");
+		sendTare("T");
 		state = State.ADD_CONTAINER;
 	}
 
@@ -232,7 +233,7 @@ public class TerminalController extends Thread{
 	private void addContainer(){
 		try {
 			// The reply means the operator giving consent
-			String reply = waitForReply("Place first container");
+			waitForReply("Place first container");
 
 			// The tare is saved
 			tare = Float.parseFloat(sendTare("T"));

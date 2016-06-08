@@ -28,7 +28,7 @@ import dk.dtu.cdiofinal.client.serverconnection.ingredientbatch.ClientIngredient
 import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 
 public class CertainIngredientBatchListView extends AbstractView{
-//	final ProdView prod;
+	final ProdView prod;
 	
 	private ClientIngredientBatchImpl serviceImpl;
 	private List<IngredientBatchDTO> inb = new ArrayList<>();
@@ -44,11 +44,11 @@ public class CertainIngredientBatchListView extends AbstractView{
 	CellTable<IngredientBatchDTO> cellTable;
 
 	//to create a new batch
-//	@UiField
-//	Button btn_create;
+	@UiField
+	Button btn_create;
 
-	public CertainIngredientBatchListView(int cID){
-//		this.prod = prod;
+	public CertainIngredientBatchListView(ProdView prod, int cID){
+		this.prod = prod;
 		initWidget(uiBinder.createAndBindUi(this));
 		this.dataProvider = new ListDataProvider<IngredientBatchDTO>();
 		this.serviceImpl = new ClientIngredientBatchImpl();
@@ -99,38 +99,38 @@ public class CertainIngredientBatchListView extends AbstractView{
 		};
 		cellTable.addColumn(dateColumn);	
 
-//		//Column with edit buttons
-//		Column<IngredientBatchDTO, String> editColumn = new Column<IngredientBatchDTO, String>(new ButtonCell(IconType.WRENCH,ButtonType.LINK, ButtonSize.SMALL)){
-//			@Override
-//			public String getValue(IngredientBatchDTO object) {
-//				return "More...";
-//			}
-//		};
-//		cellTable.addColumn(editColumn);
-//
-//		editColumn.setFieldUpdater(new FieldUpdater<IngredientBatchDTO, String>(){
-//
-//			@Override
-//			public void update(int index, IngredientBatchDTO object, String value) {
-//				(CertainIngredientBatchListView.this).prod.setView(new IngredientBatchDetail(object));
-//			}
-//
-//		});
+		//Column with edit buttons
+		Column<IngredientBatchDTO, String> editColumn = new Column<IngredientBatchDTO, String>(new ButtonCell(IconType.WRENCH,ButtonType.LINK, ButtonSize.SMALL)){
+			@Override
+			public String getValue(IngredientBatchDTO object) {
+				return "More...";
+			}
+		};
+		cellTable.addColumn(editColumn);
+
+		editColumn.setFieldUpdater(new FieldUpdater<IngredientBatchDTO, String>(){
+
+			@Override
+			public void update(int index, IngredientBatchDTO object, String value) {
+				(CertainIngredientBatchListView.this).prod.setView(new IngredientBatchDetail(object));
+			}
+
+		});
 		dataProvider.setList(inb); 
 		dataProvider.addDataDisplay(cellTable);
 		cellTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
-//		btn_create.addClickHandler((ClickHandler)new CreateClickHandler());
+		btn_create.addClickHandler((ClickHandler)new CreateClickHandler());
 		this.serviceImpl.getIngredientBatchesList(cID, new ListCallback());
 	}
 
 	//clickhandler for create new batch
-//	private class CreateClickHandler implements ClickHandler{
-//
-//		@Override
-//		public void onClick(ClickEvent event) {
-//			prod.setView(new CreateIngredientBatch(prod));
-//		}
-//	}
+	private class CreateClickHandler implements ClickHandler{
+
+		@Override
+		public void onClick(ClickEvent event) {
+			prod.setView(new CreateIngredientBatch(prod));
+		}
+	}
 
 	private class ListCallback implements AsyncCallback<List <IngredientBatchDTO>>{
 

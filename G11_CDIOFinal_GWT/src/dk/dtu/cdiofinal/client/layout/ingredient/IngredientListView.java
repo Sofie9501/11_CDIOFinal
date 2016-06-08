@@ -105,7 +105,7 @@ public class IngredientListView extends AbstractView {
 
 			@Override
 			public void update(int index, IngredientDTO object, String value) {
-				(IngredientListView.this).prod.setView(new CertainIngredientBatchListView(object.getID()));
+				(IngredientListView.this).prod.setView(new CertainIngredientBatchListView((IngredientListView.this).prod, object.getID()));
 			}
 
 		});

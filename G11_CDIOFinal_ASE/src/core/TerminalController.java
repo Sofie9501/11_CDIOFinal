@@ -114,6 +114,7 @@ public class TerminalController extends Thread{
 			// Waits 5 seconds to receive "RM20 B"
 			while(System.currentTimeMillis() - time < 5000000){
 				reply = recieveData();
+				
 			// If the message has been received, it breaks out of the loop
 				if(reply != null && reply.toUpperCase().startsWith("RM20 B")){
 				// Waits eternally for the second response "RM20 A"
@@ -139,18 +140,29 @@ public class TerminalController extends Thread{
 		return null;
 	}
 	
-	private String sendTare(String message){
+	private String sendTare(){
+		sendData("T");
 		String reply = null;
-		sendData(message);
-
-		while(true){
-			reply = recieveData();
-
-			System.out.println(reply);
-			if(reply.toUpperCase().startsWith("T")){
-				return reply.substring(9, reply.length()-5);
-			}
-		}
+		reply = recieveData();
+		return reply;
+		
+//		if(reply.toUpperCase().equals("T")){
+//			return reply;
+//		}
+		
+		
+		
+//		String reply = null;
+//		sendData(message);
+//
+//		while(true){
+//			reply = recieveData();
+//
+//			System.out.println(reply);
+//			if(reply.toUpperCase().startsWith("T")){
+//				return reply.substring(9, reply.length()-5);
+//			}
+//		}
 	}
 	
 	private String sendS(String message){
@@ -214,7 +226,7 @@ public class TerminalController extends Thread{
 	}
 
 	private void prepareWeight(){
-		if((waitForReply("Press enter when the weight is empty")).equalsIgnoreCase(EXIT_CHAR)){
+		if((waitForReply("Press enter when the weight is empty, then press t")).equalsIgnoreCase(EXIT_CHAR)){
 			state = State.OPERATOR_LOGIN;
 			return;
 		}
@@ -225,7 +237,8 @@ public class TerminalController extends Thread{
 			waitForReply("contact supervisor, press any key");
 			state = State.OPERATOR_LOGIN;
 		}
-		sendTare("T");
+		String bla = sendTare();
+		sendData("D \"" + bla + "\"");
 		state = State.ADD_CONTAINER;
 	}
 
@@ -233,10 +246,10 @@ public class TerminalController extends Thread{
 	private void addContainer(){
 		try {
 			// The reply means the operator giving consent
-			waitForReply("Place first container");
+			String bla = waitForReply("Place first container");
 
 			// The tare is saved
-			tare = Float.parseFloat(sendTare("T"));
+			tare = Float.parseFloat(sendTare());
 
 			state = State.WEIGHING;			
 		}catch(Exception e){

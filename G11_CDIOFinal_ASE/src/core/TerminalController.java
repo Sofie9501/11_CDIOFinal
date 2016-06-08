@@ -206,7 +206,7 @@ public class TerminalController extends Thread{
 	}
 
 	private void prepareWeight(){
-		String recieve = waitForReply("Press enter when the weight is empty");
+		String recieve = waitForReply("Press enter when the weight is empty, then press t to tare");
 
 		if(recieve.equalsIgnoreCase(EXIT_CHAR)){
 			state = State.OPERATOR_LOGIN;
@@ -228,7 +228,7 @@ public class TerminalController extends Thread{
 	private void addContainer(){
 		try {
 			// The reply means the operator giving consent
-			waitForReply("Place first container");
+			waitForReply("Press enter when the container is placed, then press t to tare");
 
 			// The tare is saved
 			tare = Float.parseFloat(sendTare());
@@ -244,7 +244,7 @@ public class TerminalController extends Thread{
 	private void weighing(){
 		try {
 			// The operator is asked to enter an ID for the ingredientbatch (raavarebatch)
-			rbID = Integer.parseInt(waitForReply("Enter rb ID"));
+			rbID = Integer.parseInt(waitForReply("Enter ib ID, then press s to weight"));
 
 			// The ID is checked that it exsists
 			if(db.checkRbId(rbID)){
@@ -255,7 +255,7 @@ public class TerminalController extends Thread{
 				// Create new productbatch component
 				db.createProductBatchComp(pbID, rbID, tare, net, oprID);
 
-				sendData("Productbatch component was successfully made");
+				waitForReply("Productbatch component was successfully made, press enter");
 				state = State.PREPARE_WEIGHT;
 			}
 			else

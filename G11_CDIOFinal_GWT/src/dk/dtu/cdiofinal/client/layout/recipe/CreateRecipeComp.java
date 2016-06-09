@@ -96,7 +96,7 @@ public class CreateRecipeComp extends AbstractView {
 				return String.valueOf(object.getNom_netto());
 			}
 		};
-		cellTable.addColumn(netColumn, "Nom_net");
+		cellTable.addColumn(netColumn, "Net");
 		
 		//Column with net
 		TextColumn<RecipeComponentDTO> tolColumn = new TextColumn<RecipeComponentDTO>(){
@@ -141,7 +141,6 @@ public class CreateRecipeComp extends AbstractView {
 			//Show list of components
 			dataProvider.setList(componentList);
 			dataProvider.addDataDisplay(cellTable);
-			cellTable.setVisible(true);
 			btn_add.setVisible(true);
 			txt_ID.setText("");
 			txt_net.setText("");
@@ -171,6 +170,7 @@ public class CreateRecipeComp extends AbstractView {
 			Nom_net.setVisible(false);
 			Tolerance.setVisible(false);
 			saveChanges();
+			cellTable.setVisible(true);
 		}
 	}
 	

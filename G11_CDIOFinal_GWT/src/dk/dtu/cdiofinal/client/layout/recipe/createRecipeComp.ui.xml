@@ -53,15 +53,15 @@
 				</td>
 				</tr>
 				<tr>
-					<td>
-						<b:Button icon="PLUS" type="LINK" ui:field="btn_add">Add new component</b:Button>
-					</td>
-				</tr>
-				<tr>
 					<td valign='top'>
 						<b:CellTable addStyleNames='{style.cellTable}'
 							pageSize='100' ui:field='cellTable' bordered="false" condensed="false"
 							striped="true" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b:Button icon="PLUS" type="LINK" ui:field="btn_add">Add new component</b:Button>
 					</td>
 				</tr>
 				<td>

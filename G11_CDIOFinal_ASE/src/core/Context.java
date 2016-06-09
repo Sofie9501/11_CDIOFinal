@@ -85,9 +85,9 @@ public class Context implements DatabaseCom{
 
 	// Creates a product batch component using a stored procedure
 	@Override
-	public void createProductBatchComp(int pbID, int rbID, float tare, float net, int oprID) throws DALException {
+	public void createProductBatchComp(int pbID, int ibID, float tare, float net, int oprID) throws DALException {
 		// Calls a stored procedure in our database
-		query = "call create_productbatchcomponent(" + pbID + ", " + rbID + ", " + tare + ", " + net + ", " + oprID + ");";
+		query = "call create_productbatchcomponent(" + pbID + ", " + ibID + ", " + tare + ", " + net + ", " + oprID + ");";
 		c.doQuery(query);
 	}
 

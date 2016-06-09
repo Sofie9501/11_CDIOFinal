@@ -20,6 +20,7 @@
 	        </tr>
 	        <tr><td><u><h4>Active</h4></u></td></tr>
 	        <tr bgcolor="#f1f1f1">
+	     
 	            <td><h4><b:Heading size="5" ui:field="txt_active"/></h4></td>
 	            <td><b:Button type="LINK" ui:field="btn_active">Edit</b:Button></td>
 	        </tr>

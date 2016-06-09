@@ -263,6 +263,7 @@ public class TerminalController extends Thread{
 
 		// The ID is checked that it exists
 		try {
+			db.setPbStatus(pbID);
 			recipeComp = db.checkWeight(pbID, ibID);
 		} catch (DALException e) {
 			e.printStackTrace();

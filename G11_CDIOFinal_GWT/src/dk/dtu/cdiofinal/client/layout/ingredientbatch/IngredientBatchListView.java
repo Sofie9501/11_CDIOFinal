@@ -60,16 +60,8 @@ public class IngredientBatchListView extends AbstractView{
 				return String.valueOf(object.getIngredientBatch_ID());
 			}
 		};
-		cellTable.addColumn(IDColumn);
+		cellTable.addColumn(IDColumn, "Ingredient batch ID");
 
-		//Column with name of the ingredient
-		TextColumn<IngredientBatchDTO> nameColumn = new TextColumn<IngredientBatchDTO>(){
-			@Override
-			public String getValue(IngredientBatchDTO object) {
-				return (object.getName());
-			}
-		};
-		cellTable.addColumn(nameColumn);
 
 		//First column with ingredient ID
 		TextColumn<IngredientBatchDTO> ID = new TextColumn<IngredientBatchDTO>(){
@@ -78,8 +70,17 @@ public class IngredientBatchListView extends AbstractView{
 				return String.valueOf(object.getIngredient_ID());
 			}
 		};
-		cellTable.addColumn(ID);
-		
+		cellTable.addColumn(ID, "Ingredient ID");
+
+		//Column with name of the ingredient
+		TextColumn<IngredientBatchDTO> nameColumn = new TextColumn<IngredientBatchDTO>(){
+			@Override
+			public String getValue(IngredientBatchDTO object) {
+				return (object.getName());
+			}
+		};
+		cellTable.addColumn(nameColumn, "Ingredient name");
+
 		//Column with amount
 		TextColumn<IngredientBatchDTO> amountColumn = new TextColumn<IngredientBatchDTO>(){
 			@Override
@@ -87,8 +88,8 @@ public class IngredientBatchListView extends AbstractView{
 				return String.valueOf((object.getAmount()));
 			}
 		};
-		cellTable.addColumn(amountColumn);		
-	
+		cellTable.addColumn(amountColumn, "Amount");		
+
 
 		//column with date
 		TextColumn<IngredientBatchDTO> dateColumn = new TextColumn<IngredientBatchDTO>(){
@@ -97,7 +98,7 @@ public class IngredientBatchListView extends AbstractView{
 				return object.getDate();
 			}
 		};
-		cellTable.addColumn(dateColumn);	
+		cellTable.addColumn(dateColumn, "Date");	
 
 		//Column with edit buttons
 		Column<IngredientBatchDTO, String> editColumn = new Column<IngredientBatchDTO, String>(new ButtonCell(IconType.WRENCH,ButtonType.LINK, ButtonSize.SMALL)){

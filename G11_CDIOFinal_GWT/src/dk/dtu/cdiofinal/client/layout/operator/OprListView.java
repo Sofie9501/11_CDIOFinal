@@ -56,14 +56,16 @@ public class OprListView extends AbstractView {
 		this.prod = prod;
 		this.serviceImpl = new ClientOperatorImpl();
 
-
+		
+		
 		TextColumn<OperatorDTO> IDColumn = new TextColumn<OperatorDTO>(){
 			@Override
 			public String getValue(OperatorDTO object) {
 				return String.valueOf(object.getOprID());
 			}
 		};
-		cellTable.addColumn(IDColumn);
+		
+		cellTable.addColumn(IDColumn, "ID");
 
 		TextColumn<OperatorDTO> nameColumn = new TextColumn<OperatorDTO>(){
 			@Override
@@ -71,7 +73,7 @@ public class OprListView extends AbstractView {
 				return object.getName();
 			}
 		};
-		cellTable.addColumn(nameColumn);
+		cellTable.addColumn(nameColumn, "Name");
 
 		TextColumn<OperatorDTO> CPRColumn = new TextColumn<OperatorDTO>(){
 			@Override
@@ -79,12 +81,12 @@ public class OprListView extends AbstractView {
 				return FieldVerifier.cprFormat(object.getCpr());
 			}
 		};
-		cellTable.addColumn(CPRColumn);		
+		cellTable.addColumn(CPRColumn, "CPR number");		
 
 		Column<OperatorDTO, String> editColumn = new Column<OperatorDTO, String>(new ButtonCell(IconType.WRENCH,ButtonType.LINK, ButtonSize.SMALL)){
 			@Override
 			public String getValue(OperatorDTO object) {
-				return "Mere...";
+				return "More...";
 			}
 		};
 		cellTable.addColumn(editColumn);

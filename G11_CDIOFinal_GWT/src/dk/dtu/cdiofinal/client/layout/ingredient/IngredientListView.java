@@ -39,8 +39,7 @@ public class IngredientListView extends AbstractView {
 	private List<IngredientDTO> list = new ArrayList<>();
 	private ListDataProvider<IngredientDTO> dataProvider;
 	private static IngredientListViewUiBinder uiBinder = GWT.create(IngredientListViewUiBinder.class);
-	private ProdView prod1;
-
+	
 	@UiTemplate("ingredientListView.ui.xml")
 	interface IngredientListViewUiBinder  extends UiBinder<Widget, IngredientListView> {
 	}
@@ -55,7 +54,6 @@ public class IngredientListView extends AbstractView {
 		initWidget(uiBinder.createAndBindUi(this));
 		this.dataProvider = new ListDataProvider<IngredientDTO>();
 		this.prod = prod;
-		this.prod1=prod;
 		this.serviceImpl = new ClientIngredientImpl();
 
 
@@ -65,7 +63,7 @@ public class IngredientListView extends AbstractView {
 				return String.valueOf(object.getID());
 			}
 		};
-		cellTable.addColumn(IDColumn);
+		cellTable.addColumn(IDColumn, "Ingredient ID");
 
 		TextColumn<IngredientDTO> nameColumn = new TextColumn<IngredientDTO>(){
 			@Override
@@ -73,7 +71,7 @@ public class IngredientListView extends AbstractView {
 				return object.getName();
 			}
 		};
-		cellTable.addColumn(nameColumn);
+		cellTable.addColumn(nameColumn, "Ingredient name");
 
 		TextColumn<IngredientDTO> supplierColumn = new TextColumn<IngredientDTO>(){
 			@Override
@@ -81,7 +79,7 @@ public class IngredientListView extends AbstractView {
 				return object.getSupplier();
 			}
 		};
-		cellTable.addColumn(supplierColumn);	
+		cellTable.addColumn(supplierColumn, "Suppiler");	
 		
 		TextColumn<IngredientDTO> activeColumn = new TextColumn<IngredientDTO>(){
 			@Override
@@ -89,7 +87,7 @@ public class IngredientListView extends AbstractView {
 				return String.valueOf(object.isActive());
 			}
 		};
-		cellTable.addColumn(activeColumn);	
+		cellTable.addColumn(activeColumn, "Active");	
 
 
 		Column<IngredientDTO, String> seeBatchColumn = new Column<IngredientDTO, String>(new ButtonCell(IconType.PLUS,ButtonType.LINK, ButtonSize.SMALL)){

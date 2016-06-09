@@ -88,12 +88,18 @@ public class Context implements DatabaseCom{
 	// Creates a product batch component using a stored procedure
 	@Override
 	public void createProductBatchComp(int pbID, int rbID, float tare, float net, int oprID) throws DALException {
-		query = "";
-		ResultSet result = c.doQuery(query);
+		// Calls a stored procedure in our database
+		query = "call create_productbatchcomponent(" + pbID + ", " + rbID + ", " + tare + ", " + net + ", " + oprID + ");";
+		c.doQuery(query);
 	}
 
+	// Sets the status of the product batch to "in progress" 
 	@Override
-	public void setPbStatus() throws DALException {
+	public void setPbStatus(int pbID, int rbID) throws DALException {
+		// Calls a stored procedure in our database that updates certain parameters.
+		// The status is now "1".
+		query = "call update_productbatc(" + pbID + ", " + pbID + ", 1, " + rbID + ", 1);";
+		c.doQuery(query);
 	}
 
 

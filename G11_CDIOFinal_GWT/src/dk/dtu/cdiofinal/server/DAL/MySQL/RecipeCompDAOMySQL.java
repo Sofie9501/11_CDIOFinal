@@ -63,7 +63,7 @@ public class RecipeCompDAOMySQL implements RecipeComponentDAO{
 	@Override
 	public void createRecipeComp(RecipeComponentDTO recipeComp) throws DALException {
 		query = "call create_recipeComponent(" + recipeComp.getRecipe_ID() + ",  " + recipeComp.getIngredient_ID()
-				+ ",  " + recipeComp.getNom_netto()+ ",  " + recipeComp.getTolerance();
+				+ ",  " + recipeComp.getNom_netto()+ ",  " + recipeComp.getTolerance() + ");";
 		c.doQuery(query);
 		
 	}
@@ -72,7 +72,7 @@ public class RecipeCompDAOMySQL implements RecipeComponentDAO{
 			throws DALException {
 		query = "call update_recipeComponent(" + oldRecipeID + ",  " + recipeComp.getRecipe_ID()+ ",  " +
 					oldIngredientID+ ",  " + recipeComp.getIngredient_ID()+ ",  " +recipeComp.getNom_netto()
-					+ ",  " + recipeComp.getTolerance();
+					+ ",  " + recipeComp.getTolerance()  + ");";
 		c.doQuery(query);
 		
 	}

@@ -41,25 +41,23 @@ public class Context implements DatabaseCom{
 	@Override
 	public String getProductRecipeName(int pb_id) throws DALException {
 		// Query
-		query = "Select recipe_name from productBatch_administration where pb_id = " + pb_id + ";";
+		query = "Select * from productBatch_administration where pb_id = " + pb_id + ";";
 		ResultSet result = c.doQuery(query);
 
-		// Throw exception if no result is found
-		if(result == null){
-			throw new DALException("Recipe not found");
-		}
-
-		String name = null;
 		try {
-			// is there a next row
-			if(result.next()){
-				name = result.getString(1);
-			}
-		} catch (SQLException e) {
+			// 
+			if(result.next() && result.getInt(8) != 2 && result.getInt(9) == 1){
+				return result.getString(3);
+			} else
+				throw new DALException("No result was found");
+		} 
+		catch (DALException e) {
+			throw e;
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// return the name
-		return name;
+		return null;
 	}
 
 	// Checks if the ingredient batch exists

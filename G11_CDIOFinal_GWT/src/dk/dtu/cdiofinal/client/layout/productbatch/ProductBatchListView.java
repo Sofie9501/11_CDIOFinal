@@ -20,20 +20,11 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
-
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
-import dk.dtu.cdiofinal.client.layout.ingredientbatch.CreateIngredientBatch;
-import dk.dtu.cdiofinal.client.layout.ingredientbatch.IngredientBatchDetail;
-import dk.dtu.cdiofinal.client.layout.ingredientbatch.IngredientBatchListView;
 import dk.dtu.cdiofinal.client.serverconnection.productbatch.ClientProductBatchImpl;
-import dk.dtu.cdiofinal.shared.FieldVerifier;
-import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
-import dk.dtu.cdiofinal.shared.IngredientDTO;
-import dk.dtu.cdiofinal.shared.OperatorDTO;
 import dk.dtu.cdiofinal.shared.ProductBatchDTO;
 
 
@@ -73,8 +64,17 @@ public class ProductBatchListView extends AbstractView {
 				return String.valueOf(object.getPb_ID());
 			}
 		};
-		cellTable.addColumn(IDProductBatch);
+		cellTable.addColumn(IDProductBatch, "Product Batch ID");
 
+		// column there shows ingredient ID
+		TextColumn<ProductBatchDTO> RecipeID = new TextColumn<ProductBatchDTO>(){
+			@Override
+			public String getValue(ProductBatchDTO object) {
+				return String.valueOf(object.getR_ID());
+			}
+		};
+		cellTable.addColumn(RecipeID, "Recipe ID");
+		
 		// Column with name of the productBatch
 		TextColumn<ProductBatchDTO> nameColumn = new TextColumn<ProductBatchDTO>(){
 			@Override
@@ -82,52 +82,18 @@ public class ProductBatchListView extends AbstractView {
 				return object.getName();
 			}
 		};
-		cellTable.addColumn(nameColumn);
+		cellTable.addColumn(nameColumn, "Recipe name");
 
-		// Column with start date
-		TextColumn<ProductBatchDTO> startDate = new TextColumn<ProductBatchDTO>(){
-			@Override
-			public String getValue(ProductBatchDTO object) {
-				return String.valueOf(object.getStart_date());
-			}
-		};
-		cellTable.addColumn(startDate);
 
-		// Column there tells if it is active
-		TextColumn<ProductBatchDTO> active  = new TextColumn<ProductBatchDTO>(){
-			@Override
-			public String getValue(ProductBatchDTO object) {
-				return String.valueOf(object.isActive());
-			}
-		};
-		cellTable.addColumn(active);
 
-		// Column there counts components
-		TextColumn<ProductBatchDTO> countComponents = new TextColumn<ProductBatchDTO>(){
-			@Override
-			public String getValue(ProductBatchDTO object) {
-				return String.valueOf(object.getCountComponents());
-			}
-		};
-		cellTable.addColumn(countComponents);
-
-		// Column there shows the status
-		TextColumn<ProductBatchDTO> status = new TextColumn<ProductBatchDTO>(){
-			@Override
-			public String getValue(ProductBatchDTO object) {
-				return String.valueOf(object.getStatus());
-			}
-		};
-		cellTable.addColumn(status);
-
-		// Column there shows the end date
-		TextColumn<ProductBatchDTO> endDate = new TextColumn<ProductBatchDTO>(){
-			@Override
-			public String getValue(ProductBatchDTO object) {
-				return String.valueOf(object.getEnd_date());
-			}
-		};
-		cellTable.addColumn(endDate);
+		//		// Column there tells if it is active
+		//		TextColumn<ProductBatchDTO> active  = new TextColumn<ProductBatchDTO>(){
+		//			@Override
+		//			public String getValue(ProductBatchDTO object) {
+		//				return String.valueOf(object.isActive());
+		//			}
+		//		};
+		//		cellTable.addColumn(active);
 
 		// Column there shows how many there is finished
 		TextColumn<ProductBatchDTO> countFinished = new TextColumn<ProductBatchDTO>(){
@@ -136,16 +102,48 @@ public class ProductBatchListView extends AbstractView {
 				return String.valueOf(object.getCountFinished());
 			}
 		};
-		cellTable.addColumn(countFinished);
-
-		// column there shows ingredient ID
-		TextColumn<ProductBatchDTO> IDIngredient = new TextColumn<ProductBatchDTO>(){
+		cellTable.addColumn(countFinished, "Finished");
+		
+		// Column there counts components
+		TextColumn<ProductBatchDTO> countComponents = new TextColumn<ProductBatchDTO>(){
 			@Override
 			public String getValue(ProductBatchDTO object) {
-				return String.valueOf(object.getR_ID());
+				return String.valueOf(object.getCountComponents());
 			}
 		};
-		cellTable.addColumn(IDIngredient);
+		cellTable.addColumn(countComponents, "Total");
+
+		//		// Column there shows the status
+		//		TextColumn<ProductBatchDTO> status = new TextColumn<ProductBatchDTO>(){
+		//			@Override
+		//			public String getValue(ProductBatchDTO object) {
+		//				return String.valueOf(object.getStatus());
+		//			}
+		//		};
+		//		cellTable.addColumn(status);
+
+		// Column with start date
+		TextColumn<ProductBatchDTO> startDate = new TextColumn<ProductBatchDTO>(){
+			@Override
+			public String getValue(ProductBatchDTO object) {
+				return String.valueOf(object.getStart_date());
+			}
+		};
+		cellTable.addColumn(startDate, "Start date");
+		
+		// Column there shows the end date
+		TextColumn<ProductBatchDTO> endDate = new TextColumn<ProductBatchDTO>(){
+			@Override
+			public String getValue(ProductBatchDTO object) {
+				return String.valueOf(object.getEnd_date());
+			}
+		};
+
+		cellTable.addColumn(endDate, "End date");
+
+
+
+
 
 		//Column with edit button
 		Column<ProductBatchDTO, String> editColumn = new Column<ProductBatchDTO, String>(new ButtonCell(IconType.WRENCH,ButtonType.LINK, ButtonSize.SMALL)){
@@ -170,7 +168,7 @@ public class ProductBatchListView extends AbstractView {
 		btn_create.addClickHandler((ClickHandler)new CreateClickHandler());
 		this.serviceImpl.getProductBatches(new ListCallback());
 	}
-		
+
 	// Clickhandler for creating new ProductBatch
 	private class CreateClickHandler implements ClickHandler{
 

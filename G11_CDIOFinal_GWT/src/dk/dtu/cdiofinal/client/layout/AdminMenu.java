@@ -15,6 +15,7 @@ import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ingredient.IngredientListView;
 import dk.dtu.cdiofinal.client.layout.ingredientbatch.IngredientBatchListView;
 import dk.dtu.cdiofinal.client.layout.operator.OprListView;
+import dk.dtu.cdiofinal.client.layout.productbatch.ProductBatchListView;
 import dk.dtu.cdiofinal.client.layout.recipe.RecipeListView;
 import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
 
@@ -35,6 +36,7 @@ public class AdminMenu extends AbstractView{
 	@UiField Button btn_ingredient;
 	@UiField Button btn_productbatch;
 	@UiField Button btn_ingredientbatch;
+	
 	
 	@UiField
 	Alert alert_opr;
@@ -60,6 +62,7 @@ public class AdminMenu extends AbstractView{
 		btn_recipe.addClickHandler(new MenuClickHandler(new RecipeListView(prodView)));
 		btn_ingredientbatch.addClickHandler(new MenuClickHandler(new IngredientBatchListView(prodView)));
 		btn_ingredient.addClickHandler(new MenuClickHandler(new IngredientListView(prodView)));
+		btn_productbatch.addClickHandler(new MenuClickHandler(new ProductBatchListView(prodView)));
 		//btn_productbatch.addClickHandler(new MenuClickHandler(new ProductBatchListView(prodView)))
 		serviceImpl.isLoggedIn(new LoggedInCallback());
 				
@@ -106,6 +109,7 @@ public class AdminMenu extends AbstractView{
 				btn_ingredient.setVisible(true);
 				btn_ingredientbatch.setVisible(true);
 			case 3:
+				btn_productbatch.setVisible(true);
 				
 				break;
 				default:

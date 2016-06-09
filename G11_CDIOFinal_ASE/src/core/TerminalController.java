@@ -174,7 +174,7 @@ public class TerminalController extends Thread{
 	private void operatorLogin(){
 		while(true){
 			String msgReceived = waitForReply("Enter OPR ID");
-			int oprId;
+			oprID = Integer.parseInt(msgReceived);
 			// tester det er et tal der er modtaget
 			try{
 

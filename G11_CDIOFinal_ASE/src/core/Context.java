@@ -96,8 +96,8 @@ public class Context implements DatabaseCom{
 	public void setPbStatus(int pbID) throws DALException {
 		// Calls a stored procedure in our database that updates certain parameters.
 		// The status is now "1".
-		//		query = "call update_productbatc(" + pbID + ", " + pbID + ", 1, " + rbID + ", 1);";
-		//		c.doQuery(query);
+		query = "call update_productbatchstatus(" + pbID + ", 1);";
+		c.doQuery(query);
 	}
 
 	@Override

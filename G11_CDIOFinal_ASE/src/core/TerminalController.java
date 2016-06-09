@@ -174,10 +174,10 @@ public class TerminalController extends Thread{
 	private void operatorLogin(){
 		while(true){
 			String msgReceived = waitForReply("Enter OPR ID");
-			oprID = Integer.parseInt(msgReceived);
+		
 			// tester det er et tal der er modtaget
 			try{
-
+				oprID = Integer.parseInt(msgReceived);
 				String oprName =db.getOperator(Integer.parseInt(msgReceived));
 				if((waitForReply("opr name: " + oprName + ", press enter")).equals(EXIT_CHAR))
 					return;
@@ -187,7 +187,7 @@ public class TerminalController extends Thread{
 				}
 
 			}catch(Exception e){
-				waitForReply("WRONG INPUT, PRESS ENTER");
+				waitForReply("WRONG INPUT, " + e.getMessage() +", PRESS ENTER" );
 				return;
 			}
 
@@ -213,6 +213,8 @@ public class TerminalController extends Thread{
 				return;
 			}  catch (DALException e){
 				waitForReply(e.getMessage() + ", press enter");
+			} catch (NumberFormatException e){
+				waitForReply("No letters, press enter");
 			}
 		}
 	}
@@ -228,7 +230,9 @@ public class TerminalController extends Thread{
 		try {
 			db.setPbStatus(pbID);
 		} catch (DALException e) {
+			
 			waitForReply("Error setting production status, press any key");
+			System.out.println(e.getMessage());
 			waitForReply("contact supervisor, press any key");
 			state = State.OPERATOR_LOGIN;
 		}
@@ -258,20 +262,22 @@ public class TerminalController extends Thread{
 	}
 
 	private void weighing(){
-		// The operator is asked to enter an ID for the ingredient batch (raavarebatch)
-		ibID = Integer.parseInt(waitForReply("Enter ingredient batch ID"));
-
 		// The ID is checked that it exists
 		try {
+			// The operator is asked to enter an ID for the ingredient batch (raavarebatch)
+			ibID = Integer.parseInt(waitForReply("Enter ingredient batch ID"));
+			db.checkIbId(ibID); // Kan lave til en void ? den caster bare fejl ud i stedet.
 			db.setPbStatus(pbID);
 			recipeComp = db.checkWeight(pbID, ibID);
-		} catch (DALException e) {
-			e.printStackTrace();
-		}
 
-		// The ID is accepted and we move onto "Register Weight"
-		waitForReply("ID accepted, press enter");
-		state = State.REGISTER_WEIGHT;
+			// The ID is accepted and we move onto "Register Weight"
+			waitForReply("ID accepted, press enter");
+			state = State.REGISTER_WEIGHT;
+		} catch (DALException e) {
+			waitForReply(e.getMessage() + ", Press enter");
+		} catch (NumberFormatException e){
+			waitForReply("No letters, press enter");
+		}
 	}
 
 	private void registerWeight(){

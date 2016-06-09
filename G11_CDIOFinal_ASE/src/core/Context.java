@@ -17,24 +17,21 @@ public class Context implements DatabaseCom{
 	public String getOperator(int operatorId) throws DALException {
 		// Query
 		query = "Select opr_name from operator where opr_id = " + operatorId + ";";
-		ResultSet result = c.doQuery(query);
-
-		// Throw exception if no result is found
-		if(result == null){
-			throw new DALException("Operator not found");
-		}
-
-		String name = null;
 		try {
+			ResultSet result = c.doQuery(query);
 			// is there a next row
-			if(result.next()){
-				name = result.getString(1);
+			if(result.next() && result.getString(1)!=null){
+				return result.getString(1);
+			} else {
+				throw new DALException("No operators was found");
 			}
-		} catch (SQLException e) {
+		} catch(DALException e) {
+			throw e;
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 		// return the name
-		return name;
+		return "mega fejl";
 	}
 
 	// Returns the name of a recipe given the product batch ID
@@ -42,10 +39,8 @@ public class Context implements DatabaseCom{
 	public String getProductRecipeName(int pb_id) throws DALException {
 		// Query
 		query = "Select * from productBatch_administration where pb_id = " + pb_id + ";";
-		ResultSet result = c.doQuery(query);
-
 		try {
-			// 
+			ResultSet result = c.doQuery(query);
 			if(result.next() && result.getInt(8) != 2 && result.getInt(9) == 1){
 				return result.getString(3);
 			} else
@@ -65,22 +60,22 @@ public class Context implements DatabaseCom{
 	public boolean checkIbId(int ib_id) throws DALException {
 		// Query 
 		query = "select * from ingredientBatch_administration where ib_id = " + ib_id + ";";
-		ResultSet result = c.doQuery(query);
-
-		// Throw exception if no result is found
-		if(result == null){
-			throw new DALException("Ingredient batch not found");
-		}
-
-		boolean exist = false;
 		try {
+			ResultSet result = c.doQuery(query);
+			// Throw exception if no result is found
+			if(!result.next()){
+				throw new DALException("Ingredient batch not found");
+			}else{
 			// If there's a result the ingredient batch exist
-			return result.next();
+				return true;
+			}
+		} catch (DALException e){
+			throw e;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		// Return the boolean
-		return exist;
+		return false;
 	}
 
 	// Creates a product batch component using a stored procedure
@@ -105,16 +100,14 @@ public class Context implements DatabaseCom{
 		query = "select * from ase_info where pb_id = " + pb_id + " and ib_id = " + ib_id + ";";
 		ResultSet result = c.doQuery(query);
 
-		// Throw exception if no results found
-		if(result == null){
-			throw new DALException("No result found");
-		}
-
 		// Convert to Data Transfer Object
 		RecipeCompDTO recipeComp = null;
 		try {
-			if(result.next()){
-				recipeComp = new RecipeCompDTO(result.getFloat(1), result.getFloat(2));
+			// Throw exception if no results found
+			if(!result.next()){
+				throw new DALException("No result found");
+			}else{
+				return (new RecipeCompDTO(result.getFloat(1), result.getFloat(2)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

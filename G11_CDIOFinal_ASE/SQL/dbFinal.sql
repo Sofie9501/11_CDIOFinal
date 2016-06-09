@@ -348,36 +348,36 @@ create user 'server_access'@'localhost' identified by 'qwer1234';
 create user 'ase_access'@'localhost' identified by 'zxcvbnm';
 
 /* Stored procedure access rights */
-Grant Execute on procedure create_ingredient to 'server_access';
-Grant Execute on procedure update_opr to 'server_access';
-Grant Execute on procedure update_recipe to 'server_access';
-Grant Execute on procedure create_opr to 'server_access';
-Grant Execute on procedure create_productbatch to 'server_access';
-Grant Execute on procedure create_productBatch to 'server_access';
-Grant Execute on procedure create_ingredientBatch to 'server_access';
-Grant Execute on procedure update_ingredientBatch to 'server_access';
-Grant Execute on procedure create_recipeComponent to 'server_access';
-Grant Execute on procedure update_recipeComponent to 'server_access';
-Grant Execute on procedure create_recipe to 'server_access';
-Grant Execute on procedure update_ingredient to 'server_access';
-Grant Execute on procedure create_productbatchcomponent to 'ase_access';
-Grant Execute on procedure update_productbatchstatus to 'ase_access';
+Grant Execute on procedure create_ingredient to 'server_access' @'localhost';
+Grant Execute on procedure update_opr to 'server_access'@'localhost';
+Grant Execute on procedure update_recipe to 'server_access'@'localhost';
+Grant Execute on procedure create_opr to 'server_access'@'localhost';
+Grant Execute on procedure create_productbatch to 'server_access'@'localhost';
+Grant Execute on procedure create_productBatch to 'server_access'@'localhost';
+Grant Execute on procedure create_ingredientBatch to 'server_access'@'localhost';
+Grant Execute on procedure update_ingredientBatch to 'server_access'@'localhost';
+Grant Execute on procedure create_recipeComponent to 'server_access'@'localhost';
+Grant Execute on procedure update_recipeComponent to 'server_access'@'localhost';
+Grant Execute on procedure create_recipe to 'server_access'@'localhost';
+Grant Execute on procedure update_ingredient to 'server_access'@'localhost';
+Grant Execute on procedure create_productbatchcomponent to 'ase_access'@'localhost';
+Grant Execute on procedure update_productbatchstatus to 'ase_access'@'localhost';
 /*Grant Execute on procedure weighing to 'server_access';*/
 
 /* table and view access rights */
-Grant Select on table operator to 'server_access';
-Grant Select on table ingredient to 'server_access';
-Grant Select on table recipe to 'server_access';
-Grant Select on table recipeComponent to 'server_access';
-Grant Select on number_done to 'server_access';
-Grant Select on productBatch_administration to 'server_access';
-Grant Select on ingredientBatch_administration to 'server_access';
-Grant Select on number_Components to 'server_access';
-Grant Select on recipe_administration to 'server_access';
-Grant select on ase_info to 'ase_access';
-Grant select on operator to 'ase_access';
-Grant select on productBatch_administration to 'ase_access';
-Grant select on ingredientBatch_administration to 'ase_access';
+Grant Select on table operator to 'server_access'@'localhost';
+Grant Select on table ingredient to 'server_access'@'localhost';
+Grant Select on table recipe to 'server_access'@'localhost';
+Grant Select on table recipeComponent to 'server_access'@'localhost';
+Grant Select on number_done to 'server_access'@'localhost';
+Grant Select on productBatch_administration to 'server_access'@'localhost';
+Grant Select on ingredientBatch_administration to 'server_access'@'localhost';
+Grant Select on number_Components to 'server_access'@'localhost';
+Grant Select on recipe_administration to 'server_access'@'localhost';
+Grant select on ase_info to 'ase_access'@'localhost';
+Grant select on operator to 'ase_access'@'localhost';
+Grant select on productBatch_administration to 'ase_access'@'localhost';
+Grant select on ingredientBatch_administration to 'ase_access'@'localhost';
 
 /*
 Grant Select on weighing to 'server_access';

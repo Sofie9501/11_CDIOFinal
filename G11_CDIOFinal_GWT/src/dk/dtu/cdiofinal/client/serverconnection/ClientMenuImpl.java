@@ -32,4 +32,10 @@ public class ClientMenuImpl implements MenuServiceAsync{
 		
 	}
 
+	@Override
+	public void loggedInName(AsyncCallback<String> callback) {
+		this.service.loggedInName(callback);
+		
+	}
+
 }

@@ -63,7 +63,6 @@ public class AdminMenu extends AbstractView{
 		btn_ingredientbatch.addClickHandler(new MenuClickHandler(new IngredientBatchListView(prodView)));
 		btn_ingredient.addClickHandler(new MenuClickHandler(new IngredientListView(prodView)));
 		btn_productbatch.addClickHandler(new MenuClickHandler(new ProductBatchListView(prodView)));
-		//btn_productbatch.addClickHandler(new MenuClickHandler(new ProductBatchListView(prodView)))
 		serviceImpl.isLoggedIn(new LoggedInCallback());
 				
 	}

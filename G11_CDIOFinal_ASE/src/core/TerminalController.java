@@ -174,7 +174,7 @@ public class TerminalController extends Thread{
 	private void operatorLogin(){
 		while(true){
 			String msgReceived = waitForReply("Enter OPR ID");
-			int oprId;
+			oprID = Integer.parseInt(msgReceived);
 			// tester det er et tal der er modtaget
 			try{
 
@@ -263,6 +263,7 @@ public class TerminalController extends Thread{
 
 		// The ID is checked that it exists
 		try {
+			db.setPbStatus(pbID);
 			recipeComp = db.checkWeight(pbID, ibID);
 		} catch (DALException e) {
 			e.printStackTrace();

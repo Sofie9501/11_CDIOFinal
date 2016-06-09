@@ -6,6 +6,7 @@ public interface MenuServiceAsync {
 	void isLoggedIn(AsyncCallback<Integer> callback);
 	void login(int oprId, String password, AsyncCallback<Boolean> callback);
 	void logout(AsyncCallback<Boolean> callback);
+	void loggedInName(AsyncCallback<String> callback);
 	
 	
 }

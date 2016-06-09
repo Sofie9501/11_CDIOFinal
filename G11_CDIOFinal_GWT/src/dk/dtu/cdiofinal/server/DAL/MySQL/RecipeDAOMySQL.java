@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dk.dtu.cdiofinal.DAO.RecipeComponentDAO;
 import dk.dtu.cdiofinal.DAO.RecipeDAO;
 import dk.dtu.cdiofinal.server.DAL.Connector;
 import dk.dtu.cdiofinal.server.DAL.DALException;
@@ -15,7 +14,6 @@ import dk.dtu.cdiofinal.shared.RecipeDTO;
 public class RecipeDAOMySQL implements RecipeDAO{
 	
 	Connector c = new Connector();
-	RecipeComponentDAO comp = new RecipeCompDAOMySQL();
 	String query;
 	
 	// Get a DTO of the recipe with a specific ID
@@ -88,15 +86,17 @@ public class RecipeDAOMySQL implements RecipeDAO{
 		c.doQuery(query);
 		
 		for (int i = 0; i < komp.size(); i++) {
-			comp.createRecipeComp(komp.get(i));
+			query = "call create_recipeComponent(" + komp.get(i).getRecipe_ID() + ",  " + komp.get(i).getIngredient_ID()
+			+ ",  " + komp.get(i).getNom_netto()+ ",  " + komp.get(i).getTolerance() + ");";
+			c.doQuery(query);
 		}
 		
 	}
 
 	@Override
 	public void updateRecipe(RecipeDTO recipe, int oldRecipeID) throws DALException {
-		query = "call update_recipe(" + oldRecipeID + ", " + recipe.getID() + ", " +recipe.getName()
-		 + ", " + recipe.isActive();
+		query = "call update_recipe(" + oldRecipeID + ", " + recipe.getID() + ", '" +recipe.getName()
+		 + "', " + recipe.isActive() + ");";
 		c.doQuery(query);
 		
 	}

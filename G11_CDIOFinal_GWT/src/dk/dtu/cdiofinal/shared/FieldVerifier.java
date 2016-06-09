@@ -75,5 +75,12 @@ public class FieldVerifier {
 		return false;
 		}
 	}
+	
+	public static boolean active(boolean active){
+		if (active == true || active == false)
+			return true;
+		else
+			return false;
+	}
 }
 

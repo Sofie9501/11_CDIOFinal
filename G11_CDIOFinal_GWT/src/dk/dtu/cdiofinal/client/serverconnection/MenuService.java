@@ -10,5 +10,6 @@ public interface MenuService extends RemoteService{
 	int isLoggedIn();
 	boolean login(int oprId, String password);
 	boolean logout();
+	String loggedInName();
 
 }

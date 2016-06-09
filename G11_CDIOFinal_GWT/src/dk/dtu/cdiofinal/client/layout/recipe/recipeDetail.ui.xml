@@ -9,8 +9,10 @@
 	<g:HTMLPanel>
 	    <div align="left" style="width:500px"> <table>
 	        <tr><td style="width:200%"><u><h4>Recipe ID</h4></u></td></tr>
-	        <tr ><td><b:Heading size="5" ui:field="txt_ID"/></td></tr>
-	        <td ><b:Button type="LINK" ui:field="btn_ID">Edit</b:Button></td>
+	       <tr bgcolor="#f1f1f1">
+	            <td ><b:Heading size="5" ui:field="txt_ID"/></td>
+	            <td ><b:Button type="LINK" ui:field="btn_ID">Edit</b:Button></td>
+	        </tr>
 	        <tr><td><u><h4>Recipe Name</h4></u></td></tr>
 	        <tr bgcolor="#f1f1f1">
 	            <td ><b:Heading size="5" ui:field="txt_name"/></td>
@@ -18,6 +20,7 @@
 	        </tr>
 	        <tr><td><u><h4>Active</h4></u></td></tr>
 	        <tr bgcolor="#f1f1f1">
+	     
 	            <td><h4><b:Heading size="5" ui:field="txt_active"/></h4></td>
 	            <td><b:Button type="LINK" ui:field="btn_active">Edit</b:Button></td>
 	        </tr>

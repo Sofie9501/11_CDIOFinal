@@ -103,7 +103,7 @@ public class RecipeDetail extends AbstractView{
 			}
 			break;
 		case "Active":
-			if(txt_edited.getText().equals(true)||txt_edited.getText().equals(false)){
+			if(FieldVerifier.active(Boolean.parseBoolean(txt_edited.getText()))){
 				rec.setActive(Boolean.parseBoolean(txt_edited.getText()));
 				txt_active.setText(String.valueOf(rec.isActive()));	
 			}

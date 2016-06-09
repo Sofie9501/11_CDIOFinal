@@ -10,16 +10,18 @@ public class RecipeDTO implements Serializable{
 	private int ID;
 	private String name;
 	private boolean isActive;
-	private ArrayList<RecipeComponentDTO> list;
+	private ArrayList<RecipeComponentDTO> componentList;
 	
 	public RecipeDTO(){
-		
+		componentList =  new ArrayList<RecipeComponentDTO>();
 	}
 	
 	public RecipeDTO(int ID, String name, boolean isActive){
+		this();
 		this.ID = ID;
 		this.name = name;
 		this.isActive = isActive;
+		
 	}
 
 	public int getID() {
@@ -48,11 +50,11 @@ public class RecipeDTO implements Serializable{
 	
 	
 	public void addComponent(RecipeComponentDTO comp){
-		list.add(comp);
+		componentList.add(comp);
 	}
 	
 	public ArrayList<RecipeComponentDTO> getComponents(){
-		return list;
+		return componentList;
 	}
 
 	@Override

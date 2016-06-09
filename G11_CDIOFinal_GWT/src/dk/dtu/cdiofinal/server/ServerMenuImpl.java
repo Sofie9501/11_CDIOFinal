@@ -27,6 +27,12 @@ public class ServerMenuImpl extends RemoteServiceServlet implements MenuService{
 		else // return role number if loggedIn
 			return (int)session.getAttribute("loggedIn");
 	}
+	
+	@Override
+	public String loggedInName() {
+		HttpSession session = this.getThreadLocalRequest().getSession();
+		return (String) session.getAttribute("Name");
+	}
 
 	@Override
 	public boolean login(int oprId, String password) {
@@ -40,6 +46,7 @@ public class ServerMenuImpl extends RemoteServiceServlet implements MenuService{
 			if(password.equals(opr.getPassword())){
 				HttpSession session = this.getThreadLocalRequest().getSession();
 				session.setAttribute("loggedIn", opr.getRole());
+				session.setAttribute("Name", opr.getName());
 				return true;
 			}
 		return false;

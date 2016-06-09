@@ -1,6 +1,7 @@
 package dk.dtu.cdiofinal.client.layout;
 
 import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.Heading;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -21,6 +22,7 @@ public class Menu extends Composite{
 	
 	private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 	private ClientMenuImpl service = new ClientMenuImpl();
+	String oprName = null;
 	@UiField
 	
 	Button back;
@@ -28,6 +30,8 @@ public class Menu extends Composite{
 	Button log_out;
 	@UiField
 	Button menu;
+	@UiField
+	Button name;
 	ProdView v;	  
 
 	public Menu(ProdView v) {
@@ -37,6 +41,8 @@ public class Menu extends Composite{
 		back.addClickHandler(new BackClickHandler());
 		menu.addClickHandler(new MenuClickHandler());
 		log_out.addClickHandler(new LogOutClickHandler());
+		service.loggedInName(new NameCallback());
+		
 	}
 
 	// tell parent view to move back one level
@@ -89,5 +95,21 @@ public class Menu extends Composite{
 		}
 
 
+	}
+	
+	private class NameCallback implements AsyncCallback<String>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("ERROR IN NAME");
+			
+		}
+
+		@Override
+		public void onSuccess(String result) {
+			oprName = result;
+			name.setText("Logged in as: " +oprName);
+		}
+		
 	}
 }

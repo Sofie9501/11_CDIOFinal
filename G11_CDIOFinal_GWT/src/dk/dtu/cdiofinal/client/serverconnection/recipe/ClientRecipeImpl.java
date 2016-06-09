@@ -6,6 +6,7 @@ import java.util.List;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import dk.dtu.cdiofinal.server.DAL.DALException;
 import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
@@ -25,16 +26,16 @@ public class ClientRecipeImpl implements RecipeServiceAsync{
 	}
 	
 	@Override
-	public void getRecipiesComp(ArrayList<RecipeComponentDTO> list, AsyncCallback<List<RecipeComponentDTO>> callback) {
-		this.service.getRecipiesComp(list, callback);
-		
-	}
-
-	@Override
 	public void getRecipe(int ID, AsyncCallback<RecipeDTO> callback) {
 		this.service.getRecipe(ID, callback);
 		
 	}
+	
+	@Override
+	public void getRecipeComponentList (int ID, AsyncCallback<ArrayList<RecipeComponentDTO>> callback){
+		this.service.getRecipeComponentList (ID, callback);
+	}
+
 
 	@Override
 	public void updateRecipe(RecipeDTO recipe, int oldID, AsyncCallback<Boolean> callback) {
@@ -45,7 +46,6 @@ public class ClientRecipeImpl implements RecipeServiceAsync{
 	@Override
 	public void createRecipe(RecipeDTO recipe, ArrayList<RecipeComponentDTO> list, AsyncCallback<Boolean> callback) {
 		this.service.createRecipe(recipe, list, callback);
-		
 	}
 
 }

@@ -11,8 +11,8 @@ import dk.dtu.cdiofinal.shared.RecipeDTO;
 public interface RecipeServiceAsync {
 	
 	void getRecipies(AsyncCallback<List<RecipeDTO>> callback);
-	void getRecipiesComp(ArrayList<RecipeComponentDTO> list, AsyncCallback<List<RecipeComponentDTO>> callback);
 	void getRecipe(int ID, AsyncCallback<RecipeDTO> callback);
+	void getRecipeComponentList (int ID, AsyncCallback<ArrayList<RecipeComponentDTO>> callback);
 	void updateRecipe(RecipeDTO recipe, int oldID, AsyncCallback<Boolean> callback);
 	void createRecipe(RecipeDTO recipe, ArrayList<RecipeComponentDTO> list, AsyncCallback<Boolean> callback);
 

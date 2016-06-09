@@ -67,5 +67,13 @@ public class FieldVerifier {
 		return false;
 		}
 	}
+	
+	public static boolean amountValid(double i) {
+		if(i > 0.0){
+			return true;
+		}else{
+		return false;
+		}
+	}
 }
 

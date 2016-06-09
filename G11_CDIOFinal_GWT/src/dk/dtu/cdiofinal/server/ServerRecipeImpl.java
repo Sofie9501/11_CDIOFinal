@@ -66,7 +66,15 @@ public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeServ
 
 
 	@Override
-	public List<RecipeComponentDTO> getRecipiesComp(ArrayList<RecipeComponentDTO> list) {
+	public ArrayList<RecipeComponentDTO> getRecipeComponentList(int ID) {
+		ArrayList<RecipeComponentDTO> list = new ArrayList<RecipeComponentDTO>();
+
+		try {
+			list = (ArrayList<RecipeComponentDTO>) dao.getRecipeComponentList(ID);
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+
 		return list;
 	}
 

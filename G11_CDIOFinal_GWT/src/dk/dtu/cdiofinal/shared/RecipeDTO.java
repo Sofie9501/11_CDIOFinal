@@ -1,6 +1,7 @@
 package dk.dtu.cdiofinal.shared;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class RecipeDTO implements Serializable{
 	
@@ -9,6 +10,7 @@ public class RecipeDTO implements Serializable{
 	private int ID;
 	private String name;
 	private boolean isActive;
+	private ArrayList<RecipeComponentDTO> list;
 	
 	public RecipeDTO(){
 		
@@ -42,6 +44,15 @@ public class RecipeDTO implements Serializable{
 
 	public void setActive(boolean active) {
 		this.isActive = active;
+	}
+	
+	
+	public void addComponent(RecipeComponentDTO comp){
+		list.add(comp);
+	}
+	
+	public ArrayList<RecipeComponentDTO> getComponents(){
+		return list;
 	}
 
 	@Override

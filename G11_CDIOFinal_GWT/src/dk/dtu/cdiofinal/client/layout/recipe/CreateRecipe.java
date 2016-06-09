@@ -1,10 +1,7 @@
 package dk.dtu.cdiofinal.client.layout.recipe;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.github.gwtbootstrap.client.ui.Button;
-import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.Heading;
 import com.github.gwtbootstrap.client.ui.Modal;
 import com.github.gwtbootstrap.client.ui.TextBox;
@@ -17,17 +14,13 @@ import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
-import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
-import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 public class CreateRecipe extends AbstractView {
@@ -35,7 +28,7 @@ public class CreateRecipe extends AbstractView {
 	final ProdView prod;
 	protected ClientRecipeImpl serviceImpl;
 	private static createRecipeUiBinder uiBinder = GWT.create(createRecipeUiBinder.class);
-	private RecipeDTO batch;
+	private RecipeDTO recipe;
 
 	@UiTemplate("createRecipe.ui.xml")
 	interface createRecipeUiBinder extends UiBinder<Widget, CreateRecipe>{
@@ -77,11 +70,11 @@ public class CreateRecipe extends AbstractView {
 		String alert = "";
 		boolean succes = true;
 		if(!FieldVerifier.numberValid(Integer.parseInt(txt_ID.getText()))){
-			alert+="Error - You need to write a valid batch ID \n";
+			alert+="Error - You need to write a valid ID \n";
 			succes = false;
 		}
 		if(!FieldVerifier.isValidName(txt_name.getText())){
-			alert += "Fejl - Name for Reipe is not valid \n";
+			alert += "Error - Name for Reipe is not valid \n";
 			succes = false;
 		}
 		if(!alert.equals(""))
@@ -91,10 +84,10 @@ public class CreateRecipe extends AbstractView {
 	private void saveChanges(){
 		// Checks to see if there is no errors
 		if(changeSucces()){
-			batch = new RecipeDTO(Integer.parseInt(txt_ID.getText()), txt_name.getText(), true);
+			recipe = new RecipeDTO(Integer.parseInt(txt_ID.getText()), txt_name.getText(), true);
 			ok.setText("Your information has been saved");
 			//Updates the DB with the new operator
-
+			prod.setView(new CreateRecipeComp(prod, recipe));
 		}	
 
 	}
@@ -112,6 +105,7 @@ public class CreateRecipe extends AbstractView {
 
 		@Override
 		public void onClick(ClickEvent event) {
+			saveChanges();
 		}
 	}
 
@@ -125,29 +119,7 @@ public class CreateRecipe extends AbstractView {
 			}		
 		}	
 	}
-	private class MyCallback implements AsyncCallback<Boolean>{
-
 		@Override
-		public void onFailure(Throwable caught) {
-			popup.setTitle("Error");
-			ok.setText("An error has occurred, and your information has not been saved.");
-			popup.toggle();
-		}
-		@Override
-		public void onSuccess(Boolean result) {
-			if(result){
-				popup.toggle();
-				txt_ID.setText("");
-				txt_name.setText("");
-			}
-			else{
-				popup.setTitle("Error");
-				ok.setText("An error has occurred, and your information has not been saved.");
-				popup.toggle();
-			}
-		}		
-	}
-	@Override
 	public void Update() {
 		// TODO Auto-generated method stub
 

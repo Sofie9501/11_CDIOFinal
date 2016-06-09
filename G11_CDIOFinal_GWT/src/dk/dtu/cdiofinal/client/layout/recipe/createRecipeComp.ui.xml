@@ -11,10 +11,14 @@
 	<g:HTMLPanel>
 		<div align="left" style="width:500px">
 			<table>
-
 				<tr>
 					<td>
-						<h4>Recipe ID</h4>
+						<b:Heading size="3" ui:field="TitleID"></b:Heading>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b:Heading size="4" ui:field="ID"></b:Heading>
 					</td>
 				</tr>
 				<tr>
@@ -25,22 +29,43 @@
 				</tr>
 				<tr>
 					<td>
-						<h4>Recipe Name</h4>
+						<b:Heading size="4" ui:field="Nom_net"></b:Heading>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<b:TextBox ui:field="txt_name"></b:TextBox>
+						<b:TextBox ui:field="txt_net"></b:TextBox>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<b:Button icon="PLUS" type="LINK" ui:field="btn_add">Add
-							new component</b:Button>
+						<b:Heading size="4" ui:field="Tolerance"></b:Heading>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b:TextBox ui:field="txt_tolerance"></b:TextBox>
+					</td>
+				</tr>
+				<tr>
+				<td>
+					<b:Button icon="SAVE" type="LINK" ui:field="btn_save_comp">Save Component</b:Button>
+				</td>
+				</tr>
+				<tr>
+					<td>
+						<b:Button icon="PLUS" type="LINK" ui:field="btn_add">Add new component</b:Button>
+					</td>
+				</tr>
+				<tr>
+					<td valign='top'>
+						<b:CellTable addStyleNames='{style.cellTable}'
+							pageSize='100' ui:field='cellTable' bordered="false" condensed="false"
+							striped="true" />
 					</td>
 				</tr>
 				<td>
-					<b:Button icon="SAVE" type="LINK" ui:field="btn_save">Save</b:Button>
+					<b:Button icon="SAVE" type="LINK" ui:field="btn_save">Save Recipe</b:Button>
 				</td>
 				<tr>
 					<td>
@@ -56,30 +81,6 @@
 			</table>
 		</div>
 		<table cellspacing='0' cellpadding='0' style='width:100%;'>
-			<tr>
-			<td>
-					<b:TextBox ui:field="txt_IN_ID"></b:TextBox>
-				</td>
-				<td>
-					<b:TextBox ui:field="txt_IN_name"></b:TextBox>
-				</td>
-				<td>
-					<b:TextBox ui:field="txt_Net"></b:TextBox>
-				</td>
-				<td>
-					<b:TextBox ui:field="txt_Tol"></b:TextBox>
-				</td>
-				<td>
-					<b:Button icon="SAVE" type="LINK" ui:field="btn_save_comp">Save</b:Button>
-				</td>
-				<tr>
-				<td valign='top'>
-					<b:CellTable addStyleNames='{style.cellTable}'
-						pageSize='100' ui:field='cellTable' bordered="false" condensed="false"
-						striped="true" />
-				</td>
-				</tr>
-			</tr>
 		</table>
 	</g:HTMLPanel>
 </ui:UiBinder> 

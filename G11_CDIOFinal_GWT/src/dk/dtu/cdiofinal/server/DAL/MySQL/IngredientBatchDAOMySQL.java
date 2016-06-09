@@ -63,14 +63,14 @@ public class IngredientBatchDAOMySQL implements IngredientBatchDAO{
 	}
 
 	@Override
-	public List<IngredientBatchDTO> getIngredientBatchList(int ID) throws DALException {
+	public ArrayList<IngredientBatchDTO> getIngredientBatchList(int ID) throws DALException {
 		query = "select * from ingredientBatch_administration where ingredient_id = " + ID;
 		ResultSet result = c.doQuery(query);
 
 		if (result == null){
 			throw new DALException("No ingredientbatches found");
 		}
-		List<IngredientBatchDTO> list = new ArrayList<IngredientBatchDTO>();
+		ArrayList<IngredientBatchDTO> list = new ArrayList<IngredientBatchDTO>();
 
 		try {
 			while(result.next()){

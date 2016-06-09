@@ -11,20 +11,12 @@
 	        
 	        <tr><td><h4>ProductBatch ID</h4></td></tr>
 	        <tr>
-	            <td><b:TextBox ui:field="txt_B_ID"></b:TextBox></td>
+	            <td><b:TextBox ui:field="txt_ProdBatchID"></b:TextBox></td>
 	            
 	        </tr>
-	        <tr><td><h4>Product ID</h4></td></tr>
+	        <tr><td><h4>Recept ID</h4></td></tr>
 	        <tr>
-	            <td><b:TextBox ui:field="txt_P_ID"></b:TextBox></td>
-	        </tr>
-	        <tr><td><h4>Product Name</h4></td></tr>
-	        <tr>
-	            <td><b:TextBox ui:field="txt_P_Name"></b:TextBox></td>
-	        </tr>
-	        <tr><td><h4>Amount</h4></td></tr>
-	        <tr>
-	            <td><b:TextBox ui:field="txt_amount"></b:TextBox></td>
+	            <td><b:TextBox ui:field="txt_ReceptID"></b:TextBox></td>
 	        </tr>
 	       <tr>
 	            <td><b:Button icon="SAVE" type="LINK" ui:field="btn_save" >Save</b:Button> </td>

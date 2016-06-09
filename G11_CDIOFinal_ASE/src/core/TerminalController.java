@@ -81,7 +81,10 @@ public class TerminalController extends Thread{
 		}
 
 	}
-
+	private void sendB(String weight){
+		sendData("b "+ weight + "\n");
+		recieveData();
+	}
 	private void sendData(String data){
 		try {
 			outToServer.writeBytes(data);
@@ -92,8 +95,13 @@ public class TerminalController extends Thread{
 
 	private String recieveData(){
 		String data = null;
+		long startTime = System.currentTimeMillis();
 		try {
-			data = inFromServer.readLine();
+			while(System.currentTimeMillis()-startTime < 5000){
+				data = inFromServer.readLine();
+				if(data != null)
+					break;
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -140,21 +148,22 @@ public class TerminalController extends Thread{
 	
 	private String sendTare(){
 		String reply = null;
+		sendData("t\n");
+		// waiting for reply
+		
 		reply = recieveData();
+		
 		return reply.substring(9, reply.length()-5);
 	}
 	
-	private String sendS(String message){
+	private String sendS(){
 		String reply = null;
-		sendData(message);
+		sendData("S\n");
 
-		while(true){
+		
 			reply = recieveData();
 
-			if(reply.toUpperCase().startsWith("S")){
-				return reply.substring(9,reply.length()-5);
-			}
-		}
+			return reply.substring(9,reply.length()-5);
 	}
 
 
@@ -205,7 +214,7 @@ public class TerminalController extends Thread{
 	}
 
 	private void prepareWeight(){
-		String recieve = waitForReply("Press enter when the weight is empty, then press t to tare");
+		String recieve = waitForReply("Press enter when the weight is empty.");
 
 		if(recieve.equalsIgnoreCase(EXIT_CHAR)){
 			state = State.OPERATOR_LOGIN;
@@ -226,12 +235,16 @@ public class TerminalController extends Thread{
 	// The operator is asked to place the first container so the weight can tare
 	private void addContainer(){
 		try {
+			sendB("20.0");
 			// The reply means the operator giving consent
-			waitForReply("Press enter when the container is placed, then press t to tare");
+			waitForReply("Press enter when the container is placed");
 
 			// The tare is saved
-			tare = Float.parseFloat(sendTare());
-
+			tare = Float.parseFloat(sendS());
+			
+			// weight is tared
+			sendTare();
+			
 			state = State.WEIGHING;			
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -242,14 +255,15 @@ public class TerminalController extends Thread{
 
 	private void weighing(){
 		try {
+			System.out.println(tare);
 			// The operator is asked to enter an ID for the ingredientbatch (raavarebatch)
-			rbID = Integer.parseInt(waitForReply("Enter ib ID, then press s to weight"));
+			rbID = Integer.parseInt(waitForReply("Enter batch ID, then press s to weigh"));
 
 			// The ID is checked that it exsists
-			if(db.checkRbId(rbID)){
+			if(db.checkIbId(rbID)){
 
 				// Gets the net weight
-				net = Float.parseFloat(sendS("S"));
+				net = Float.parseFloat(sendS());
 
 				// Create new productbatch component
 				db.createProductBatchComp(pbID, rbID, tare, net, oprID);
@@ -261,7 +275,7 @@ public class TerminalController extends Thread{
 				throw new DALException("ID does not exist.");
 
 		}catch(Exception e){
-			waitForReply("WRONG INPUT, PRESS ENTER");
+			waitForReply("Wrong batch id. press enter");
 			return;
 		}
 

@@ -7,30 +7,33 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import DTO.RecipeCompDTO;
+
 public class TerminalController extends Thread{
 	// Class should open a connection to a terminal to a terminal.
 	// if connection is lost it should try reconnecting and continue where it left off
 
 	final String EXIT_CHAR = "x";
 
-	enum State {OPERATOR_LOGIN,PRODUCTBATCH_SELECTION,PREPARE_WEIGHT, ADD_CONTAINER, WEIGHING}
+	enum State {OPERATOR_LOGIN,PRODUCTBATCH_SELECTION,PREPARE_WEIGHT, ADD_CONTAINER, WEIGHING, REGISTER_WEIGHT}
 	String hostAddress;
 	int port;
 	Socket sock;
-	DatabaseCom db = new ListImpl();
+	DatabaseCom db = new Context();
 	DataOutputStream outToServer;
 	BufferedReader inFromServer;
+	RecipeCompDTO recipeComp;
 	int oprID;
 	int pbID;
 	float tare;
 	float net;
-	int rbID;
+	int ibID;
 
 
 	State state = State.OPERATOR_LOGIN;
 
 	public TerminalController(String hostAddress, int port) throws UnknownHostException, IOException{
-		
+
 		this.hostAddress = hostAddress;
 		this.port = port;
 
@@ -77,6 +80,9 @@ public class TerminalController extends Thread{
 			case WEIGHING:
 				weighing(); // 10, 11 og 12
 				break;
+			case REGISTER_WEIGHT:
+				registerWeight();
+				break;
 			}	
 		}
 
@@ -115,15 +121,15 @@ public class TerminalController extends Thread{
 		String reply = null;
 		long time = System.currentTimeMillis();
 
-			// Waits 5 seconds to receive "RM20 B"
-			while(System.currentTimeMillis() - time < 5000000){
-				String sData = "RM20 8 \"" + message + "\" \"\" \"&3\"\n";
-				sendData(sData);
-				
-				reply = recieveData();
-				
+		// Waits 5 seconds to receive "RM20 B"
+		while(System.currentTimeMillis() - time < 5000000){
+			String sData = "RM20 8 \"" + message + "\" \"\" \"&3\"\n";
+			sendData(sData);
+
+			reply = recieveData();
+
 			// If the message has been received, it breaks out of the loop
-				if(reply != null && reply.toUpperCase().startsWith("RM20 B")){
+			if(reply != null && reply.toUpperCase().startsWith("RM20 B")){
 				// Waits eternally for the second response "RM20 A"
 				while(true){
 					reply = recieveData();
@@ -145,25 +151,23 @@ public class TerminalController extends Thread{
 		this.stop();
 		return null;
 	}
-	
+
 	private String sendTare(){
 		String reply = null;
 		sendData("t\n");
 		// waiting for reply
-		
+
 		reply = recieveData();
-		
+
 		return reply.substring(9, reply.length()-5);
 	}
-	
+
 	private String sendS(){
 		String reply = null;
 		sendData("S\n");
+		reply = recieveData();
 
-		
-			reply = recieveData();
-
-			return reply.substring(9,reply.length()-5);
+		return reply.substring(9,reply.length()-5);
 	}
 
 
@@ -195,7 +199,7 @@ public class TerminalController extends Thread{
 		while(true){
 			try {
 				String recieve = waitForReply("Enter ProductBatch ID");
-				
+
 				if(recieve.equalsIgnoreCase(EXIT_CHAR)){
 					state = State.OPERATOR_LOGIN;
 					return;
@@ -220,9 +224,9 @@ public class TerminalController extends Thread{
 			state = State.OPERATOR_LOGIN;
 			return;
 		}
-		
+
 		try {
-			db.setPbStatus();
+			db.setPbStatus(pbID);
 		} catch (DALException e) {
 			waitForReply("Error setting production status, press any key");
 			waitForReply("contact supervisor, press any key");
@@ -241,10 +245,10 @@ public class TerminalController extends Thread{
 
 			// The tare is saved
 			tare = Float.parseFloat(sendS());
-			
+
 			// weight is tared
 			sendTare();
-			
+
 			state = State.WEIGHING;			
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -254,32 +258,44 @@ public class TerminalController extends Thread{
 	}
 
 	private void weighing(){
+		// The operator is asked to enter an ID for the ingredient batch (raavarebatch)
+		ibID = Integer.parseInt(waitForReply("Enter ingredient batch ID"));
+
+		// The ID is checked that it exists
 		try {
-			System.out.println(tare);
-			// The operator is asked to enter an ID for the ingredientbatch (raavarebatch)
-			rbID = Integer.parseInt(waitForReply("Enter batch ID, then press s to weigh"));
-
-			// The ID is checked that it exsists
-			if(db.checkIbId(rbID)){
-
-				// Gets the net weight
-				net = Float.parseFloat(sendS());
-
-				// Create new productbatch component
-				db.createProductBatchComp(pbID, rbID, tare, net, oprID);
-				
-				waitForReply("Productbatch component was successfully made, press enter");
-				state = State.PREPARE_WEIGHT;
-			}
-			else
-				throw new DALException("ID does not exist.");
-
-		}catch(Exception e){
-			waitForReply("Wrong batch id. press enter");
-			return;
+			recipeComp = db.checkWeight(pbID, ibID);
+		} catch (DALException e) {
+			e.printStackTrace();
 		}
 
+		// The ID is accepted and we move onto "Register Weight"
+		waitForReply("ID accepted, press enter");
+		state = State.REGISTER_WEIGHT;
 	}
 
+	private void registerWeight(){
+		waitForReply("Weigh amount, press enter");
 
+		// Gets the net weight
+		net = Float.parseFloat(sendS());
+
+		// Checks if the net weight meets the tolerance requirements
+		if(net < (recipeComp.getNet() + recipeComp.getTolerance() * recipeComp.getNet()/100) ||
+				net > (recipeComp.getNet() - recipeComp.getTolerance() * recipeComp.getNet()/100)){
+			try {
+				// Create new product batch component
+				db.createProductBatchComp(pbID, ibID, tare, net, oprID);
+
+			} catch (DALException e) {
+				e.printStackTrace();
+			}
+			// The product batch have been made and the state returns to "Prepare weight"
+			waitForReply("Productbatch component was successfully made, press enter");
+			state = State.PREPARE_WEIGHT;
+		}
+		else
+			waitForReply("Incorrect amount. Re-weigh ingredient, press enter");
+	}
 }
+
+

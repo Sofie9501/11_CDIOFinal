@@ -1,5 +1,7 @@
 package core;
 
+import DTO.RecipeCompDTO;
+
 public class ListImpl implements DatabaseCom{
 
 	//Connector c = new Connector();
@@ -24,8 +26,14 @@ public class ListImpl implements DatabaseCom{
 	}
 
 	@Override
-	public void setPbStatus(int pbID, int rbID) throws DALException {
+	public void setPbStatus(int pbID) throws DALException {
 		
+	}
+
+	@Override
+	public RecipeCompDTO checkWeight(int pb_id, int ib_id) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

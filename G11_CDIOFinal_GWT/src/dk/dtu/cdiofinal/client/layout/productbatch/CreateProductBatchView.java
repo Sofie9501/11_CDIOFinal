@@ -82,8 +82,9 @@ public class CreateProductBatchView extends AbstractView {
 			batch.setPb_ID(Integer.parseInt(txt_ProdBatchID.getText()));
 			batch.setR_ID(Integer.parseInt(txt_ReceptID.getText()));
 			ok.setText("Your information has been saved");
-			//Updates the DB with the new operator
+			//Updates the DB with the new productBatch
 			serviceImpl.createProductBatch(batch, new MyCallback());
+			
 			
 		}	
 
@@ -100,6 +101,7 @@ public class CreateProductBatchView extends AbstractView {
 		@Override
 		public void onClick(ClickEvent event) {
 			popup.toggle();
+			prod.PreviousView();
 
 		}
 	}
@@ -117,7 +119,7 @@ public class CreateProductBatchView extends AbstractView {
 		@Override
 		public void onFailure(Throwable caught) {
 			popup.setTitle("Error");
-			ok.setText("An error has occurred, and your information has not been saved.");
+			ok.setText("No server connection");
 			popup.toggle();
 		}
 		@Override

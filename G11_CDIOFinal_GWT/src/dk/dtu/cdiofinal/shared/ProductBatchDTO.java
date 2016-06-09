@@ -1,9 +1,14 @@
 package dk.dtu.cdiofinal.shared;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class ProductBatchDTO {
+public class ProductBatchDTO implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int countComponents;
 	private int countFinished;
 	private String name;

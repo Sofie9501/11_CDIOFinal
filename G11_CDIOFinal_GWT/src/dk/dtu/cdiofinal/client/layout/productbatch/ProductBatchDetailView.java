@@ -14,7 +14,7 @@ public class ProductBatchDetailView extends AbstractView {
 
 	private static ProductBatchDetailViewUiBinder uiBinder = GWT.create(ProductBatchDetailViewUiBinder.class);
 
-	@UiTemplate("ProductBatchDetailView.ui.xml")
+	@UiTemplate("productBatchDetailView.ui.xml")
 	interface ProductBatchDetailViewUiBinder extends UiBinder<Widget, ProductBatchDetailView> {
 	}
 	

@@ -70,7 +70,7 @@ public class ProductBatchDAOMySQL implements ProductBatchDAO{
 
 	@Override
 	public void createProductBatch(ProductBatchDTO productBatch) throws DALException {
-		query = "call create_productBatch(" + productBatch.getPb_ID() + ", " + productBatch.getR_ID();
+		query = "call create_productBatch(" + productBatch.getPb_ID() + ", " + productBatch.getR_ID() +");";
 		c.doQuery(query);
 		
 	}

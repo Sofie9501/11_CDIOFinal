@@ -17,15 +17,15 @@ public class ListImpl implements DatabaseCom{
 	@Override
 	public void createProductBatchComp(int pbID, int rbID, float tare, float net, int oprID) throws DALException {
 	}
-
+	
 	@Override
-	public void setPbStatus() throws DALException {
+	public boolean checkIbId(int ib_id) throws DALException {
+		return true;
 	}
 
 	@Override
-	public boolean checkIbId(int ib_id) throws DALException {
-		// TODO Auto-generated method stub
-		return false;
+	public void setPbStatus(int pbID, int rbID) throws DALException {
+		
 	}
 
 }

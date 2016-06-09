@@ -15,19 +15,11 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
-import dk.dtu.cdiofinal.client.layout.ingredientbatch.CreateIngredientBatch.EnterHandler;
-import dk.dtu.cdiofinal.client.layout.ingredientbatch.CreateIngredientBatch.MyCallback;
-import dk.dtu.cdiofinal.client.layout.ingredientbatch.CreateIngredientBatch.OkClickHandler;
-import dk.dtu.cdiofinal.client.layout.ingredientbatch.CreateIngredientBatch.SaveClickHandler;
-import dk.dtu.cdiofinal.client.serverconnection.ingredientbatch.ClientIngredientBatchImpl;
 import dk.dtu.cdiofinal.client.serverconnection.productbatch.ClientProductBatchImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
-import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 import dk.dtu.cdiofinal.shared.ProductBatchDTO;
 
 public class CreateProductBatchView extends AbstractView {
@@ -43,13 +35,9 @@ public class CreateProductBatchView extends AbstractView {
 	
 	//Textbox, buttons, heading and modal
 		@UiField
-		TextBox txt_B_ID;
+		TextBox txt_ProdBatchID;
 		@UiField
-		TextBox txt_P_ID;
-		@UiField
-		TextBox txt_amount;
-		@UiField
-		TextBox txt_P_Name;
+		TextBox txt_ReceptID;
 		@UiField
 		Button btn_save;
 
@@ -68,22 +56,19 @@ public class CreateProductBatchView extends AbstractView {
 		//Add click and key handler to buttons and last textbox
 		btn_save.addClickHandler(new SaveClickHandler());
 		btn_ok.addClickHandler((ClickHandler)new OkClickHandler());
-		txt_amount.addKeyDownHandler((KeyDownHandler)new EnterHandler());
+		txt_ReceptID.addKeyDownHandler(new EnterHandler());
+		
 
 	}
 	private boolean changeSucces(){
 		String alert = "";
 		boolean succes = true;
-		if(!FieldVerifier.numberValid(Integer.parseInt(txt_B_ID.getText()))){
+		if(!FieldVerifier.numberValid(Integer.parseInt(txt_ProdBatchID.getText()))){
 			alert+="Error - You need to write a valid batch ID \n";
 			succes = false;
 		}
-		if(!FieldVerifier.numberValid(Integer.parseInt(txt_P_ID.getText()))){
-			alert += "Error - ID for Product is not valid \n";
-			succes = false;
-		}
-		if(!FieldVerifier.isValidName(txt_P_Name.getText())){
-			alert += "Error - Name for Product is not valid \n";
+		if(!FieldVerifier.numberValid(Integer.parseInt(txt_ReceptID.getText()))){
+			alert += "Error - ID for Recept is not valid \n";
 			succes = false;
 		}
 		if(!alert.equals(""))
@@ -94,11 +79,11 @@ public class CreateProductBatchView extends AbstractView {
 		// Checks to see if there is no errors
 		if(changeSucces()){
 			batch = new ProductBatchDTO();
-			batch.setPb_ID(Integer.parseInt(txt_P_ID.getText()));
-			batch.setR_ID(r_ID);
+			batch.setPb_ID(Integer.parseInt(txt_ProdBatchID.getText()));
+			batch.setR_ID(Integer.parseInt(txt_ReceptID.getText()));
 			ok.setText("Your information has been saved");
 			//Updates the DB with the new operator
-			serviceImpl.createIngredientBatch(batch, new MyCallback());
+			serviceImpl.createProductBatch(batch, new MyCallback());
 			
 		}	
 
@@ -139,10 +124,8 @@ public class CreateProductBatchView extends AbstractView {
 		public void onSuccess(Boolean result) {
 			if(result){
 			popup.toggle();
-			txt_B_ID.setText("");
-			txt_P_ID.setText("");
-			txt_P_Name.setText("");
-			txt_amount.setText("");
+			txt_ProdBatchID.setText("");
+			txt_ReceptID.setText("");
 			}
 			else{
 				popup.setTitle("Error");

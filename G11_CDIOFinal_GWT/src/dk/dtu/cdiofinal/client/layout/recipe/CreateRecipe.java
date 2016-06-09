@@ -1,8 +1,10 @@
 package dk.dtu.cdiofinal.client.layout.recipe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.Heading;
 import com.github.gwtbootstrap.client.ui.Modal;
 import com.github.gwtbootstrap.client.ui.TextBox;
@@ -15,9 +17,11 @@ import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
@@ -29,10 +33,9 @@ import dk.dtu.cdiofinal.shared.RecipeDTO;
 public class CreateRecipe extends AbstractView {
 
 	final ProdView prod;
-	private ClientRecipeImpl serviceImpl;
+	protected ClientRecipeImpl serviceImpl;
 	private static createRecipeUiBinder uiBinder = GWT.create(createRecipeUiBinder.class);
 	private RecipeDTO batch;
-	private ArrayList<RecipeComponentDTO> list;
 
 	@UiTemplate("createRecipe.ui.xml")
 	interface createRecipeUiBinder extends UiBinder<Widget, CreateRecipe>{
@@ -45,9 +48,9 @@ public class CreateRecipe extends AbstractView {
 	@UiField
 	TextBox txt_name;
 	@UiField
-	Button btn_save;
-	@UiField
 	Button btn_add;
+
+
 
 	@UiField
 	Modal popup;
@@ -63,10 +66,11 @@ public class CreateRecipe extends AbstractView {
 		this.prod=prod;
 		this.serviceImpl = new ClientRecipeImpl();
 		//Add click and key handler to buttons and last textbox
-		btn_save.addClickHandler(new SaveClickHandler());
 		btn_ok.addClickHandler((ClickHandler)new OkClickHandler());
 		btn_add.addClickHandler(new AddClickHandler());
 		txt_name.addKeyDownHandler((KeyDownHandler)new EnterHandler());
+
+
 
 	}
 	private boolean changeSucces(){
@@ -90,18 +94,10 @@ public class CreateRecipe extends AbstractView {
 			batch = new RecipeDTO(Integer.parseInt(txt_ID.getText()), txt_name.getText(), true);
 			ok.setText("Your information has been saved");
 			//Updates the DB with the new operator
-			serviceImpl.createRecipe(batch, list, new MyCallback());
-			
+
 		}	
 
 	}
-	private class SaveClickHandler implements ClickHandler{
-
-		@Override
-		public void onClick(ClickEvent event) {
-			saveChanges();
-		}	
-	}	
 	private class OkClickHandler implements ClickHandler{
 
 		@Override
@@ -110,15 +106,15 @@ public class CreateRecipe extends AbstractView {
 
 		}
 	}
-	
-	
+
+
 	private class AddClickHandler implements ClickHandler{
 
 		@Override
 		public void onClick(ClickEvent event) {
-			
 		}
 	}
+
 	
 	private class EnterHandler implements KeyDownHandler {
 
@@ -140,9 +136,9 @@ public class CreateRecipe extends AbstractView {
 		@Override
 		public void onSuccess(Boolean result) {
 			if(result){
-			popup.toggle();
-			txt_ID.setText("");
-			txt_name.setText("");
+				popup.toggle();
+				txt_ID.setText("");
+				txt_name.setText("");
 			}
 			else{
 				popup.setTitle("Error");
@@ -154,7 +150,7 @@ public class CreateRecipe extends AbstractView {
 	@Override
 	public void Update() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -23,6 +23,12 @@ public class ClientRecipeImpl implements RecipeServiceAsync{
 		this.service.getRecipies(callback);
 		
 	}
+	
+	@Override
+	public void getRecipiesComp(ArrayList<RecipeComponentDTO> list, AsyncCallback<List<RecipeComponentDTO>> callback) {
+		this.service.getRecipiesComp(list, callback);
+		
+	}
 
 	@Override
 	public void getRecipe(int ID, AsyncCallback<RecipeDTO> callback) {

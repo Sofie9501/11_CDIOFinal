@@ -39,6 +39,9 @@
 							new component</b:Button>
 					</td>
 				</tr>
+				<td>
+					<b:Button icon="SAVE" type="LINK" ui:field="btn_save">Save</b:Button>
+				</td>
 				<tr>
 					<td>
 						<b:Modal ui:field="popup" title="Succes" backdrop="STATIC"
@@ -53,6 +56,30 @@
 			</table>
 		</div>
 		<table cellspacing='0' cellpadding='0' style='width:100%;'>
+			<tr>
+			<td>
+					<b:TextBox ui:field="txt_IN_ID"></b:TextBox>
+				</td>
+				<td>
+					<b:TextBox ui:field="txt_IN_name"></b:TextBox>
+				</td>
+				<td>
+					<b:TextBox ui:field="txt_Net"></b:TextBox>
+				</td>
+				<td>
+					<b:TextBox ui:field="txt_Tol"></b:TextBox>
+				</td>
+				<td>
+					<b:Button icon="SAVE" type="LINK" ui:field="btn_save_comp">Save</b:Button>
+				</td>
+				<tr>
+				<td valign='top'>
+					<b:CellTable addStyleNames='{style.cellTable}'
+						pageSize='100' ui:field='cellTable' bordered="false" condensed="false"
+						striped="true" />
+				</td>
+				</tr>
+			</tr>
 		</table>
 	</g:HTMLPanel>
 </ui:UiBinder> 

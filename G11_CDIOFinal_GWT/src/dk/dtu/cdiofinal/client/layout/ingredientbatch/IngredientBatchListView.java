@@ -112,8 +112,8 @@ public class IngredientBatchListView extends AbstractView{
 		editColumn.setFieldUpdater(new FieldUpdater<IngredientBatchDTO, String>(){
 
 			@Override
-			public void update(int index, IngredientBatchDTO object, String value) {
-				(IngredientBatchListView.this).prod.setView(new IngredientBatchDetail(object));
+			public void update(int index, IngredientBatchDTO dto, String value) {
+				(IngredientBatchListView.this).prod.setView(new IngredientBatchDetail(dto));
 			}
 
 		});

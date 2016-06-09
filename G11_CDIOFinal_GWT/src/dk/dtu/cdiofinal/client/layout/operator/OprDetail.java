@@ -27,17 +27,13 @@ public class OprDetail extends AbstractView{
 	private int oldID;
 
 	//Adds the main page texts
-	@UiField
-	Heading txt_oprID; 
-	@UiField
-	Heading txt_name; 
-	@UiField
-	Heading txt_CPRnr; 
-	@UiField
-	Heading txt_role; 	
-	@UiField
-	Heading txt_password;
-
+	@UiField Heading txt_oprID; 
+	@UiField Heading txt_name; 
+	@UiField Heading txt_CPRnr; 
+	@UiField Heading txt_role; 	
+	@UiField Heading txt_password;
+	@UiField Heading txt_active;
+	
 	// Adds the edit buttons
 	@UiField
 	Button btn_name;
@@ -49,6 +45,8 @@ public class OprDetail extends AbstractView{
 	Button btn_password;
 	@UiField
 	Button btn_oprID;
+	@UiField
+	Button btn_active;
 
 	//Add editpopup with save button
 	@UiField
@@ -68,11 +66,10 @@ public class OprDetail extends AbstractView{
 		//Adds all the information on the operators
 		txt_oprID.setText(String.valueOf(opr.getOprID()));
 		txt_name.setText(opr.getName());
-		
-		
 		txt_CPRnr.setText(FieldVerifier.cprFormat(opr.getCpr()));
 		txt_role.setText(String.valueOf(opr.getRole()));
 		txt_password.setText(opr.getPassword());
+		txt_active.setText(String.valueOf(opr.isActive()));
 
 		//Clickhandlers for all the buttons
 		btn_name.addClickHandler(new EditNameClickHandler());
@@ -80,6 +77,7 @@ public class OprDetail extends AbstractView{
 		btn_rolle.addClickHandler(new EditRoleClickHandler());
 		btn_password.addClickHandler(new EditPasswordClickHandler());
 		btn_oprID.addClickHandler(new EditIDClickHandler());
+		btn_active.addClickHandler(new EditActiveClickHandler());
 		btn_save.addClickHandler(new SaveClickHandler());
 		txt_edited.addKeyDownHandler((KeyDownHandler) new EnterHandler());
 	}
@@ -115,11 +113,20 @@ public class OprDetail extends AbstractView{
 			break;
 		case "Rolle":
 			if(!FieldVerifier.rolleValid(Integer.parseInt(txt_edited.getText()))){
-				Window.alert("Error - Wtong input");
+				Window.alert("Error - Wrong input");
 			}
 			else{
 				opr.setRole(Integer.parseInt(txt_edited.getText()));
 				txt_role.setText(String.valueOf(opr.getRole()));
+			}
+			break;
+		case "active":
+			if(!FieldVerifier.active(Boolean.parseBoolean(txt_edited.getText()))){
+				Window.alert("Error - Wrong input");
+			}
+			else{
+				opr.setActive(Boolean.parseBoolean(txt_edited.getText()));
+				txt_active.setText(String.valueOf(opr.isActive()));
 			}
 			break;
 		case "Password":
@@ -202,6 +209,15 @@ public class OprDetail extends AbstractView{
 			popup.setTitle("Change Password");
 			popup.setId("Password");
 			txt_edited.setText(opr.getPassword());
+			popup.toggle();		
+		}	
+	}
+	private class EditActiveClickHandler implements ClickHandler{
+		@Override
+		public void onClick(ClickEvent event) {
+			popup.setTitle("Change active");
+			popup.setId("active");
+			txt_edited.setText(String.valueOf(opr.isActive()));
 			popup.toggle();		
 		}	
 	}

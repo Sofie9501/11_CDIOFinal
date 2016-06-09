@@ -5,41 +5,30 @@
 	xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
 	<ui:style>
 	.greyText {color: grey;}
-	.cellTable {
-      border-bottom: 1px solid #ccc;
-      text-align: left;
-      margin-bottom: 4px;
-	}
 	</ui:style>
 	<g:HTMLPanel>
 	    <div align="left" style="width:500px"> <table>
 	        <tr><td style="width:200%"><u><h4>Recipe ID</h4></u></td></tr>
-	       <tr bgcolor="#f1f1f1">
-	            <td ><b:Heading size="5" ui:field="txt_ID"/></td>
-	            <td ><b:Button type="LINK" ui:field="btn_ID">Edit</b:Button></td>
-	        </tr>
-	        <tr><td><u><h4>Recipe Name</h4></u></td></tr>
 	        <tr bgcolor="#f1f1f1">
-	            <td ><b:Heading size="5" ui:field="txt_name"/></td>
-	            <td ><b:Button type="LINK" ui:field="btn_name">Edit</b:Button></td>
+	            <td ><b:Heading size="5" ui:field="txt_recipeID"/></td>
+	            <td ><b:Button type="LINK" ui:field="btn_recipeID">Edit</b:Button></td>
 	        </tr>
-	        <tr><td><u><h4>Active</h4></u></td></tr>
+	        <tr><td><u><h4>Ingredient ID</h4></u></td></tr>
 	        <tr bgcolor="#f1f1f1">
-	     
-	            <td><h4><b:Heading size="5" ui:field="txt_active"/></h4></td>
-	            <td><b:Button type="LINK" ui:field="btn_active">Edit</b:Button></td>
+	            <td ><b:Heading size="5" ui:field="txt_ingredientID"/></td>
+	            <td ><b:Button type="LINK" ui:field="btn_ingredientID">Edit</b:Button></td>
+	        </tr>
+	        <tr><td><u><h4>Nom net</h4></u></td></tr>
+	        <tr bgcolor="#f1f1f1">
+	            <td><b:Heading size="5" ui:field="txt_Nom"/></td>
+	            <td><b:Button type="LINK" ui:field="btn_Nom">Edit</b:Button></td>
+	        </tr>
+	        <tr><td><u><h4>Tolerance</h4></u></td></tr>
+	        <tr bgcolor="#f1f1f1">
+	            <td><b:Heading size="5" ui:field="txt_tol"/></td>
+	            <td><b:Button type="LINK" ui:field="btn_tol">Edit</b:Button></td>
 	        </tr>
 	        <tr>
-        <td
-          valign='top'>
-          <b:CellTable
-            addStyleNames='{style.cellTable}'
-            pageSize='100'
-            ui:field='cellTable'
-            bordered="false" condensed="false" striped="true" />
-        </td>
-      </tr>
-      <tr>
 	            <td>
 	                <b:Modal ui:field="popup" title="Error" backdrop="STATIC" keyboard="true" animation="true">
 	                    <b:TextBox ui:field="txt_edited"/>

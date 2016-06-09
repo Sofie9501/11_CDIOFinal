@@ -12,8 +12,9 @@ public interface RecipeServiceAsync {
 	
 	void getRecipies(AsyncCallback<List<RecipeDTO>> callback);
 	void getRecipe(int ID, AsyncCallback<RecipeDTO> callback);
-	void getRecipeComponentList (int ID, AsyncCallback<ArrayList<RecipeComponentDTO>> callback);
+	void getRecipeComponentList (int ID, AsyncCallback<List<RecipeComponentDTO>> callback);
 	void updateRecipe(RecipeDTO recipe, int oldID, AsyncCallback<Boolean> callback);
+	void updateRecipeComponent(RecipeComponentDTO comp, int oldRecipeID, int oldIngredientID, AsyncCallback<Boolean> callback);
 	void createRecipe(RecipeDTO recipe, ArrayList<RecipeComponentDTO> list, AsyncCallback<Boolean> callback);
 
 

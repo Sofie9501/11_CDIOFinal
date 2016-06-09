@@ -63,14 +63,25 @@ public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeServ
 			return false;
 		}
 	}
+	
+	@Override
+	public boolean updateRecipeComponent(RecipeComponentDTO comp, int oldRecipeID, int oldIngredientID) {
+		try {
+			dao.updateRecipeComponent(comp, oldRecipeID, oldIngredientID);
+			return true;
+		} catch (DALException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 
 	@Override
-	public ArrayList<RecipeComponentDTO> getRecipeComponentList(int ID) {
-		ArrayList<RecipeComponentDTO> list = new ArrayList<RecipeComponentDTO>();
+	public List<RecipeComponentDTO> getRecipeComponentList(int ID) {
+		List<RecipeComponentDTO> list = new ArrayList<RecipeComponentDTO>();
 
 		try {
-			list = (ArrayList<RecipeComponentDTO>) dao.getRecipeComponentList(ID);
+			list = dao.getRecipeComponentList(ID);
 		} catch (DALException e) {
 			e.printStackTrace();
 		}

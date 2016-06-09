@@ -7,12 +7,16 @@ public class RecipeComponentDTO implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8726826892932478063L;
 	private int recipe_ID;
 	private int ingredient_ID;
 	private double nom_netto;
 	private double tolerance;
 	private String ingredientName;
+	
+	public RecipeComponentDTO(){
+		
+	}
 	
 	public RecipeComponentDTO(int recipe_ID, int ingredient_ID, String ingredientName , 
 					double tolerance, double nom_netto) {

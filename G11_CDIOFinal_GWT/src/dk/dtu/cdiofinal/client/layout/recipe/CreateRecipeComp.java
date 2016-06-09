@@ -21,7 +21,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
-import com.sun.java.swing.plaf.windows.resources.windows;
 
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
@@ -80,6 +79,7 @@ public class CreateRecipeComp extends AbstractView {
 		btn_save_comp.addClickHandler(new SaveClickHandler());
 		txt_tolerance.addKeyDownHandler((KeyDownHandler)new EnterHandler());
 		btn_save.addClickHandler(new SaveRecipeClickHandler());
+		//display celltable
 		dataProvider.addDataDisplay(cellTable);
 
 		//First column with Ingredient ID

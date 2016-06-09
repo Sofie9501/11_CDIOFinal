@@ -32,7 +32,7 @@ public class ClientRecipeImpl implements RecipeServiceAsync{
 	}
 	
 	@Override
-	public void getRecipeComponentList (int ID, AsyncCallback<ArrayList<RecipeComponentDTO>> callback){
+	public void getRecipeComponentList (int ID, AsyncCallback<List<RecipeComponentDTO>> callback){
 		this.service.getRecipeComponentList (ID, callback);
 	}
 
@@ -40,6 +40,12 @@ public class ClientRecipeImpl implements RecipeServiceAsync{
 	@Override
 	public void updateRecipe(RecipeDTO recipe, int oldID, AsyncCallback<Boolean> callback) {
 		this.service.updateRecipe(recipe, oldID, callback);
+		
+	}
+	
+	@Override
+	public void updateRecipeComponent(RecipeComponentDTO comp, int oldRecipeID, int oldIngredientID, AsyncCallback<Boolean> callback) {
+		this.service.updateRecipeComponent(comp, oldRecipeID, oldIngredientID, callback);
 		
 	}
 

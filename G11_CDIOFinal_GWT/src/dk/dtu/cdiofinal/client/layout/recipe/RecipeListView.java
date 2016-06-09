@@ -86,7 +86,7 @@ public class RecipeListView extends AbstractView{
 
 			@Override
 			public void update(int index, RecipeDTO object, String value) {
-				(RecipeListView.this).prod.setView(new RecipeDetail(object));
+				(RecipeListView.this).prod.setView(new RecipeDetail((RecipeListView.this).prod, object));
 			}
 
 		});

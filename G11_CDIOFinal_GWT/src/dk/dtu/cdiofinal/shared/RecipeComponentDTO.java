@@ -1,7 +1,13 @@
 package dk.dtu.cdiofinal.shared;
 
-public class RecipeComponentDTO {
+import java.io.Serializable;
+
+public class RecipeComponentDTO implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int recipe_ID;
 	private int ingredient_ID;
 	private double nom_netto;

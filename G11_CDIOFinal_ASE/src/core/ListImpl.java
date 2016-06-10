@@ -17,7 +17,7 @@ public class ListImpl implements DatabaseCom{
 	}
 
 	@Override
-	public void createProductBatchComp(int pbID, int rbID, float tare, float net, int oprID) throws DALException {
+	public void createProductBatchComp(int pbID, int rbID, float tare, double net, int oprID) throws DALException {
 	}
 	
 	@Override
@@ -35,5 +35,6 @@ public class ListImpl implements DatabaseCom{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

@@ -18,7 +18,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
@@ -184,7 +183,7 @@ public class RecipeComponentDetail extends AbstractView{
 		@Override
 		public void onClick(ClickEvent event) {
 			popup.setTitle("Change Tolerance");
-			popup.setId("Tolerance");
+			popup.setId("tol");
 			txt_edited.setText(String.valueOf(comp.getTolerance()));
 			popup.toggle();		
 		}	

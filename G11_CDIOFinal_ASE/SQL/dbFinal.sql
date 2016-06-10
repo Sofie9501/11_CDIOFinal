@@ -99,7 +99,7 @@ Drop view if exists ase_info;
 
 create view recipe_administration 
 as select recipe_id,recipe_name, ingredient_id, ingredient_name, tolerance, nom_net
-from recipe natural join recipeComponent natural join ingredient; 
+from recipe natural join recipeComponent join ingredient using (ingredient_id); 
 
 create view ingredientBatch_administration
 as select ib_id, ingredient_name, ingredient_id, amount, ingredientBatch.active, recieveDate

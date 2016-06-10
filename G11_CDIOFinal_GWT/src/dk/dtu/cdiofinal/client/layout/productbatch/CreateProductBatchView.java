@@ -94,6 +94,7 @@ public class CreateProductBatchView extends AbstractView {
 		@Override
 		public void onClick(ClickEvent event) {
 			saveChanges();
+			prod.PreviousView();
 		}	
 	}	
 	private class OkClickHandler implements ClickHandler{

@@ -18,6 +18,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.AbstractView;
+import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
@@ -31,6 +32,7 @@ public class CreateIngredientView extends AbstractView{
 	}
 	private IngredientDTO ingre;
 	private ClientIngredientImpl serviceImpl;
+	final ProdView prod;
 
 	@UiField
 	TextBox txt_name;
@@ -48,8 +50,9 @@ public class CreateIngredientView extends AbstractView{
 	@UiField
 	Heading ok;
 
-	public CreateIngredientView(){
+	public CreateIngredientView(ProdView prod){
 		initWidget(uiBinder.createAndBindUi(this));
+		this.prod=prod;
 		this.serviceImpl = new ClientIngredientImpl();
 		//Clickhandler
 		btn_save.addClickHandler(new SaveClickHandler());
@@ -100,7 +103,7 @@ public class CreateIngredientView extends AbstractView{
 		@Override
 		public void onClick(ClickEvent event) {
 			popup.toggle();
-
+			prod.PreviousView();
 		}
 	}
 	private class EnterHandler implements KeyDownHandler {

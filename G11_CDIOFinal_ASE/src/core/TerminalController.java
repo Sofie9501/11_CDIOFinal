@@ -127,7 +127,7 @@ public class TerminalController extends Thread{
 			sendData(sData);
 
 			reply = recieveData();
-
+			
 			// If the message has been received, it breaks out of the loop
 			if(reply != null && reply.toUpperCase().startsWith("RM20 B")){
 				// Waits eternally for the second response "RM20 A"

@@ -99,6 +99,7 @@ public class RecipeDetail extends AbstractView{
 		btn_save.addClickHandler((ClickHandler) new SaveClickHandler());
 		txt_edited.addKeyDownHandler((KeyDownHandler) new EnterHandler());
 
+
 		//First column with Ingredient ID
 		TextColumn<RecipeComponentDTO> IDColumn = new TextColumn<RecipeComponentDTO>(){
 			@Override
@@ -278,6 +279,9 @@ public class RecipeDetail extends AbstractView{
 
 	@Override
 	public void Update() {
+		componentList.clear();
+		dataProvider.setList(componentList);
+		this.serviceImpl.getRecipeComponentList(oldID, new ListCallback());
 	}
 
 }

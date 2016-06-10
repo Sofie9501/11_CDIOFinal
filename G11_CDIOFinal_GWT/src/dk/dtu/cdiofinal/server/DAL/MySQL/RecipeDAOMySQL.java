@@ -103,7 +103,7 @@ public class RecipeDAOMySQL implements RecipeDAO{
 
 	@Override
 	public void updateRecipeComponent(RecipeComponentDTO comp, int oldRecipeID, int oldIngredientID) throws DALException {
-		query = "call update_recipeComponent(" + oldRecipeID + ", " + comp.getRecipe_ID() + ", '" + oldIngredientID + ", " + 
+		query = "call update_recipeComponent(" + oldRecipeID + ", " + comp.getRecipe_ID() + ", " + oldIngredientID + ", " + 
 				comp.getIngredient_ID() + ", " + comp.getNom_netto() + ", " + comp.getTolerance() + ");";
 		c.doQuery(query);
 

@@ -243,7 +243,7 @@ public class TerminalController extends Thread{
 	// The operator is asked to place the first container so the weight can tare
 	private void addContainer(){
 		try {
-			sendB("20.0");
+			sendB("2.0");
 			// The reply means the operator giving consent
 			waitForReply("Press enter when the container is placed");
 
@@ -281,16 +281,18 @@ public class TerminalController extends Thread{
 	}
 
 	private void registerWeight(){
+		sendB("0.54");
 		waitForReply("Weigh amount, press enter");
 
 		// Gets the net weight
 		net = Float.parseFloat(sendS());
 
 		// Checks if the net weight meets the tolerance requirements
-		if(net < (recipeComp.getNet() + recipeComp.getTolerance() * recipeComp.getNet()/100) ||
-				net > (recipeComp.getNet() - recipeComp.getTolerance() * recipeComp.getNet()/100)){
+		if(net < (recipeComp.getNet() + (recipeComp.getTolerance() * (recipeComp.getNet()/100))) ||
+				net > (recipeComp.getNet() - (recipeComp.getTolerance() * (recipeComp.getNet()/100)))){
 			try {
 				// Create new product batch component
+				System.out.println("pbID: " + pbID + "\t\tibID: " + ibID + "\tTare: " + tare + "\tNet: " + net);
 				db.createProductBatchComp(pbID, ibID, tare, net, oprID);
 				
 				// The product batch have been made and the state returns to "Prepare weight"

@@ -34,7 +34,7 @@ public class Context implements DatabaseCom{
 		return "mega fejl";
 	}
 
-	// Returns the name of a recipe given the product batch ID
+	// Returns the name of a recipe given the product batch ID.
 	@Override
 	public String getProductRecipeName(int pb_id) throws DALException {
 		// Query
@@ -55,20 +55,38 @@ public class Context implements DatabaseCom{
 		return null;
 	}
 
-	// Checks if the ingredient batch exists
+	// Checks if the ingredient batch exists and contains the required amount for the recipe
 	@Override
-	public boolean checkIbId(int ib_id) throws DALException {
-		// Query 
-		query = "select * from ingredientBatch_administration where ib_id = " + ib_id + ";";
+	public boolean checkIbId(int ib_id, int pb_id) throws DALException {
+		int amount;
+		double net;
+		
+		// Queries. First gets the amount that is available in the ingredient batch, 
+		// the next gets the needed amount for the recipe
+		String queryAmount = "select amount from ingredientBatch_administration where ib_id = " + ib_id + ";";
+		String queryNet = "select net from productbatchcomponent where pb_id = " + pb_id + " and ib_id = " + ib_id +";";
+		
 		try {
-			ResultSet result = c.doQuery(query);
+			ResultSet result = c.doQuery(queryAmount);
+			
 			// Throw exception if no result is found
 			if(!result.next()){
 				throw new DALException("Ingredient batch not found");
 			}else{
-			// If there's a result the ingredient batch exist
-				return true;
+			// If there's a result the ingredient batch exist and we get the amount
+				amount = Integer.parseInt(result.getString(1));
 			}
+			
+			// Next we get the net
+			result = c.doQuery(queryNet);
+			net = Double.parseDouble(result.getString(1));
+			
+			if(net <= amount){
+				throw new DALException("Ingredient batch does not have the required amount");
+			}
+			else
+				return true;
+			
 		} catch (DALException e){
 			throw e;
 		} catch (SQLException e) {
@@ -80,7 +98,7 @@ public class Context implements DatabaseCom{
 
 	// Creates a product batch component using a stored procedure
 	@Override
-	public void createProductBatchComp(int pbID, int ibID, float tare, float net, int oprID) throws DALException {
+	public void createProductBatchComp(int pbID, int ibID, float tare, double net, int oprID) throws DALException {
 		// Calls a stored procedure in our database
 		query = "call create_productbatchcomponent(" + pbID + ", " + ibID + ", " + tare + ", " + net + ", " + oprID + ");";
 		c.doQuery(query);

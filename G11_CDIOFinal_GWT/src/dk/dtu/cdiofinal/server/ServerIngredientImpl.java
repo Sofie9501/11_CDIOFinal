@@ -9,13 +9,13 @@ import dk.dtu.cdiofinal.DAO.IngredientDAO;
 import dk.dtu.cdiofinal.client.serverconnection.ingredient.IngredientService;
 import dk.dtu.cdiofinal.server.DAL.DALException;
 import dk.dtu.cdiofinal.server.DAL.MySQL.IngredientsDAOMySQL;
+import dk.dtu.cdiofinal.shared.DTOVerifier;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
 
 @SuppressWarnings("serial")
 public class ServerIngredientImpl extends RemoteServiceServlet implements IngredientService{
 	IngredientDAO dao = new IngredientsDAOMySQL();
-	
-	
+
 	@Override
 	public List<IngredientDTO> getIngredients() {
 		List<IngredientDTO> list = new ArrayList<IngredientDTO>();
@@ -30,31 +30,34 @@ public class ServerIngredientImpl extends RemoteServiceServlet implements Ingred
 	}
 
 	@Override
-	public IngredientDTO getIngredient() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public boolean updateIngredient(IngredientDTO ingredient, int oldID) {
-		try {
-			dao.updateIngredient(ingredient, oldID);
-			return true;
-		} catch (DALException e) {
-			e.printStackTrace();
-			return false;
+		if (DTOVerifier.VerifyIngredientDTO(ingredient)){
+			try {
+				dao.updateIngredient(ingredient, oldID);
+				return true;
+			} catch (DALException e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
+		return false;
+
+
+
 	}
 
 	@Override
 	public boolean createIngredient(IngredientDTO ingredient) {
-		try {
-			dao.createIngredient(ingredient);
-			return true;
-		} catch (DALException e) {
-			e.printStackTrace();
-			return false;
+		if (DTOVerifier.VerifyIngredientDTO(ingredient)){
+			try {
+				dao.createIngredient(ingredient);
+				return true;
+			} catch (DALException e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
+		return false;
 	}
 
 }

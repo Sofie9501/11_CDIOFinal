@@ -93,7 +93,6 @@ public class TerminalController extends Thread{
 	}
 	private void sendData(String data){
 		try {
-			System.out.println("Terminal IP: " + this.hostAddress + ", Sending to Terminal: " + data);
 			outToServer.writeBytes(data);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -112,7 +111,6 @@ public class TerminalController extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Terminal IP: " + this.hostAddress + ", recieving from Terminal: " + data);
 
 		return data;
 	}
@@ -198,7 +196,6 @@ public class TerminalController extends Thread{
 	}
 
 	private void productBatchSelection(){
-
 		while(true){
 			try {
 				String recieve = waitForReply("Enter ProductBatch ID");
@@ -295,7 +292,6 @@ public class TerminalController extends Thread{
 				net > (recipeComp.getNet() - (recipeComp.getTolerance() * (recipeComp.getNet()/100)))){
 			try {
 				// Create new product batch component
-				System.out.println("pbID: " + pbID + "\t\tibID: " + ibID + "\tTare: " + tare + "\tNet: " + net);
 				db.createProductBatchComp(pbID, ibID, tare, net, oprID);
 				
 				// The product batch have been made and the state returns to "Prepare weight"

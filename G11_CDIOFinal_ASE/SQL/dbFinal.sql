@@ -389,6 +389,7 @@ Grant select on ase_info to 'ase_access'@'localhost';
 Grant select on operator to 'ase_access'@'localhost';
 Grant select on productBatch_administration to 'ase_access'@'localhost';
 Grant select on ingredientBatch_administration to 'ase_access'@'localhost';
+Grant select on productbatchcomponent to 'ase_access'@'localhost';
 
 /*
 Grant Select on weighing to 'server_access';

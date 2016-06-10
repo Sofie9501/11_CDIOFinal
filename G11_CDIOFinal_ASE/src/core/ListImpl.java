@@ -21,7 +21,7 @@ public class ListImpl implements DatabaseCom{
 	}
 	
 	@Override
-	public boolean checkIbId(int ib_id) throws DALException {
+	public boolean checkIbId(int ib_id, int pb_id) throws DALException {
 		return true;
 	}
 

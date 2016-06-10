@@ -102,6 +102,7 @@ public class Context implements DatabaseCom{
 		// Calls a stored procedure in our database
 		query = "call create_productbatchcomponent(" + pbID + ", " + ibID + ", " + tare + ", " + net + ", " + oprID + ");";
 		c.doQuery(query);
+
 	}
 
 	// Sets the status of the product batch to "in progress" 

@@ -89,4 +89,16 @@ public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeServ
 		return list;
 	}
 
+
+	@Override
+	public boolean createRecipeComponent(RecipeComponentDTO comp) {
+		try {
+			dao.createRecipeComponent(comp);
+			return true;
+		} catch (DALException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }

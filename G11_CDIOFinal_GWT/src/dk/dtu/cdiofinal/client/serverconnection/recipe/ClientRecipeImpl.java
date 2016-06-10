@@ -54,4 +54,10 @@ public class ClientRecipeImpl implements RecipeServiceAsync{
 		this.service.createRecipe(recipe, list, callback);
 	}
 
+	@Override
+	public void createRecipeComponent(RecipeComponentDTO comp, AsyncCallback<Boolean> callback) {
+		this.service.createRecipeComponent(comp, callback);
+		
+	}
+
 }

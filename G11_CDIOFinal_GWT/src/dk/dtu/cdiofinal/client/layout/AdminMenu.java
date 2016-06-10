@@ -106,10 +106,10 @@ public class AdminMenu extends AbstractView{
 			case 2:
 				btn_recipe.setVisible(true);
 				btn_ingredient.setVisible(true);
-				btn_ingredientbatch.setVisible(true);
+				
 			case 3:
 				btn_productbatch.setVisible(true);
-				
+				btn_ingredientbatch.setVisible(true);
 				break;
 				default:
 			}

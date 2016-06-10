@@ -26,7 +26,7 @@ public class TerminalController extends Thread{
 	int oprID;
 	int pbID;
 	float tare;
-	float net;
+	double net;
 	int ibID;
 
 
@@ -93,6 +93,7 @@ public class TerminalController extends Thread{
 	}
 	private void sendData(String data){
 		try {
+			System.out.println("Terminal IP: " + this.hostAddress + ", Sending to Terminal: " + data);
 			outToServer.writeBytes(data);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -111,6 +112,8 @@ public class TerminalController extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Terminal IP: " + this.hostAddress + ", recieving from Terminal: " + data);
+
 		return data;
 	}
 
@@ -266,7 +269,7 @@ public class TerminalController extends Thread{
 		try {
 			// The operator is asked to enter an ID for the ingredient batch (raavarebatch)
 			ibID = Integer.parseInt(waitForReply("Enter ingredient batch ID"));
-			db.checkIbId(ibID); // Kan lave til en void ? den caster bare fejl ud i stedet.
+			db.checkIbId(ibID, pbID); // Kan lave til en void ? den caster bare fejl ud i stedet.
 			db.setPbStatus(pbID);
 			recipeComp = db.checkWeight(pbID, ibID);
 
@@ -281,14 +284,14 @@ public class TerminalController extends Thread{
 	}
 
 	private void registerWeight(){
-		sendB("0.54");
+		sendB("0.5");
 		waitForReply("Weigh amount, press enter");
 
 		// Gets the net weight
 		net = Float.parseFloat(sendS());
 
 		// Checks if the net weight meets the tolerance requirements
-		if(net < (recipeComp.getNet() + (recipeComp.getTolerance() * (recipeComp.getNet()/100))) ||
+		if(net < (recipeComp.getNet() + (recipeComp.getTolerance() * (recipeComp.getNet()/100))) &&
 				net > (recipeComp.getNet() - (recipeComp.getTolerance() * (recipeComp.getNet()/100)))){
 			try {
 				// Create new product batch component

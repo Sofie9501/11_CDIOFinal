@@ -61,14 +61,6 @@
 				</tr>
 				<tr>
 					<td>
-						<b:Button icon="PLUS" type="LINK" ui:field="btn_add">Add new component</b:Button>
-					</td>
-				</tr>
-				<td>
-					<b:Button icon="SAVE" type="LINK" ui:field="btn_save">Save Recipe</b:Button>
-				</td>
-				<tr>
-					<td>
 						<b:Modal ui:field="popup" title="Succes" backdrop="STATIC"
 							keyboard="true" animation="true">
 							<b:Heading size="5" ui:field="ok"></b:Heading>

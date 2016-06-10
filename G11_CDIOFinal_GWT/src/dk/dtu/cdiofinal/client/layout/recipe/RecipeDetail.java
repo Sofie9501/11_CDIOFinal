@@ -100,6 +100,7 @@ public class RecipeDetail extends AbstractView{
 		btn_active.addClickHandler((ClickHandler) new EditActiveClickHandler());
 		btn_save.addClickHandler((ClickHandler) new SaveClickHandler());
 		txt_edited.addKeyDownHandler((KeyDownHandler) new EnterHandler());
+		add_component.addClickHandler(new AddComponentClickHandler());
 
 
 		//First column with Ingredient ID
@@ -264,6 +265,13 @@ public class RecipeDetail extends AbstractView{
 		@Override
 		public void onClick(ClickEvent event) {
 			saveChanges();
+		}	
+	}
+	
+	private class AddComponentClickHandler implements ClickHandler{
+		@Override
+		public void onClick(ClickEvent event) {
+			prod.setView(new CreateEkstraRecipeComp(prod, rec));
 		}	
 	}
 

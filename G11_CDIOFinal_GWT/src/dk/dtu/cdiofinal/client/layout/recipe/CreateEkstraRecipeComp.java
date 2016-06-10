@@ -48,7 +48,6 @@ public class CreateEkstraRecipeComp extends AbstractView {
 	@UiField TextBox txt_ID;
 	@UiField TextBox txt_net;
 	@UiField TextBox txt_tolerance;
-	@UiField Button btn_add;
 	@UiField Button btn_save_comp;
 	@UiField Heading TitleID;
 	@UiField Heading ID;
@@ -67,14 +66,11 @@ public class CreateEkstraRecipeComp extends AbstractView {
 		this.dataProvider = new ListDataProvider<RecipeComponentDTO>();
 		//Set visible and text on boxes and buttons
 		TitleID.setText(recipe.getName());
-		cellTable.setVisible(false);
 		ID.setText("Ingredient ID");
 		Nom_net.setText("Nom_net");
 		Tolerance.setText("Tolerance");
-		btn_add.setVisible(false);
 		//Add click and key handler to buttons and last textbox
 		btn_ok.addClickHandler((ClickHandler)new OkClickHandler());
-		btn_add.addClickHandler(new AddClickHandler());
 		btn_save_comp.addClickHandler(new SaveClickHandler());
 		txt_tolerance.addKeyDownHandler((KeyDownHandler)new EnterHandler());
 		//display celltable
@@ -140,12 +136,10 @@ public class CreateEkstraRecipeComp extends AbstractView {
 			ArrayList<RecipeComponentDTO> componentList = recipe.getComponents();
 			//Show list of components
 			dataProvider.setList(componentList);
-			btn_add.setVisible(true);
 			txt_ID.setText("");
 			txt_net.setText("");
 			txt_tolerance.setText("");
-			serviceImpl.createRecipeComponent(comp);
-			
+			serviceImpl.createRecipeComponent(comp, new MyCallback());
 		}	
 	}
 	
@@ -154,7 +148,6 @@ public class CreateEkstraRecipeComp extends AbstractView {
 		@Override
 		public void onClick(ClickEvent event) {
 			popup.toggle();
-			prod.PreviousView();
 			prod.PreviousView();
 		}
 	}
@@ -172,25 +165,9 @@ public class CreateEkstraRecipeComp extends AbstractView {
 			Nom_net.setVisible(false);
 			Tolerance.setVisible(false);
 			saveChanges();
-			cellTable.setVisible(true);
 		}
 	}
 
-
-
-	private class AddClickHandler implements ClickHandler{
-		@Override
-		public void onClick(ClickEvent event) {
-			txt_ID.setVisible(true);
-			txt_net.setVisible(true);
-			txt_tolerance.setVisible(true);
-			btn_save_comp.setVisible(true);
-			ID.setVisible(true);
-			Nom_net.setVisible(true);
-			Tolerance.setVisible(true);
-			btn_add.setVisible(false);
-		}
-	}
 
 
 	private class EnterHandler implements KeyDownHandler {

@@ -99,7 +99,7 @@ Drop view if exists ase_info;
 
 create view recipe_administration 
 as select recipe_id,recipe_name, ingredient_id, ingredient_name, tolerance, nom_net
-from recipe natural join recipeComponent natural join ingredient; 
+from recipe natural join recipeComponent join ingredient using (ingredient_id); 
 
 create view ingredientBatch_administration
 as select ib_id, ingredient_name, ingredient_id, amount, ingredientBatch.active, recieveDate
@@ -257,12 +257,12 @@ end; //
 
 /*update productBatch*/
 create procedure update_productBatch
-(in pb_old_id_input int(8), in pb_new_id_input int(8), in status_input int(1), in recipe_id_input int(8), in active_input boolean)
+(in pb_old_id_input int(8), in pb_new_id_input int(8), in recipe_id_input int(8), in active_input boolean)
 begin
 if (pb_old_id_input not in (select pb_id from productbatchcomponent)
 and pb_new_id_input not in (select pb_id from productbatch)) then
 update productbatch
-set pb_id = pb_new_id_input, status = status_input, recipe_id = recipe_id_input, active = active_input
+set pb_id = pb_new_id_input, recipe_id = recipe_id_input, active = active_input
 where pb_id = pb_old_id_input;
 else 
 update productbatch
@@ -352,8 +352,8 @@ Grant Execute on procedure create_ingredient to 'server_access' @'localhost';
 Grant Execute on procedure update_opr to 'server_access'@'localhost';
 Grant Execute on procedure update_recipe to 'server_access'@'localhost';
 Grant Execute on procedure create_opr to 'server_access'@'localhost';
-Grant Execute on procedure create_productbatch to 'server_access'@'localhost';
 Grant Execute on procedure create_productBatch to 'server_access'@'localhost';
+Grant Execute on procedure update_productBatch to 'server_access'@'localhost';
 Grant Execute on procedure create_ingredientBatch to 'server_access'@'localhost';
 Grant Execute on procedure update_ingredientBatch to 'server_access'@'localhost';
 Grant Execute on procedure create_recipeComponent to 'server_access'@'localhost';

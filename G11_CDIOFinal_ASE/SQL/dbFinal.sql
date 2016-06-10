@@ -53,31 +53,36 @@ CREATE TABLE productBatchComponent(pb_id INT, ib_id INT, tara REAL, net REAL, op
    insert into ingredient values
    (1, 'Citron', 'Citronland', true),
    (99, 'Vand', 'Vandland', false),
-   (22222222, 'qwertyuiop123456789ø', '987654321åpoiuytrewq', true);
+   (22222222, 'qwertyuiop123456789ø', '987654321åpoiuytrewq', true),
+   (3, 'Bær', 'Busken', true);
    
    insert into ingredientBatch values
    (99999999, 1, 0.5, '2015-06-16', true),
    (1, 99, 1, '2003-03-15', true),
    (222, 99, 0.1, '2001-01-13', false),
-   (45, 22222222, 2, '1931-01-23', true);
+   (45, 22222222, 2, '1931-01-23', true),
+   (10, 3, 1, '1990-09-08', true);
    
    insert into recipe values
    (1, 'Vandsaft', true),
    (99999999, 'asdfghjklæøåpoiuytre', true),
-   (456, 'Citron', false);
+   (456, 'Citron', false),
+   (2, 'Tærte', true);
    
    insert into recipeComponent values
    (1, 22222222, 0.5, 0.1),
    (1, 1, 0.1, 0.02),
    (99999999, 22222222, 2, 0.2),
    (456, 99, 2, 0.1),
-   (456, 1, 1, 0.2);
+   (456, 1, 1, 0.2),
+   (2, 3, 3, 0.1);
    
    insert into productBatch values 
    (1, 0, 1, '2003-04-05', null, true),
    (9999999, 1, 99999999, '2006-06-16', null, true),
    (45, 2, 456, '2015-05-20', '2016-06-06', true),
-   (123, 1, 99999999, '2016-03-20', null, false);
+   (123, 1, 99999999, '2016-03-20', null, false),
+   (3, 0, 2, '2005-06-07', null, true);
    
    insert into productBatchComponent values
    (9999999, 45, 0.9, 1.9, 121212),

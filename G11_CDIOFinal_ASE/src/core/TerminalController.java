@@ -291,7 +291,7 @@ public class TerminalController extends Thread{
 		net = Float.parseFloat(sendS());
 
 		// Checks if the net weight meets the tolerance requirements
-		if(net < (recipeComp.getNet() + (recipeComp.getTolerance() * (recipeComp.getNet()/100))) ||
+		if(net < (recipeComp.getNet() + (recipeComp.getTolerance() * (recipeComp.getNet()/100))) &&
 				net > (recipeComp.getNet() - (recipeComp.getTolerance() * (recipeComp.getNet()/100)))){
 			try {
 				// Create new product batch component

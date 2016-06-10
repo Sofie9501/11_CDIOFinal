@@ -43,6 +43,8 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 
 	@Override
 	public boolean createOperator(OperatorDTO opr) {
+		
+		
 		try {
 			dao.createOperator(opr);
 			return true;

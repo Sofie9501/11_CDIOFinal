@@ -137,7 +137,7 @@ public class IngredientListView extends AbstractView {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			prod.setView(new CreateIngredientView());
+			prod.setView(new CreateIngredientView(prod));
 		}
 	}
 

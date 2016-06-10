@@ -292,13 +292,14 @@ public class TerminalController extends Thread{
 			try {
 				// Create new product batch component
 				db.createProductBatchComp(pbID, ibID, tare, net, oprID);
-
+				
+				// The product batch have been made and the state returns to "Prepare weight"
+				waitForReply("Productbatch component was successfully made, press enter");
+				state = State.PREPARE_WEIGHT;
 			} catch (DALException e) {
 				e.printStackTrace();
 			}
-			// The product batch have been made and the state returns to "Prepare weight"
-			waitForReply("Productbatch component was successfully made, press enter");
-			state = State.PREPARE_WEIGHT;
+	
 		}
 		else
 			waitForReply("Incorrect amount. Re-weigh ingredient, press enter");

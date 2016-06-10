@@ -41,6 +41,9 @@
         </td>
       </tr>
       <tr>
+      <td ><b:Button type="LINK" icon="PLUS" ui:field="add_component">add component</b:Button></td>
+      </tr>
+      <tr>
 	            <td>
 	                <b:Modal ui:field="popup" title="Error" backdrop="STATIC" keyboard="true" animation="true">
 	                    <b:TextBox ui:field="txt_edited"/>

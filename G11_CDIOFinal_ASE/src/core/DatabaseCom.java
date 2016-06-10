@@ -1,5 +1,7 @@
 package core;
 
+import java.sql.SQLException;
+
 import DTO.RecipeCompDTO;
 
 public interface DatabaseCom {

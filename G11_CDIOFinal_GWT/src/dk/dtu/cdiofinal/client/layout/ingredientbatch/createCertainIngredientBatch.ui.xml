@@ -18,10 +18,6 @@
 	        <tr>
 	            <td><b:TextBox ui:field="txt_I_ID"></b:TextBox></td>
 	        </tr>
-	        <tr><td><h4>Ingredient Name</h4></td></tr>
-	        <tr>
-	            <td><b:TextBox ui:field="txt_I_Name"></b:TextBox></td>
-	        </tr>
 	        <tr><td><h4>Amount</h4></td></tr>
 	        <tr>
 	            <td><b:TextBox ui:field="txt_amount"></b:TextBox></td>

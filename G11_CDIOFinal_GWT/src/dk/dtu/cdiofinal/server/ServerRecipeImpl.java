@@ -9,13 +9,14 @@ import dk.dtu.cdiofinal.DAO.RecipeDAO;
 import dk.dtu.cdiofinal.client.serverconnection.recipe.RecipeService;
 import dk.dtu.cdiofinal.server.DAL.DALException;
 import dk.dtu.cdiofinal.server.DAL.MySQL.RecipeDAOMySQL;
+import dk.dtu.cdiofinal.shared.DTOVerifier;
 import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 @SuppressWarnings("serial")
 public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeService {
 	RecipeDAO dao = new RecipeDAOMySQL();
-	
+
 	@Override
 	public List<RecipeDTO> getRecipies() {
 		List<RecipeDTO> list = new ArrayList<RecipeDTO>();
@@ -28,7 +29,7 @@ public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeServ
 
 		return list;
 	}
-	
+
 
 	@Override
 	public RecipeDTO getRecipe(int ID) {
@@ -44,35 +45,44 @@ public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeServ
 
 	@Override
 	public boolean updateRecipe(RecipeDTO recipe, int oldID) {
-		try {
-			dao.updateRecipe(recipe, oldID);
-			return true;
-		} catch (DALException e) {
-			e.printStackTrace();
-			return false;
+		if (DTOVerifier.VerifyRecipeDTO(recipe)){
+			try {
+				dao.updateRecipe(recipe, oldID);
+				return true;
+			} catch (DALException e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
+		return false;
 	}
 
 	@Override
 	public boolean createRecipe(RecipeDTO recipe, ArrayList<RecipeComponentDTO> list) {
-		try {
-			dao.createRecipe(recipe, list);
-			return true;
-		} catch (DALException e) {
-			e.printStackTrace();
-			return false;
+		if (DTOVerifier.VerifyRecipeDTO(recipe)){
+			try {
+				dao.createRecipe(recipe, list);
+				return true;
+			} catch (DALException e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
+		return false;
 	}
-	
+
 	@Override
 	public boolean updateRecipeComponent(RecipeComponentDTO comp, int oldRecipeID, int oldIngredientID) {
-		try {
-			dao.updateRecipeComponent(comp, oldRecipeID, oldIngredientID);
-			return true;
-		} catch (DALException e) {
-			e.printStackTrace();
-			return false;
+		if (DTOVerifier.VerifyRecipeComponentDTO(comp)){
+			try {
+				dao.updateRecipeComponent(comp, oldRecipeID, oldIngredientID);
+				return true;
+			} catch (DALException e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
+		return false;
 	}
 
 
@@ -92,13 +102,16 @@ public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeServ
 
 	@Override
 	public boolean createRecipeComponent(RecipeComponentDTO comp) {
-		try {
-			dao.createRecipeComponent(comp);
-			return true;
-		} catch (DALException e) {
-			e.printStackTrace();
-			return false;
+		if (DTOVerifier.VerifyRecipeComponentDTO(comp)){
+			try {
+				dao.createRecipeComponent(comp);
+				return true;
+			} catch (DALException e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
+		return false;
 	}
 
 }

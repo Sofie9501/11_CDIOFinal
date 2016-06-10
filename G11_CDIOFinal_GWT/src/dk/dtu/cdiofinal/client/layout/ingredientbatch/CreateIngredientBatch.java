@@ -43,8 +43,6 @@ public class CreateIngredientBatch extends AbstractView {
 	@UiField
 	TextBox txt_amount;
 	@UiField
-	TextBox txt_I_Name;
-	@UiField
 	Button btn_save;
 
 	@UiField
@@ -77,10 +75,6 @@ public class CreateIngredientBatch extends AbstractView {
 			alert += "Error - ID for ingredient is not valid \n";
 			succes = false;
 		}
-		if(!FieldVerifier.nameValid(txt_I_Name.getText())){
-			alert += "Error - Name for ingredient is not valid \n";
-			succes = false;
-		}
 		if(!alert.equals(""))
 			Window.alert(alert);
 		return succes;
@@ -88,7 +82,7 @@ public class CreateIngredientBatch extends AbstractView {
 	private void saveChanges(){
 		// Checks to see if there is no errors
 		if(changeSucces()){
-			batch = new IngredientBatchDTO(Integer.parseInt(txt_B_ID.getText()), txt_I_Name.getText(), Integer.parseInt(txt_I_ID.getText())
+			batch = new IngredientBatchDTO(Integer.parseInt(txt_B_ID.getText()), null, Integer.parseInt(txt_I_ID.getText())
 					,Double.parseDouble(txt_amount.getText()), true, null);
 			ok.setText("Your information has been saved");
 			//Updates the DB with the new operator
@@ -135,7 +129,6 @@ public class CreateIngredientBatch extends AbstractView {
 			popup.toggle();
 			txt_B_ID.setText("");
 			txt_I_ID.setText("");
-			txt_I_Name.setText("");
 			txt_amount.setText("");
 			}
 			else{

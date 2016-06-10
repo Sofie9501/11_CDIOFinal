@@ -11,6 +11,7 @@ import dk.dtu.cdiofinal.DAO.OperatorDAO;
 import dk.dtu.cdiofinal.client.serverconnection.operator.OperatorService;
 import dk.dtu.cdiofinal.server.DAL.DALException;
 import dk.dtu.cdiofinal.server.DAL.MySQL.OperatorDAOMySql;
+import dk.dtu.cdiofinal.shared.DTOVerifier;
 import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 @SuppressWarnings("serial")
@@ -32,26 +33,30 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 
 	@Override
 	public boolean updateOperator(OperatorDTO opr, int oldID) {
-		try {
-			dao.updateOperator(opr, oldID);
-			return true;
-		} catch (DALException e) {
-			e.printStackTrace();
-			return false;
+		if (DTOVerifier.VerifyOperatorDTO(opr)){
+			try {
+				dao.updateOperator(opr, oldID);
+				return true;
+			} catch (DALException e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
+		return false;
 	}
 
 	@Override
 	public boolean createOperator(OperatorDTO opr) {
-		
-		
-		try {
-			dao.createOperator(opr);
-			return true;
-		} catch (DALException e) {
-			e.printStackTrace();
-			return false;
+		if (DTOVerifier.VerifyOperatorDTO(opr)){
+			try {
+				dao.createOperator(opr);
+				return true;
+			} catch (DALException e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
+		return false;
 	}
 
 	@Override
@@ -69,6 +74,6 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 		return opr;
 	}
 
-	
+
 }
 

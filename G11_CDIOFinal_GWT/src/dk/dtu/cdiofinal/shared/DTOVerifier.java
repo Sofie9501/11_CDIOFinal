@@ -66,7 +66,7 @@ public class DTOVerifier {
 		}
 	}
 
-	private static boolean VerifyRecipeComponentDTO(RecipeComponentDTO dto) {
+	public static boolean VerifyRecipeComponentDTO(RecipeComponentDTO dto) {
 		if (FieldVerifier.numberValid(dto.getRecipe_ID()) &&
 				FieldVerifier.numberValid(dto.getIngredient_ID()) &&
 				FieldVerifier.amountValid(dto.getNom_netto()) &&

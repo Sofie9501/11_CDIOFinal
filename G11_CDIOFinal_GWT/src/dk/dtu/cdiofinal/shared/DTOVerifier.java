@@ -35,8 +35,8 @@ public class DTOVerifier {
 	public static boolean VerifyOperatorDTO(OperatorDTO dto){
 		if (FieldVerifier.numberValid(dto.getOprID())&&
 				FieldVerifier.roleValid(dto.getRole())&&
+				FieldVerifier.cprValid(FieldVerifier.cprFormat(dto.getCpr())) &&
 				FieldVerifier.nameValid(dto.getName()) &&
-				FieldVerifier.cprValid(dto.getCpr()) &&
 				FieldVerifier.passwordValid(dto.getPassword())){
 			return true;
 		}

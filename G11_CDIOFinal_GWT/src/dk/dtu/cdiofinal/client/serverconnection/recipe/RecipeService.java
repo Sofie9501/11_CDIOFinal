@@ -17,6 +17,7 @@ public interface RecipeService extends RemoteService {
 	RecipeDTO getRecipe(int ID);
 	List<RecipeComponentDTO> getRecipeComponentList (int ID);
 	boolean updateRecipe(RecipeDTO recipe, int oldID);
+	boolean createRecipeComponent(RecipeComponentDTO comp);
 	boolean updateRecipeComponent(RecipeComponentDTO comp, int oldRecipeID, int oldIngredienID);
 	boolean createRecipe(RecipeDTO recipe, ArrayList<RecipeComponentDTO> list);
 

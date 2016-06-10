@@ -98,7 +98,14 @@ public class RecipeDAOMySQL implements RecipeDAO{
 		query = "call update_recipe(" + oldRecipeID + ", " + recipe.getID() + ", '" +recipe.getName()
 		+ "', " + recipe.isActive() + ");";
 		c.doQuery(query);
-
+	}
+	
+	@Override
+	public void createRecipeComponent(RecipeComponentDTO comp) throws DALException {
+		query = "call create_recipeComponent(" + comp.getRecipe_ID()+ ",  " + comp.getIngredient_ID()+ ",  " +
+					comp.getNom_netto()+ ",  " +comp.getTolerance()+");";
+		c.doQuery(query);
+		
 	}
 
 	@Override
@@ -114,6 +121,8 @@ public class RecipeDAOMySQL implements RecipeDAO{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	
 
 
 

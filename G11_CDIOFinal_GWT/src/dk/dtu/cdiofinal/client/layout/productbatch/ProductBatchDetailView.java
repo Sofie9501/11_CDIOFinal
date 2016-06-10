@@ -160,7 +160,7 @@ public class ProductBatchDetailView extends AbstractView {
 					txt_prodBatchID.setText(String.valueOf(batch.getPb_ID()));
 				}
 				else{
-					Window.alert("Error - Wrong input");
+					Window.alert("Error - Product Batch is started");
 				}
 				break;
 			case "Resipe ID":
@@ -200,7 +200,7 @@ public class ProductBatchDetailView extends AbstractView {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				popup.setTitle("Error");
+				popup.setTitle("No conection to server");
 				
 			}
 			@Override

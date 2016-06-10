@@ -136,7 +136,7 @@ public class CreateRecipeComp extends AbstractView {
 		if(changeSucces()){
 		ok.setText("Your information has been saved");
 			RecipeComponentDTO comp = new RecipeComponentDTO(recipe.getID(), Integer.parseInt(txt_ID.getText()), 
-					"Her", Double.parseDouble(txt_tolerance.getText()), Double.parseDouble(txt_net.getText())); 
+					"", Double.parseDouble(txt_tolerance.getText()), Double.parseDouble(txt_net.getText())); 
 			//Updates the recipe with the new component
 			recipe.addComponent(comp);
 			ArrayList<RecipeComponentDTO> componentList = recipe.getComponents();

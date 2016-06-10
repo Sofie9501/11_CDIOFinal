@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+	<ui:style>
+	.cellTable {
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+      margin-bottom: 4px;
+	</ui:style>
+	<g:HTMLPanel>
+		<div align="left" style="width:500px">
+			<table>
+				<tr>
+					<td>
+						<b:Heading size="3" ui:field="TitleID"></b:Heading>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b:Heading size="4" ui:field="ID"></b:Heading>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b:TextBox ui:field="txt_ID"></b:TextBox>
+					</td>
+
+				</tr>
+				<tr>
+					<td>
+						<b:Heading size="4" ui:field="Nom_net"></b:Heading>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b:TextBox ui:field="txt_net"></b:TextBox>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b:Heading size="4" ui:field="Tolerance"></b:Heading>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b:TextBox ui:field="txt_tolerance"></b:TextBox>
+					</td>
+				</tr>
+				<tr>
+				<td>
+					<b:Button icon="SAVE" type="LINK" ui:field="btn_save_comp">Save Component</b:Button>
+				</td>
+				</tr>
+				<tr>
+					<td valign='top'>
+						<b:CellTable addStyleNames='{style.cellTable}'
+							pageSize='100' ui:field='cellTable' bordered="false" condensed="false"
+							striped="true" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b:Button icon="PLUS" type="LINK" ui:field="btn_add">Add new component</b:Button>
+					</td>
+				</tr>
+				<td>
+					<b:Button icon="SAVE" type="LINK" ui:field="btn_save">Save Recipe</b:Button>
+				</td>
+				<tr>
+					<td>
+						<b:Modal ui:field="popup" title="Succes" backdrop="STATIC"
+							keyboard="true" animation="true">
+							<b:Heading size="5" ui:field="ok"></b:Heading>
+							<b:ModalFooter>
+								<b:Button type="LINK" ui:field="btn_ok">Ok</b:Button>
+							</b:ModalFooter>
+						</b:Modal>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<table cellspacing='0' cellpadding='0' style='width:100%;'>
+		</table>
+	</g:HTMLPanel>
+</ui:UiBinder> 

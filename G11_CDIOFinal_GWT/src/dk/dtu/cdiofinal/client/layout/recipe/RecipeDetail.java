@@ -70,6 +70,8 @@ public class RecipeDetail extends AbstractView{
 	Button btn_name;
 	@UiField
 	CellTable<RecipeComponentDTO> cellTable;
+	@UiField
+	Button add_component;
 
 	@UiField
 	Modal popup;

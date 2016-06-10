@@ -146,7 +146,7 @@ public class CreateRecipeComp extends AbstractView {
 			txt_ID.setText("");
 			txt_net.setText("");
 			txt_tolerance.setText("");
-			
+			cellTable.setVisible(true);
 		}	
 	}
 	
@@ -173,7 +173,6 @@ public class CreateRecipeComp extends AbstractView {
 			Nom_net.setVisible(false);
 			Tolerance.setVisible(false);
 			saveChanges();
-			cellTable.setVisible(true);
 		}
 	}
 	

@@ -224,8 +224,7 @@ and id_old_input <> id_new_input) then
 update recipe
 set recipe_name = name_input, active = active_input, recipe_id = id_new_input
 where recipe_id = id_old_input;
-else if(id_old_input not in (select recipe_id from productbatch)
-and id_old_input not in (select recipe_id from recipecomponent)) then
+else if(id_old_input not in (select recipe_id from productbatch)) then
 update recipe
 set recipe_name = name_input, active = active_input
 where recipe_id = id_old_input;

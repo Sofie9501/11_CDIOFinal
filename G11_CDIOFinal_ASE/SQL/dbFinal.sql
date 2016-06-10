@@ -257,12 +257,12 @@ end; //
 
 /*update productBatch*/
 create procedure update_productBatch
-(in pb_old_id_input int(8), in pb_new_id_input int(8), in status_input int(1), in recipe_id_input int(8), in active_input boolean)
+(in pb_old_id_input int(8), in pb_new_id_input int(8), in recipe_id_input int(8), in active_input boolean)
 begin
 if (pb_old_id_input not in (select pb_id from productbatchcomponent)
 and pb_new_id_input not in (select pb_id from productbatch)) then
 update productbatch
-set pb_id = pb_new_id_input, status = status_input, recipe_id = recipe_id_input, active = active_input
+set pb_id = pb_new_id_input, recipe_id = recipe_id_input, active = active_input
 where pb_id = pb_old_id_input;
 else 
 update productbatch

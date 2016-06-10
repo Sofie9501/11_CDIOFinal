@@ -57,8 +57,6 @@ public class ProductBatchDetailView extends AbstractView {
 	@UiField
 	Button btn_resipeID;
 	@UiField
-	Button btn_status;
-	@UiField
 	Button btn_active;
 	
 	@UiField
@@ -86,7 +84,6 @@ public class ProductBatchDetailView extends AbstractView {
 		
 		btn_prodBatchID.addClickHandler((ClickHandler)new EditProdIDHandler());
 		btn_resipeID.addClickHandler((ClickHandler) new EditResipeIDHandler());
-		btn_status.addClickHandler((ClickHandler) new EditStatusHandler());
 		btn_active.addClickHandler((ClickHandler) new EditActiveHandler());
 		btn_save.addClickHandler((ClickHandler) new SaveClickHandler());
 		txt_edited.addKeyDownHandler((KeyDownHandler) new EnterHandler());
@@ -121,15 +118,7 @@ public class ProductBatchDetailView extends AbstractView {
 				popup.toggle();		
 			}	
 		}
-		private class EditStatusHandler implements ClickHandler{
-			@Override
-			public void onClick(ClickEvent event) {
-				popup.setTitle("Change status");
-				popup.setId("Status");
-				txt_edited.setText(String.valueOf(batch.getStatus()));
-				popup.toggle();		
-			}	
-		}
+	
 		private class EditActiveHandler implements ClickHandler{
 			@Override
 			public void onClick(ClickEvent event) {
@@ -155,16 +144,16 @@ public class ProductBatchDetailView extends AbstractView {
 		private void saveChanges(){
 			switch(popup.getId()){
 			case "Product ID":
-				if (!FieldVerifier.numberValid(Integer.parseInt(txt_edited.getText()))){
+				if (FieldVerifier.numberValid(Integer.parseInt(txt_edited.getText()))){
 					batch.setPb_ID(Integer.parseInt((txt_edited.getText())));
 					txt_prodBatchID.setText(String.valueOf(batch.getPb_ID()));
 				}
 				else{
-					Window.alert("Error - Product Batch is started");
+					Window.alert("Error - Wrong input");
 				}
 				break;
 			case "Resipe ID":
-				if (!FieldVerifier.numberValid(Integer.parseInt(txt_edited.getText()))){
+				if (FieldVerifier.numberValid(Integer.parseInt(txt_edited.getText()))){
 					batch.setR_ID(Integer.parseInt((txt_edited.getText())));
 					txt_resipeID.setText(String.valueOf(batch.getR_ID()));
 				}
@@ -172,16 +161,7 @@ public class ProductBatchDetailView extends AbstractView {
 					Window.alert("Error - Wrong input");
 				}
 				break;
-			case "Status":
-				if (!FieldVerifier.numberValid(Integer.parseInt(txt_edited.getText()))){
-					batch.setStatus(Integer.parseInt(txt_edited.getText()));
-					txt_status.setText(String.valueOf(batch.getStatus()));
-				}
-				else{
-					batch.setStatus(Integer.parseInt(txt_edited.getText()));
-					txt_status.setText(String.valueOf(batch.getStatus()));
-				}
-				break;
+			
 			case "active":
 				if(txt_edited.getText().equals(true)||txt_edited.getText().equals(false)){
 					batch.setActive(Boolean.parseBoolean(txt_edited.getText()));

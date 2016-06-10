@@ -18,16 +18,17 @@
 	            <td ><b:Heading size="5" ui:field="txt_resipeID"/></td>
 	            <td ><b:Button type="LINK" ui:field="btn_resipeID">Edit</b:Button></td>
 	        </tr>
-	        <tr><td><u><h4>Status</h4></u></td></tr>
-	        <tr bgcolor="#f1f1f1">
-	            <td><b:Heading size="5" ui:field="txt_status"/></td>
-	            <td><b:Button type="LINK" ui:field="btn_status">Edit</b:Button></td>
-	        </tr>
+	       
 	        <tr><td><u><h4>Active</h4></u></td></tr>
 	        <tr bgcolor="#f1f1f1">
 	            <td><h4><b:Heading size="5" ui:field="txt_active"/></h4></td>
 	            <td><b:Button type="LINK" ui:field="btn_active">Edit</b:Button></td>
 	        </tr>
+	        <tr><td><u><h4>Status</h4></u></td></tr>
+	        <tr bgcolor="#f1f1f1">
+	            <td><b:Heading size="5" ui:field="txt_status"/></td>
+	         </tr>
+	        
 	        <tr><td><u><h4>Resipe name</h4></u></td></tr>
 	        <tr bgcolor="#f1f1f1">
 	            <td><h4><b:Heading size="5" ui:field="txt_recipeName"/></h4></td>

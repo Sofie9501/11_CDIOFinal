@@ -310,14 +310,14 @@ set @oldamount = (select amount from ingredientBatch where ib_id_input = ib_id);
 set @newamount = @gamleamount - net_input; 
 update ingredientBatch set amount = @nyeamount where ib_id_input = ib_id;
 
-insert into produktbatchkomponent(pb_id, ib_id, tara, net, opr_id)
+insert into productbatchcomponent(pb_id, ib_id, tara, net, opr_id)
 values (pb_id_input, ib_id_input, tara_input, net_input, opr_id_input);
 
 if ((select antal_Comp from productBatch_administration where pb_id = pb_id_input) in (select antal_faerdige from productBatch_administration where pb_id = pb_id_input))
 then update productBatch set status = 2 where pb_id = pb_id_input;
 end if;
 
-if(@gamleamount = (select amount from ingredientBatch where ib_id_input = ib_id) + (select netto from productBatchComponent where pb_id_input = pb_id and ib_id_input = ib_id)) and 
+if(@gamleamount = (select amount from ingredientBatch where ib_id_input = ib_id) + (select net from productBatchComponent where pb_id_input = pb_id and ib_id_input = ib_id)) and 
 ((select amount from ingredientBatch where ib_id_input = ib_id) >= 0)
 then commit;
 else rollback;

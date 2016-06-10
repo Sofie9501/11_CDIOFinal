@@ -93,6 +93,7 @@ public class TerminalController extends Thread{
 	}
 	private void sendData(String data){
 		try {
+			System.out.println("Terminal IP: " + this.hostAddress + ", Sending to Terminal: " + data);
 			outToServer.writeBytes(data);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -111,6 +112,8 @@ public class TerminalController extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Terminal IP: " + this.hostAddress + ", recieving from Terminal: " + data);
+
 		return data;
 	}
 

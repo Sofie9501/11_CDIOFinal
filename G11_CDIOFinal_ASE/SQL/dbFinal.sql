@@ -102,8 +102,8 @@ as select recipe_id,recipe_name, ingredient_id, ingredient_name, tolerance, nom_
 from recipe natural join recipeComponent join ingredient using (ingredient_id); 
 
 create view ingredientBatch_administration
-as select ib_id, ingredient_name, ingredient_id, amount, ingredientBatch.active, recieveDate
-from ingredient left join ingredientBatch using( ingredient_id)
+as select ingredientbatch.ib_id, ingredient_name, ingredient.ingredient_id, amount, ingredientBatch.active, recieveDate
+from ingredient join ingredientBatch on ingredient.ingredient_id = ingredientbatch.ingredient_id
 order by ib_id;
 
 create view number_done as SELECT productBatch.pb_id, COUNT(productBatchComponent.pb_id) as antal_faerdige, recipe_id, startdate, endDate, status, active

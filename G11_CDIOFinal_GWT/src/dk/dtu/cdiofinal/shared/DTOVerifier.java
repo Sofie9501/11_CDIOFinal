@@ -11,7 +11,6 @@ public class DTOVerifier {
 
 	public static boolean VerifyIngredientBatchDTO(IngredientBatchDTO dto){
 		if (FieldVerifier.numberValid(dto.getIngredientBatch_ID()) &&
-				FieldVerifier.nameValid(dto.getName()) &&
 				FieldVerifier.numberValid(dto.getIngredient_ID())&&
 				FieldVerifier.amountValid(dto.getAmount())){
 			return true;

@@ -64,7 +64,7 @@ public class Context implements DatabaseCom{
 		// Queries. First gets the amount that is available in the ingredient batch, 
 		// the next gets the needed amount for the recipe
 		String queryAmount = "select amount from ingredientBatch_administration where ib_id = " + ib_id + ";";
-		String queryNet = "select net from productbatchcomponent where pb_id = " + pb_id + " and ib_id = " + ib_id +";";
+		String queryNet = "select nom_net from recipecomponent where recipe_id in (select recipe_id from productbatch where pb_id =" + pb_id + ");";
 		
 		try {
 			ResultSet result = c.doQuery(queryAmount);
@@ -72,6 +72,13 @@ public class Context implements DatabaseCom{
 			// Throw exception if no result is found
 			if(!result.next()){
 				throw new DALException("Ingredient batch not found");
+			}else{
+			// If there's a result the ingredient batch exist and we get the amount
+				amount = Integer.parseInt(result.getString(1));
+			}
+			
+			if(!result.next()){
+				throw new DALException("No ");
 			}else{
 			// If there's a result the ingredient batch exist and we get the amount
 				amount = Integer.parseInt(result.getString(1));

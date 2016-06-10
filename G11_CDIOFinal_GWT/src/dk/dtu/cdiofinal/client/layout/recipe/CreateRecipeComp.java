@@ -155,6 +155,8 @@ public class CreateRecipeComp extends AbstractView {
 		@Override
 		public void onClick(ClickEvent event) {
 			popup.toggle();
+			prod.PreviousView();
+			prod.PreviousView();
 		}
 	}
 	

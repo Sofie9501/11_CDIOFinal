@@ -14,10 +14,10 @@ import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 public class OprDetail extends AbstractView{
-	
+
 	private static OprDetailUiBinder uiBinder = GWT.create(OprDetailUiBinder.class);
-	
-	
+
+
 	@UiTemplate("oprdetail.ui.xml")
 	interface OprDetailUiBinder extends UiBinder<Widget, OprDetail>{
 
@@ -33,7 +33,7 @@ public class OprDetail extends AbstractView{
 	@UiField Heading txt_role; 	
 	@UiField Heading txt_password;
 	@UiField Heading txt_active;
-	
+
 	// Adds the edit buttons
 	@UiField
 	Button btn_name;
@@ -112,7 +112,7 @@ public class OprDetail extends AbstractView{
 			}
 			break;
 		case "Rolle":
-			if(!FieldVerifier.rolleValid(Integer.parseInt(txt_edited.getText()))){
+			if(!FieldVerifier.roleValid(Integer.parseInt(txt_edited.getText()))){
 				Window.alert("Error - Wrong input");
 			}
 			else{
@@ -131,9 +131,11 @@ public class OprDetail extends AbstractView{
 			break;
 		case "Password":
 			if(FieldVerifier.passwordValid(txt_edited.getText())){
-				break;
+				opr.setPassword(txt_edited.getText());
+				txt_password.setText(opr.getPassword());
 			}
-			Window.alert("Error - Password does  not follow the rules");
+			else
+				Window.alert("Error - Password does  not follow the rules");
 
 		}
 		serviceImpl.updateOperator(opr, oldID, new MyCallback());
@@ -143,16 +145,16 @@ public class OprDetail extends AbstractView{
 		@Override
 		public void onFailure(Throwable caught) {
 			popup.setTitle("Error");
-			
+
 		}
 		@Override
 		public void onSuccess(Boolean result) {
 			if(result){
-			popup.toggle();
+				popup.toggle();
 			}
 			else{
 				popup.setTitle("Error");
-						
+
 			}
 		}		
 	}
@@ -230,7 +232,7 @@ public class OprDetail extends AbstractView{
 	@Override
 	public void Update() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

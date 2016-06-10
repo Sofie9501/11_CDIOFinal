@@ -110,7 +110,7 @@ public class OprListView extends AbstractView {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			prod.setView(new CreateOprView());
+			prod.setView(new CreateOprView(prod));
 		}
 	}
 

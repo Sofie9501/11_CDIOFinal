@@ -1,14 +1,24 @@
 package dk.dtu.cdiofinal.client.layout.operator;
 
-import com.github.gwtbootstrap.client.ui.*;
+import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.Heading;
+import com.github.gwtbootstrap.client.ui.Modal;
+import com.github.gwtbootstrap.client.ui.TextBox;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.*;
-import com.google.gwt.uibinder.client.*;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.AbstractView;
+import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.OperatorDTO;
@@ -16,6 +26,7 @@ import dk.dtu.cdiofinal.shared.OperatorDTO;
 public class CreateOprView extends AbstractView {
 
 	private static CreateOprViewUiBinder uiBinder = GWT.create(CreateOprViewUiBinder.class);
+	final ProdView prod;
 
 	@UiTemplate("createOprView.ui.xml")
 	interface CreateOprViewUiBinder extends UiBinder<Widget, CreateOprView>{
@@ -46,8 +57,9 @@ public class CreateOprView extends AbstractView {
 
 
 
-	public CreateOprView(){
+	public CreateOprView(ProdView prod){
 		initWidget(uiBinder.createAndBindUi(this));
+		this.prod=prod;
 		this.serviceImpl = new ClientOperatorImpl();
 		//Clickhandler
 		btn_save.addClickHandler(new SaveClickHandler());
@@ -74,7 +86,7 @@ public class CreateOprView extends AbstractView {
 			alert += "Error - Password does nor follow the rules \n";
 			succes = false;
 		}
-		if(FieldVerifier.rolleValid(Integer.parseInt(txt_rolle.getText()))){
+		if(!FieldVerifier.roleValid(Integer.parseInt(txt_rolle.getText()))){
 			alert += "Error - Role does not exist \n";
 			succes = false;
 		}
@@ -106,6 +118,7 @@ public class CreateOprView extends AbstractView {
 		@Override
 		public void onClick(ClickEvent event) {
 			popup.toggle();
+			prod.PreviousView();
 
 		}
 	}

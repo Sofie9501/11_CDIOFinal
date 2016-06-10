@@ -211,7 +211,8 @@ create procedure update_recipe
 (in id_old_input int(8), in id_new_input int(8), in name_input varchar(21), in active_input boolean)
 begin
 if(id_old_input not in (select recipe_id from productbatch)
-and id_new_input not in (select recipe_id from recipe)) then
+and id_new_input not in (select recipe_id from recipe)
+and id_old_input not in (select recipe_id from recipecomponent)) then
 update recipe
 set recipe_id = id_new_input, recipe_name = name_input, active = active_input
 where recipe_id = id_old_input;

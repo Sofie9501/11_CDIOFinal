@@ -170,7 +170,7 @@ public class RecipeDetail extends AbstractView{
 	private void saveChanges(){
 		switch(popup.getId()){
 		case "Name":
-			if(FieldVerifier.isValidName(txt_edited.getText())){
+			if(FieldVerifier.nameValid(txt_edited.getText())){
 				rec.setName(txt_edited.getText());
 				txt_name.setText(rec.getName());
 			}

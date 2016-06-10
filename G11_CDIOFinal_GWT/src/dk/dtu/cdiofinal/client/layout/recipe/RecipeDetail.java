@@ -107,7 +107,17 @@ public class RecipeDetail extends AbstractView{
 				return String.valueOf(object.getIngredient_ID());
 			}
 		};
+		
 		cellTable.addColumn(IDColumn, "Ingredient ID");
+		
+		//Column with net
+		TextColumn<RecipeComponentDTO> nameColumn = new TextColumn<RecipeComponentDTO>(){
+			@Override
+			public String getValue(RecipeComponentDTO object) {
+				return object.getIngredientName();
+			}
+		};
+		cellTable.addColumn(nameColumn, "Ingredient name");
 
 		//Column with net
 		TextColumn<RecipeComponentDTO> netColumn = new TextColumn<RecipeComponentDTO>(){
@@ -117,6 +127,7 @@ public class RecipeDetail extends AbstractView{
 			}
 		};
 		cellTable.addColumn(netColumn, "Net");
+		
 
 		//Column with net
 		TextColumn<RecipeComponentDTO> tolColumn = new TextColumn<RecipeComponentDTO>(){

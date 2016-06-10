@@ -302,29 +302,19 @@ where recipe_id = recipe_id_old_input and ingredient_id = ingredient_old_id_inpu
 end if;
 end; //
 
-/*weighing*
-create procedure weighing
-(in pb_id_input int(8), in ib_id_input int(8), in tara_input real, in netto_input real, in opr_id_input int(8))
-begin start transaction;
-set @gamleamount = (select amount from ingredientBatch where ib_id_input = ib_id);
-set @nyeamount = @gamleamount - netto_input; 
-update ingredientBatch set amount = @nyeamount where ib_id_input = ib_id; */
-
-/*create productBatchCompONENT*/
+/*create productbatchcomponent*/
 create procedure create_productbatchcomponent
-(in pb_id_input int, in ib_id_input int, in tara_input real, in net_input real, in opr_id_input int)
-begin 
-insert into productbatchcomponent(pb_id, ib_id, tara, net, opr_id)
+(in pb_id_input int(8), in ib_id_input int(8), in tara_input real, in net_input real, in opr_id_input int(8))
+begin start transaction;
+set @oldamount = (select amount from ingredientBatch where ib_id_input = ib_id);
+set @newamount = @gamleamount - net_input; 
+update ingredientBatch set amount = @nyeamount where ib_id_input = ib_id;
+
+insert into produktbatchkomponent(pb_id, ib_id, tara, net, opr_id)
 values (pb_id_input, ib_id_input, tara_input, net_input, opr_id_input);
-end; //
 
-/*
-if(0 not in (select antal_Comp from productBatch_administration where pb_id=pb_id_input))
-then update productBatch set status=1 where pb_id=pb_id_input;
-end if;
-
-if ((select antal_Comp from productBatch_administration where pb_id=pb_id_input) in (select antal_faerdige from productBatch_administration where pb_id=pb_id_input))
-then update productBatch set status=2 where pb_id=pb_id_input;
+if ((select antal_Comp from productBatch_administration where pb_id = pb_id_input) in (select antal_faerdige from productBatch_administration where pb_id = pb_id_input))
+then update productBatch set status = 2 where pb_id = pb_id_input;
 end if;
 
 if(@gamleamount = (select amount from ingredientBatch where ib_id_input = ib_id) + (select netto from productBatchComponent where pb_id_input = pb_id and ib_id_input = ib_id)) and 
@@ -333,12 +323,7 @@ then commit;
 else rollback;
 end if;
 end; //
-
-*/
 delimiter ;
-
-
-
 
 
 /* User rights */

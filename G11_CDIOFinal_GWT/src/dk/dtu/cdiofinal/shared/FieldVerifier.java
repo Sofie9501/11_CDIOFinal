@@ -2,12 +2,6 @@ package dk.dtu.cdiofinal.shared;
 
 public class FieldVerifier {
 
-	public static boolean isValidName(String name) {
-		if (name == null) {
-			return false;
-		}
-		return name.length() >= 2 && name.length()<=20;
-	}
 
 	public static String cprFormat(String cpr){
 		// Add "-" to cpr
@@ -39,12 +33,12 @@ public class FieldVerifier {
 		return false;
 	}
 
-	public static boolean rolleValid(int rolle){
+	public static boolean roleValid(int rolle){
 		if(rolle >= 1 && rolle <= 4 ){
-			return false;
+			return true;
 		}
 		else 
-			return true;
+			return false;
 	}
 
 	public static boolean cprValid(String cpr){
@@ -52,7 +46,7 @@ public class FieldVerifier {
 	}
 
 	public static boolean nameValid(String name){
-		if (name.length()<3 || name.length()>21){
+		if (name.length()<2 || name.length()>20){
 			return false;
 		}
 		else{
@@ -64,18 +58,18 @@ public class FieldVerifier {
 		if(i > 0 && i <= 99999999){
 			return true;
 		}else{
-		return false;
+			return false;
 		}
 	}
-	
+
 	public static boolean amountValid(double i) {
 		if(i > 0.0){
 			return true;
 		}else{
-		return false;
+			return false;
 		}
 	}
-	
+
 	public static boolean active(boolean active){
 		if (active == true || active == false)
 			return true;

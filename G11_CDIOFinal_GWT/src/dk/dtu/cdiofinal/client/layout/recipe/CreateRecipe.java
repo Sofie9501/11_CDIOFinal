@@ -73,7 +73,7 @@ public class CreateRecipe extends AbstractView {
 			alert+="Error - You need to write a valid ID \n";
 			succes = false;
 		}
-		if(!FieldVerifier.isValidName(txt_name.getText())){
+		if(!FieldVerifier.nameValid(txt_name.getText())){
 			alert += "Error - Name for Reipe is not valid \n";
 			succes = false;
 		}

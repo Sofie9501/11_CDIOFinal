@@ -106,7 +106,7 @@ public class IngredientBatchDetail extends AbstractView{
 			}
 			break;
 		case "Name":
-			if(FieldVerifier.isValidName(txt_edited.getText())){
+			if(FieldVerifier.nameValid(txt_edited.getText())){
 				batch.setName(txt_edited.getText());
 				txt_name.setText(batch.getName());
 			}

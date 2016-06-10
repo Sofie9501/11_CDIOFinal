@@ -78,7 +78,7 @@ public class CreateCertainIngredientBatch extends AbstractView {
 			alert += "Error - ID for ingredient is not valid \n";
 			succes = false;
 		}
-		if(!FieldVerifier.isValidName(txt_I_Name.getText())){
+		if(!FieldVerifier.nameValid(txt_I_Name.getText())){
 			alert += "Error - Name for ingredient is not valid \n";
 			succes = false;
 		}

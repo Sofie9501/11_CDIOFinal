@@ -76,8 +76,8 @@ public class ProductBatchDAOMySQL implements ProductBatchDAO{
 	}
 	@Override
 	public void updateProductBatch(ProductBatchDTO pb, int oldID) throws DALException {
-		query = "call update_productBatch(" + oldID + ", " + pb.getPb_ID() + ", " + pb.getStatus() + ", " + 
-						pb.getR_ID() + ", " + pb.isActive();
+		query = "call update_productBatch(" + oldID + ", " + pb.getPb_ID()+ ", " + 
+						pb.getR_ID() + ", " + pb.isActive() + ");";
 		c.doQuery(query);
 		
 	}

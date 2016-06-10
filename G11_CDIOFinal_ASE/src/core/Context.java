@@ -78,7 +78,7 @@ public class Context implements DatabaseCom{
 			}
 			
 			if(!result.next()){
-				throw new DALException("No ");
+				throw new DALException("The ingredient batch does not have the right amount");
 			}else{
 			// If there's a result the ingredient batch exist and we get the amount
 				amount = Integer.parseInt(result.getString(1));

@@ -82,11 +82,7 @@ public class ProductBatchDAOMySQL implements ProductBatchDAO{
 		
 	}
 
-	@Override
-	public boolean isActive(ProductBatchDTO productBatch) throws DALException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 	
 

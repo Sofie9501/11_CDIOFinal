@@ -77,11 +77,7 @@ public class RecipeCompDAOMySQL implements RecipeComponentDAO{
 		
 	}
 
-	@Override
-	public boolean isActive(RecipeComponentDTO recipeComp) throws DALException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 	
 
 }

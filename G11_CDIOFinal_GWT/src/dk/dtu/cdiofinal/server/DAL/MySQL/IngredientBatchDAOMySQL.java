@@ -97,11 +97,6 @@ public class IngredientBatchDAOMySQL implements IngredientBatchDAO{
 		c.doQuery(query);
 	}
 
-	@Override
-	public boolean isActive(IngredientBatchDTO ingredientBatch) throws DALException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 
 }

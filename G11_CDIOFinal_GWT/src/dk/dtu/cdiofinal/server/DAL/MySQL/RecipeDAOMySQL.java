@@ -116,12 +116,7 @@ public class RecipeDAOMySQL implements RecipeDAO{
 
 	}
 
-	@Override
-	public boolean isActive(RecipeDTO recipe) throws DALException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 	
 
 

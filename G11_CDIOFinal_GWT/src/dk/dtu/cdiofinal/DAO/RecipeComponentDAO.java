@@ -12,6 +12,5 @@ public interface RecipeComponentDAO {
 	List<RecipeComponentDTO> getRecipeCompList(int recipe_ID) throws DALException;
 	void createRecipeComp(RecipeComponentDTO recipeComp) throws DALException;
 	void updateRecipeComp(RecipeComponentDTO recipeComp, int oldRecipeID, int oldIngredientID) throws DALException;
-	boolean isActive(RecipeComponentDTO recipeComp) throws DALException;
 
 }

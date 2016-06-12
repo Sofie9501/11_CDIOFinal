@@ -12,6 +12,6 @@ public interface IngredientDAO {
 	List<IngredientDTO> getIngredientList() throws DALException;
 	void createIngredient(IngredientDTO ingredient) throws DALException;
 	void updateIngredient(IngredientDTO ingredient, int oldID) throws DALException;
-	boolean isActive(IngredientDTO ingredient) throws DALException;
+	
 
 }

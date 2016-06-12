@@ -58,7 +58,6 @@ public class IngredientsDAOMySQL implements IngredientDAO{
 		c.doQuery(query);
 		
 	}
-		// Hvordan skal den fungere??
 	@Override
 	public void updateIngredient(IngredientDTO ingredient, int oldID) throws DALException {
 		String query = "call update_ingredient(" + oldID + ", " + ingredient.getID() + ", '" + ingredient.getName() +
@@ -66,11 +65,6 @@ public class IngredientsDAOMySQL implements IngredientDAO{
 		c.doQuery(query);
 		
 	}
-	// Hvad skal den bruges til? 
-	@Override
-	public boolean isActive(IngredientDTO ingredient) throws DALException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 }

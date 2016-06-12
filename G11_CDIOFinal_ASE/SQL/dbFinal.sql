@@ -286,7 +286,7 @@ create procedure update_productBatch
 begin
 if (pb_old_id_input not in (select pb_id from productbatchcomponent)
 and pb_new_id_input not in (select pb_id from productbatch)
-and pb_old_id_input <> ob_new_id_input) then
+and pb_old_id_input <> pb_new_id_input) then
 update productbatch
 set pb_id = pb_new_id_input, recipe_id = recipe_id_input, active = active_input
 where pb_id = pb_old_id_input;

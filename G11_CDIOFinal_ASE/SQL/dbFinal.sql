@@ -43,7 +43,7 @@ CREATE TABLE productBatchComponent(pb_id INT, ib_id INT, tara REAL, net REAL, op
    (4, 'Operatør');
    
    insert into operator values
-   (1, 'Niller', '1910948899','Qwer1234', 1, true),
+   (1, 'Niels Matthiessen', '1910948899','Qwer1234', 1, true),
    (2, 'Sofie Paludan Larsen', '1910945588','Qwer1234', 2, true),
    (3, 'Casper Danielsen', '1910942233', 'Qwer1234', 3, true),
    (4, 'Brian Christensen', '1910943399', 'Qwer1234', 4, true),

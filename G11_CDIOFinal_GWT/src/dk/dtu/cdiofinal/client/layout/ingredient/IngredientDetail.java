@@ -133,9 +133,9 @@ public class IngredientDetail extends AbstractView {
 	}
 	@Override
 	public void Update() {
-		// TODO Auto-generated method stub
 
 	}
+	
 	private void saveChanges(){
 		switch(popup.getId()){
 		case "Name":

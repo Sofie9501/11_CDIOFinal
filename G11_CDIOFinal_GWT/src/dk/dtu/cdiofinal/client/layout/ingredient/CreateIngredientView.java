@@ -140,7 +140,5 @@ public class CreateIngredientView extends AbstractView{
 	}
 	@Override
 	public void Update() {
-		// TODO Auto-generated method stub
-		
 	}
 }

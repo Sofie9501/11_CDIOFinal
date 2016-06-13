@@ -69,11 +69,11 @@ public class IngredientDetail extends AbstractView {
 		txt_supplier.setText(ingredient.getSupplier());
 		txt_active.setText(String.valueOf(ingredient.isActive()));
 
-		btn_name.addClickHandler((ClickHandler)new EditNameClickHandler());
-		btn_id.addClickHandler((ClickHandler) new EditIDClickHandler());
-		btn_supplier.addClickHandler((ClickHandler) new EditSupplierClickHandler());
-		btn_active.addClickHandler((ClickHandler) new EditActiveClickHandler());
-		btn_save.addClickHandler((ClickHandler) new SaveClickHandler());
+		btn_name.addClickHandler(new EditNameClickHandler());
+		btn_id.addClickHandler(new EditIDClickHandler());
+		btn_supplier.addClickHandler(new EditSupplierClickHandler());
+		btn_active.addClickHandler(new EditActiveClickHandler());
+		btn_save.addClickHandler(new SaveClickHandler());
 		txt_edited.addKeyDownHandler((KeyDownHandler) new EnterHandler());
 	}
 

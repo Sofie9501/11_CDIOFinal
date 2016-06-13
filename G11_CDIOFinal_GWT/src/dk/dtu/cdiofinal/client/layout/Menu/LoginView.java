@@ -1,4 +1,4 @@
-package dk.dtu.cdiofinal.client.layout;
+package dk.dtu.cdiofinal.client.layout.Menu;
 
 import com.github.gwtbootstrap.client.ui.*;
 import com.github.gwtbootstrap.client.ui.Button;
@@ -13,12 +13,12 @@ import com.google.gwt.user.client.ui.*;
 import dk.dtu.cdiofinal.client.MainView;
 import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
 
-public class Login extends Composite{
+public class LoginView extends Composite{
 	private static LoginUiBinder uiBinder = GWT.create(LoginUiBinder.class);
 	private ClientMenuImpl serviceImpl;
 
 	@UiTemplate("login.ui.xml")
-	interface LoginUiBinder extends UiBinder<Widget, Login> {
+	interface LoginUiBinder extends UiBinder<Widget, LoginView> {
 	}
 
 
@@ -42,7 +42,7 @@ public class Login extends Composite{
 
 
 
-	public Login(MainView v) {
+	public LoginView(MainView v) {
 		this.mainView = v;
 		this.serviceImpl = new ClientMenuImpl();
 

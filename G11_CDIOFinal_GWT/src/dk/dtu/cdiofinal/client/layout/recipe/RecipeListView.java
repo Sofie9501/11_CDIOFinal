@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.layout.ProdView;
+import dk.dtu.cdiofinal.client.layout.Menu.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
@@ -95,7 +95,7 @@ public class RecipeListView extends AbstractView{
 
 			@Override
 			public void update(int index, RecipeDTO object, String value) {
-				(RecipeListView.this).prod.setView(new RecipeDetail((RecipeListView.this).prod, object));
+				(RecipeListView.this).prod.setView(new RecipeDetailView((RecipeListView.this).prod, object));
 			}
 
 		});
@@ -111,7 +111,7 @@ public class RecipeListView extends AbstractView{
 
 		@Override
 		public void onClick(ClickEvent event) {
-			prod.setView(new CreateRecipe(prod));
+			prod.setView(new CreateRecipeView(prod));
 		}
 	}
 

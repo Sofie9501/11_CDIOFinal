@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.layout.ProdView;
+import dk.dtu.cdiofinal.client.layout.Menu.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
 import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
@@ -31,7 +31,7 @@ import dk.dtu.cdiofinal.shared.IngredientDTO;
 import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
-public class CreateEkstraRecipeComp extends AbstractView {
+public class CreateEkstraRecipeCompView extends AbstractView {
 
 	final ProdView prod;
 	protected ClientRecipeImpl serviceImpl;
@@ -43,7 +43,7 @@ public class CreateEkstraRecipeComp extends AbstractView {
 	
 
 	@UiTemplate("createEkstraRecipeComp.ui.xml")
-	interface CreateEkstraRecipeCompUiBinder extends UiBinder<Widget, CreateEkstraRecipeComp>{
+	interface CreateEkstraRecipeCompUiBinder extends UiBinder<Widget, CreateEkstraRecipeCompView>{
 
 	}
 
@@ -61,7 +61,7 @@ public class CreateEkstraRecipeComp extends AbstractView {
 	@UiField Button btn_ok;
 	@UiField Heading ok;
 
-	public CreateEkstraRecipeComp(ProdView prod, RecipeDTO recipe){
+	public CreateEkstraRecipeCompView(ProdView prod, RecipeDTO recipe){
 		initWidget(uiBinder.createAndBindUi(this));
 		this.prod=prod;
 		this.recipe=recipe;

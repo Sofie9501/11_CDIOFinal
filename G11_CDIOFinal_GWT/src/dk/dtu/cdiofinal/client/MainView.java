@@ -3,8 +3,8 @@ package dk.dtu.cdiofinal.client;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import dk.dtu.cdiofinal.client.layout.Login;
-import dk.dtu.cdiofinal.client.layout.ProdView;
+import dk.dtu.cdiofinal.client.layout.Menu.LoginView;
+import dk.dtu.cdiofinal.client.layout.Menu.ProdView;
 import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 public class MainView extends Composite {
@@ -18,7 +18,7 @@ public class MainView extends Composite {
 		initWidget(vPanel);
 		this.vPanel.setWidth("100%");
 		this.vPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
-		vPanel.add(new Login(this));
+		vPanel.add(new LoginView(this));
 
 	}
 	
@@ -34,7 +34,7 @@ public class MainView extends Composite {
 	
 	public void changeToLogin(){
 		vPanel.clear();
-		vPanel.add(new Login(this));
+		vPanel.add(new LoginView(this));
 	}
 	
 	public void changeToProd(){

@@ -22,13 +22,13 @@ import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
 
-public class RecipeComponentDetail extends AbstractView{
+public class RecipeComponentDetailView extends AbstractView{
 
 	private static RecipeComponentDetailUiBinder uiBinder = GWT.create(RecipeComponentDetailUiBinder.class);
 
 
 	@UiTemplate("recipeComponentDetail.ui.xml")
-	interface RecipeComponentDetailUiBinder extends UiBinder<Widget, RecipeComponentDetail>{
+	interface RecipeComponentDetailUiBinder extends UiBinder<Widget, RecipeComponentDetailView>{
 
 	}
 	private RecipeComponentDTO comp;
@@ -61,7 +61,7 @@ public class RecipeComponentDetail extends AbstractView{
 	Button btn_save;
 
 	//Constuctor
-	public RecipeComponentDetail(RecipeComponentDTO comp) {
+	public RecipeComponentDetailView(RecipeComponentDTO comp) {
 		this.comp=comp;
 		oldRecipeID=comp.getRecipe_ID();
 		oldIngredientID=comp.getIngredient_ID();

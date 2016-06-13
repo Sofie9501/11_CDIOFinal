@@ -22,11 +22,11 @@ import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
 
-public class IngredientDetail extends AbstractView {
+public class IngredientDetailView extends AbstractView {
 	private static IngredientDetailUiBinder uiBinder = GWT.create(IngredientDetailUiBinder.class);
 
 	@UiTemplate("ingredientDetail.ui.xml")
-	interface IngredientDetailUiBinder extends UiBinder<Widget, IngredientDetail>{
+	interface IngredientDetailUiBinder extends UiBinder<Widget, IngredientDetailView>{
 	}
 
 	private IngredientDTO ingredient;
@@ -58,7 +58,7 @@ public class IngredientDetail extends AbstractView {
 	@UiField
 	Button btn_save;
 
-	public IngredientDetail(IngredientDTO ingredient) {
+	public IngredientDetailView(IngredientDTO ingredient) {
 		this.ingredient = ingredient;
 		oldID=ingredient.getID();
 		initWidget(uiBinder.createAndBindUi(this));

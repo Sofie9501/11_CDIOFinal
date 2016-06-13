@@ -18,12 +18,12 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.layout.ProdView;
+import dk.dtu.cdiofinal.client.layout.Menu.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.ingredientbatch.ClientIngredientBatchImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 
-public class CreateIngredientBatch extends AbstractView {
+public class CreateIngredientBatchView extends AbstractView {
 
 	final ProdView prod;
 	private ClientIngredientBatchImpl serviceImpl;
@@ -31,7 +31,7 @@ public class CreateIngredientBatch extends AbstractView {
 	private IngredientBatchDTO batch;
 
 	@UiTemplate("createIngredientBatch.ui.xml")
-	interface createIngredientbatchUiBinder extends UiBinder<Widget, CreateIngredientBatch>{
+	interface createIngredientbatchUiBinder extends UiBinder<Widget, CreateIngredientBatchView>{
 
 	}
 
@@ -54,7 +54,7 @@ public class CreateIngredientBatch extends AbstractView {
 
 
 
-	public CreateIngredientBatch(ProdView prod){
+	public CreateIngredientBatchView(ProdView prod){
 		initWidget(uiBinder.createAndBindUi(this));
 		this.prod=prod;
 		this.serviceImpl = new ClientIngredientBatchImpl();

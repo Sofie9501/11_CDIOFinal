@@ -1,4 +1,4 @@
-package dk.dtu.cdiofinal.client.layout;
+package dk.dtu.cdiofinal.client.layout.Menu;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.Heading;
@@ -14,10 +14,10 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
 
-public class Menu extends Composite{
+public class MenuView extends Composite{
 
 	@UiTemplate("menu.ui.xml")
-	interface MyUiBinder extends UiBinder<Widget, Menu> {
+	interface MyUiBinder extends UiBinder<Widget, MenuView> {
 	}
 	
 	private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
@@ -34,7 +34,7 @@ public class Menu extends Composite{
 	Button name;
 	ProdView v;	  
 
-	public Menu(ProdView v) {
+	public MenuView(ProdView v) {
 		// sets listBox
 		initWidget(uiBinder.createAndBindUi(this));
 		this.v = v;

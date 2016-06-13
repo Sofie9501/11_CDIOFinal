@@ -1,4 +1,4 @@
-package dk.dtu.cdiofinal.client.layout;
+package dk.dtu.cdiofinal.client.layout.Menu;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.*;
@@ -34,8 +34,8 @@ public class ProdView extends Composite{
 		this.content.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
 
 
-		this.menuPanel.add(new Menu(this)); 
-		this.content.add(new AdminMenu(this));
+		this.menuPanel.add(new MenuView(this)); 
+		this.content.add(new AdminMenuView(this));
 		this.mainView = v;
 		service.isLoggedIn(new LoggedInCallback());
 	}

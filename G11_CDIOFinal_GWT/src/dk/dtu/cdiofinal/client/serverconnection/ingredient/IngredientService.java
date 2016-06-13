@@ -12,6 +12,7 @@ import dk.dtu.cdiofinal.shared.IngredientDTO;
 public interface IngredientService extends RemoteService{
 	
 	List<IngredientDTO> getIngredients();
+	IngredientDTO getIngredient (int ID);
 	boolean createIngredient(IngredientDTO ingredient);
 	boolean updateIngredient(IngredientDTO ingredient, int oldID);
 

@@ -11,7 +11,7 @@
 	        
 	        <tr><td><h4>Operator ID</h4></td></tr>
 	        <tr>
-	            <td><b:TextBox ui:field="txt_ID"></b:TextBox></td>
+	            <td><b:TextBox ui:field="txt_Id"></b:TextBox></td>
 	            
 	        </tr>
 	        <tr><td><h4>Name</h4></td></tr>
@@ -37,7 +37,7 @@
 	        <tr>
 	            <td>
 	                <b:Modal ui:field="popup" title="Succes" backdrop="STATIC" keyboard="true" animation="true">
-	                    <b:Heading size="5" ui:field="ok"></b:Heading>
+	                    <b:Heading size="5" ui:field="head_ok"></b:Heading>
 	                    <b:ModalFooter>
 	                        <b:Button type="LINK" ui:field="btn_ok">Ok</b:Button>                        
 	                    </b:ModalFooter>

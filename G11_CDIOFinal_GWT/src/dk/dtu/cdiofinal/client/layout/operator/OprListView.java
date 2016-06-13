@@ -36,7 +36,7 @@ public class OprListView extends AbstractView {
 	final ProdView prod;
 
 	private ClientOperatorImpl serviceImpl;
-	private List<OperatorDTO> opr = new ArrayList<>();
+	private List<OperatorDTO> oprList = new ArrayList<>();
 	ListDataProvider<OperatorDTO> dataProvider;
 	private static OprListViewUiBinder uiBinder = GWT.create(OprListViewUiBinder.class);
 
@@ -44,11 +44,9 @@ public class OprListView extends AbstractView {
 	interface OprListViewUiBinder extends UiBinder<Widget, OprListView> {
 	}
 
-	@UiField
-	CellTable<OperatorDTO> cellTable;
-
-	@UiField
-	Button btn_create;
+	//table and button
+	@UiField CellTable<OperatorDTO> cellTable;
+	@UiField Button btn_create;
 
 	public OprListView(ProdView prod){
 		initWidget(uiBinder.createAndBindUi(this));
@@ -57,7 +55,7 @@ public class OprListView extends AbstractView {
 		this.serviceImpl = new ClientOperatorImpl();
 
 		
-		
+		//table:
 		TextColumn<OperatorDTO> IDColumn = new TextColumn<OperatorDTO>(){
 			@Override
 			public String getValue(OperatorDTO object) {
@@ -100,22 +98,23 @@ public class OprListView extends AbstractView {
 		cellTable.addColumn(editColumn);
 
 		editColumn.setFieldUpdater(new FieldUpdater<OperatorDTO, String>(){
-
+			//when edit is clicked change view to oprDetailView
 			@Override
 			public void update(int index, OperatorDTO object, String value) {
 				(OprListView.this).prod.setView(new OprDetailView(object));
 			}
 
 		});
-		dataProvider.setList(opr); 
+		//show information in the table
+		dataProvider.setList(oprList); 
 		dataProvider.addDataDisplay(cellTable);
 		cellTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 		btn_create.addClickHandler((ClickHandler)new CreateClickHandler());
 		this.serviceImpl.getOperators(new ListCallback());
 	}
 	
+	
 	private class CreateClickHandler implements ClickHandler{
-
 		@Override
 		public void onClick(ClickEvent event) {
 			prod.setView(new CreateOprView(prod));
@@ -130,10 +129,10 @@ public class OprListView extends AbstractView {
 		
 		@Override
 		public void onSuccess(List<OperatorDTO> result) {
-			opr.clear();
+			oprList.clear();
 			if(!result.isEmpty()){
 				for(OperatorDTO d: result){
-					opr.add(d);
+					oprList.add(d);
 				}
 				dataProvider.refresh();
 			}
@@ -141,11 +140,11 @@ public class OprListView extends AbstractView {
 		}
 	}
 	
+	//updates the table
 	@Override
 	public void Update() {
-		opr.clear();
-		dataProvider.setList(opr);
+		oprList.clear();
+		dataProvider.setList(oprList);
 		this.serviceImpl.getOperators(new ListCallback());
 	}
-
 }

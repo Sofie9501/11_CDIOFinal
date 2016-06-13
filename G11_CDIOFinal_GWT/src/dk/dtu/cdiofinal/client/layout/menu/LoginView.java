@@ -16,28 +16,19 @@ import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
 public class LoginView extends Composite{
 	private static LoginUiBinder uiBinder = GWT.create(LoginUiBinder.class);
 	private ClientMenuImpl serviceImpl;
+	private MainView mainView;
+
 
 	@UiTemplate("login.ui.xml")
 	interface LoginUiBinder extends UiBinder<Widget, LoginView> {
 	}
 
 
-	@UiField
-	TextBox txt_username; 
-
-	@UiField
-	PasswordTextBox txt_password;
-
-	@UiField
-	Button btn_login;
-
-	@UiField
-	Button btn_loginFail;
-
-	@UiField
-	Modal popup_login;
-
-	MainView mainView;
+	@UiField TextBox txt_username; 
+	@UiField PasswordTextBox txt_password;
+	@UiField Button btn_login;
+	@UiField Button btn_loginFail;
+	@UiField Modal popup_login;
 
 
 
@@ -73,7 +64,6 @@ public class LoginView extends Composite{
 	}
 
 	private class LoginCallback implements AsyncCallback<Boolean>{
-
 		@Override
 		public void onFailure(Throwable caught) {
 
@@ -99,7 +89,6 @@ public class LoginView extends Composite{
 		@Override
 		public void onClick(ClickEvent event) {
 			popup_login.toggle();
-
 		}
 	}
 }

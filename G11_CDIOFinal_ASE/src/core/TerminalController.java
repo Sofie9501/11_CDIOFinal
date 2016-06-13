@@ -26,7 +26,7 @@ public class TerminalController extends Thread{
 	int oprID;
 	int pbID;
 	float tare;
-	double net;
+	float net;
 	int ibID;
 
 
@@ -42,27 +42,31 @@ public class TerminalController extends Thread{
 
 	@Override
 	public void run(){
+
+		// Create connection socket
 		try {
 			sock = new Socket(hostAddress, port);
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		// saving dataoutput stream
 		try {
 			outToServer = new DataOutputStream(sock.getOutputStream());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		// getting referecrence to incomming data stream
 		try {
 			inFromServer = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		// state loop
+		// runs through constantly
 		while(true){
 			switch(state){
 			case OPERATOR_LOGIN:
@@ -87,20 +91,28 @@ public class TerminalController extends Thread{
 		}
 
 	}
+
+	// used to set weight on simulator, from ase
 	private void sendB(String weight){
 		sendData("b "+ weight + "\n");
 		recieveData();
 	}
+
+	// used to send data to weight terminal
 	private void sendData(String data){
 		try {
+			System.out.println("Terminal: " + hostAddress + ", sending to: " + data);
 			outToServer.writeBytes(data);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
+	// method for recieving data from terminal
 	private String recieveData(){
 		String data = null;
+
+		// expecting a delay on recieved data
 		long startTime = System.currentTimeMillis();
 		try {
 			while(System.currentTimeMillis()-startTime < 5000){
@@ -111,24 +123,26 @@ public class TerminalController extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		System.out.println("Terminal: " + hostAddress + ", recieving from: " + data);
 		return data;
 	}
 
 	// This method sends the message it has been called with and awaits for the second reply (RM20 A)
 	@SuppressWarnings("deprecation")
 	private String waitForReply(String message){
-		sendData("DW");
+		//sendData("DW\n");
 		String reply = null;
 		long time = System.currentTimeMillis();
 
+		String sData = "RM20 8 \"" + message + "\" \"\" \"&3\"\n";
+		sendData(sData);
+
 		// Waits 5 seconds to receive "RM20 B"
-		while(System.currentTimeMillis() - time < 5000000){
-			String sData = "RM20 8 \"" + message + "\" \"\" \"&3\"\n";
-			sendData(sData);
+		while(System.currentTimeMillis() - time < 5000){
+
 
 			reply = recieveData();
-			
+
 			// If the message has been received, it breaks out of the loop
 			if(reply != null && reply.toUpperCase().startsWith("RM20 B")){
 				// Waits eternally for the second response "RM20 A"
@@ -138,7 +152,9 @@ public class TerminalController extends Thread{
 					// If the message has been received, it returns it
 					if(reply != null && reply.toUpperCase().startsWith("RM20 A")){
 						//Sorts "RM20 A" and the quotation marks away from the String
-						return reply.substring(8, (reply.length()-2));
+						reply = reply.substring(8, (reply.length()-2));
+						System.out.println(reply);
+						return reply;
 					}
 					try {
 						sleep(1000);
@@ -160,22 +176,23 @@ public class TerminalController extends Thread{
 
 		reply = recieveData();
 
-		return reply.substring(9, reply.length()-5);
+		return reply.substring(9, reply.length()-4);
 	}
 
 	private String sendS(){
 		String reply = null;
 		sendData("S\n");
 		reply = recieveData();
-
-		return reply.substring(9,reply.length()-5);
+		reply = reply.substring(9,reply.length()-4);
+		System.out.println("reply s: " + reply);
+		return reply;
 	}
 
 
 	private void operatorLogin(){
 		while(true){
 			String msgReceived = waitForReply("Enter OPR ID");
-		
+
 			// tester det er et tal der er modtaget
 			try{
 				oprID = Integer.parseInt(msgReceived);
@@ -230,7 +247,7 @@ public class TerminalController extends Thread{
 		try {
 			db.setPbStatus(pbID);
 		} catch (DALException e) {
-			
+
 			waitForReply("Error setting production status, press any key");
 			System.out.println(e.getMessage());
 			waitForReply("contact supervisor, press any key");
@@ -265,7 +282,8 @@ public class TerminalController extends Thread{
 		// The ID is checked that it exists
 		try {
 			// The operator is asked to enter an ID for the ingredient batch (raavarebatch)
-			ibID = Integer.parseInt(waitForReply("Enter ingredient batch ID"));
+			String reply =waitForReply("Enter ingredient batch ID");
+			ibID = Integer.parseInt(reply);
 			db.checkIbId(ibID, pbID); // Kan lave til en void ? den caster bare fejl ud i stedet.
 			db.setPbStatus(pbID);
 			recipeComp = db.checkWeight(pbID, ibID);
@@ -281,26 +299,28 @@ public class TerminalController extends Thread{
 	}
 
 	private void registerWeight(){
-		sendB("0.5");
+		sendB("2.5");
 		waitForReply("Weigh amount, press enter");
 
 		// Gets the net weight
 		net = Float.parseFloat(sendS());
 
 		// Checks if the net weight meets the tolerance requirements
-		if(net < (recipeComp.getNet() + (recipeComp.getTolerance() * (recipeComp.getNet()/100))) &&
-				net > (recipeComp.getNet() - (recipeComp.getTolerance() * (recipeComp.getNet()/100)))){
+		float tolMax = recipeComp.getNet() + recipeComp.getTolerance() * recipeComp.getNet()/100;
+		float tolMin = recipeComp.getNet() - recipeComp.getTolerance() * recipeComp.getNet()/100;
+
+		if(net <= tolMax && net >= tolMin){
 			try {
 				// Create new product batch component
 				db.createProductBatchComp(pbID, ibID, tare, net, oprID);
-				
+
 				// The product batch have been made and the state returns to "Prepare weight"
 				waitForReply("Productbatch component was successfully made, press enter");
 				state = State.PREPARE_WEIGHT;
 			} catch (DALException e) {
 				e.printStackTrace();
 			}
-	
+
 		}
 		else
 			waitForReply("Incorrect amount. Re-weigh ingredient, press enter");

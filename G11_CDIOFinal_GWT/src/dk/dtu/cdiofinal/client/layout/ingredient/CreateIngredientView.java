@@ -56,7 +56,7 @@ public class CreateIngredientView extends AbstractView{
 		this.serviceImpl = new ClientIngredientImpl();
 		//Clickhandler
 		btn_save.addClickHandler(new SaveClickHandler());
-		btn_ok.addClickHandler((ClickHandler)new OkClickHandler());
+		btn_ok.addClickHandler(new OkClickHandler());
 		txt_supplier.addKeyDownHandler(new EnterHandler());		
 	}
 	private boolean changeSucces(){
@@ -140,7 +140,5 @@ public class CreateIngredientView extends AbstractView{
 	}
 	@Override
 	public void Update() {
-		// TODO Auto-generated method stub
-		
 	}
 }

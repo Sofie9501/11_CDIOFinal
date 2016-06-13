@@ -12,26 +12,25 @@ public class ListImpl implements DatabaseCom{
 	}
 
 	@Override
-	public String getProductRecipeName(int pb_id) throws DALException {
+	public String getProductRecipeName(int pbId) throws DALException {
 		return "Citronvand";
 	}
 
 	@Override
-	public void createProductBatchComp(int pbID, int rbID, float tare, double net, int oprID) throws DALException {
+	public void createProductBatchComp(int pbId, int rbId, float tare, double net, int oprId) throws DALException {
 	}
 	
 	@Override
-	public boolean checkIbId(int ib_id, int pb_id) throws DALException {
-		return true;
+	public void checkIbId(int ibId, int pbId) throws DALException {
 	}
 
 	@Override
-	public void setPbStatus(int pbID) throws DALException {
+	public void setPbStatus(int pbId) throws DALException {
 		
 	}
 
 	@Override
-	public RecipeCompDTO checkWeight(int pb_id, int ib_id) throws DALException {
+	public RecipeCompDTO checkWeight(int pbId, int ibId) throws DALException {
 		// TODO Auto-generated method stub
 		return null;
 	}

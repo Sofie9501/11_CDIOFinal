@@ -37,14 +37,6 @@ public class ClientIngredientImpl implements IngredientServiceAsync {
 		
 	}
 
-	@Override
-	public void getIngredient(int ID, AsyncCallback<IngredientDTO> callback) {
-		this.service.getIngredient(ID, callback);
-		
-	}
-	
-	
-
 
 
 }

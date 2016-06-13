@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.layout.ProdView;
+import dk.dtu.cdiofinal.client.layout.Menu.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
@@ -104,7 +104,7 @@ public class OprListView extends AbstractView {
 
 			@Override
 			public void update(int index, OperatorDTO object, String value) {
-				(OprListView.this).prod.setView(new OprDetail(object));
+				(OprListView.this).prod.setView(new OprDetailView(object));
 			}
 
 		});

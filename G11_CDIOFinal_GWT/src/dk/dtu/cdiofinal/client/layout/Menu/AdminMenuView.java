@@ -1,4 +1,4 @@
-package dk.dtu.cdiofinal.client.layout;
+package dk.dtu.cdiofinal.client.layout.Menu;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
@@ -19,7 +19,7 @@ import dk.dtu.cdiofinal.client.layout.productbatch.ProductBatchListView;
 import dk.dtu.cdiofinal.client.layout.recipe.RecipeListView;
 import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
 
-public class AdminMenu extends AbstractView{
+public class AdminMenuView extends AbstractView{
 	private static AdminMenuUiBinder uiBinder = GWT.create(AdminMenuUiBinder.class);
 	private ClientMenuImpl serviceImpl;
 	
@@ -28,7 +28,7 @@ public class AdminMenu extends AbstractView{
 	
 	
 	@UiTemplate("adminmenu.ui.xml")
-	interface AdminMenuUiBinder extends UiBinder<Widget, AdminMenu> {
+	interface AdminMenuUiBinder extends UiBinder<Widget, AdminMenuView> {
 	}
 	
 	@UiField Button btn_opr;
@@ -42,7 +42,7 @@ public class AdminMenu extends AbstractView{
 	Alert alert_opr;
 	
 	
-	public AdminMenu(ProdView v) {
+	public AdminMenuView(ProdView v) {
 		this.prodView = v;
 		this.serviceImpl = new ClientMenuImpl();
 		

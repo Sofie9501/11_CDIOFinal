@@ -31,13 +31,13 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.layout.ProdView;
+import dk.dtu.cdiofinal.client.layout.Menu.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
-public class RecipeDetail extends AbstractView{
+public class RecipeDetailView extends AbstractView{
 
 	private static RecipeDetailUiBinder uiBinder = GWT.create(RecipeDetailUiBinder.class);
 	private ListDataProvider<RecipeComponentDTO> dataProvider;
@@ -45,7 +45,7 @@ public class RecipeDetail extends AbstractView{
 
 
 	@UiTemplate("recipeDetail.ui.xml")
-	interface RecipeDetailUiBinder extends UiBinder<Widget, RecipeDetail>{
+	interface RecipeDetailUiBinder extends UiBinder<Widget, RecipeDetailView>{
 
 	}
 	private RecipeDTO rec;
@@ -82,7 +82,7 @@ public class RecipeDetail extends AbstractView{
 
 
 
-	public RecipeDetail(ProdView prod, RecipeDTO object){
+	public RecipeDetailView(ProdView prod, RecipeDTO object){
 		this.prod=prod;
 		initWidget(uiBinder.createAndBindUi(this));
 		this.rec=object;
@@ -154,7 +154,7 @@ public class RecipeDetail extends AbstractView{
 
 			@Override
 			public void update(int index, RecipeComponentDTO object, String value) {
-				(RecipeDetail.this).prod.setView(new RecipeComponentDetail(object));
+				(RecipeDetailView.this).prod.setView(new RecipeComponentDetailView(object));
 			}
 
 		});
@@ -271,7 +271,7 @@ public class RecipeDetail extends AbstractView{
 	private class AddComponentClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
-			prod.setView(new CreateEkstraRecipeComp(prod, rec));
+			prod.setView(new CreateEkstraRecipeCompView(prod, rec));
 		}	
 	}
 

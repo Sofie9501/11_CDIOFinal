@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.layout.ProdView;
+import dk.dtu.cdiofinal.client.layout.Menu.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.ingredientbatch.ClientIngredientBatchImpl;
 import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
@@ -121,7 +121,7 @@ public class IngredientBatchListView extends AbstractView{
 
 			@Override
 			public void update(int index, IngredientBatchDTO dto, String value) {
-				(IngredientBatchListView.this).prod.setView(new IngredientBatchDetail(dto));
+				(IngredientBatchListView.this).prod.setView(new IngredientBatchDetailView(dto));
 			}
 
 		});
@@ -137,7 +137,7 @@ public class IngredientBatchListView extends AbstractView{
 
 		@Override
 		public void onClick(ClickEvent event) {
-			prod.setView(new CreateIngredientBatch(prod));
+			prod.setView(new CreateIngredientBatchView(prod));
 		}
 	}
 

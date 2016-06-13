@@ -18,12 +18,12 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.layout.ProdView;
+import dk.dtu.cdiofinal.client.layout.Menu.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
-public class CreateRecipe extends AbstractView {
+public class CreateRecipeView extends AbstractView {
 
 	final ProdView prod;
 	protected ClientRecipeImpl serviceImpl;
@@ -31,7 +31,7 @@ public class CreateRecipe extends AbstractView {
 	private RecipeDTO recipe;
 
 	@UiTemplate("createRecipe.ui.xml")
-	interface createRecipeUiBinder extends UiBinder<Widget, CreateRecipe>{
+	interface createRecipeUiBinder extends UiBinder<Widget, CreateRecipeView>{
 
 	}
 
@@ -54,7 +54,7 @@ public class CreateRecipe extends AbstractView {
 
 
 
-	public CreateRecipe(ProdView prod){
+	public CreateRecipeView(ProdView prod){
 		initWidget(uiBinder.createAndBindUi(this));
 		this.prod=prod;
 		this.serviceImpl = new ClientRecipeImpl();
@@ -87,7 +87,7 @@ public class CreateRecipe extends AbstractView {
 			recipe = new RecipeDTO(Integer.parseInt(txt_ID.getText()), txt_name.getText(), true);
 			ok.setText("Your information has been saved");
 			//Updates the DB with the new operator
-			prod.setView(new CreateRecipeComp(prod, recipe));
+			prod.setView(new CreateRecipeCompView(prod, recipe));
 		}	
 
 	}

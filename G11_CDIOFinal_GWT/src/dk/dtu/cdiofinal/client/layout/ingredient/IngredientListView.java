@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.layout.ProdView;
+import dk.dtu.cdiofinal.client.layout.Menu.ProdView;
 import dk.dtu.cdiofinal.client.layout.ingredientbatch.CertainIngredientBatchListView;
 import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
@@ -121,7 +121,7 @@ public class IngredientListView extends AbstractView {
 
 			@Override
 			public void update(int index, IngredientDTO object, String value) {
-				(IngredientListView.this).prod.setView(new IngredientDetail(object));
+				(IngredientListView.this).prod.setView(new IngredientDetailView(object));
 			}
 
 		});

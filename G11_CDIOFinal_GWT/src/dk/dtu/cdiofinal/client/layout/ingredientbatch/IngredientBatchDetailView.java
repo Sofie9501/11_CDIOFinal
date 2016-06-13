@@ -22,13 +22,13 @@ import dk.dtu.cdiofinal.client.serverconnection.ingredientbatch.ClientIngredient
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 
-public class IngredientBatchDetail extends AbstractView{
+public class IngredientBatchDetailView extends AbstractView{
 
 	private static IngredientBatchDetailUiBinder uiBinder = GWT.create(IngredientBatchDetailUiBinder.class);
 
 
 	@UiTemplate("ingredientBatchDetail.ui.xml")
-	interface IngredientBatchDetailUiBinder extends UiBinder<Widget, IngredientBatchDetail>{
+	interface IngredientBatchDetailUiBinder extends UiBinder<Widget, IngredientBatchDetailView>{
 
 	}
 	private IngredientBatchDTO batch;
@@ -70,7 +70,7 @@ public class IngredientBatchDetail extends AbstractView{
 
 
 
-	public IngredientBatchDetail(IngredientBatchDTO object){
+	public IngredientBatchDetailView(IngredientBatchDTO object){
 		this.batch=object;
 		oldID = object.getIngredientBatch_ID();
 		initWidget(uiBinder.createAndBindUi(this));

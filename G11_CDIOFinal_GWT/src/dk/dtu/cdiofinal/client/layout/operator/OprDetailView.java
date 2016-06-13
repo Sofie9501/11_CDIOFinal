@@ -13,13 +13,13 @@ import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.OperatorDTO;
 
-public class OprDetail extends AbstractView{
+public class OprDetailView extends AbstractView{
 
 	private static OprDetailUiBinder uiBinder = GWT.create(OprDetailUiBinder.class);
 
 
 	@UiTemplate("oprdetail.ui.xml")
-	interface OprDetailUiBinder extends UiBinder<Widget, OprDetail>{
+	interface OprDetailUiBinder extends UiBinder<Widget, OprDetailView>{
 
 	}
 	private OperatorDTO opr;
@@ -57,7 +57,7 @@ public class OprDetail extends AbstractView{
 	Button btn_save;
 
 	//Constuctor
-	public OprDetail(OperatorDTO opr) {
+	public OprDetailView(OperatorDTO opr) {
 		this.opr=opr;
 		oldID=opr.getOprID();
 		initWidget(uiBinder.createAndBindUi(this));

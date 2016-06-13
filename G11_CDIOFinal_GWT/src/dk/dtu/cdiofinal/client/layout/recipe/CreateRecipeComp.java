@@ -24,8 +24,10 @@ import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
+import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
 import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
+import dk.dtu.cdiofinal.shared.IngredientDTO;
 import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
@@ -34,10 +36,11 @@ public class CreateRecipeComp extends AbstractView {
 	final ProdView prod;
 	protected ClientRecipeImpl serviceImpl;
 	private ListDataProvider<RecipeComponentDTO> dataProvider;
+	private IngredientDTO ingredient = null;
 
 	private static CreateRecipeCompUiBinder uiBinder = GWT.create(CreateRecipeCompUiBinder.class);
 	private RecipeDTO recipe;
-	
+
 
 	@UiTemplate("createRecipeComp.ui.xml")
 	interface CreateRecipeCompUiBinder extends UiBinder<Widget, CreateRecipeComp>{
@@ -99,7 +102,7 @@ public class CreateRecipeComp extends AbstractView {
 			}
 		};
 		cellTable.addColumn(netColumn, "Net");
-		
+
 		//Column with net
 		TextColumn<RecipeComponentDTO> tolColumn = new TextColumn<RecipeComponentDTO>(){
 			@Override
@@ -119,6 +122,14 @@ public class CreateRecipeComp extends AbstractView {
 			alert+="Error - You need to write a valid batch ID \n";
 			succes = false;
 		}
+		if(ingredient == null){
+			alert+="Error - The ingredient does not exist \n";
+			succes = false;
+		}
+		else if(!ingredient.isActive()){
+			alert+="Error - The ingredient is not active \n";
+			succes = false;
+		}
 		if(!FieldVerifier.amountValid(Double.parseDouble(txt_net.getText()))){
 			alert += "Error - net is not okay \n";
 			succes = false;
@@ -134,7 +145,7 @@ public class CreateRecipeComp extends AbstractView {
 	private void saveChanges(){
 		// Checks to see if there is no errors
 		if(changeSucces()){
-		ok.setText("Your information has been saved");
+			ok.setText("Your information has been saved");
 			RecipeComponentDTO comp = new RecipeComponentDTO(recipe.getID(), Integer.parseInt(txt_ID.getText()), 
 					"", Double.parseDouble(txt_tolerance.getText()), Double.parseDouble(txt_net.getText())); 
 			//Updates the recipe with the new component
@@ -148,8 +159,20 @@ public class CreateRecipeComp extends AbstractView {
 			txt_tolerance.setText("");
 			cellTable.setVisible(true);
 		}	
+		else{
+			btn_add.setVisible(true);
+			txt_ID.setText("");
+			txt_net.setText("");
+			txt_tolerance.setText("");
+			cellTable.setVisible(true);
+		}
 	}
-	
+
+	private void ingredientCheck(int ID){
+		ClientIngredientImpl serviceIngredientImpl = new ClientIngredientImpl();
+		serviceIngredientImpl.getIngredient(ID, new DTOCallBack());
+	}
+
 	private class OkClickHandler implements ClickHandler{
 
 		@Override
@@ -159,7 +182,7 @@ public class CreateRecipeComp extends AbstractView {
 			prod.PreviousView();
 		}
 	}
-	
+
 	private class SaveClickHandler implements ClickHandler{
 
 		@Override
@@ -172,10 +195,10 @@ public class CreateRecipeComp extends AbstractView {
 			ID.setVisible(false);
 			Nom_net.setVisible(false);
 			Tolerance.setVisible(false);
-			saveChanges();
+			ingredientCheck(Integer.parseInt(txt_ID.getText()));
 		}
 	}
-	
+
 	private class SaveRecipeClickHandler implements ClickHandler{
 
 		@Override
@@ -213,10 +236,28 @@ public class CreateRecipeComp extends AbstractView {
 				ID.setVisible(false);
 				Nom_net.setVisible(false);
 				Tolerance.setVisible(false);
-				saveChanges();
+				ingredientCheck(Integer.parseInt(txt_ID.getText()));
 			}		
 		}	
 	}
+
+	private class DTOCallBack implements AsyncCallback<IngredientDTO>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			ingredient = null;
+			saveChanges();
+		}
+
+		@Override
+		public void onSuccess(IngredientDTO result) {
+			ingredient = result;
+			saveChanges();
+
+		}
+
+	}
+
 	private class MyCallback implements AsyncCallback<Boolean>{
 
 		@Override
@@ -238,8 +279,8 @@ public class CreateRecipeComp extends AbstractView {
 			}
 		}		
 	}
-	
-		
+
+
 	@Override
 	public void Update() {
 		// TODO Auto-generated method stub

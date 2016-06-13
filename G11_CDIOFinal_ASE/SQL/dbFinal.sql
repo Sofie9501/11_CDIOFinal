@@ -44,51 +44,55 @@ CREATE TABLE productBatchComponent(pb_id INT, ib_id INT, tara REAL, net REAL, op
    
    insert into operator values
    (1, 'Niller', '1910948899','Qwer1234', 1, true),
-   (99999999, 'Sofie Paludan Larsen', '1910945588','Qwer1234', 2, true),
-   (4545, 'Casper Danielsen', '1910942233', 'Qwer1234', 3, true),
-   (121212, 'Brian Christensen', '1910943399', 'Qwer1234', 4, true),
-   (98765, 'Morten Due', '1910941177', 'Qwer1234', 3, false),
-   (112, 'Cecilie Lindberg', '1910942222', 'Qwer1234', 2, false);
+   (2, 'Sofie Paludan Larsen', '1910945588','Qwer1234', 2, true),
+   (3, 'Casper Danielsen', '1910942233', 'Qwer1234', 3, true),
+   (4, 'Brian Christensen', '1910943399', 'Qwer1234', 4, true),
+   (5, 'Morten Due', '1910941177', 'Qwer1234', 3, false),
+   (6, 'Cecilie Lindberg', '1910942222', 'Qwer1234', 2, false);
    
    insert into ingredient values
    (1, 'Citron', 'Citronland', true),
-   (99, 'Vand', 'Vandland', false),
-   (22222222, 'qwertyuiop123456789ø', '987654321åpoiuytrewq', true),
-   (3, 'Bær', 'Busken', true);
+   (2, 'Vand', 'Vandland', true),
+   (4, 'Nødder', 'Nødetræ', false),
+   (3, 'Bær', 'Busken', true),
+   (5, 'Soda', 'Brusekilden', true);
    
    insert into ingredientBatch values
-   (99999999, 1, 0.5, '2015-06-16', true),
-   (1, 99, 1, '2003-03-15', true),
-   (222, 99, 0.1, '2001-01-13', false),
-   (45, 22222222, 2, '1931-01-23', true),
-   (10, 3, 1, '1990-09-08', true);
+   (2, 1, 7.5, '2015-06-16', true),
+   (1, 2, 1, '2003-03-15', true),
+   (3, 2, 0.1, '2001-01-13', false),
+   (4, 4, 2, '1931-01-23', true),
+   (6, 5, 2, '2014-05-05', true),
+   (5, 3, 1, '1990-09-08', true);
    
    insert into recipe values
-   (1, 'Vandsaft', true),
-   (99999999, 'asdfghjklæøåpoiuytre', true),
-   (456, 'Citron', false),
+   (1, 'Citronvand', true),
+   (3, 'Sodavand', true),
+   (4, 'Bærvand', false),
    (2, 'Tærte', true);
    
    insert into recipeComponent values
-   (1, 22222222, 0.5, 0.1),
-   (1, 1, 0.1, 0.02),
-   (99999999, 22222222, 2, 0.2),
-   (456, 99, 2, 0.1),
-   (456, 1, 1, 0.2),
+   (1, 1, 0.5, 0.1),
+   (1, 2, 5.1, 0.2),
+   (3, 2, 2, 0.2),
+   (3, 5, 0.5, 0.1),
+   (4, 2, 5, 0.1),
+   (4, 4, 1, 0.2),
+   (4, 3, 2, 0.2),
    (2, 3, 3, 0.1);
    
    insert into productBatch values 
    (1, 0, 1, '2003-04-05', null, true),
-   (9999999, 1, 99999999, '2006-06-16', null, true),
-   (45, 2, 456, '2015-05-20', '2016-06-06', true),
-   (123, 1, 99999999, '2016-03-20', null, false),
+   (2, 2, 2, '2006-06-16', '2016-06-13', true),
+   (4, 2, 3, '2015-05-20', '2016-06-06', true),
+   (5, 1, 4, '2016-03-20', null, false),
    (3, 0, 2, '2005-06-07', null, true);
    
    insert into productBatchComponent values
-   (9999999, 45, 0.9, 1.9, 121212),
-   (45, 1, 1, 0.1, 121212),
-   (45, 45, 3, 2.1, 121212),
-   (123, 222, 1, 2, 1);
+   (2, 5, 0.9, 2.9, 2),
+   (4, 6, 1, 2, 3),
+   (4, 1, 1, 0.5, 3),
+   (5, 2, 2, 0.4, 4);
    
 /*******************************************
 * VIEWS									   * 
@@ -316,8 +320,10 @@ end; //
 create procedure create_recipeComponent
 (in recipe_id_input int(8), in ingredient_id_input int(8), in netto_input real, in tolerance_input real)
 begin 
+if(recipe_id_input not in (select recipe_id from productBatch)) then 
 insert into recipeComponent(recipe_id, ingredient_id, nom_net, tolerance)
 values (recipe_id_input, ingredient_id_input, netto_input, tolerance_input);
+end if;
 end; //
 
 /*update recipeComponent*/

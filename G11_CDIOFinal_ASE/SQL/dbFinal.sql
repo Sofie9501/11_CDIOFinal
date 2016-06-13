@@ -358,6 +358,7 @@ drop user 'ase_access'@'localhost';
 create user 'server_access'@'localhost' identified by 'qwer1234';
 create user 'ase_access'@'localhost' identified by 'zxcvbnm';
 
+
 /* Stored procedure access rights */
 Grant Execute on procedure create_ingredient to 'server_access' @'localhost';
 Grant Execute on procedure update_opr to 'server_access'@'localhost';
@@ -385,6 +386,10 @@ Grant Select on productBatch_administration to 'server_access'@'localhost';
 Grant Select on ingredientBatch_administration to 'server_access'@'localhost';
 Grant Select on number_Components to 'server_access'@'localhost';
 Grant Select on recipe_administration to 'server_access'@'localhost';
+
+
+Grant select on table productBatch to 'ase_access'@'localhost';
+Grant select on table recipeComponent to 'ase_access'@'localhost';
 Grant select on ase_info to 'ase_access'@'localhost';
 Grant select on operator to 'ase_access'@'localhost';
 Grant select on productBatch_administration to 'ase_access'@'localhost';

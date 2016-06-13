@@ -1,4 +1,4 @@
-package dk.dtu.cdiofinal.client;
+package dk.dtu.cdiofinal.client.layout;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;

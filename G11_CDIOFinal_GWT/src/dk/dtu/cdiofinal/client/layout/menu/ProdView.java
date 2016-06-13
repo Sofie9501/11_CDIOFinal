@@ -5,9 +5,9 @@ import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
-import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.MainView;
 import dk.dtu.cdiofinal.client.helpers.Stack;
+import dk.dtu.cdiofinal.client.layout.AbstractView;
+import dk.dtu.cdiofinal.client.layout.MainView;
 import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
 
 public class ProdView extends Composite{

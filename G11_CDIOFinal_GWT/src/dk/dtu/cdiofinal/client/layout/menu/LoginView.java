@@ -10,7 +10,7 @@ import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
-import dk.dtu.cdiofinal.client.MainView;
+import dk.dtu.cdiofinal.client.layout.MainView;
 import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
 
 public class LoginView extends Composite{

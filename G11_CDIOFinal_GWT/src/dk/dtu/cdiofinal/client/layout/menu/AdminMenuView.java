@@ -11,7 +11,7 @@ import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
-import dk.dtu.cdiofinal.client.AbstractView;
+import dk.dtu.cdiofinal.client.layout.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ingredient.IngredientListView;
 import dk.dtu.cdiofinal.client.layout.ingredientbatch.IngredientBatchListView;
 import dk.dtu.cdiofinal.client.layout.operator.OprListView;

@@ -16,7 +16,8 @@ import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
-import dk.dtu.cdiofinal.client.AbstractView;
+
+import dk.dtu.cdiofinal.client.layout.AbstractView;
 import dk.dtu.cdiofinal.client.serverconnection.productbatch.ClientProductBatchImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.ProductBatchDTO;

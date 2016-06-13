@@ -1,7 +1,7 @@
 package dk.dtu.cdiofinal.client.helpers;
 
-import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.helpers.Element;
+import dk.dtu.cdiofinal.client.layout.AbstractView;
 
 public class Stack {
 	

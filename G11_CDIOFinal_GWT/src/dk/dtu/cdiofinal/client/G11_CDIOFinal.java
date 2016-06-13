@@ -4,7 +4,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
-import dk.dtu.cdiofinal.client.MainView;
+import dk.dtu.cdiofinal.client.layout.MainView;
 
 public class G11_CDIOFinal implements EntryPoint {
 

@@ -3,7 +3,6 @@ package dk.dtu.cdiofinal.DAO;
 import java.util.List;
 
 import dk.dtu.cdiofinal.server.DAL.DALException;
-import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
 
 public interface IngredientDAO {

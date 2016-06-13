@@ -27,7 +27,6 @@ import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.Menu.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
-import dk.dtu.cdiofinal.shared.IngredientDTO;
 import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 

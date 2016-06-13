@@ -7,7 +7,6 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import dk.dtu.cdiofinal.DAO.OperatorDAO;
 import dk.dtu.cdiofinal.client.serverconnection.MenuService;
 import dk.dtu.cdiofinal.server.DAL.DALException;
-import dk.dtu.cdiofinal.server.DAL.OperatorDAOList;
 import dk.dtu.cdiofinal.server.DAL.MySQL.OperatorDAOMySql;
 import dk.dtu.cdiofinal.shared.OperatorDTO;
 

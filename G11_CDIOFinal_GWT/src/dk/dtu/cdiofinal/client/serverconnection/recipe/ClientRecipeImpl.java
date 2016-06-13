@@ -6,7 +6,6 @@ import java.util.List;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import dk.dtu.cdiofinal.server.DAL.DALException;
 import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 

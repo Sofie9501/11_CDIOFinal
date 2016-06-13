@@ -5,7 +5,6 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import dk.dtu.cdiofinal.shared.IngredientDTO;
-import dk.dtu.cdiofinal.shared.ProductBatchDTO;
 
 public interface IngredientServiceAsync {
 

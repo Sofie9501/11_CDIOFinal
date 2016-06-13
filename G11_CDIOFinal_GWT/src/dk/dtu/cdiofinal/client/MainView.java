@@ -5,7 +5,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import dk.dtu.cdiofinal.client.layout.Menu.LoginView;
 import dk.dtu.cdiofinal.client.layout.Menu.ProdView;
-import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 public class MainView extends Composite {
 

@@ -26,7 +26,6 @@ import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.Menu.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.ingredientbatch.ClientIngredientBatchImpl;
 import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
-import dk.dtu.cdiofinal.shared.IngredientDTO;
 
 public class IngredientBatchListView extends AbstractView{
 	final ProdView prod;

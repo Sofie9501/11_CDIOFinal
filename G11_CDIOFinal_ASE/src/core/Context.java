@@ -58,11 +58,11 @@ public class Context implements DatabaseCom{
 	// Checks if the ingredient batch exists and contains the required amount for the recipe
 	// throws exception if amount is not valid
 	@Override
-	public void checkIbId(int ib_id, int pb_id) throws DALException {
+	public void checkIbId(int ibId, int pbId) throws DALException {
 		float amount;
 		float net;
 		// check component is not created already
-		String query = "select * from productBatchComponent where pb_id= " + pb_id  + " and ib_id= " + ib_id + ";";
+		String query = "select * from productBatchComponent where pb_id= " + pbId  + " and ib_id= " + ibId + ";";
 		
 		try {
 			ResultSet qResult = c.doQuery(query);
@@ -70,8 +70,8 @@ public class Context implements DatabaseCom{
 				throw new DALException("component already created");
 			// Queries. First gets the amount that is available in the ingredient batch, 
 			// the next gets the needed amount for the recipe
-			String queryAmount = "select amount from ingredientBatch_administration where ib_id = " + ib_id + ";";
-			String queryNet = "select nom_net from recipecomponent where recipe_id in (select recipe_id from productbatch where pb_id =" + pb_id + ");";
+			String queryAmount = "select amount from ingredientBatch_administration where ib_id = " + ibId + ";";
+			String queryNet = "select nom_net from recipecomponent where recipe_id in (select recipe_id from productbatch where pb_id =" + pbId + ");";
 		
 		
 			ResultSet result = c.doQuery(queryAmount);
@@ -112,25 +112,25 @@ public class Context implements DatabaseCom{
 
 	// Creates a product batch component using a stored procedure
 	@Override
-	public void createProductBatchComp(int pbID, int ibID, float tare, double net, int oprID) throws DALException {
+	public void createProductBatchComp(int pbId, int ibId, float tare, double net, int oprId) throws DALException {
 		// Calls a stored procedure in our database
-		query = "call create_productbatchcomponent(" + pbID + ", " + ibID + ", " + tare + ", " + net + ", " + oprID + ");";
+		query = "call create_productbatchcomponent(" + pbId + ", " + ibId + ", " + tare + ", " + net + ", " + oprId + ");";
 		c.doQuery(query);
 
 	}
 
 	// Sets the status of the product batch to "in progress" 
 	@Override
-	public void setPbStatus(int pbID) throws DALException {
+	public void setPbStatus(int pbId) throws DALException {
 		// Calls a stored procedure in our database that updates certain parameters.
 		// The status is now "1".
-		query = "call update_productbatchstatus(" + pbID + ", 1);";
+		query = "call update_productbatchstatus(" + pbId + ", 1);";
 		c.doQuery(query);
 	}
 
 	@Override
-	public RecipeCompDTO checkWeight(int pb_id, int ib_id) throws DALException{
-		query = "select * from ase_info where pb_id = " + pb_id + " and ib_id = " + ib_id + ";";
+	public RecipeCompDTO checkWeight(int pbId, int ibId) throws DALException{
+		query = "select * from ase_info where pb_id = " + pbId + " and ib_id = " + ibId + ";";
 		ResultSet result = c.doQuery(query);
 
 		// Convert to Data Transfer Object

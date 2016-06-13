@@ -36,21 +36,13 @@ public class CreateCertainIngredientBatchView extends AbstractView {
 	}
 
 	//Textbox, buttons, heading and modal
-	@UiField
-	TextBox txt_B_ID;
-	@UiField
-	TextBox txt_I_ID;
-	@UiField
-	TextBox txt_amount;
-	@UiField
-	Button btn_save;
-
-	@UiField
-	Modal popup;
-	@UiField
-	Button btn_ok;
-	@UiField
-	Heading ok;
+	@UiField TextBox txt_B_ID;
+	@UiField TextBox txt_I_ID;
+	@UiField TextBox txt_amount;
+	@UiField Button btn_save;
+	@UiField Modal popup;
+	@UiField Button btn_ok;
+	@UiField Heading head_ok;
 
 
 
@@ -65,6 +57,8 @@ public class CreateCertainIngredientBatchView extends AbstractView {
 		txt_amount.addKeyDownHandler((KeyDownHandler)new EnterHandler());
 
 	}
+	
+	//checks if the information is valid
 	private boolean changeSucces(){
 		String alert = "";
 		boolean succes = true;
@@ -85,13 +79,14 @@ public class CreateCertainIngredientBatchView extends AbstractView {
 		if(changeSucces()){
 			batch = new IngredientBatchDTO(Integer.parseInt(txt_B_ID.getText()), null, Integer.parseInt(txt_I_ID.getText())
 					,Double.parseDouble(txt_amount.getText()), true, null);
-			ok.setText("Your information has been saved");
-			//Updates the DB with the new operator
-			serviceImpl.createIngredientBatch(batch, new MyCallback());
+			head_ok.setText("Your information has been saved");
+			//Updates the DB with the new ingredientbatch
+			serviceImpl.createIngredientBatch(batch, new CreateIngredientBatchCallback());
 			
 		}	
 
 	}
+	//click and enter handlers
 	private class SaveClickHandler implements ClickHandler{
 
 		@Override
@@ -108,7 +103,6 @@ public class CreateCertainIngredientBatchView extends AbstractView {
 		}
 	}
 	private class EnterHandler implements KeyDownHandler {
-
 		@Override
 		public void onKeyDown(KeyDownEvent event) {
 			if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER){
@@ -116,12 +110,12 @@ public class CreateCertainIngredientBatchView extends AbstractView {
 			}		
 		}	
 	}
-	private class MyCallback implements AsyncCallback<Boolean>{
+	private class CreateIngredientBatchCallback implements AsyncCallback<Boolean>{
 
 		@Override
 		public void onFailure(Throwable caught) {
 			popup.setTitle("Error");
-			ok.setText("An error has occurred, and your information has not been saved.");
+			head_ok.setText("An error has occurred, and your information has not been saved.");
 			popup.toggle();
 		}
 		@Override
@@ -134,15 +128,13 @@ public class CreateCertainIngredientBatchView extends AbstractView {
 			}
 			else{
 				popup.setTitle("Error");
-				ok.setText("An error has occurred, and your information has not been saved.");
+				head_ok.setText("An error has occurred, and your information has not been saved.");
 				popup.toggle();
 			}
 		}		
 	}
 	@Override
 	public void Update() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

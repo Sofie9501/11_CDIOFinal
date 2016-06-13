@@ -31,7 +31,7 @@ public class IngredientBatchListView extends AbstractView{
 	final ProdView prod;
 
 	private ClientIngredientBatchImpl serviceImpl;
-	private List<IngredientBatchDTO> inb = new ArrayList<>();
+	private List<IngredientBatchDTO> inredientBatchList = new ArrayList<>();
 	private ListDataProvider<IngredientBatchDTO> dataProvider;
 	private static IngredientBatchListUiBinder uiBinder = GWT.create(IngredientBatchListUiBinder.class);
 
@@ -39,13 +39,9 @@ public class IngredientBatchListView extends AbstractView{
 	interface IngredientBatchListUiBinder extends UiBinder<Widget, IngredientBatchListView> {
 	}
 
-	//table
-	@UiField
-	CellTable<IngredientBatchDTO> cellTable;
-
-	//to create a new batch
-	@UiField
-	Button btn_create;
+	//table and button
+	@UiField CellTable<IngredientBatchDTO> cellTable;
+	@UiField Button btn_create;
 
 	public IngredientBatchListView(ProdView prod){
 		initWidget(uiBinder.createAndBindUi(this));
@@ -117,14 +113,15 @@ public class IngredientBatchListView extends AbstractView{
 		cellTable.addColumn(editColumn);
 
 		editColumn.setFieldUpdater(new FieldUpdater<IngredientBatchDTO, String>(){
-
+			//when pressed change the view to ingredientbatchdetailview
 			@Override
 			public void update(int index, IngredientBatchDTO dto, String value) {
 				(IngredientBatchListView.this).prod.setView(new IngredientBatchDetailView(dto));
 			}
 
 		});
-		dataProvider.setList(inb); 
+		//show information in the table
+		dataProvider.setList(inredientBatchList); 
 		dataProvider.addDataDisplay(cellTable);
 		cellTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 		btn_create.addClickHandler((ClickHandler)new CreateClickHandler());
@@ -141,28 +138,27 @@ public class IngredientBatchListView extends AbstractView{
 	}
 
 	private class ListCallback implements AsyncCallback<List <IngredientBatchDTO>>{
-
 		@Override
 		public void onFailure(Throwable caught) {
 		}
 
 		@Override
 		public void onSuccess(List<IngredientBatchDTO> result) {
-			inb.clear();
+			inredientBatchList.clear();
 			if(!result.isEmpty()){
 				for(IngredientBatchDTO d: result){
-					inb.add(d);
+					inredientBatchList.add(d);
 				}
 				dataProvider.refresh();
 			}
-
 		}
 	}
 
+	//updates the table
 	@Override
 	public void Update() {
-		inb.clear();
-		dataProvider.setList(inb);
+		inredientBatchList.clear();
+		dataProvider.setList(inredientBatchList);
 		this.serviceImpl.getIngredientBatches(new ListCallback());
 	}
 }

@@ -12,7 +12,7 @@ import dk.dtu.cdiofinal.server.DAL.DALException;
 import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
 
 public class RecipeCompDAOMySQL implements RecipeComponentDAO{
-	
+
 	Connector c = new Connector();
 	String query;
 
@@ -22,23 +22,23 @@ public class RecipeCompDAOMySQL implements RecipeComponentDAO{
 				recipe_ID + " and ingredient_id = " + ingredient_ID;
 		ResultSet result = c.doQuery(query);
 		// if there's no receptkomp with the given IDs, throw exception
-				if(result==null){
-					throw new DALException("No receptkomp found");
-				}
+		if(result==null){
+			throw new DALException("No receptkomp found");
+		}
 
-				// create an object of receptkomp
-				RecipeComponentDTO reKomp = null;
-				try{
-					// give the data to the empty object above
-					if(result.next()){
-						reKomp = new RecipeComponentDTO(result.getInt(1), result.getInt(3), 
-								result.getString(4), result.getDouble(5), result.getDouble(6));
+		// create an object of receptkomp
+		RecipeComponentDTO reKomp = null;
+		try{
+			// give the data to the empty object above
+			if(result.next()){
+				reKomp = new RecipeComponentDTO(result.getInt(1), result.getInt(3), 
+						result.getString(4), result.getDouble(5), result.getDouble(6));
 
-					}
-				} catch(SQLException e){
-					e.printStackTrace();
-				}
-				return reKomp;
+			}
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		return reKomp;
 	}
 	// Get a list of recipeComponents with a specific recipe ID
 	@Override
@@ -48,7 +48,7 @@ public class RecipeCompDAOMySQL implements RecipeComponentDAO{
 		if (result==null){
 			throw new DALException("No receptkomp found");
 		}
-
+		//makes list of all recipecomponents
 		List<RecipeComponentDTO> list =  new ArrayList<RecipeComponentDTO>();
 		try {
 			while(result.next()){
@@ -60,24 +60,27 @@ public class RecipeCompDAOMySQL implements RecipeComponentDAO{
 		return list;
 	}
 
+	//createRecipeComp in Db
 	@Override
 	public void createRecipeComp(RecipeComponentDTO recipeComp) throws DALException {
 		query = "call create_recipeComponent(" + recipeComp.getRecipe_ID() + ",  " + recipeComp.getIngredient_ID()
-				+ ",  " + recipeComp.getNom_netto()+ ",  " + recipeComp.getTolerance() + ");";
+		+ ",  " + recipeComp.getNom_netto()+ ",  " + recipeComp.getTolerance() + ");";
 		c.doQuery(query);
-		
+
 	}
+	
+	//update recipecomp in DB
 	@Override
 	public void updateRecipeComp(RecipeComponentDTO recipeComp, int oldRecipeID, int oldIngredientID)
 			throws DALException {
 		query = "call update_recipeComponent(" + oldRecipeID + ",  " + recipeComp.getRecipe_ID()+ ",  " +
-					oldIngredientID+ ",  " + recipeComp.getIngredient_ID()+ ",  " +recipeComp.getNom_netto()
-					+ ",  " + recipeComp.getTolerance()  + ");";
+				oldIngredientID+ ",  " + recipeComp.getIngredient_ID()+ ",  " +recipeComp.getNom_netto()
+				+ ",  " + recipeComp.getTolerance()  + ");";
 		c.doQuery(query);
-		
+
 	}
 
 
-	
+
 
 }

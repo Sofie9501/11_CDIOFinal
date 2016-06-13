@@ -21,15 +21,16 @@ public class IngredientBatchDAOMySQL implements IngredientBatchDAO{
 	public IngredientBatchDTO getIngredientBatch(int ID) throws DALException {
 		query = "select * from ingredientBatch_administration where ib_id = " + ID;
 		ResultSet result = c.doQuery(query);
-
+		//tell if no ingredientbatches if such id
 		if (result == null){
 			throw new DALException("No ingredientbatches found");
 		}
-		IngredientBatchDTO dto = new IngredientBatchDTO();
-
+		//creates ingredientbatchDTO
+		IngredientBatchDTO dto = null;
+		//if result is found, create the DTO
 		try {
 			while(result.next()){
-				new IngredientBatchDTO(result.getInt(1), result.getString(2), result.getInt(3), 
+				dto = new IngredientBatchDTO(result.getInt(1), result.getString(2), result.getInt(3), 
 						result.getDouble(4), result.getBoolean(5), String.valueOf(result.getDate(6)));
 			}
 		} catch (SQLException e) {
@@ -44,12 +45,12 @@ public class IngredientBatchDAOMySQL implements IngredientBatchDAO{
 	public List<IngredientBatchDTO> getIngredientBatchList() throws DALException {
 		query = "select * from ingredientBatch_administration";
 		ResultSet result = c.doQuery(query);
-
+		
 		if (result == null){
 			throw new DALException("No ingredientbatches found");
 		}
+		//create list of all ingredientsbatches found
 		List<IngredientBatchDTO> list = new ArrayList<IngredientBatchDTO>();
-
 		try {
 			while(result.next()){
 				list.add(new IngredientBatchDTO(result.getInt(1), result.getString(2), result.getInt(3), 
@@ -62,6 +63,7 @@ public class IngredientBatchDAOMySQL implements IngredientBatchDAO{
 
 	}
 
+	//get list of batches with certain id
 	@Override
 	public ArrayList<IngredientBatchDTO> getIngredientBatchList(int ID) throws DALException {
 		query = "select * from ingredientBatch_administration where ingredient_id = " + ID;
@@ -70,8 +72,8 @@ public class IngredientBatchDAOMySQL implements IngredientBatchDAO{
 		if (result == null){
 			throw new DALException("No ingredientbatches found");
 		}
+		//creates list of batches
 		ArrayList<IngredientBatchDTO> list = new ArrayList<IngredientBatchDTO>();
-
 		try {
 			while(result.next()){
 				list.add(new IngredientBatchDTO(result.getInt(1), result.getString(2), result.getInt(3), 
@@ -83,6 +85,7 @@ public class IngredientBatchDAOMySQL implements IngredientBatchDAO{
 		return list;
 	}
 
+	//create ingredient in DB
 	@Override
 	public void createIngredientBatch(IngredientBatchDTO ingredientBatch) throws DALException {
 		String query = "call create_ingredientbatch(" + ingredientBatch.getIngredientBatch_ID()+ ", " 
@@ -90,6 +93,7 @@ public class IngredientBatchDAOMySQL implements IngredientBatchDAO{
 		c.doQuery(query);
 	}
 
+	//update the batch in DB
 	@Override
 	public void updateIngredientBatch(IngredientBatchDTO ingredientBatch, int oldID) throws DALException {
 		String query = "call update_ingredientbatch(" + oldID + ", " + ingredientBatch.getIngredientBatch_ID()+ ", " 

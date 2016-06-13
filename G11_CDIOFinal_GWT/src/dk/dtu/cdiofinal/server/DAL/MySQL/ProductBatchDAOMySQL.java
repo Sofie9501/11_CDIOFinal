@@ -68,12 +68,15 @@ public class ProductBatchDAOMySQL implements ProductBatchDAO{
 		return pb;
 	}
 
+	//create productbatch in DB
 	@Override
 	public void createProductBatch(ProductBatchDTO productBatch) throws DALException {
 		query = "call create_productBatch(" + productBatch.getPb_ID() + ", " + productBatch.getR_ID() +");";
 		c.doQuery(query);
 		
 	}
+	
+	//update productbatch in DB
 	@Override
 	public void updateProductBatch(ProductBatchDTO pb, int oldID) throws DALException {
 		query = "call update_productBatch(" + oldID + ", " + pb.getPb_ID()+ ", " + 

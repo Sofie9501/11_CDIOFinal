@@ -11,12 +11,12 @@
 	        
 	        <tr><td><h4>ProductBatch ID</h4></td></tr>
 	        <tr>
-	            <td><b:TextBox ui:field="txt_ProdBatchID"></b:TextBox></td>
+	            <td><b:TextBox ui:field="txt_ProdBatchId"></b:TextBox></td>
 	            
 	        </tr>
 	        <tr><td><h4>Recept ID</h4></td></tr>
 	        <tr>
-	            <td><b:TextBox ui:field="txt_ReceptID"></b:TextBox></td>
+	            <td><b:TextBox ui:field="txt_ReceptId"></b:TextBox></td>
 	        </tr>
 	       <tr>
 	            <td><b:Button icon="SAVE" type="LINK" ui:field="btn_save" >Save</b:Button> </td>
@@ -24,7 +24,7 @@
 	        <tr>
 	            <td>
 	                <b:Modal ui:field="popup" title="Succes" backdrop="STATIC" keyboard="true" animation="true">
-	                    <b:Heading size="5" ui:field="ok"></b:Heading>
+	                    <b:Heading size="5" ui:field="head_ok"></b:Heading>
 	                    <b:ModalFooter>
 	                        <b:Button type="LINK" ui:field="btn_ok">Ok</b:Button>                        
 	                    </b:ModalFooter>

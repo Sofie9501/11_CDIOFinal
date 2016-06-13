@@ -56,17 +56,24 @@ public class Context implements DatabaseCom{
 	}
 
 	// Checks if the ingredient batch exists and contains the required amount for the recipe
+	// throws exception if amount is not valid
 	@Override
-	public boolean checkIbId(int ib_id, int pb_id) throws DALException {
-		int amount;
-		double net;
-		
-		// Queries. First gets the amount that is available in the ingredient batch, 
-		// the next gets the needed amount for the recipe
-		String queryAmount = "select amount from ingredientBatch_administration where ib_id = " + ib_id + ";";
-		String queryNet = "select nom_net from recipecomponent where recipe_id in (select recipe_id from productbatch where pb_id =" + pb_id + ");";
+	public void checkIbId(int ib_id, int pb_id) throws DALException {
+		float amount;
+		float net;
+		// check component is not created already
+		String query = "select * from productBatchComponent where pb_id= " + pb_id  + " and ib_id= " + ib_id + ";";
 		
 		try {
+			ResultSet qResult = c.doQuery(query);
+			if(qResult.next())
+				throw new DALException("component already created");
+			// Queries. First gets the amount that is available in the ingredient batch, 
+			// the next gets the needed amount for the recipe
+			String queryAmount = "select amount from ingredientBatch_administration where ib_id = " + ib_id + ";";
+			String queryNet = "select nom_net from recipecomponent where recipe_id in (select recipe_id from productbatch where pb_id =" + pb_id + ");";
+		
+		
 			ResultSet result = c.doQuery(queryAmount);
 			
 			// Throw exception if no result is found
@@ -74,33 +81,33 @@ public class Context implements DatabaseCom{
 				throw new DALException("Ingredient batch not found");
 			}else{
 			// If there's a result the ingredient batch exist and we get the amount
-				amount = Integer.parseInt(result.getString(1));
+				amount = Float.parseFloat(result.getString(1));
 			}
 			
-			if(!result.next()){
-				throw new DALException("The ingredient batch does not have the right amount");
-			}else{
-			// If there's a result the ingredient batch exist and we get the amount
-				amount = Integer.parseInt(result.getString(1));
-			}
 			
 			// Next we get the net
 			result = c.doQuery(queryNet);
-			net = Double.parseDouble(result.getString(1));
 			
-			if(net <= amount){
+						
+			if(!result.next()){
+				throw new DALException("Recept Component not found");
+			}else{
+			// If there's a result the ingredient batch exist and we get the amount
+				net = Float.parseFloat(result.getString(1));
+			}
+			
+			
+			
+			if(net >= amount){
 				throw new DALException("Ingredient batch does not have the required amount");
 			}
-			else
-				return true;
+			
 			
 		} catch (DALException e){
 			throw e;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// Return the boolean
-		return false;
 	}
 
 	// Creates a product batch component using a stored procedure

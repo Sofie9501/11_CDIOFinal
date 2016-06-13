@@ -12,7 +12,7 @@ public class ListImpl implements DatabaseCom{
 	}
 
 	@Override
-	public String getProductRecipeName(int pb_id) throws DALException {
+	public String getProductRecipeName(int pbId) throws DALException {
 		return "Citronvand";
 	}
 
@@ -21,8 +21,7 @@ public class ListImpl implements DatabaseCom{
 	}
 	
 	@Override
-	public boolean checkIbId(int ib_id, int pb_id) throws DALException {
-		return true;
+	public void checkIbId(int ib_id, int pb_id) throws DALException {
 	}
 
 	@Override
@@ -31,7 +30,7 @@ public class ListImpl implements DatabaseCom{
 	}
 
 	@Override
-	public RecipeCompDTO checkWeight(int pb_id, int ib_id) throws DALException {
+	public RecipeCompDTO checkWeight(int pbId, int ibId) throws DALException {
 		// TODO Auto-generated method stub
 		return null;
 	}

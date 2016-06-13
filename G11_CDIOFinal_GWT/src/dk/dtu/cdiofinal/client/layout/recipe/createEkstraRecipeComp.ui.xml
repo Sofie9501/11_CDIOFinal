@@ -13,23 +13,23 @@
 			<table>
 				<tr>
 					<td>
-						<b:Heading size="3" ui:field="TitleID"></b:Heading>
+						<b:Heading size="3" ui:field="head_TitleId"></b:Heading>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<b:Heading size="4" ui:field="ID"></b:Heading>
+						<b:Heading size="4" ui:field="head_Id"></b:Heading>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<b:TextBox ui:field="txt_ID"></b:TextBox>
+						<b:TextBox ui:field="txt_Id"></b:TextBox>
 					</td>
 
 				</tr>
 				<tr>
 					<td>
-						<b:Heading size="4" ui:field="Nom_net"></b:Heading>
+						<b:Heading size="4" ui:field="head_Nom_Net"></b:Heading>
 					</td>
 				</tr>
 				<tr>
@@ -39,7 +39,7 @@
 				</tr>
 				<tr>
 					<td>
-						<b:Heading size="4" ui:field="Tolerance"></b:Heading>
+						<b:Heading size="4" ui:field="head_Tolerance"></b:Heading>
 					</td>
 				</tr>
 				<tr>
@@ -63,7 +63,7 @@
 					<td>
 						<b:Modal ui:field="popup" title="Succes" backdrop="STATIC"
 							keyboard="true" animation="true">
-							<b:Heading size="5" ui:field="ok"></b:Heading>
+							<b:Heading size="5" ui:field="head_ok"></b:Heading>
 							<b:ModalFooter>
 								<b:Button type="LINK" ui:field="btn_ok">Ok</b:Button>
 							</b:ModalFooter>

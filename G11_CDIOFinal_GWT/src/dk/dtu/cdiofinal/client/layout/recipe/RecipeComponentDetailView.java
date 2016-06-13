@@ -25,40 +25,30 @@ import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
 public class RecipeComponentDetailView extends AbstractView{
 
 	private static RecipeComponentDetailUiBinder uiBinder = GWT.create(RecipeComponentDetailUiBinder.class);
-
-
-	@UiTemplate("recipeComponentDetail.ui.xml")
-	interface RecipeComponentDetailUiBinder extends UiBinder<Widget, RecipeComponentDetailView>{
-
-	}
 	private RecipeComponentDTO comp;
 	private ClientRecipeImpl serviceImpl;
 	private int oldRecipeID;
 	private int oldIngredientID;
 
+	@UiTemplate("recipeComponentDetail.ui.xml")
+	interface RecipeComponentDetailUiBinder extends UiBinder<Widget, RecipeComponentDetailView>{
+	}
+	
+
 	//Adds the main page texts
-	@UiField Heading txt_recipeID; 
-	@UiField Heading txt_ingredientID; 
+	@UiField Heading txt_recipeId; 
+	@UiField Heading txt_ingredientId; 
 	@UiField Heading txt_Nom; 
 	@UiField Heading txt_tol; 	
-
 	// Adds the edit buttons
-	@UiField
-	Button btn_recipeID;
-	@UiField
-	Button btn_ingredientID;
-	@UiField
-	Button btn_Nom;
-	@UiField
-	Button btn_tol;
-
+	@UiField Button btn_recipeId;
+	@UiField Button btn_ingredientId;
+	@UiField Button btn_Nom;
+	@UiField Button btn_tol;
 	//Add editpopup with save button
-	@UiField
-	Modal popup;
-	@UiField
-	TextBox txt_edited;
-	@UiField
-	Button btn_save;
+	@UiField Modal popup;
+	@UiField TextBox txt_edited;
+	@UiField Button btn_save;
 
 	//Constuctor
 	public RecipeComponentDetailView(RecipeComponentDTO comp) {
@@ -69,14 +59,14 @@ public class RecipeComponentDetailView extends AbstractView{
 		this.serviceImpl = new ClientRecipeImpl();
 
 		//Adds all the information on the operators
-		txt_recipeID.setText(String.valueOf(comp.getRecipe_ID()));
-		txt_ingredientID.setText(String.valueOf(comp.getIngredient_ID()));
+		txt_recipeId.setText(String.valueOf(comp.getRecipe_ID()));
+		txt_ingredientId.setText(String.valueOf(comp.getIngredient_ID()));
 		txt_Nom.setText(String.valueOf(comp.getNom_netto()));
 		txt_tol.setText(String.valueOf(comp.getTolerance()));
 
 		//Clickhandlers for all the buttons
-		btn_recipeID.addClickHandler(new EditRecipeIDClickHandler());
-		btn_ingredientID.addClickHandler(new EditIngredientIDClickHandler());
+		btn_recipeId.addClickHandler(new EditRecipeIDClickHandler());
+		btn_ingredientId.addClickHandler(new EditIngredientIDClickHandler());
 		btn_Nom.addClickHandler(new EditNetClickHandler());
 		btn_tol.addClickHandler(new EditToleranceClickHandler());
 		btn_save.addClickHandler(new SaveClickHandler());
@@ -91,7 +81,7 @@ public class RecipeComponentDetailView extends AbstractView{
 			}
 			else{
 				comp.setRecipe_ID(Integer.parseInt(txt_edited.getText()));
-				txt_recipeID.setText(String.valueOf(comp.getRecipe_ID()));
+				txt_recipeId.setText(String.valueOf(comp.getRecipe_ID()));
 			}
 			break;
 		case "Ingredient ID":
@@ -100,7 +90,7 @@ public class RecipeComponentDetailView extends AbstractView{
 			}
 			else{
 				comp.setIngredient_ID(Integer.parseInt(txt_edited.getText()));
-				txt_ingredientID.setText(String.valueOf(comp.getIngredient_ID()));
+				txt_ingredientId.setText(String.valueOf(comp.getIngredient_ID()));
 			}
 			break;
 		case "Net":
@@ -121,10 +111,12 @@ public class RecipeComponentDetailView extends AbstractView{
 				txt_tol.setText(String.valueOf(comp.getTolerance()));
 			}
 		}
-		serviceImpl.updateRecipeComponent(comp, oldRecipeID, oldIngredientID, new MyCallback());
+		//updates the component in DB
+		serviceImpl.updateRecipeComponent(comp, oldRecipeID, oldIngredientID, new UpdateRecipeComponentCallback());
 	}
-	private class MyCallback implements AsyncCallback<Boolean>{
-
+	
+	
+	private class UpdateRecipeComponentCallback implements AsyncCallback<Boolean>{
 		@Override
 		public void onFailure(Throwable caught) {
 			popup.setTitle("Error");
@@ -137,7 +129,6 @@ public class RecipeComponentDetailView extends AbstractView{
 			}
 			else{
 				popup.setTitle("Error");
-
 			}
 		}		
 	}
@@ -196,8 +187,5 @@ public class RecipeComponentDetailView extends AbstractView{
 	}
 	@Override
 	public void Update() {
-		// TODO Auto-generated method stub
-
 	}
-
 }

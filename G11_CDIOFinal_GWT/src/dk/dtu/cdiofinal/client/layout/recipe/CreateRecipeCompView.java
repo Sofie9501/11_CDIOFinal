@@ -37,30 +37,28 @@ public class CreateRecipeCompView extends AbstractView {
 	protected ClientRecipeImpl serviceImpl;
 	private ListDataProvider<RecipeComponentDTO> dataProvider;
 	private IngredientDTO ingredient = null;
-
 	private static CreateRecipeCompUiBinder uiBinder = GWT.create(CreateRecipeCompUiBinder.class);
 	private RecipeDTO recipe;
 
 
 	@UiTemplate("createRecipeComp.ui.xml")
 	interface CreateRecipeCompUiBinder extends UiBinder<Widget, CreateRecipeCompView>{
-
 	}
 
 	//Textbox, buttons, heading and modal
-	@UiField TextBox txt_ID;
+	@UiField TextBox txt_Id;
 	@UiField TextBox txt_net;
 	@UiField TextBox txt_tolerance;
 	@UiField Button btn_add;
 	@UiField Button btn_save_comp;
-	@UiField Heading TitleID;
-	@UiField Heading ID;
-	@UiField Heading Nom_net;
-	@UiField Heading Tolerance;
+	@UiField Heading head_TitleId;
+	@UiField Heading head_Id;
+	@UiField Heading head_Nom_Net;
+	@UiField Heading head_Tolerance;
 	@UiField CellTable<RecipeComponentDTO> cellTable;
 	@UiField Modal popup;
 	@UiField Button btn_ok;
-	@UiField Heading ok;
+	@UiField Heading head_ok;
 	@UiField Button btn_save;
 
 	public CreateRecipeCompView(ProdView prod, RecipeDTO recipe){
@@ -70,11 +68,11 @@ public class CreateRecipeCompView extends AbstractView {
 		this.serviceImpl = new ClientRecipeImpl();
 		this.dataProvider = new ListDataProvider<RecipeComponentDTO>();
 		//Set visible and text on boxes and buttons
-		TitleID.setText(recipe.getName());
+		head_TitleId.setText(recipe.getName());
 		cellTable.setVisible(false);
-		ID.setText("Ingredient ID");
-		Nom_net.setText("Nom_net");
-		Tolerance.setText("Tolerance");
+		head_Id.setText("Ingredient ID");
+		head_Nom_Net.setText("Nom_net");
+		head_Tolerance.setText("Tolerance");
 		btn_add.setVisible(false);
 		//Add click and key handler to buttons and last textbox
 		btn_ok.addClickHandler((ClickHandler)new OkClickHandler());
@@ -119,7 +117,7 @@ public class CreateRecipeCompView extends AbstractView {
 	private boolean changeSucces(){
 		String alert = "";
 		boolean succes = true;
-		if(!FieldVerifier.numberValid(Integer.parseInt(txt_ID.getText()))){
+		if(!FieldVerifier.numberValid(Integer.parseInt(txt_Id.getText()))){
 			alert+="Error - You need to write a valid batch ID \n";
 			succes = false;
 		}
@@ -146,8 +144,8 @@ public class CreateRecipeCompView extends AbstractView {
 	private void saveChanges(){
 		// Checks to see if there is no errors
 		if(changeSucces()){
-			ok.setText("Your information has been saved");
-			RecipeComponentDTO comp = new RecipeComponentDTO(recipe.getID(), Integer.parseInt(txt_ID.getText()), 
+			head_ok.setText("Your information has been saved");
+			RecipeComponentDTO comp = new RecipeComponentDTO(recipe.getID(), Integer.parseInt(txt_Id.getText()), 
 					"", Double.parseDouble(txt_tolerance.getText()), Double.parseDouble(txt_net.getText())); 
 			//Updates the recipe with the new component
 			recipe.addComponent(comp);
@@ -155,7 +153,7 @@ public class CreateRecipeCompView extends AbstractView {
 			//Show list of components
 			dataProvider.setList(componentList);
 			btn_add.setVisible(true);
-			txt_ID.setText("");
+			txt_Id.setText("");
 			txt_net.setText("");
 			txt_tolerance.setText("");
 			cellTable.setVisible(true);
@@ -163,7 +161,7 @@ public class CreateRecipeCompView extends AbstractView {
 		else{
 			//if errors, button for add new comp reappears 
 			btn_add.setVisible(true);
-			txt_ID.setText("");
+			txt_Id.setText("");
 			txt_net.setText("");
 			txt_tolerance.setText("");
 			cellTable.setVisible(true);
@@ -176,22 +174,22 @@ public class CreateRecipeCompView extends AbstractView {
 		serviceIngredientImpl.getIngredient(ID, new DTOCallBack());
 	}
 	
+	
 	private void whenSaveComponentIsClicked(){
 		//set visibility on textboxes
-		txt_ID.setVisible(false);
+		txt_Id.setVisible(false);
 		txt_net.setVisible(false);
 		txt_tolerance.setVisible(false);
 		btn_save_comp.setVisible(false);
-		ID.setVisible(false);
-		Nom_net.setVisible(false);
-		Tolerance.setVisible(false);
+		head_Id.setVisible(false);
+		head_Nom_Net.setVisible(false);
+		head_Tolerance.setVisible(false);
 		//check the ingredient
-		ingredientCheck(Integer.parseInt(txt_ID.getText()));
+		ingredientCheck(Integer.parseInt(txt_Id.getText()));
 	}
 
 	//when ok is clicked on popup
 	private class OkClickHandler implements ClickHandler{
-
 		@Override
 		public void onClick(ClickEvent event) {
 			popup.toggle();
@@ -202,7 +200,6 @@ public class CreateRecipeCompView extends AbstractView {
 
 	//Save component is clicked or enter is pressed
 	private class SaveClickHandler implements ClickHandler{
-
 		@Override
 		public void onClick(ClickEvent event) {
 			whenSaveComponentIsClicked();
@@ -210,7 +207,6 @@ public class CreateRecipeCompView extends AbstractView {
 	}
 	
 	private class EnterHandler implements KeyDownHandler {
-
 		@Override
 		public void onKeyDown(KeyDownEvent event) {
 			if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER){
@@ -222,7 +218,6 @@ public class CreateRecipeCompView extends AbstractView {
 	
 	//saves the recipe when all components is finished
 	private class SaveRecipeClickHandler implements ClickHandler{
-
 		@Override
 		public void onClick(ClickEvent event) {
 			serviceImpl.createRecipe(recipe, recipe.getComponents(), new MyCallback());
@@ -233,13 +228,13 @@ public class CreateRecipeCompView extends AbstractView {
 	private class AddClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
-			txt_ID.setVisible(true);
+			txt_Id.setVisible(true);
 			txt_net.setVisible(true);
 			txt_tolerance.setVisible(true);
 			btn_save_comp.setVisible(true);
-			ID.setVisible(true);
-			Nom_net.setVisible(true);
-			Tolerance.setVisible(true);
+			head_Id.setVisible(true);
+			head_Nom_Net.setVisible(true);
+			head_Tolerance.setVisible(true);
 			btn_add.setVisible(false);
 		}
 	}
@@ -250,7 +245,7 @@ public class CreateRecipeCompView extends AbstractView {
 		@Override
 		public void onFailure(Throwable caught) {
 			popup.setTitle("Error");
-			ok.setText("No connection to server");
+			head_ok.setText("No connection to server");
 			popup.toggle();
 		}
 
@@ -268,18 +263,18 @@ public class CreateRecipeCompView extends AbstractView {
 		@Override
 		public void onFailure(Throwable caught) {
 			popup.setTitle("Error");
-			ok.setText("No connection to server");
+			head_ok.setText("No connection to server");
 			popup.toggle();
 		}
 		@Override
 		public void onSuccess(Boolean result) {
 			if(result){
 				popup.toggle();
-				txt_ID.setText("");
+				txt_Id.setText("");
 			}
 			else{
 				popup.setTitle("Error");
-				ok.setText("An error has occurred, and your information has not been saved.");
+				head_ok.setText("An error has occurred, and your information has not been saved.");
 				popup.toggle();
 			}
 		}		
@@ -288,8 +283,5 @@ public class CreateRecipeCompView extends AbstractView {
 
 	@Override
 	public void Update() {
-		// TODO Auto-generated method stub
-
 	}
-
 }

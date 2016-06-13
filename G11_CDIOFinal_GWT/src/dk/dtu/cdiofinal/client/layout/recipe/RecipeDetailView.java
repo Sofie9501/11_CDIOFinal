@@ -38,47 +38,32 @@ import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 public class RecipeDetailView extends AbstractView{
-
+	final ProdView prod;
 	private static RecipeDetailUiBinder uiBinder = GWT.create(RecipeDetailUiBinder.class);
 	private ListDataProvider<RecipeComponentDTO> dataProvider;
-	final ProdView prod;
-
-
-	@UiTemplate("recipeDetail.ui.xml")
-	interface RecipeDetailUiBinder extends UiBinder<Widget, RecipeDetailView>{
-
-	}
 	private RecipeDTO rec;
 	private ClientRecipeImpl serviceImpl;
 	private int oldID;
 	private List<RecipeComponentDTO> componentList = new ArrayList<>();
 
+
+	@UiTemplate("recipeDetail.ui.xml")
+	interface RecipeDetailUiBinder extends UiBinder<Widget, RecipeDetailView>{
+	}
+	
 	//Adds the main page texts
-	@UiField
-	Heading txt_ID; 
-	@UiField
-	Heading txt_name;
-	@UiField
-	Heading txt_active;
-
+	@UiField Heading txt_Id; 
+	@UiField Heading txt_name;
+	@UiField Heading txt_active;
 	// Adds the edit buttons
-	@UiField
-	Button btn_ID;
-	@UiField
-	Button btn_active;
-	@UiField
-	Button btn_name;
-	@UiField
-	CellTable<RecipeComponentDTO> cellTable;
-	@UiField
-	Button add_component;
-
-	@UiField
-	Modal popup;
-	@UiField
-	TextBox txt_edited;
-	@UiField
-	Button btn_save;
+	@UiField Button btn_Id;
+	@UiField Button btn_active;
+	@UiField Button btn_name;
+	@UiField CellTable<RecipeComponentDTO> cellTable;
+	@UiField Button add_component;
+	@UiField Modal popup;
+	@UiField TextBox txt_edited;
+	@UiField Button btn_save;
 
 
 
@@ -90,12 +75,12 @@ public class RecipeDetailView extends AbstractView{
 		oldID = rec.getID();
 		this.serviceImpl = new ClientRecipeImpl();
 		//Adds all the information on the batch
-		txt_ID.setText(String.valueOf(rec.getID()));
+		txt_Id.setText(String.valueOf(rec.getID()));
 		txt_name.setText(rec.getName());
 		txt_active.setText(String.valueOf(rec.isActive()));
 
 		//Clickhandlers for all the buttons
-		btn_ID.addClickHandler((ClickHandler)new Edit_IDClickHandler());
+		btn_Id.addClickHandler((ClickHandler)new Edit_IDClickHandler());
 		btn_name.addClickHandler((ClickHandler)new EditNameClickHandler());
 		btn_active.addClickHandler((ClickHandler) new EditActiveClickHandler());
 		btn_save.addClickHandler((ClickHandler) new SaveClickHandler());
@@ -158,7 +143,7 @@ public class RecipeDetailView extends AbstractView{
 			}
 
 		});
-
+		//show information in the table
 		dataProvider.setList(componentList); 
 		dataProvider.addDataDisplay(cellTable);
 		cellTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
@@ -184,7 +169,7 @@ public class RecipeDetailView extends AbstractView{
 			}
 			else{
 				rec.setID(Integer.parseInt(txt_edited.getText()));
-				txt_ID.setText(String.valueOf(rec.getID()));
+				txt_Id.setText(String.valueOf(rec.getID()));
 			}
 			break;
 		case "Active":
@@ -199,14 +184,13 @@ public class RecipeDetailView extends AbstractView{
 		}
 
 		//update the recipe in DB
-		serviceImpl.updateRecipe(rec, oldID, new MyCallback());
+		serviceImpl.updateRecipe(rec, oldID, new UpdateRecipeCallback());
 	}
-	private class MyCallback implements AsyncCallback<Boolean>{
+	private class UpdateRecipeCallback implements AsyncCallback<Boolean>{
 
 		@Override
 		public void onFailure(Throwable caught) {
 			popup.setTitle("Fejl");
-
 		}
 		@Override
 		public void onSuccess(Boolean result) {
@@ -251,7 +235,7 @@ public class RecipeDetailView extends AbstractView{
 		}	
 	}
 
-
+	//click and enter handlers
 	private class EditActiveClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
@@ -291,18 +275,14 @@ public class RecipeDetailView extends AbstractView{
 				}
 				dataProvider.refresh();
 			}
-
 		}
 	}
 
-
-
-
+	//updates the table
 	@Override
 	public void Update() {
 		componentList.clear();
 		dataProvider.setList(componentList);
 		this.serviceImpl.getRecipeComponentList(oldID, new ListCallback());
 	}
-
 }

@@ -16,11 +16,14 @@ import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
+
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.productbatch.ClientProductBatchImpl;
+import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.ProductBatchDTO;
+import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 public class CreateProductBatchView extends AbstractView {
 	
@@ -28,6 +31,7 @@ public class CreateProductBatchView extends AbstractView {
 	private ClientProductBatchImpl serviceImpl;
 	private static CreateProductBatchViewUiBinder uiBinder = GWT.create(CreateProductBatchViewUiBinder.class);
 	private ProductBatchDTO batch;
+	private RecipeDTO recipe;
 	
 	@UiTemplate("createProductBatchView.ui.xml")
 	interface CreateProductBatchViewUiBinder extends UiBinder<Widget, CreateProductBatchView> {
@@ -67,6 +71,10 @@ public class CreateProductBatchView extends AbstractView {
 			alert+="Error - You need to write a valid batch ID \n";
 			succes = false;
 		}
+		if(!recipe.isActive()){
+			alert+="Error - The recipe is not active \n";
+			succes = false;
+		}
 		if(!FieldVerifier.numberValid(Integer.parseInt(txt_ReceptID.getText()))){
 			alert += "Error - ID for Recept is not valid \n";
 			succes = false;
@@ -89,11 +97,35 @@ public class CreateProductBatchView extends AbstractView {
 		}	
 
 	}
+	
+	private void checkRecipeStatus(int Id){
+		ClientRecipeImpl serviceRecipeImpl = new ClientRecipeImpl();
+		serviceRecipeImpl.getRecipe(Id, new DTOCallBack());
+	}
+	
+	//Gets the ingredient with the written ID
+		private class DTOCallBack implements AsyncCallback<RecipeDTO>{
+
+			@Override
+			public void onFailure(Throwable caught) {
+				popup.setTitle("Error");
+				ok.setText("No connection to server");
+				popup.toggle();
+			}
+
+			@Override
+			public void onSuccess(RecipeDTO result) {
+				recipe = result;
+				//call saveChanges when DTO has been returned
+				saveChanges();
+			}
+		}
+	
 	private class SaveClickHandler implements ClickHandler{
 
 		@Override
 		public void onClick(ClickEvent event) {
-			saveChanges();
+			checkRecipeStatus(Integer.parseInt(txt_ReceptID.getText()));
 			prod.PreviousView();
 		}	
 	}	
@@ -111,7 +143,7 @@ public class CreateProductBatchView extends AbstractView {
 		@Override
 		public void onKeyDown(KeyDownEvent event) {
 			if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER){
-				saveChanges();
+				checkRecipeStatus(Integer.parseInt(txt_ReceptID.getText()));
 			}		
 		}	
 	}

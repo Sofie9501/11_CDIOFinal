@@ -10,6 +10,7 @@ import dk.dtu.cdiofinal.client.serverconnection.ingredient.IngredientService;
 import dk.dtu.cdiofinal.server.DAL.DALException;
 import dk.dtu.cdiofinal.server.DAL.MySQL.IngredientsDAOMySQL;
 import dk.dtu.cdiofinal.shared.DTOVerifier;
+import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
 
 @SuppressWarnings("serial")
@@ -58,6 +59,20 @@ public class ServerIngredientImpl extends RemoteServiceServlet implements Ingred
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public IngredientDTO getIngredient(int ID) {
+		IngredientDTO dto = null;
+		if (FieldVerifier.numberValid(ID)){
+			try {
+				dto = dao.getIngredient(ID);
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return dto;
 	}
 
 }

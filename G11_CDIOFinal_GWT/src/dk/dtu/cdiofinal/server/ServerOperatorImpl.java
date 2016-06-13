@@ -18,6 +18,7 @@ import dk.dtu.cdiofinal.shared.OperatorDTO;
 public class ServerOperatorImpl extends RemoteServiceServlet implements OperatorService {
 	private OperatorDAO dao = new OperatorDAOMySql();
 
+	//used to get list of all operators
 	@Override
 	public List<OperatorDTO> getOperators() {
 		List<OperatorDTO> list = new ArrayList<OperatorDTO>();
@@ -27,10 +28,10 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
-
 		return list;
 	}
 
+	//used to update opr
 	@Override
 	public boolean updateOperator(OperatorDTO opr, int oldID) {
 		if (DTOVerifier.VerifyOperatorDTO(opr)){
@@ -45,6 +46,7 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 		return false;
 	}
 
+	//used to create opr
 	@Override
 	public boolean createOperator(OperatorDTO opr) {
 		if (DTOVerifier.VerifyOperatorDTO(opr)){
@@ -59,6 +61,7 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 		return false;
 	}
 
+	//get logged in opr
 	@Override
 	public OperatorDTO getOperator() {
 		OperatorDTO opr = null;
@@ -73,7 +76,5 @@ public class ServerOperatorImpl extends RemoteServiceServlet implements Operator
 		}
 		return opr;
 	}
-
-
 }
 

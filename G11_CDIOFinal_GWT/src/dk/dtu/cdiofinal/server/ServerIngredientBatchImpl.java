@@ -1,4 +1,4 @@
-package dk.dtu.cdiofinal.server;
+     package dk.dtu.cdiofinal.server;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,7 @@ import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 public class ServerIngredientBatchImpl extends RemoteServiceServlet implements IngredientBatchService {
 	private IngredientBatchDAO dao = new IngredientBatchDAOMySQL();
 
+	//get list of ingredientbatches
 	@Override
 	public List<IngredientBatchDTO> getIngredientBatches() {
 		List<IngredientBatchDTO> list = new ArrayList<IngredientBatchDTO>();
@@ -29,12 +30,13 @@ public class ServerIngredientBatchImpl extends RemoteServiceServlet implements I
 		return list;
 	}
 
+	//get ingredient batch??
 	@Override
 	public IngredientBatchDTO getIngredientBatch() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
+	//update ingredientbatch
 	@Override
 	public boolean updateIngredientBatch(IngredientBatchDTO inba, int oldID) {
 		if (DTOVerifier.VerifyIngredientBatchDTO(inba)){
@@ -49,6 +51,7 @@ public class ServerIngredientBatchImpl extends RemoteServiceServlet implements I
 		return false;
 	}
 
+	//used to create ingredientbatch
 	@Override
 	public boolean createIngredientBatch(IngredientBatchDTO inba) {
 		if (DTOVerifier.VerifyIngredientBatchDTO(inba)){
@@ -61,7 +64,6 @@ public class ServerIngredientBatchImpl extends RemoteServiceServlet implements I
 			}
 		}
 		return false;
-
 	}
 
 	@Override
@@ -73,8 +75,6 @@ public class ServerIngredientBatchImpl extends RemoteServiceServlet implements I
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
-
 		return list;
 	}
-
 }

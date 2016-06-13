@@ -17,6 +17,7 @@ import dk.dtu.cdiofinal.shared.RecipeDTO;
 public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeService {
 	RecipeDAO dao = new RecipeDAOMySQL();
 
+	//get list of all recipes
 	@Override
 	public List<RecipeDTO> getRecipies() {
 		List<RecipeDTO> list = new ArrayList<RecipeDTO>();
@@ -26,11 +27,10 @@ public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeServ
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
-
 		return list;
 	}
 
-
+	//get certain recipe
 	@Override
 	public RecipeDTO getRecipe(int ID) {
 		RecipeDTO dto = null;
@@ -43,6 +43,7 @@ public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeServ
 		return dto;
 	}
 
+	//used to update recipe
 	@Override
 	public boolean updateRecipe(RecipeDTO recipe, int oldID) {
 		if (DTOVerifier.VerifyRecipeDTO(recipe)){
@@ -57,6 +58,7 @@ public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeServ
 		return false;
 	}
 
+	//used to create recipe
 	@Override
 	public boolean createRecipe(RecipeDTO recipe, ArrayList<RecipeComponentDTO> list) {
 		if (DTOVerifier.VerifyRecipeDTO(recipe)){
@@ -71,6 +73,7 @@ public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeServ
 		return false;
 	}
 
+	//used to update recipecomponent
 	@Override
 	public boolean updateRecipeComponent(RecipeComponentDTO comp, int oldRecipeID, int oldIngredientID) {
 		if (DTOVerifier.VerifyRecipeComponentDTO(comp)){
@@ -86,6 +89,7 @@ public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeServ
 	}
 
 
+	//get list of recipecomponent with certain recipe id
 	@Override
 	public List<RecipeComponentDTO> getRecipeComponentList(int ID) {
 		List<RecipeComponentDTO> list = new ArrayList<RecipeComponentDTO>();
@@ -95,11 +99,10 @@ public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeServ
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
-
 		return list;
 	}
 
-
+	//used to create recipecomponent
 	@Override
 	public boolean createRecipeComponent(RecipeComponentDTO comp) {
 		if (DTOVerifier.VerifyRecipeComponentDTO(comp)){
@@ -113,5 +116,4 @@ public class ServerRecipeImpl extends RemoteServiceServlet implements RecipeServ
 		}
 		return false;
 	}
-
 }

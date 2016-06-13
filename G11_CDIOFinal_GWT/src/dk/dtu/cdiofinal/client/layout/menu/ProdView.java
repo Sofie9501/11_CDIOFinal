@@ -1,4 +1,4 @@
-package dk.dtu.cdiofinal.client.layout.Menu;
+package dk.dtu.cdiofinal.client.layout.menu;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.*;

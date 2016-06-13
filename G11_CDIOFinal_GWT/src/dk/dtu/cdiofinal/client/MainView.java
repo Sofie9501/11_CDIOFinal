@@ -3,8 +3,8 @@ package dk.dtu.cdiofinal.client;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import dk.dtu.cdiofinal.client.layout.Menu.LoginView;
-import dk.dtu.cdiofinal.client.layout.Menu.ProdView;
+import dk.dtu.cdiofinal.client.layout.menu.LoginView;
+import dk.dtu.cdiofinal.client.layout.menu.ProdView;
 
 public class MainView extends Composite {
 

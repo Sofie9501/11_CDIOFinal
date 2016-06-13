@@ -23,7 +23,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import dk.dtu.cdiofinal.client.AbstractView;
-import dk.dtu.cdiofinal.client.layout.Menu.ProdView;
+import dk.dtu.cdiofinal.client.layout.menu.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.productbatch.ClientProductBatchImpl;
 import dk.dtu.cdiofinal.shared.ProductBatchDTO;
 

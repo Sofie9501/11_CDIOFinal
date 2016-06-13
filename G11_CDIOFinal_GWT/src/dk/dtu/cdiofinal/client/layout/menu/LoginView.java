@@ -1,4 +1,4 @@
-package dk.dtu.cdiofinal.client.layout.Menu;
+package dk.dtu.cdiofinal.client.layout.menu;
 
 import com.github.gwtbootstrap.client.ui.*;
 import com.github.gwtbootstrap.client.ui.Button;

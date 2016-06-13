@@ -43,7 +43,7 @@ public class ServerMenuImpl extends RemoteServiceServlet implements MenuService{
 			return false; 
 		}
 		if(opr != null)
-			if(password.equals(opr.getPassword())){
+			if(password.equals(opr.getPassword()) && opr.isActive()){
 				HttpSession session = this.getThreadLocalRequest().getSession();
 				session.setAttribute("loggedIn", opr.getRole());
 				session.setAttribute("Name", opr.getName());

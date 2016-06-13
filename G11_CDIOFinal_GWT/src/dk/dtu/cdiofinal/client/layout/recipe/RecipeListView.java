@@ -26,6 +26,7 @@ import com.google.gwt.view.client.ListDataProvider;
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
+import dk.dtu.cdiofinal.shared.IngredientDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 public class RecipeListView extends AbstractView{
@@ -62,7 +63,7 @@ public class RecipeListView extends AbstractView{
 				return String.valueOf(object.getID());
 			}
 		};
-		cellTable.addColumn(IDColumn);
+		cellTable.addColumn(IDColumn, "Recipe ID");
 
 		//Column with name of the recipe
 		TextColumn<RecipeDTO> nameColumn = new TextColumn<RecipeDTO>(){
@@ -71,7 +72,15 @@ public class RecipeListView extends AbstractView{
 				return (object.getName());
 			}
 		};
-		cellTable.addColumn(nameColumn);
+		cellTable.addColumn(nameColumn, "Recipe name");
+		
+		TextColumn<RecipeDTO> activeColumn = new TextColumn<RecipeDTO>(){
+			@Override
+			public String getValue(RecipeDTO object) {
+				return String.valueOf(object.isActive());
+			}
+		};
+		cellTable.addColumn(activeColumn, "Active");
 
 		//Column with edit buttons
 		Column<RecipeDTO, String> editColumn = new Column<RecipeDTO, String>(new ButtonCell(IconType.WRENCH,ButtonType.LINK, ButtonSize.SMALL)){

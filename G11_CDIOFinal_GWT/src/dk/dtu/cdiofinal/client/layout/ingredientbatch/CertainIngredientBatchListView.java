@@ -26,6 +26,7 @@ import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.ingredientbatch.ClientIngredientBatchImpl;
 import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
+import dk.dtu.cdiofinal.shared.IngredientDTO;
 
 public class CertainIngredientBatchListView extends AbstractView{
 	final ProdView prod;
@@ -100,6 +101,14 @@ public class CertainIngredientBatchListView extends AbstractView{
 			}
 		};
 		cellTable.addColumn(dateColumn, "Date");	
+		
+		TextColumn<IngredientBatchDTO> activeColumn = new TextColumn<IngredientBatchDTO>(){
+			@Override
+			public String getValue(IngredientBatchDTO object) {
+				return String.valueOf(object.isActive());
+			}
+		};
+		cellTable.addColumn(activeColumn, "Active");
 
 		//Column with edit buttons
 		Column<IngredientBatchDTO, String> editColumn = new Column<IngredientBatchDTO, String>(new ButtonCell(IconType.WRENCH,ButtonType.LINK, ButtonSize.SMALL)){

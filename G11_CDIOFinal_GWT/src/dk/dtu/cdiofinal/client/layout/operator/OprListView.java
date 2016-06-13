@@ -27,6 +27,7 @@ import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.operator.ClientOperatorImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
+import dk.dtu.cdiofinal.shared.IngredientDTO;
 import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 
@@ -81,7 +82,15 @@ public class OprListView extends AbstractView {
 				return FieldVerifier.cprFormat(object.getCpr());
 			}
 		};
-		cellTable.addColumn(CPRColumn, "CPR number");		
+		cellTable.addColumn(CPRColumn, "CPR number");	
+		
+		TextColumn<OperatorDTO> activeColumn = new TextColumn<OperatorDTO>(){
+			@Override
+			public String getValue(OperatorDTO object) {
+				return String.valueOf(object.isActive());
+			}
+		};
+		cellTable.addColumn(activeColumn, "Active");
 
 		Column<OperatorDTO, String> editColumn = new Column<OperatorDTO, String>(new ButtonCell(IconType.WRENCH,ButtonType.LINK, ButtonSize.SMALL)){
 			@Override

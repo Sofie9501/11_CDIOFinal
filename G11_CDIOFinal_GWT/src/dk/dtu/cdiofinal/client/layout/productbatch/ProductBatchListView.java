@@ -25,6 +25,7 @@ import com.google.gwt.view.client.ListDataProvider;
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
 import dk.dtu.cdiofinal.client.serverconnection.productbatch.ClientProductBatchImpl;
+import dk.dtu.cdiofinal.shared.IngredientDTO;
 import dk.dtu.cdiofinal.shared.ProductBatchDTO;
 
 
@@ -140,7 +141,14 @@ public class ProductBatchListView extends AbstractView {
 		};
 
 		cellTable.addColumn(endDate, "End date");
-
+		
+		TextColumn<ProductBatchDTO> activeColumn = new TextColumn<ProductBatchDTO>(){
+			@Override
+			public String getValue(ProductBatchDTO object) {
+				return String.valueOf(object.isActive());
+			}
+		};
+		cellTable.addColumn(activeColumn, "Active");
 
 
 

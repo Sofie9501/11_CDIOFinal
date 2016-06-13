@@ -42,8 +42,6 @@ public class ClientIngredientImpl implements IngredientServiceAsync {
 		this.service.getIngredient(ID, callback);
 		
 	}
-	
-	
 
 
 

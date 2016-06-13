@@ -16,7 +16,8 @@ import dk.dtu.cdiofinal.shared.IngredientDTO;
 @SuppressWarnings("serial")
 public class ServerIngredientImpl extends RemoteServiceServlet implements IngredientService{
 	IngredientDAO dao = new IngredientsDAOMySQL();
-
+	
+	// Gets a list of all ingredients in the database
 	@Override
 	public List<IngredientDTO> getIngredients() {
 		List<IngredientDTO> list = new ArrayList<IngredientDTO>();
@@ -29,7 +30,8 @@ public class ServerIngredientImpl extends RemoteServiceServlet implements Ingred
 
 		return list;
 	}
-
+	
+	// Used to update an Ingredient DTO
 	@Override
 	public boolean updateIngredient(IngredientDTO ingredient, int oldID) {
 		if (DTOVerifier.VerifyIngredientDTO(ingredient)){
@@ -38,7 +40,6 @@ public class ServerIngredientImpl extends RemoteServiceServlet implements Ingred
 				return true;
 			} catch (DALException e) {
 				e.printStackTrace();
-				return false;
 			}
 		}
 		return false;
@@ -47,6 +48,7 @@ public class ServerIngredientImpl extends RemoteServiceServlet implements Ingred
 
 	}
 
+	// Used when creating a DTO
 	@Override
 	public boolean createIngredient(IngredientDTO ingredient) {
 		if (DTOVerifier.VerifyIngredientDTO(ingredient)){
@@ -55,12 +57,12 @@ public class ServerIngredientImpl extends RemoteServiceServlet implements Ingred
 				return true;
 			} catch (DALException e) {
 				e.printStackTrace();
-				return false;
 			}
 		}
 		return false;
 	}
-
+	
+	// Used to get at DTO with specific ID
 	@Override
 	public IngredientDTO getIngredient(int ID) {
 		IngredientDTO dto = null;
@@ -68,7 +70,6 @@ public class ServerIngredientImpl extends RemoteServiceServlet implements Ingred
 			try {
 				dto = dao.getIngredient(ID);
 			} catch (DALException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

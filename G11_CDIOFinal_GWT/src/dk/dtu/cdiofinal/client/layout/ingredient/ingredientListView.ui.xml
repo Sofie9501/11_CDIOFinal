@@ -10,7 +10,7 @@
 	</ui:style>
 	<g:HTMLPanel>
 		 <table cellspacing='0' cellpadding='0' style='width:100%;'>
-		     <tr><td><h4>Ingredient list</h4></td></tr>
+		     <tr><td><center><h4>Ingredient list</h4></center></td></tr>
       <tr>
         <td
           valign='top'>

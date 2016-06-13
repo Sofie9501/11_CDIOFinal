@@ -22,6 +22,6 @@
         </td>
       </tr>
     </table>
-    <b:Button type="LINK" ui:field="btn_create">Opret ny operatør </b:Button>
+    <b:Button type="LINK" ui:field="btn_create">Create new operator</b:Button>
 	</g:HTMLPanel>
 </ui:UiBinder> 

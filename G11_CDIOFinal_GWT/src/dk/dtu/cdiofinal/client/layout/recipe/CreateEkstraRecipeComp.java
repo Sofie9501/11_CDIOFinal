@@ -24,8 +24,10 @@ import com.google.gwt.view.client.ListDataProvider;
 
 import dk.dtu.cdiofinal.client.AbstractView;
 import dk.dtu.cdiofinal.client.layout.ProdView;
+import dk.dtu.cdiofinal.client.serverconnection.ingredient.ClientIngredientImpl;
 import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
+import dk.dtu.cdiofinal.shared.IngredientDTO;
 import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
@@ -37,6 +39,7 @@ public class CreateEkstraRecipeComp extends AbstractView {
 
 	private static CreateEkstraRecipeCompUiBinder uiBinder = GWT.create(CreateEkstraRecipeCompUiBinder.class);
 	private RecipeDTO recipe;
+	private IngredientDTO ingredient = null;
 	
 
 	@UiTemplate("createEkstraRecipeComp.ui.xml")
@@ -113,6 +116,14 @@ public class CreateEkstraRecipeComp extends AbstractView {
 			alert+="Error - You need to write a valid batch ID \n";
 			succes = false;
 		}
+		if(ingredient == null){
+			alert+="Error - The ingredient does not exist \n";
+			succes = false;
+		}
+		else if(!ingredient.isActive()){
+			alert+="Error - The ingredient is not active \n";
+			succes = false;
+		}
 		if(!FieldVerifier.amountValid(Double.parseDouble(txt_net.getText()))){
 			alert += "Error - net is not okay \n";
 			succes = false;
@@ -140,7 +151,19 @@ public class CreateEkstraRecipeComp extends AbstractView {
 			txt_net.setText("");
 			txt_tolerance.setText("");
 			serviceImpl.createRecipeComponent(comp, new MyCallback());
-		}	
+		}
+		else{
+			txt_ID.setText("");
+			txt_net.setText("");
+			txt_tolerance.setText("");
+			txt_ID.setVisible(true);
+			txt_net.setVisible(true);
+			txt_tolerance.setVisible(true);
+			btn_save_comp.setVisible(true);
+			ID.setVisible(true);
+			Nom_net.setVisible(true);
+			Tolerance.setVisible(true);
+		}
 	}
 	
 	private class OkClickHandler implements ClickHandler{
@@ -152,38 +175,57 @@ public class CreateEkstraRecipeComp extends AbstractView {
 		}
 	}
 	
+	//
+	private void whenSaveComponentIsClicked(){
+		//set visibility on textboxes
+		txt_ID.setVisible(false);
+		txt_net.setVisible(false);
+		txt_tolerance.setVisible(false);
+		btn_save_comp.setVisible(false);
+		ID.setVisible(false);
+		Nom_net.setVisible(false);
+		Tolerance.setVisible(false);
+		ingredientCheck(Integer.parseInt(txt_ID.getText()));
+	}
+	
+	//find the ingredient with written ID
+		private void ingredientCheck(int ID){
+			ClientIngredientImpl serviceIngredientImpl = new ClientIngredientImpl();
+			serviceIngredientImpl.getIngredient(ID, new DTOCallBack());
+		}
+	
 	private class SaveClickHandler implements ClickHandler{
 
 		@Override
 		public void onClick(ClickEvent event) {
-			//set visibility on textboxes
-			txt_ID.setVisible(false);
-			txt_net.setVisible(false);
-			txt_tolerance.setVisible(false);
-			btn_save_comp.setVisible(false);
-			ID.setVisible(false);
-			Nom_net.setVisible(false);
-			Tolerance.setVisible(false);
-			saveChanges();
+			whenSaveComponentIsClicked();
 		}
 	}
 
+	//Gets the ingredient with the written ID
+		private class DTOCallBack implements AsyncCallback<IngredientDTO>{
 
+			@Override
+			public void onFailure(Throwable caught) {
+				popup.setTitle("Error");
+				ok.setText("No connection to server");
+				popup.toggle();
+			}
+
+			@Override
+			public void onSuccess(IngredientDTO result) {
+				ingredient = result;
+				//call saveChanges when DTO has been returned
+				saveChanges();
+			}
+		}
 
 	private class EnterHandler implements KeyDownHandler {
 
 		@Override
 		public void onKeyDown(KeyDownEvent event) {
 			if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER){
-				//set visibility of textboxes
-				txt_ID.setVisible(false);
-				txt_net.setVisible(false);
-				txt_tolerance.setVisible(false);
-				btn_save_comp.setVisible(false);
-				ID.setVisible(false);
-				Nom_net.setVisible(false);
-				Tolerance.setVisible(false);
-				saveChanges();
+				whenSaveComponentIsClicked();
 			}		
 		}	
 	}

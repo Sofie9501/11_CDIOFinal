@@ -115,6 +115,7 @@ public class CreateRecipeComp extends AbstractView {
 
 
 	}
+	//Checks if the information is all okay
 	private boolean changeSucces(){
 		String alert = "";
 		boolean succes = true;
@@ -160,6 +161,7 @@ public class CreateRecipeComp extends AbstractView {
 			cellTable.setVisible(true);
 		}	
 		else{
+			//if errors, button for add new comp reappears 
 			btn_add.setVisible(true);
 			txt_ID.setText("");
 			txt_net.setText("");
@@ -168,11 +170,26 @@ public class CreateRecipeComp extends AbstractView {
 		}
 	}
 
+	//find the ingredient with written ID
 	private void ingredientCheck(int ID){
 		ClientIngredientImpl serviceIngredientImpl = new ClientIngredientImpl();
 		serviceIngredientImpl.getIngredient(ID, new DTOCallBack());
 	}
+	
+	private void whenSaveComponentIsClicked(){
+		//set visibility on textboxes
+		txt_ID.setVisible(false);
+		txt_net.setVisible(false);
+		txt_tolerance.setVisible(false);
+		btn_save_comp.setVisible(false);
+		ID.setVisible(false);
+		Nom_net.setVisible(false);
+		Tolerance.setVisible(false);
+		//check the ingredient
+		ingredientCheck(Integer.parseInt(txt_ID.getText()));
+	}
 
+	//when ok is clicked on popup
 	private class OkClickHandler implements ClickHandler{
 
 		@Override
@@ -183,22 +200,27 @@ public class CreateRecipeComp extends AbstractView {
 		}
 	}
 
+	//Save component is clicked or enter is pressed
 	private class SaveClickHandler implements ClickHandler{
 
 		@Override
 		public void onClick(ClickEvent event) {
-			//set visibility on textboxes
-			txt_ID.setVisible(false);
-			txt_net.setVisible(false);
-			txt_tolerance.setVisible(false);
-			btn_save_comp.setVisible(false);
-			ID.setVisible(false);
-			Nom_net.setVisible(false);
-			Tolerance.setVisible(false);
-			ingredientCheck(Integer.parseInt(txt_ID.getText()));
+			whenSaveComponentIsClicked();
 		}
 	}
+	
+	private class EnterHandler implements KeyDownHandler {
 
+		@Override
+		public void onKeyDown(KeyDownEvent event) {
+			if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER){
+				whenSaveComponentIsClicked();
+			}		
+		}	
+	}
+
+	
+	//saves the recipe when all components is finished
 	private class SaveRecipeClickHandler implements ClickHandler{
 
 		@Override
@@ -207,7 +229,7 @@ public class CreateRecipeComp extends AbstractView {
 		}
 	}
 
-
+	//Set textboxes visibility to true when add component is clicked 
 	private class AddClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
@@ -222,42 +244,25 @@ public class CreateRecipeComp extends AbstractView {
 		}
 	}
 
-
-	private class EnterHandler implements KeyDownHandler {
-
-		@Override
-		public void onKeyDown(KeyDownEvent event) {
-			if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER){
-				//set visibility of textboxes
-				txt_ID.setVisible(false);
-				txt_net.setVisible(false);
-				txt_tolerance.setVisible(false);
-				btn_save_comp.setVisible(false);
-				ID.setVisible(false);
-				Nom_net.setVisible(false);
-				Tolerance.setVisible(false);
-				ingredientCheck(Integer.parseInt(txt_ID.getText()));
-			}		
-		}	
-	}
-
+	//Gets the ingredient with the written ID
 	private class DTOCallBack implements AsyncCallback<IngredientDTO>{
 
 		@Override
 		public void onFailure(Throwable caught) {
-			ingredient = null;
-			saveChanges();
+			popup.setTitle("Error");
+			ok.setText("No connection to server");
+			popup.toggle();
 		}
 
 		@Override
 		public void onSuccess(IngredientDTO result) {
 			ingredient = result;
+			//call saveChanges when DTO has been returned
 			saveChanges();
-
 		}
-
 	}
 
+	//When recipe is saved callback is used
 	private class MyCallback implements AsyncCallback<Boolean>{
 
 		@Override

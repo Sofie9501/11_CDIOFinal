@@ -134,7 +134,7 @@ public class TerminalController extends Thread{
 		String reply = null;
 		long time = System.currentTimeMillis();
 
-		String sData = "RM20 8 \"" + message + "\" \"\" \"&3\"";
+		String sData = "RM20 8 \"" + message + "\" \"\" \"&3\"\n";
 		sendData(sData);
 
 		while(System.currentTimeMillis() - time < 5000){

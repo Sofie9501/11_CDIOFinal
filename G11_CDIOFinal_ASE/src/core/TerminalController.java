@@ -197,7 +197,7 @@ public class TerminalController extends Thread{
 			try{
 				oprID = Integer.parseInt(msgReceived);
 				String oprName =db.getOperator(Integer.parseInt(msgReceived));
-				if((waitForReply("opr name: " + oprName + ", press enter")).equals(EXIT_CHAR))
+				if((waitForReply(oprName)).equals(EXIT_CHAR))
 					return;
 				else{
 					state = State.PRODUCTBATCH_SELECTION;
@@ -205,7 +205,7 @@ public class TerminalController extends Thread{
 				}
 
 			}catch(Exception e){
-				waitForReply("WRONG INPUT, " + e.getMessage() +", PRESS ENTER" );
+				waitForReply("WRONG INPUT, PRESS ENTER" );
 				return;
 			}
 
@@ -223,21 +223,21 @@ public class TerminalController extends Thread{
 				}
 				pbID = Integer.parseInt(recieve);
 
-				String dbReplay = "Recipe: " + db.getProductRecipeName(pbID) + ", press enter";
+				String dbReplay = db.getProductRecipeName(pbID);
 
 				waitForReply(dbReplay);
 				state = State.PREPARE_WEIGHT;
 				return;
 			}  catch (DALException e){
-				waitForReply(e.getMessage() + ", press enter");
+				waitForReply("An error occured");
 			} catch (NumberFormatException e){
-				waitForReply("No letters, press enter");
+				waitForReply("WRONG INPUT, PRESS ENTER");
 			}
 		}
 	}
 
 	private void prepareWeight(){
-		String recieve = waitForReply("Press enter when the weight is empty.");
+		String recieve = waitForReply("empty scale");
 
 		if(recieve.equalsIgnoreCase(EXIT_CHAR)){
 			state = State.OPERATOR_LOGIN;
@@ -248,9 +248,9 @@ public class TerminalController extends Thread{
 			db.setPbStatus(pbID);
 		} catch (DALException e) {
 
-			waitForReply("Error setting production status, press any key");
+			waitForReply("An error occured");
 			System.out.println(e.getMessage());
-			waitForReply("contact supervisor, press any key");
+			waitForReply("contact supervisor");
 			state = State.OPERATOR_LOGIN;
 		}
 		sendTare();
@@ -260,9 +260,9 @@ public class TerminalController extends Thread{
 	// The operator is asked to place the first container so the weight can tare
 	private void addContainer(){
 		try {
-			sendB("2.0");
+			//sendB("2.0");
 			// The reply means the operator giving consent
-			waitForReply("Press enter when the container is placed");
+			waitForReply("place container");
 
 			// The tare is saved
 			tare = Float.parseFloat(sendS());
@@ -282,25 +282,25 @@ public class TerminalController extends Thread{
 		// The ID is checked that it exists
 		try {
 			// The operator is asked to enter an ID for the ingredient batch (raavarebatch)
-			String reply =waitForReply("Enter ingredient batch ID");
+			String reply =waitForReply("Enter ingredientbatch");
 			ibID = Integer.parseInt(reply);
 			db.checkIbId(ibID, pbID); // Kan lave til en void ? den caster bare fejl ud i stedet.
 			db.setPbStatus(pbID);
 			recipeComp = db.checkWeight(pbID, ibID);
 
 			// The ID is accepted and we move onto "Register Weight"
-			waitForReply("ID accepted, press enter");
+			waitForReply("Id accepted");
 			state = State.REGISTER_WEIGHT;
 		} catch (DALException e) {
-			waitForReply(e.getMessage() + ", Press enter");
+			waitForReply("An error occurred ");
 		} catch (NumberFormatException e){
-			waitForReply("No letters, press enter");
+			waitForReply("WRONG INPUT");
 		}
 	}
 
 	private void registerWeight(){
-		sendB("2.5");
-		waitForReply("Weigh amount, press enter");
+		//sendB("2.5");
+		waitForReply("Weigh amount");
 
 		// Gets the net weight
 		net = Float.parseFloat(sendS());
@@ -315,7 +315,7 @@ public class TerminalController extends Thread{
 				db.createProductBatchComp(pbID, ibID, tare, net, oprID);
 
 				// The product batch have been made and the state returns to "Prepare weight"
-				waitForReply("Productbatch component was successfully made, press enter");
+				waitForReply("Componenet created");
 				state = State.PREPARE_WEIGHT;
 			} catch (DALException e) {
 				e.printStackTrace();
@@ -323,7 +323,7 @@ public class TerminalController extends Thread{
 
 		}
 		else
-			waitForReply("Incorrect amount. Re-weigh ingredient, press enter");
+			waitForReply("Error, Re-weigh amount");
 	}
 }
 

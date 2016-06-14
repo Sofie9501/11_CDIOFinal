@@ -28,7 +28,7 @@ import dk.dtu.cdiofinal.client.serverconnection.ingredientbatch.ClientIngredient
 import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 
 public class CertainIngredientBatchListView extends AbstractView{
-	final ProdView prod;
+	private ProdView prod;
 	private ClientIngredientBatchImpl serviceImpl;
 	private int ingredientId;
 	private List<IngredientBatchDTO> ingredientBatchList = new ArrayList<>();

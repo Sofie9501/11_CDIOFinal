@@ -25,8 +25,8 @@ import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 public class CreateRecipeView extends AbstractView {
 
-	final ProdView prod;
-	protected ClientRecipeImpl serviceImpl;
+	private ProdView prod;
+	private ClientRecipeImpl serviceImpl;
 	private static createRecipeUiBinder uiBinder = GWT.create(createRecipeUiBinder.class);
 	private RecipeDTO recipe;
 

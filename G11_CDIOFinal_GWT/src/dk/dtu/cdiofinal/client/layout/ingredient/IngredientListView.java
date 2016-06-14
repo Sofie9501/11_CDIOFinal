@@ -33,7 +33,7 @@ import dk.dtu.cdiofinal.shared.IngredientDTO;
 
 public class IngredientListView extends AbstractView {
 	
-	private final ProdView PROD;
+	private ProdView prod;
 	private ClientIngredientImpl serviceImpl;
 	private List<IngredientDTO> ingredientList = new ArrayList<>();
 	private ListDataProvider<IngredientDTO> dataProvider;
@@ -50,7 +50,7 @@ public class IngredientListView extends AbstractView {
 	public IngredientListView(ProdView prod){
 		initWidget(uiBinder.createAndBindUi(this));
 		this.dataProvider = new ListDataProvider<IngredientDTO>();
-		this.PROD = prod;
+		this.prod = prod;
 		this.serviceImpl = new ClientIngredientImpl();
 
 		//Coumn with Id
@@ -97,7 +97,7 @@ public class IngredientListView extends AbstractView {
 			//chages view to certainIngrecientbatchListView
 			@Override
 			public void update(int index, IngredientDTO object, String value) {
-				(IngredientListView.this).PROD.setView(new CertainIngredientBatchListView((IngredientListView.this).PROD, object.getID()));
+				(IngredientListView.this).prod.setView(new CertainIngredientBatchListView((IngredientListView.this).prod, object.getID()));
 			}
 		});
 		//coumn with edit buttons
@@ -114,7 +114,7 @@ public class IngredientListView extends AbstractView {
 			//when edit is clicked view is changed to ingredientdetailview
 			@Override
 			public void update(int index, IngredientDTO object, String value) {
-				(IngredientListView.this).PROD.setView(new IngredientDetailView(object));
+				(IngredientListView.this).prod.setView(new IngredientDetailView(object));
 			}
 
 		});
@@ -130,7 +130,7 @@ public class IngredientListView extends AbstractView {
 	private class CreateClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
-			PROD.setView(new CreateIngredientView(PROD));
+			prod.setView(new CreateIngredientView(prod));
 		}
 	}
 

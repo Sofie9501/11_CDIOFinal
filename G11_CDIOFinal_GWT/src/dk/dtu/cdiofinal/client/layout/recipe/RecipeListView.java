@@ -30,7 +30,7 @@ import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 public class RecipeListView extends AbstractView{
 
-	final ProdView prod;
+	private ProdView prod;
 
 	private ClientRecipeImpl serviceImpl;
 	private List<RecipeDTO> recipeList = new ArrayList<>();

@@ -38,7 +38,7 @@ import dk.dtu.cdiofinal.shared.RecipeComponentDTO;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 public class RecipeDetailView extends AbstractView{
-	final ProdView prod;
+	private ProdView prod;
 	private static RecipeDetailUiBinder uiBinder = GWT.create(RecipeDetailUiBinder.class);
 	private ListDataProvider<RecipeComponentDTO> dataProvider;
 	private RecipeDTO rec;

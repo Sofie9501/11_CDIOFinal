@@ -28,8 +28,8 @@ import dk.dtu.cdiofinal.client.serverconnection.ingredientbatch.ClientIngredient
 import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 
 public class IngredientBatchListView extends AbstractView{
-	final ProdView prod;
-
+	
+	private ProdView prod;
 	private ClientIngredientBatchImpl serviceImpl;
 	private List<IngredientBatchDTO> inredientBatchList = new ArrayList<>();
 	private ListDataProvider<IngredientBatchDTO> dataProvider;

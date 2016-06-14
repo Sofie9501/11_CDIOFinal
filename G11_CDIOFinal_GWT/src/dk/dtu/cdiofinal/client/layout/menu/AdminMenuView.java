@@ -36,10 +36,7 @@ public class AdminMenuView extends AbstractView{
 	@UiField Button btn_ingredient;
 	@UiField Button btn_productbatch;
 	@UiField Button btn_ingredientbatch;
-	
-	
-	@UiField
-	Alert alert_opr;
+	@UiField Alert alert_opr;
 	
 	
 	public AdminMenuView(ProdView v) {
@@ -64,11 +61,10 @@ public class AdminMenuView extends AbstractView{
 		btn_ingredient.addClickHandler(new MenuClickHandler(new IngredientListView(prodView)));
 		btn_productbatch.addClickHandler(new MenuClickHandler(new ProductBatchListView(prodView)));
 		serviceImpl.isLoggedIn(new LoggedInCallback());
-				
 	}
 	
 	
-	
+	//opens the corresponding view to button
 	private class MenuClickHandler implements ClickHandler{
 		AbstractView view;
 		public MenuClickHandler(AbstractView view){
@@ -83,7 +79,6 @@ public class AdminMenuView extends AbstractView{
 
 	
 	private class LoggedInCallback implements AsyncCallback<Integer>{
-
 		@Override
 		public void onFailure(Throwable caught) {
 		}
@@ -93,8 +88,7 @@ public class AdminMenuView extends AbstractView{
 			if(result == 0){
 				prodView.logout();
 			}
-			
-			// No breaks. we want  
+			// No breaks. we want the users to see all thet are allowed to see 
 			switch(result){
 			case 4:
 				alert_opr.setVisible(true);
@@ -113,15 +107,10 @@ public class AdminMenuView extends AbstractView{
 				break;
 				default:
 			}
-			
-			
 		}
-		
 	}
 
 	@Override
 	public void Update() {
-		// TODO Auto-generated method stub
-		
 	}
 }

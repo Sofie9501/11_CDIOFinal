@@ -56,6 +56,7 @@ public class OperatorDAOMySql implements OperatorDAO {
 		return operatoers;
 	}
 	
+	//create opr in DB
 	@Override
 	public void createOperator(OperatorDTO opr) throws DALException {
 		String query = "call create_opr(" + opr.getOprID()+ ", " +opr.getRole() + ", '"+ opr.getName()+ "', '"+
@@ -63,11 +64,11 @@ public class OperatorDAOMySql implements OperatorDAO {
 		c.doQuery(query);
 	}
 
+	//update opr in DB
 	@Override
 	public void updateOperator(OperatorDTO opr, int oldID) throws DALException {
 		String query = "call update_opr(" + oldID + ", " + opr.getOprID() + ", " + opr.getRole() + ", '" + opr.getName() + "', '" +
 						opr.getCpr() + "', '" + opr.getPassword() + "', " + opr.isActive() + " );";
 		c.doQuery(query);
 	}
-	
 }

@@ -33,7 +33,7 @@ public class RecipeListView extends AbstractView{
 	final ProdView prod;
 
 	private ClientRecipeImpl serviceImpl;
-	private List<RecipeDTO> rec = new ArrayList<>();
+	private List<RecipeDTO> recipeList = new ArrayList<>();
 	private ListDataProvider<RecipeDTO> dataProvider;
 	private static RecipeListUiBinder uiBinder = GWT.create(RecipeListUiBinder.class);
 
@@ -41,13 +41,9 @@ public class RecipeListView extends AbstractView{
 	interface RecipeListUiBinder extends UiBinder<Widget, RecipeListView> {
 	}
 
-	//table
-	@UiField
-	CellTable<RecipeDTO> cellTable;
-
-	//to create a new recipe
-	@UiField
-	Button btn_create;
+	//table and button
+	@UiField CellTable<RecipeDTO> cellTable;
+	@UiField Button btn_create;
 
 	public RecipeListView(ProdView prod){
 		initWidget(uiBinder.createAndBindUi(this));
@@ -91,14 +87,15 @@ public class RecipeListView extends AbstractView{
 		cellTable.addColumn(editColumn);
 
 		editColumn.setFieldUpdater(new FieldUpdater<RecipeDTO, String>(){
-
+			//when edit is clicked view is set to recipedetailview
 			@Override
 			public void update(int index, RecipeDTO object, String value) {
 				(RecipeListView.this).prod.setView(new RecipeDetailView((RecipeListView.this).prod, object));
 			}
 
 		});
-		dataProvider.setList(rec); 
+		//show information in the table
+		dataProvider.setList(recipeList); 
 		dataProvider.addDataDisplay(cellTable);
 		cellTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 		btn_create.addClickHandler((ClickHandler)new CreateClickHandler());
@@ -115,28 +112,27 @@ public class RecipeListView extends AbstractView{
 	}
 
 	private class ListCallback implements AsyncCallback<List <RecipeDTO>>{
-
 		@Override
 		public void onFailure(Throwable caught) {
 		}
 
 		@Override
 		public void onSuccess(List<RecipeDTO> result) {
-			rec.clear();
+			recipeList.clear();
 			if(!result.isEmpty()){
 				for(RecipeDTO d: result){
-					rec.add(d);
+					recipeList.add(d);
 				}
 				dataProvider.refresh();
 			}
-
 		}
 	}
 
+	//updates the table
 	@Override
 	public void Update() {
-		rec.clear();
-		dataProvider.setList(rec);
+		recipeList.clear();
+		dataProvider.setList(recipeList);
 		this.serviceImpl.getRecipies(new ListCallback());
 	}
 

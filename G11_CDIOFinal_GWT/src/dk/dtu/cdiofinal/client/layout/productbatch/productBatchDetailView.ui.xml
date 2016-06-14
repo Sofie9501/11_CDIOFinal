@@ -10,13 +10,13 @@
 	    <div align="left" style="width:500px"> <table>
 	        <tr><td style="width:200%"><u><h4>Product Batch ID</h4></u></td></tr>
 	        <tr bgcolor="#f1f1f1">
-	            <td ><b:Heading size="5" ui:field="txt_prodBatchID"/></td>
-	            <td ><b:Button type="LINK" ui:field="btn_prodBatchID">Edit</b:Button></td>
+	            <td ><b:Heading size="5" ui:field="txt_prodBatchId"/></td>
+	            <td ><b:Button type="LINK" ui:field="btn_prodBatchId">Edit</b:Button></td>
 	        </tr>
 	        <tr><td><u><h4>Resipe ID</h4></u></td></tr>
 	        <tr bgcolor="#f1f1f1">
-	            <td ><b:Heading size="5" ui:field="txt_resipeID"/></td>
-	            <td ><b:Button type="LINK" ui:field="btn_resipeID">Edit</b:Button></td>
+	            <td ><b:Heading size="5" ui:field="txt_recipeId"/></td>
+	            <td ><b:Button type="LINK" ui:field="btn_recipeId">Edit</b:Button></td>
 	        </tr>
 	       
 	        <tr><td><u><h4>Active</h4></u></td></tr>

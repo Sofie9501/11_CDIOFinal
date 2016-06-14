@@ -19,7 +19,6 @@ public class ServerMenuImpl extends RemoteServiceServlet implements MenuService{
 	@Override
 	public int isLoggedIn() {
 		HttpSession session = this.getThreadLocalRequest().getSession();
-
 		// return 0 if not loggedIn
 		if(session.getAttribute("loggedIn") == null)
 			return 0;
@@ -59,7 +58,5 @@ public class ServerMenuImpl extends RemoteServiceServlet implements MenuService{
 		
 		session.setAttribute("loggedIn", 0);
 		return true;
-		
 	}
-
 }

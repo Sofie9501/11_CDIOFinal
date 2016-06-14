@@ -17,10 +17,10 @@ public class ServerProductBatchImpl extends RemoteServiceServlet implements Prod
 
 	private ProductBatchDAO dao = new ProductBatchDAOMySQL();
 
+	//get list of productbatches
 	@Override
 	public List<ProductBatchDTO> getProductBatches() {
 		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
-
 		try {
 			list = dao.getProductBatchList();
 		} catch (DALException e) {
@@ -29,6 +29,7 @@ public class ServerProductBatchImpl extends RemoteServiceServlet implements Prod
 		return list;
 	}
 
+	//get certain batch
 	@Override
 	public ProductBatchDTO getProductBatch(int pbID) {
 		ProductBatchDTO dto = null;
@@ -37,10 +38,10 @@ public class ServerProductBatchImpl extends RemoteServiceServlet implements Prod
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
-
 		return dto;
 	}
 
+	//used to update batch
 	@Override
 	public boolean updateProductBatch(ProductBatchDTO proBatch, int oldID) {
 		if (DTOVerifier.VerifyProductBatchDTO(proBatch)){
@@ -53,9 +54,9 @@ public class ServerProductBatchImpl extends RemoteServiceServlet implements Prod
 			}
 		}
 		return false;
-
 	}
 
+	//used to create batch
 	@Override
 	public boolean createProductBatch(ProductBatchDTO proBatch) {
 		if (DTOVerifier.VerifyProductBatchDTO(proBatch)){
@@ -69,7 +70,4 @@ public class ServerProductBatchImpl extends RemoteServiceServlet implements Prod
 		}
 		return false;
 	}
-
-
-
 }

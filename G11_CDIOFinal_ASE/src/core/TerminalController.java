@@ -13,7 +13,7 @@ public class TerminalController extends Thread{
 	// Class should open a connection to a terminal to a terminal.
 	// if connection is lost it should try reconnecting and continue where it left off
 
-	final String EXIT_CHAR = "x";
+	final String EXIT_CHAR = "X";
 
 	enum State {OPERATOR_LOGIN,PRODUCTBATCH_SELECTION,PREPARE_WEIGHT, ADD_CONTAINER, WEIGHING, REGISTER_WEIGHT}
 	String hostAddress;
@@ -231,8 +231,11 @@ public class TerminalController extends Thread{
 
 				String dbReply = db.getProductRecipeName(pbID);
 
-				waitForReply(dbReply);
-
+				String exit = waitForReply(dbReply);
+				if(exit.equals(EXIT_CHAR)){
+					state = State.OPERATOR_LOGIN;
+					return;
+				}
 				state = State.PREPARE_WEIGHT;
 				return;
 			}  catch (DALException e){
@@ -289,7 +292,7 @@ public class TerminalController extends Thread{
 		// The ID is checked that it exists
 		try {
 			// The operator is asked to enter an ID for the ingredient batch (raavarebatch)
-			String reply =waitForReply("Enter ingredientbatch");
+			String reply = waitForReply("Enter ingredientbatch");
 			ibID = Integer.parseInt(reply);
 			db.checkIbId(ibID, pbID); // Kan lave til en void ? den caster bare fejl ud i stedet.
 			db.setPbStatus(pbID);
@@ -307,18 +310,19 @@ public class TerminalController extends Thread{
 
 	private void registerWeight(){
 		//sendB("2.5");
+		
 		waitForReply("Weigh amount");
 
 		// Gets the net weight
 		net = Float.parseFloat(sendS());
-
+		
 		// Checks if the net weight meets the tolerance requirements
 		float tolMax = recipeComp.getNet() + recipeComp.getTolerance() * recipeComp.getNet()/100;
-		float tolMin = recipeComp.getNet() - recipeComp.getTolerance() * recipeComp.getNet()/100;
+		float tolMin = recipeComp.getNet() - recipeComp.getTolerance() * (recipeComp.getNet()/100);
 		System.out.println("tolmax:" + tolMax);
 		System.out.println("tolmin:" + tolMin);
 
-		if(net <= tolMax && net >= tolMin){
+		if(net <= tolMax || net >= tolMin){
 			try {
 				// Create new product batch component
 				db.createProductBatchComp(pbID, ibID, tare, net, oprID);

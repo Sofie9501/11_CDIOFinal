@@ -27,7 +27,7 @@ import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 public class CreateProductBatchView extends AbstractView {
 
-	final ProdView prod;
+	private ProdView prod;
 	private ClientProductBatchImpl serviceImpl;
 	private static CreateProductBatchViewUiBinder uiBinder = GWT.create(CreateProductBatchViewUiBinder.class);
 	private ProductBatchDTO productBatch;

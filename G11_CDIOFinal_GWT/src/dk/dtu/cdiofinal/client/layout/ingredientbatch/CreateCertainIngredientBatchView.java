@@ -25,7 +25,7 @@ import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 
 public class CreateCertainIngredientBatchView extends AbstractView {
 
-	final ProdView prod;
+	private ProdView prod;
 	private ClientIngredientBatchImpl serviceImpl;
 	private static createCertainIngredientbatchUiBinder uiBinder = GWT.create(createCertainIngredientbatchUiBinder.class);
 	private IngredientBatchDTO batch;

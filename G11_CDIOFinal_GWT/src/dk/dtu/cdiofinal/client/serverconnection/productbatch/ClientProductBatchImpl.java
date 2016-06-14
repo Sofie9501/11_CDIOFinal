@@ -16,28 +16,27 @@ public class ClientProductBatchImpl implements ProductBatchServiceAsync{
 		this.service = GWT.create(ProductBatchService.class);
 	}
 	
+	//get list og all productbatches
 	@Override
 	public void getProductBatches(AsyncCallback<List<ProductBatchDTO>> callback) {
 		this.service.getProductBatches(callback);
-		
 	}
 
+	//get certain prouctbatch with id
 	@Override
 	public void getProductBatch(int pbID,  AsyncCallback<ProductBatchDTO> callback) {
 		this.service.getProductBatch(pbID, callback);
-		
 	}
 
+	//update productbatch
 	@Override
 	public void updateProductBatch(ProductBatchDTO proBatch,int pbID, AsyncCallback<Boolean> callback) {
 		this.service.updateProductBatch(proBatch, pbID, callback);
-		
 	}
 
+	//create productbatch
 	@Override
 	public void createProductBatch(ProductBatchDTO proBatch, AsyncCallback<Boolean> callback) {
 		this.service.createProductBatch(proBatch, callback);
-		
 	}
-
 }

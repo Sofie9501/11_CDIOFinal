@@ -11,20 +11,19 @@ import dk.dtu.cdiofinal.client.layout.MainView;
 import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
 
 public class ProdView extends Composite{
-	
 	private ClientMenuImpl service = new ClientMenuImpl();
 	private static ProdViewUiBinder uiBinder = GWT.create(ProdViewUiBinder.class);
+	private MainView mainView; 
+	private Stack viewStack = new Stack();
+	
 	@UiTemplate("prod.ui.xml")
 	interface ProdViewUiBinder extends UiBinder<Widget, ProdView> {
 	}
 
 
-	@UiField
-	VerticalPanel menuPanel;
-	@UiField
-	VerticalPanel content;
-	private MainView mainView; 
-	private Stack viewStack = new Stack();
+	@UiField VerticalPanel menuPanel;
+	@UiField VerticalPanel content;
+	
 
 	public ProdView(MainView v){
 
@@ -41,12 +40,13 @@ public class ProdView extends Composite{
 	}
 
 
+	//Method to logout
 	public void logout(){
-
 		//Log ud fra server mangler
 		mainView.changeToLogin();
 	}
 
+	//method to see the previous view
 	public void PreviousView(){
 
 		if(!viewStack.isEmpty()){
@@ -87,5 +87,4 @@ public class ProdView extends Composite{
 			}
 		}
 	}
-
 }

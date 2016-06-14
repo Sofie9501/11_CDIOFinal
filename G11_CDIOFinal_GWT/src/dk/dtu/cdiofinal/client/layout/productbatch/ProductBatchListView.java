@@ -35,7 +35,7 @@ public class ProductBatchListView extends AbstractView {
 	final ProdView prod;
 
 	private ClientProductBatchImpl serviceImpl;
-	private List<ProductBatchDTO> list = new ArrayList<>();
+	private List<ProductBatchDTO> productBatchList = new ArrayList<>();
 	private ListDataProvider<ProductBatchDTO> dataProvider;
 	private static ProductBatchListViewUiBinder uiBinder = GWT.create(ProductBatchListViewUiBinder.class);
 
@@ -43,13 +43,9 @@ public class ProductBatchListView extends AbstractView {
 	interface ProductBatchListViewUiBinder extends UiBinder<Widget, ProductBatchListView> {
 	}
 
-	// Table
-	@UiField
-	CellTable<ProductBatchDTO> cellTable;
-
-
-	@UiField
-	Button btn_create;
+	// Table and button
+	@UiField CellTable<ProductBatchDTO> cellTable;
+	@UiField Button btn_create;
 
 
 	public ProductBatchListView(ProdView prod) {
@@ -85,17 +81,6 @@ public class ProductBatchListView extends AbstractView {
 		};
 		cellTable.addColumn(nameColumn, "Recipe name");
 
-
-
-		//		// Column there tells if it is active
-		//		TextColumn<ProductBatchDTO> active  = new TextColumn<ProductBatchDTO>(){
-		//			@Override
-		//			public String getValue(ProductBatchDTO object) {
-		//				return String.valueOf(object.isActive());
-		//			}
-		//		};
-		//		cellTable.addColumn(active);
-
 		// Column there shows how many there is finished
 		TextColumn<ProductBatchDTO> countFinished = new TextColumn<ProductBatchDTO>(){
 			@Override
@@ -113,15 +98,6 @@ public class ProductBatchListView extends AbstractView {
 			}
 		};
 		cellTable.addColumn(countComponents, "Total");
-
-		//		// Column there shows the status
-		//		TextColumn<ProductBatchDTO> status = new TextColumn<ProductBatchDTO>(){
-		//			@Override
-		//			public String getValue(ProductBatchDTO object) {
-		//				return String.valueOf(object.getStatus());
-		//			}
-		//		};
-		//		cellTable.addColumn(status);
 
 		// Column with start date
 		TextColumn<ProductBatchDTO> startDate = new TextColumn<ProductBatchDTO>(){
@@ -150,9 +126,6 @@ public class ProductBatchListView extends AbstractView {
 		};
 		cellTable.addColumn(activeColumn, "Active");
 
-
-
-
 		//Column with edit button
 		Column<ProductBatchDTO, String> editColumn = new Column<ProductBatchDTO, String>(new ButtonCell(IconType.WRENCH,ButtonType.LINK, ButtonSize.SMALL)){
 			@Override
@@ -163,14 +136,14 @@ public class ProductBatchListView extends AbstractView {
 		cellTable.addColumn(editColumn);
 
 		editColumn.setFieldUpdater(new FieldUpdater<ProductBatchDTO, String>(){
-
+			//when clicked change view to productbatchdetailview
 			@Override
 			public void update(int index, ProductBatchDTO object, String value) {
 				(ProductBatchListView.this).prod.setView(new ProductBatchDetailView(object));
 			}
 		});
-
-		dataProvider.setList(list);
+		//show information in the table
+		dataProvider.setList(productBatchList);
 		dataProvider.addDataDisplay(cellTable);
 		cellTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 		btn_create.addClickHandler((ClickHandler)new CreateClickHandler());
@@ -187,27 +160,28 @@ public class ProductBatchListView extends AbstractView {
 	}
 
 	private class ListCallback implements AsyncCallback<List <ProductBatchDTO>>{
-
 		@Override
 		public void onFailure(Throwable caught) {
 		}
 
 		@Override
 		public void onSuccess(List<ProductBatchDTO> result) {
-			list.clear();
+			productBatchList.clear();
 			if(!result.isEmpty()){
 				for(ProductBatchDTO d: result){
-					list.add(d);
+					productBatchList.add(d);
 				}
 				dataProvider.refresh();
 			}
 
 		}
 	}
+	
+	//updates the table
 	@Override
 	public void Update() {
-		list.clear();
-		dataProvider.setList(list);
+		productBatchList.clear();
+		dataProvider.setList(productBatchList);
 		this.serviceImpl.getProductBatches(new ListCallback());
 	}
 

@@ -36,21 +36,12 @@ public class CreateRecipeView extends AbstractView {
 	}
 
 	//Textbox, buttons, heading and modal
-	@UiField
-	TextBox txt_ID;
-	@UiField
-	TextBox txt_name;
-	@UiField
-	Button btn_add;
-
-
-
-	@UiField
-	Modal popup;
-	@UiField
-	Button btn_ok;
-	@UiField
-	Heading ok;
+	@UiField TextBox txt_Id;
+	@UiField TextBox txt_name;
+	@UiField Button btn_add;
+	@UiField Modal popup;
+	@UiField Button btn_ok;
+	@UiField Heading head_ok;
 
 
 
@@ -66,10 +57,11 @@ public class CreateRecipeView extends AbstractView {
 
 
 	}
+	//checks if the infromation is valid
 	private boolean changeSucces(){
 		String alert = "";
 		boolean succes = true;
-		if(!FieldVerifier.numberValid(Integer.parseInt(txt_ID.getText()))){
+		if(!FieldVerifier.numberValid(Integer.parseInt(txt_Id.getText()))){
 			alert+="Error - You need to write a valid ID \n";
 			succes = false;
 		}
@@ -81,48 +73,41 @@ public class CreateRecipeView extends AbstractView {
 			Window.alert(alert);
 		return succes;
 	}
-	private void saveChanges(){
+	private void saveRecipeDTO(){
 		// Checks to see if there is no errors
 		if(changeSucces()){
-			recipe = new RecipeDTO(Integer.parseInt(txt_ID.getText()), txt_name.getText(), true);
-			ok.setText("Your information has been saved");
-			//Updates the DB with the new operator
+			recipe = new RecipeDTO(Integer.parseInt(txt_Id.getText()), txt_name.getText(), true);
+			head_ok.setText("Your information has been saved");
+			//goes to createCompview, 
 			prod.setView(new CreateRecipeCompView(prod, recipe));
 		}	
 
 	}
 	private class OkClickHandler implements ClickHandler{
-
 		@Override
 		public void onClick(ClickEvent event) {
 			popup.toggle();
-
 		}
 	}
 
 
 	private class AddClickHandler implements ClickHandler{
-
 		@Override
 		public void onClick(ClickEvent event) {
-			saveChanges();
+			saveRecipeDTO();
 		}
 	}
 
-	
-	private class EnterHandler implements KeyDownHandler {
 
+	private class EnterHandler implements KeyDownHandler {
 		@Override
 		public void onKeyDown(KeyDownEvent event) {
 			if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER){
-				saveChanges();
+				saveRecipeDTO();
 			}		
 		}	
 	}
-		@Override
+	@Override
 	public void Update() {
-		// TODO Auto-generated method stub
-
 	}
-
 }

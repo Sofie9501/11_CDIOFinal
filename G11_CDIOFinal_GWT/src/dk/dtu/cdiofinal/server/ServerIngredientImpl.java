@@ -27,7 +27,6 @@ public class ServerIngredientImpl extends RemoteServiceServlet implements Ingred
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
-
 		return list;
 	}
 	
@@ -43,9 +42,6 @@ public class ServerIngredientImpl extends RemoteServiceServlet implements Ingred
 			}
 		}
 		return false;
-
-
-
 	}
 
 	// Used when creating a DTO

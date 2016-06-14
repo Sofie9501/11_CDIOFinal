@@ -2,16 +2,17 @@ package dk.dtu.cdiofinal.shared;
 
 public class FieldVerifier {
 
-
+	//used to formar CPR with -
 	public static String cprFormat(String cpr){
 		// Add "-" to cpr
 		String str = cpr;
 		str = cpr.substring(0, 6);
 		str+= "-";
 		str+= cpr.substring(6);
-
 		return str;
 	}
+	
+	//used to veridy password input
 	public static boolean passwordValid(String password){
 		if(!password.matches("(.*)[^.-_+!?=a-zA-Z0-9](.*)")){
 
@@ -33,6 +34,7 @@ public class FieldVerifier {
 		return false;
 	}
 
+	//used to verify role input
 	public static boolean roleValid(int rolle){
 		if(rolle >= 1 && rolle <= 4 ){
 			return true;
@@ -41,10 +43,12 @@ public class FieldVerifier {
 			return false;
 	}
 
+	//used to verify cpr input
 	public static boolean cprValid(String cpr){
 		return (cpr.matches("[0-3][0-9][0-1][0-9]\\d{2}-\\d{4}?[^0-9]*"));
 	}
 
+	//used to verify name input (nae, supplier, ingredient name)
 	public static boolean nameValid(String name){
 		if (name.length()<2 || name.length()>20){
 			return false;
@@ -54,6 +58,7 @@ public class FieldVerifier {
 		}
 	}
 
+	//used to verify number input for ID's
 	public static boolean numberValid(int i) {
 		if(i > 0 && i <= 99999999){
 			return true;
@@ -62,6 +67,7 @@ public class FieldVerifier {
 		}
 	}
 
+	//used to veridy amounts input
 	public static boolean amountValid(double i) {
 		if(i > 0.0){
 			return true;
@@ -70,6 +76,7 @@ public class FieldVerifier {
 		}
 	}
 
+	//used to verify avtive input
 	public static boolean active(boolean active){
 		if (active == true || active == false)
 			return true;

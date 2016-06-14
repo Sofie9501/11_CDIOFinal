@@ -25,69 +25,51 @@ import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 public class IngredientBatchDetailView extends AbstractView{
 
 	private static IngredientBatchDetailUiBinder uiBinder = GWT.create(IngredientBatchDetailUiBinder.class);
-
+	private IngredientBatchDTO ingredientBatch;
+	private ClientIngredientBatchImpl serviceImpl;
+	private int oldID;
 
 	@UiTemplate("ingredientBatchDetail.ui.xml")
 	interface IngredientBatchDetailUiBinder extends UiBinder<Widget, IngredientBatchDetailView>{
 
 	}
-	private IngredientBatchDTO batch;
-	private ClientIngredientBatchImpl serviceImpl;
-	private int oldID;
+	
 
 	//Adds the main page texts
-	@UiField
-	Heading txt_IB_ID; 
-	@UiField
-	Heading txt_name; 
-	@UiField
-	Heading txt_IN_ID; 
-	@UiField
-	Heading txt_amount; 	
-	@UiField
-	Heading txt_date;
-	@UiField
-	Heading txt_active;
-
-	// Adds the edit buttons
-	@UiField
-	Button btn_IB;
-	@UiField
-	Button btn_IN_ID;
-	@UiField
-	Button btn_amount;
-	@UiField
-	Button btn_active;
-	@UiField
-	Button btn_name;
-
-	@UiField
-	Modal popup;
-	@UiField
-	TextBox txt_edited;
-	@UiField
-	Button btn_save;
-
+	@UiField Heading txt_IngredientBatch_Id; 
+	@UiField Heading txt_name; 
+	@UiField Heading txt_Ingredient_Id; 
+	@UiField Heading txt_amount; 	
+	@UiField Heading txt_date;
+	@UiField Heading txt_active;
+	@UiField Button btn_IngredientBatch_Id;
+	@UiField Button btn_Ingredient_Id;
+	@UiField Button btn_amount;
+	@UiField Button btn_active;
+	@UiField Button btn_name;
+	@UiField Modal popup;
+	@UiField TextBox txt_edited;
+	@UiField Button btn_save;
 
 
 	public IngredientBatchDetailView(IngredientBatchDTO object){
-		this.batch=object;
+		this.ingredientBatch=object;
 		oldID = object.getIngredientBatch_ID();
 		initWidget(uiBinder.createAndBindUi(this));
 		this.serviceImpl = new ClientIngredientBatchImpl();
 
 		//Adds all the information on the batch
-		txt_IB_ID.setText(String.valueOf(batch.getIngredientBatch_ID()));
-		txt_name.setText(batch.getName());
-		txt_IN_ID.setText(String.valueOf(batch.getIngredient_ID()));
-		txt_amount.setText(String.valueOf(batch.getAmount()));
-		txt_date.setText(batch.getDate());
-		txt_active.setText(String.valueOf(batch.isActive()));
+		txt_IngredientBatch_Id.setText(String.valueOf(ingredientBatch.getIngredientBatch_ID()));
+		txt_name.setText(ingredientBatch.getName());
+		txt_Ingredient_Id.setText(String.valueOf(ingredientBatch.getIngredient_ID()));
+		txt_amount.setText(String.valueOf(ingredientBatch.getAmount()));
+		txt_date.setText(ingredientBatch.getDate());
+		txt_active.setText(String.valueOf(ingredientBatch.isActive()));
 
 		//Clickhandlers for all the buttons
-		btn_IB.addClickHandler((ClickHandler)new EditIB_IDClickHandler());
+		btn_IngredientBatch_Id.addClickHandler((ClickHandler)new EditIB_IDClickHandler());
 		btn_name.addClickHandler((ClickHandler)new EditNameClickHandler());
-		btn_IN_ID.addClickHandler((ClickHandler) new EditIN_IDClickHandler());
+		btn_Ingredient_Id.addClickHandler((ClickHandler) new EditIN_IDClickHandler());
 		btn_amount.addClickHandler((ClickHandler) new EditAmountClickHandler());
 		btn_active.addClickHandler((ClickHandler) new EditActiveClickHandler());
 		btn_save.addClickHandler((ClickHandler) new SaveClickHandler());
@@ -101,14 +83,14 @@ public class IngredientBatchDetailView extends AbstractView{
 				Window.alert("Error - ID input not valid");
 			}
 			else{
-				batch.setIngredientBatch_ID(Integer.parseInt(txt_edited.getText()));
-				txt_IB_ID.setText(String.valueOf(batch.getIngredientBatch_ID()));
+				ingredientBatch.setIngredientBatch_ID(Integer.parseInt(txt_edited.getText()));
+				txt_IngredientBatch_Id.setText(String.valueOf(ingredientBatch.getIngredientBatch_ID()));
 			}
 			break;
 		case "Name":
 			if(FieldVerifier.nameValid(txt_edited.getText())){
-				batch.setName(txt_edited.getText());
-				txt_name.setText(batch.getName());
+				ingredientBatch.setName(txt_edited.getText());
+				txt_name.setText(ingredientBatch.getName());
 			}
 			else{
 				Window.alert("Error - Wrong input");
@@ -119,14 +101,14 @@ public class IngredientBatchDetailView extends AbstractView{
 				Window.alert("Error - ID input not valid");
 			}
 			else{
-				batch.setIngredient_ID(Integer.parseInt(txt_edited.getText()));
-				txt_IN_ID.setText(String.valueOf(batch.getIngredient_ID()));
+				ingredientBatch.setIngredient_ID(Integer.parseInt(txt_edited.getText()));
+				txt_Ingredient_Id.setText(String.valueOf(ingredientBatch.getIngredient_ID()));
 			}
 			break;
 		case "Active":
 			if(txt_edited.getText().equals(true)||txt_edited.getText().equals(false)){
-				batch.setActive(Boolean.parseBoolean(txt_edited.getText()));
-				txt_active.setText(String.valueOf(batch.isActive()));	
+				ingredientBatch.setActive(Boolean.parseBoolean(txt_edited.getText()));
+				txt_active.setText(String.valueOf(ingredientBatch.isActive()));	
 			}
 			else{
 				Window.alert("Error - Active input not valid");
@@ -134,19 +116,20 @@ public class IngredientBatchDetailView extends AbstractView{
 			break;
 
 		case "Amount":
-			batch.setAmount(Double.parseDouble(txt_edited.getText()));
-			txt_amount.setText(String.valueOf(batch.getAmount()));
+			ingredientBatch.setAmount(Double.parseDouble(txt_edited.getText()));
+			txt_amount.setText(String.valueOf(ingredientBatch.getAmount()));
 			break;
 		}
 		//update the batch in DB
-		serviceImpl.updateIngredientBatch(batch, oldID, new MyCallback());
+		serviceImpl.updateIngredientBatch(ingredientBatch, oldID, new UpdateIngredientBatchCallback());
 	}
-	private class MyCallback implements AsyncCallback<Boolean>{
+	
+	
+	private class UpdateIngredientBatchCallback implements AsyncCallback<Boolean>{
 
 		@Override
 		public void onFailure(Throwable caught) {
 			popup.setTitle("Error");
-
 		}
 		@Override
 		public void onSuccess(Boolean result) {
@@ -155,7 +138,6 @@ public class IngredientBatchDetailView extends AbstractView{
 			}
 			else{
 				popup.setTitle("Error");
-
 			}
 		}		
 	}
@@ -171,13 +153,12 @@ public class IngredientBatchDetailView extends AbstractView{
 		}
 	}
 	//Clickhandlers for all the different buttons.
-
 	private class EditIB_IDClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
 			popup.setTitle("Change ID");
 			popup.setId("IB_ID");
-			txt_edited.setText(String.valueOf(batch.getIngredientBatch_ID()));
+			txt_edited.setText(String.valueOf(ingredientBatch.getIngredientBatch_ID()));
 			popup.toggle();		
 		}	
 	}
@@ -186,7 +167,7 @@ public class IngredientBatchDetailView extends AbstractView{
 		public void onClick(ClickEvent event) {
 			popup.setTitle("Change name");
 			popup.setId("Name");
-			txt_edited.setText(batch.getName());
+			txt_edited.setText(ingredientBatch.getName());
 			popup.toggle();		
 		}	
 	}
@@ -196,7 +177,7 @@ public class IngredientBatchDetailView extends AbstractView{
 		public void onClick(ClickEvent event) {
 			popup.setTitle("Change ingredient ID");
 			popup.setId("ID");
-			txt_edited.setText(String.valueOf((batch.getIngredient_ID())));
+			txt_edited.setText(String.valueOf((ingredientBatch.getIngredient_ID())));
 			popup.toggle();		
 		}	
 	}
@@ -205,7 +186,7 @@ public class IngredientBatchDetailView extends AbstractView{
 		public void onClick(ClickEvent event) {
 			popup.setTitle("Change amount");
 			popup.setId("Amount");
-			txt_edited.setText(String.valueOf((batch.getAmount())));
+			txt_edited.setText(String.valueOf((ingredientBatch.getAmount())));
 			popup.toggle();		
 		}	
 	}
@@ -214,7 +195,7 @@ public class IngredientBatchDetailView extends AbstractView{
 		public void onClick(ClickEvent event) {
 			popup.setTitle("Change active status");
 			popup.setId("Active");
-			txt_edited.setText(String.valueOf((batch.isActive())));
+			txt_edited.setText(String.valueOf((ingredientBatch.isActive())));
 			popup.toggle();		
 		}	
 	}
@@ -225,11 +206,7 @@ public class IngredientBatchDetailView extends AbstractView{
 		}	
 	}
 
-
 	@Override
 	public void Update() {
-		// TODO Auto-generated method stub
-
 	}
-
 }

@@ -34,9 +34,8 @@ import dk.dtu.cdiofinal.shared.IngredientDTO;
 public class IngredientListView extends AbstractView {
 	
 	final ProdView prod;
-
 	private ClientIngredientImpl serviceImpl;
-	private List<IngredientDTO> list = new ArrayList<>();
+	private List<IngredientDTO> ingredientList = new ArrayList<>();
 	private ListDataProvider<IngredientDTO> dataProvider;
 	private static IngredientListViewUiBinder uiBinder = GWT.create(IngredientListViewUiBinder.class);
 	
@@ -44,11 +43,9 @@ public class IngredientListView extends AbstractView {
 	interface IngredientListViewUiBinder  extends UiBinder<Widget, IngredientListView> {
 	}
 
-	@UiField
-	CellTable<IngredientDTO> cellTable;
-
-	@UiField
-	Button btn_create;
+	//table and buttin
+	@UiField CellTable<IngredientDTO> cellTable;
+	@UiField Button btn_create;
 
 	public IngredientListView(ProdView prod){
 		initWidget(uiBinder.createAndBindUi(this));
@@ -56,7 +53,7 @@ public class IngredientListView extends AbstractView {
 		this.prod = prod;
 		this.serviceImpl = new ClientIngredientImpl();
 
-
+		//Coumn with Id
 		TextColumn<IngredientDTO> IDColumn = new TextColumn<IngredientDTO>(){
 			@Override
 			public String getValue(IngredientDTO object) {
@@ -64,7 +61,7 @@ public class IngredientListView extends AbstractView {
 			}
 		};
 		cellTable.addColumn(IDColumn, "Ingredient ID");
-
+		//coimn with name
 		TextColumn<IngredientDTO> nameColumn = new TextColumn<IngredientDTO>(){
 			@Override
 			public String getValue(IngredientDTO object) {
@@ -72,7 +69,7 @@ public class IngredientListView extends AbstractView {
 			}
 		};
 		cellTable.addColumn(nameColumn, "Ingredient name");
-
+		//coumn with supplier
 		TextColumn<IngredientDTO> supplierColumn = new TextColumn<IngredientDTO>(){
 			@Override
 			public String getValue(IngredientDTO object) {
@@ -80,7 +77,7 @@ public class IngredientListView extends AbstractView {
 			}
 		};
 		cellTable.addColumn(supplierColumn, "Suppiler");	
-		
+		//coumn with active
 		TextColumn<IngredientDTO> activeColumn = new TextColumn<IngredientDTO>(){
 			@Override
 			public String getValue(IngredientDTO object) {
@@ -88,26 +85,22 @@ public class IngredientListView extends AbstractView {
 			}
 		};
 		cellTable.addColumn(activeColumn, "Active");	
-
-
+		//coumn with se batches buttons
 		Column<IngredientDTO, String> seeBatchColumn = new Column<IngredientDTO, String>(new ButtonCell(IconType.PLUS,ButtonType.LINK, ButtonSize.SMALL)){
 			@Override
 			public String getValue(IngredientDTO object) {
 				return "See batches";
 			}
 		};
-
 		cellTable.addColumn(seeBatchColumn);
-		
 		seeBatchColumn.setFieldUpdater(new FieldUpdater<IngredientDTO, String>(){
-
+			//chages view to certainIngrecientbatchListView
 			@Override
 			public void update(int index, IngredientDTO object, String value) {
 				(IngredientListView.this).prod.setView(new CertainIngredientBatchListView((IngredientListView.this).prod, object.getID()));
 			}
-
 		});
-		
+		//coumn with edit buttons
 		Column<IngredientDTO, String> editColumn = new Column<IngredientDTO, String>(new ButtonCell(IconType.WRENCH,ButtonType.LINK, ButtonSize.SMALL)){
 			@Override
 			public String getValue(IngredientDTO object) {
@@ -118,23 +111,23 @@ public class IngredientListView extends AbstractView {
 		cellTable.addColumn(editColumn);
 		
 		editColumn.setFieldUpdater(new FieldUpdater<IngredientDTO, String>(){
-
+			//when edit is clicked view is changed to ingredientdetailview
 			@Override
 			public void update(int index, IngredientDTO object, String value) {
 				(IngredientListView.this).prod.setView(new IngredientDetailView(object));
 			}
 
 		});
-		
-		dataProvider.setList(list); 
+		//show the infromation in the table
+		dataProvider.setList(ingredientList); 
 		dataProvider.addDataDisplay(cellTable);
 		cellTable.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 		btn_create.addClickHandler((ClickHandler)new CreateClickHandler());
 		this.serviceImpl.getIngredients(new ListCallback());
 	}
 	
+	//click handler when create is clicked
 	private class CreateClickHandler implements ClickHandler{
-
 		@Override
 		public void onClick(ClickEvent event) {
 			prod.setView(new CreateIngredientView(prod));
@@ -149,10 +142,10 @@ public class IngredientListView extends AbstractView {
 		
 		@Override
 		public void onSuccess(List<IngredientDTO> result) {
-			list.clear();
+			ingredientList.clear();
 			if(!result.isEmpty()){
 				for(IngredientDTO d: result){
-					list.add(d);
+					ingredientList.add(d);
 				}
 				dataProvider.refresh();
 			}
@@ -160,10 +153,11 @@ public class IngredientListView extends AbstractView {
 		}
 	}
 	
+	//updates the table
 	@Override
 	public void Update() {
-		list.clear();
-		dataProvider.setList(list);
+		ingredientList.clear();
+		dataProvider.setList(ingredientList);
 		this.serviceImpl.getIngredients(new ListCallback());
 	}
 

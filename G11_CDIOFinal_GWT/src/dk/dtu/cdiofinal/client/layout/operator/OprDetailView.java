@@ -16,45 +16,32 @@ import dk.dtu.cdiofinal.shared.OperatorDTO;
 public class OprDetailView extends AbstractView{
 
 	private static OprDetailUiBinder uiBinder = GWT.create(OprDetailUiBinder.class);
-
-
-	@UiTemplate("oprdetail.ui.xml")
-	interface OprDetailUiBinder extends UiBinder<Widget, OprDetailView>{
-
-	}
 	private OperatorDTO opr;
 	private ClientOperatorImpl serviceImpl;
 	private int oldID;
 
+	@UiTemplate("oprdetail.ui.xml")
+	interface OprDetailUiBinder extends UiBinder<Widget, OprDetailView>{
+	}
+
 	//Adds the main page texts
-	@UiField Heading txt_oprID; 
+	@UiField Heading txt_oprId; 
 	@UiField Heading txt_name; 
 	@UiField Heading txt_CPRnr; 
 	@UiField Heading txt_role; 	
 	@UiField Heading txt_password;
 	@UiField Heading txt_active;
-
 	// Adds the edit buttons
-	@UiField
-	Button btn_name;
-	@UiField
-	Button btn_CPR;
-	@UiField
-	Button btn_rolle;
-	@UiField
-	Button btn_password;
-	@UiField
-	Button btn_oprID;
-	@UiField
-	Button btn_active;
-
+	@UiField Button btn_name;
+	@UiField Button btn_CPR;
+	@UiField Button btn_rolle;
+	@UiField Button btn_password;
+	@UiField Button btn_oprID;
+	@UiField Button btn_active;
 	//Add editpopup with save button
-	@UiField
-	Modal popup;
-	@UiField
-	TextBox txt_edited;
-	@UiField
-	Button btn_save;
+	@UiField Modal popup;
+	@UiField TextBox txt_edited;
+	@UiField Button btn_save;
 
 	//Constuctor
 	public OprDetailView(OperatorDTO opr) {
@@ -64,7 +51,7 @@ public class OprDetailView extends AbstractView{
 		this.serviceImpl = new ClientOperatorImpl();
 
 		//Adds all the information on the operators
-		txt_oprID.setText(String.valueOf(opr.getOprID()));
+		txt_oprId.setText(String.valueOf(opr.getOprID()));
 		txt_name.setText(opr.getName());
 		txt_CPRnr.setText(FieldVerifier.cprFormat(opr.getCpr()));
 		txt_role.setText(String.valueOf(opr.getRole()));
@@ -99,7 +86,7 @@ public class OprDetailView extends AbstractView{
 			}
 			else{
 				opr.setOprID(Integer.parseInt(txt_edited.getText()));
-				txt_oprID.setText(String.valueOf(opr.getOprID()));
+				txt_oprId.setText(String.valueOf(opr.getOprID()));
 			}
 			break;
 		case "CPR":
@@ -138,14 +125,16 @@ public class OprDetailView extends AbstractView{
 				Window.alert("Error - Password does  not follow the rules");
 
 		}
-		serviceImpl.updateOperator(opr, oldID, new MyCallback());
+		//updates the DB 
+		serviceImpl.updateOperator(opr, oldID, new UpdateOPRCallback());
 	}
-	private class MyCallback implements AsyncCallback<Boolean>{
+
+
+	private class UpdateOPRCallback implements AsyncCallback<Boolean>{
 
 		@Override
 		public void onFailure(Throwable caught) {
 			popup.setTitle("Error");
-
 		}
 		@Override
 		public void onSuccess(Boolean result) {
@@ -154,9 +143,8 @@ public class OprDetailView extends AbstractView{
 			}
 			else{
 				popup.setTitle("Error");
-
-			}
-		}		
+			}		
+		}
 	}
 	// Makes it posible to hit ENTER instead of the Save button.
 	private class EnterHandler implements KeyDownHandler {
@@ -168,7 +156,7 @@ public class OprDetailView extends AbstractView{
 			}		
 		}	
 	}
-	//Clickhandlers for all the different buttons.
+	//Clickhandlers for all the different buttons. set id according to button pressed
 	private class EditNameClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {

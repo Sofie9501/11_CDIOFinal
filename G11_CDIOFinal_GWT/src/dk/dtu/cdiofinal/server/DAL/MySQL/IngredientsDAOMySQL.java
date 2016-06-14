@@ -20,6 +20,7 @@ public class IngredientsDAOMySQL implements IngredientDAO{
 		IngredientDTO ingredient = null;
 		query = "Select * from ingredient where ingredient_id = " + ID;
 		ResultSet result = c.doQuery(query);
+		//makes a ingredient from the data found
 		try{
 		if(result.next()){
 			ingredient = new IngredientDTO(result.getInt(1), result.getString(2),
@@ -31,6 +32,7 @@ public class IngredientsDAOMySQL implements IngredientDAO{
 		return ingredient;
 	}
 
+	//get list of all ingredients
 	@Override
 	public List<IngredientDTO> getIngredientList() throws DALException {
 		query = "Select * from ingredient";
@@ -38,6 +40,7 @@ public class IngredientsDAOMySQL implements IngredientDAO{
 		if(result == null){
 			throw new DALException("No ingredients found");
 		}
+		//creates list of ingredients
 		List<IngredientDTO> list = new ArrayList<IngredientDTO>();
 		
 		try{
@@ -51,6 +54,7 @@ public class IngredientsDAOMySQL implements IngredientDAO{
 		return list;
 	}
 
+	//create ingredient in DB
 	@Override
 	public void createIngredient(IngredientDTO ingredient) throws DALException {
 		String query = "call create_ingredient(" + ingredient.getID() + ", '" + ingredient.getName() +
@@ -58,6 +62,8 @@ public class IngredientsDAOMySQL implements IngredientDAO{
 		c.doQuery(query);
 		
 	}
+	
+	//update ingredient in DB
 	@Override
 	public void updateIngredient(IngredientDTO ingredient, int oldID) throws DALException {
 		String query = "call update_ingredient(" + oldID + ", " + ingredient.getID() + ", '" + ingredient.getName() +

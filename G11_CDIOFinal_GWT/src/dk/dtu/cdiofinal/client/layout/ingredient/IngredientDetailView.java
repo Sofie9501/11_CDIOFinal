@@ -24,53 +24,40 @@ import dk.dtu.cdiofinal.shared.IngredientDTO;
 
 public class IngredientDetailView extends AbstractView {
 	private static IngredientDetailUiBinder uiBinder = GWT.create(IngredientDetailUiBinder.class);
+	private IngredientDTO ingredient;
+	private ClientIngredientImpl serviceImpl;
+	private int oldID;
 
 	@UiTemplate("ingredientDetail.ui.xml")
 	interface IngredientDetailUiBinder extends UiBinder<Widget, IngredientDetailView>{
 	}
 
-	private IngredientDTO ingredient;
-	private ClientIngredientImpl serviceImpl;
-	private int oldID;
-
-	@UiField
-	Heading txt_id; 
-	@UiField
-	Heading txt_name; 
-	@UiField
-	Heading txt_supplier; 
-	@UiField
-	Heading txt_active;
-
-	@UiField
-	Button btn_id;
-	@UiField
-	Button btn_name;
-	@UiField
-	Button btn_supplier;
-	@UiField
-	Button btn_active;
-
-	@UiField
-	Modal popup;
-	@UiField
-	TextBox txt_edited;
-	@UiField
-	Button btn_save;
+	//heading, button, modal and textbox
+	@UiField Heading txt_Id; 
+	@UiField Heading txt_name; 
+	@UiField Heading txt_supplier; 
+	@UiField Heading txt_active;
+	@UiField Button btn_Id;
+	@UiField Button btn_name;
+	@UiField Button btn_supplier;
+	@UiField Button btn_active;
+	@UiField Modal popup;
+	@UiField TextBox txt_edited;
+	@UiField Button btn_save;
 
 	public IngredientDetailView(IngredientDTO ingredient) {
 		this.ingredient = ingredient;
 		oldID=ingredient.getID();
 		initWidget(uiBinder.createAndBindUi(this));
 		this.serviceImpl = new ClientIngredientImpl();
-
-		txt_id.setText(String.valueOf(ingredient.getID()));
+		//show the information of the ingredient
+		txt_Id.setText(String.valueOf(ingredient.getID()));
 		txt_name.setText(ingredient.getName());
 		txt_supplier.setText(ingredient.getSupplier());
 		txt_active.setText(String.valueOf(ingredient.isActive()));
-
+		//ad click handlers to buttons
 		btn_name.addClickHandler(new EditNameClickHandler());
-		btn_id.addClickHandler(new EditIDClickHandler());
+		btn_Id.addClickHandler(new EditIDClickHandler());
 		btn_supplier.addClickHandler(new EditSupplierClickHandler());
 		btn_active.addClickHandler(new EditActiveClickHandler());
 		btn_save.addClickHandler(new SaveClickHandler());
@@ -79,7 +66,6 @@ public class IngredientDetailView extends AbstractView {
 
 	// Makes it possible to hit ENTER instead of the Save button.
 	private class EnterHandler implements KeyDownHandler {
-
 		@Override
 		public void onKeyDown(KeyDownEvent event) {
 			if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER){
@@ -131,11 +117,8 @@ public class IngredientDetailView extends AbstractView {
 			saveChanges();
 		}	
 	}
-	@Override
-	public void Update() {
 
-	}
-	
+	//checks the information and saves the ingredient
 	private void saveChanges(){
 		switch(popup.getId()){
 		case "Name":
@@ -150,7 +133,7 @@ public class IngredientDetailView extends AbstractView {
 		case "ID":
 			if(FieldVerifier.numberValid(Integer.parseInt(txt_edited.getText()))){
 				ingredient.setID(Integer.parseInt((txt_edited.getText())));
-				txt_id.setText(String.valueOf(ingredient.getID()));
+				txt_Id.setText(String.valueOf(ingredient.getID()));
 			}
 			else{
 				Window.alert("Error - Wrong input");
@@ -175,27 +158,28 @@ public class IngredientDetailView extends AbstractView {
 			}
 			break;
 		}
-		
-		serviceImpl.updateIngredient(ingredient, oldID, new MyCallback());
+		//updates the DB with the new information
+		serviceImpl.updateIngredient(ingredient, oldID, new UpdateIngredientCallback());
 	}
-	
-	private class MyCallback implements AsyncCallback<Boolean>{
+
+	private class UpdateIngredientCallback implements AsyncCallback<Boolean>{
 
 		@Override
 		public void onFailure(Throwable caught) {
 			popup.setTitle("Error");
-			
+
 		}
 		@Override
 		public void onSuccess(Boolean result) {
 			if(result){
-			popup.toggle();
+				popup.toggle();
 			}
 			else{
 				popup.setTitle("Error");
-						
 			}
 		}		
 	}
-
+	@Override
+	public void Update() {
+	}
 }

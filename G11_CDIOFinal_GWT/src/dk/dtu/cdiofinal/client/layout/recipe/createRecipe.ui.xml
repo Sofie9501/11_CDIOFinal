@@ -19,7 +19,7 @@
 				</tr>
 				<tr>
 					<td>
-						<b:TextBox ui:field="txt_ID"></b:TextBox>
+						<b:TextBox ui:field="txt_Id"></b:TextBox>
 					</td>
 
 				</tr>
@@ -43,7 +43,7 @@
 					<td>
 						<b:Modal ui:field="popup" title="Succes" backdrop="STATIC"
 							keyboard="true" animation="true">
-							<b:Heading size="5" ui:field="ok"></b:Heading>
+							<b:Heading size="5" ui:field="head_ok"></b:Heading>
 							<b:ModalFooter>
 								<b:Button type="LINK" ui:field="btn_ok">Ok</b:Button>
 							</b:ModalFooter>

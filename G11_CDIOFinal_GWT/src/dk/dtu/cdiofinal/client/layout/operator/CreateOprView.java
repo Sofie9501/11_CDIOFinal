@@ -24,36 +24,25 @@ import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 public class CreateOprView extends AbstractView {
-
-	private static CreateOprViewUiBinder uiBinder = GWT.create(CreateOprViewUiBinder.class);
 	final ProdView prod;
+	private static CreateOprViewUiBinder uiBinder = GWT.create(CreateOprViewUiBinder.class);
+	private OperatorDTO opr;
+	private ClientOperatorImpl serviceImpl;
+
 
 	@UiTemplate("createOprView.ui.xml")
 	interface CreateOprViewUiBinder extends UiBinder<Widget, CreateOprView>{
-
 	}
-	OperatorDTO opr;
-	ClientOperatorImpl serviceImpl;
 
-	@UiField
-	TextBox txt_name;
-	@UiField
-	TextBox txt_cpr;
-	@UiField
-	TextBox txt_rolle;
-	@UiField
-	TextBox txt_ID;
-	@UiField
-	TextBox txt_password;
-	@UiField
-	Button btn_save;
-
-	@UiField
-	Modal popup;
-	@UiField
-	Button btn_ok;
-	@UiField
-	Heading ok;
+	@UiField TextBox txt_name;
+	@UiField TextBox txt_cpr;
+	@UiField TextBox txt_rolle;
+	@UiField TextBox txt_Id;
+	@UiField TextBox txt_password;
+	@UiField Button btn_save;
+	@UiField Modal popup;
+	@UiField Button btn_ok;
+	@UiField Heading head_ok;
 
 
 
@@ -67,6 +56,8 @@ public class CreateOprView extends AbstractView {
 		txt_rolle.addKeyDownHandler((KeyDownHandler)new EnterHandler());
 
 	}
+
+	//checks if the information is valid, return false if not
 	private boolean changeSucces(){
 		String alert = "";
 		boolean succes = true;
@@ -74,7 +65,7 @@ public class CreateOprView extends AbstractView {
 			alert+="Error - You need to write a name \n";
 			succes = false;
 		}
-		if(!FieldVerifier.numberValid(Integer.parseInt(txt_ID.getText()))){
+		if(!FieldVerifier.numberValid(Integer.parseInt(txt_Id.getText()))){
 			alert+="Error - Input for ID not valid \n";
 			succes = false;
 		}
@@ -97,17 +88,18 @@ public class CreateOprView extends AbstractView {
 	private void saveChanges(){
 		// Checks to see if there is no errors
 		if(changeSucces()){
-			opr = new OperatorDTO(Integer.parseInt(txt_ID.getText()), txt_name.getText(), txt_cpr.getText(), txt_password.getText(), Integer.parseInt(txt_rolle.getText())
+			opr = new OperatorDTO(Integer.parseInt(txt_Id.getText()), txt_name.getText(), txt_cpr.getText(), txt_password.getText(), Integer.parseInt(txt_rolle.getText())
 					, true);
-			ok.setText("Your information has been saved");
+			head_ok.setText("Your information has been saved");
 			//Updates the DB with the new operator
-			serviceImpl.createOperator(opr, new MyCallback());
-			
+			serviceImpl.createOperator(opr, new CreateOPRCallback());
+
 		}	
 
 	}
-	private class SaveClickHandler implements ClickHandler{
 
+	//click and enter handlers
+	private class SaveClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {
 			saveChanges();
@@ -119,7 +111,6 @@ public class CreateOprView extends AbstractView {
 		public void onClick(ClickEvent event) {
 			popup.toggle();
 			prod.PreviousView();
-
 		}
 	}
 	private class EnterHandler implements KeyDownHandler {
@@ -131,34 +122,33 @@ public class CreateOprView extends AbstractView {
 			}		
 		}	
 	}
-	private class MyCallback implements AsyncCallback<Boolean>{
+	//callack to create opr
+	private class CreateOPRCallback implements AsyncCallback<Boolean>{
 
 		@Override
 		public void onFailure(Throwable caught) {
 			popup.setTitle("Error");
-			ok.setText("An error has occured, and the information has not been saved");
+			head_ok.setText("An error has occured, and the information has not been saved");
 			popup.toggle();
 		}
 		@Override
 		public void onSuccess(Boolean result) {
 			if(result){
-			popup.toggle();
-			txt_name.setText("");
-			txt_cpr.setText("");
-			txt_rolle.setText("");
-			txt_ID.setText("");
-			txt_password.setText("");
+				popup.toggle();
+				txt_name.setText("");
+				txt_cpr.setText("");
+				txt_rolle.setText("");
+				txt_Id.setText("");
+				txt_password.setText("");
 			}
 			else{
 				popup.setTitle("Error");
-				ok.setText("An error has occured, and the information has not been saved");
+				head_ok.setText("An error has occured, and the information has not been saved");
 				popup.toggle();
 			}
 		}		
 	}
 	@Override
 	public void Update() {
-		// TODO Auto-generated method stub
-		
 	}
 }

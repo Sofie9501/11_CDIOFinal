@@ -14,29 +14,26 @@ import com.google.gwt.user.client.ui.Widget;
 import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
 
 public class MenuView extends Composite{
+	final ProdView prod;
+	private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
+	private ClientMenuImpl service = new ClientMenuImpl();
+	private String oprName = null;
 
 	@UiTemplate("menu.ui.xml")
 	interface MyUiBinder extends UiBinder<Widget, MenuView> {
 	}
 	
-	private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
-	private ClientMenuImpl service = new ClientMenuImpl();
-	String oprName = null;
-	@UiField
 	
-	Button back;
-	@UiField
-	Button log_out;
-	@UiField
-	Button menu;
-	@UiField
-	Button name;
-	ProdView v;	  
+	@UiField Button back;
+	@UiField Button log_out;
+	@UiField Button menu;
+	@UiField Button name;
+		  
 
 	public MenuView(ProdView v) {
 		// sets listBox
 		initWidget(uiBinder.createAndBindUi(this));
-		this.v = v;
+		this.prod = v;
 		back.addClickHandler(new BackClickHandler());
 		menu.addClickHandler(new MenuClickHandler());
 		log_out.addClickHandler(new LogOutClickHandler());
@@ -49,8 +46,7 @@ public class MenuView extends Composite{
 
 		@Override
 		public void onClick(ClickEvent event) {
-			v.PreviousView();
-
+			prod.PreviousView();
 		} 
 	}
 
@@ -65,13 +61,10 @@ public class MenuView extends Composite{
 	}
 
 	private class MenuClickHandler implements ClickHandler {
-
 		@Override
 		public void onClick(ClickEvent event) {
-			v.mainMenu();
-
+			prod.mainMenu();
 		}
-
 	}
 	
 
@@ -79,29 +72,23 @@ public class MenuView extends Composite{
 
 		@Override
 		public void onFailure(Throwable caught) {
-			
 		}
 
 		@Override
 		public void onSuccess(Boolean result) {
 			if(result){
-				v.logout();
+				prod.logout();
 			}
 			else{
 				Window.alert("Logout failed, try again");
 			}
-
 		}
-
-
 	}
 	
 	private class NameCallback implements AsyncCallback<String>{
-
 		@Override
 		public void onFailure(Throwable caught) {
 			Window.alert("ERROR IN NAME");
-			
 		}
 
 		@Override
@@ -109,6 +96,5 @@ public class MenuView extends Composite{
 			oprName = result;
 			name.setText("Logged in as: " +oprName);
 		}
-		
 	}
 }

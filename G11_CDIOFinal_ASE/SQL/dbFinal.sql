@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS role;
 
 CREATE TABLE role(role_id INT PRIMARY KEY, role_name TEXT) ENGINE = innoDB;
 
-CREATE TABLE operator(opr_id INT PRIMARY KEY, opr_name TEXT,  cpr TEXT, password TEXT, role_id INT, active boolean,
+CREATE TABLE operator(opr_id INT PRIMARY KEY, opr_name TEXT,  cpr TEXT, password TEXT, role_id INT not null, active boolean,
 FOREIGN KEY (role_id) REFERENCES role(role_id)) ENGINE=innoDB;
  
 CREATE TABLE ingredient(ingredient_id INT PRIMARY KEY, ingredient_name TEXT, supplier TEXT, active boolean) ENGINE=innoDB;

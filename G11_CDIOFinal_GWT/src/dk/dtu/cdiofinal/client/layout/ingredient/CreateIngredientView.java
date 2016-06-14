@@ -24,13 +24,13 @@ import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.IngredientDTO;
 
 public class CreateIngredientView extends AbstractView{
-	private static CreateIngriViewUiBinder uiBinder = GWT.create(CreateIngriViewUiBinder.class);
+	private static CreateIngredientViewUiBinder uiBinder = GWT.create(CreateIngredientViewUiBinder.class);
 	private IngredientDTO ingredient;
 	private ClientIngredientImpl serviceImpl;
-	final ProdView prod;
+	private final ProdView PROD;
 	
 	@UiTemplate("createIngredientView.ui.xml")
-	interface CreateIngriViewUiBinder extends UiBinder<Widget, CreateIngredientView>{
+	interface CreateIngredientViewUiBinder extends UiBinder<Widget, CreateIngredientView>{
 	}
 
 	//textbox, button, modal and heading
@@ -44,7 +44,7 @@ public class CreateIngredientView extends AbstractView{
 
 	public CreateIngredientView(ProdView prod){
 		initWidget(uiBinder.createAndBindUi(this));
-		this.prod=prod;
+		this.PROD=prod;
 		this.serviceImpl = new ClientIngredientImpl();
 		//Clickhandler
 		btn_save.addClickHandler(new SaveClickHandler());
@@ -100,7 +100,7 @@ public class CreateIngredientView extends AbstractView{
 		@Override
 		public void onClick(ClickEvent event) {
 			popup.toggle();
-			prod.PreviousView();
+			PROD.PreviousView();
 		}
 	}
 	

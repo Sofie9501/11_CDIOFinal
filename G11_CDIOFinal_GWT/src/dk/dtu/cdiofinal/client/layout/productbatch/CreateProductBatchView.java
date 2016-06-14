@@ -119,7 +119,6 @@ public class CreateProductBatchView extends AbstractView {
 		@Override
 		public void onClick(ClickEvent event) {
 			checkRecipeStatus(Integer.parseInt(txt_ReceptId.getText()));
-			prod.PreviousView();
 		}	
 	}	
 	private class OkClickHandler implements ClickHandler{

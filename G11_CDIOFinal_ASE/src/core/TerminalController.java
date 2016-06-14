@@ -150,7 +150,7 @@ public class TerminalController extends Thread{
 					// If the message has been received, it returns it
 					if(reply != null && reply.toUpperCase().startsWith("RM20 A")){
 						//Sorts "RM20 A" and the quotation marks away from the String
-						reply = reply.substring(8, (reply.length()-2));
+						reply = reply.substring(8, (reply.length()-1));
 						System.out.println(reply);
 						return reply;
 					}
@@ -175,19 +175,21 @@ public class TerminalController extends Thread{
 
 	private String sendTare(){
 		String reply = null;
-		sendData("t\n");
+		sendData("T\n");
 		// waiting for reply
 
 		reply = recieveData();
-
-		return reply.substring(9, reply.length()-4);
+		
+		reply = reply.substring(8, reply.length()-3);
+		System.out.println(reply);
+		return reply;
 	}
 
 	private String sendS(){
 		String reply = null;
 		sendData("S\n");
 		reply = recieveData();
-		reply = reply.substring(9,reply.length()-4);
+		reply = reply.substring(8,reply.length()-3);
 		System.out.println("reply s: " + reply);
 		return reply;
 	}
@@ -199,13 +201,9 @@ public class TerminalController extends Thread{
 
 			try{
 				oprID = Integer.parseInt(msgReceived);
-<<<<<<< HEAD
-				String oprName =db.getOperator(Integer.parseInt(msgReceived));
-				if((waitForReply(oprName)).equals(EXIT_CHAR))
-=======
+
 				String oprName = db.getOperator(Integer.parseInt(msgReceived));
-				if((waitForReply("opr name: " + oprName + ", press enter")).equals(EXIT_CHAR))
->>>>>>> branch 'master' of https://github.com/Sofie9501/11_CDIOFinal.git
+				if((waitForReply(oprName)).equals(EXIT_CHAR))
 					return;
 				else{
 					state = State.PRODUCTBATCH_SELECTION;
@@ -231,15 +229,10 @@ public class TerminalController extends Thread{
 				}
 				pbID = Integer.parseInt(recieve);
 
-<<<<<<< HEAD
-				String dbReplay = db.getProductRecipeName(pbID);
+				String dbReply = db.getProductRecipeName(pbID);
 
-				waitForReply(dbReplay);
-=======
-				String dbReply = "Recipe: " + db.getProductRecipeName(pbID) + ", press enter";
-				print(dbReply);
-//				waitForReply(dbReplay);
->>>>>>> branch 'master' of https://github.com/Sofie9501/11_CDIOFinal.git
+				waitForReply(dbReply);
+
 				state = State.PREPARE_WEIGHT;
 				return;
 			}  catch (DALException e){
@@ -322,6 +315,8 @@ public class TerminalController extends Thread{
 		// Checks if the net weight meets the tolerance requirements
 		float tolMax = recipeComp.getNet() + recipeComp.getTolerance() * recipeComp.getNet()/100;
 		float tolMin = recipeComp.getNet() - recipeComp.getTolerance() * recipeComp.getNet()/100;
+		System.out.println("tolmax:" + tolMax);
+		System.out.println("tolmin:" + tolMin);
 
 		if(net <= tolMax && net >= tolMin){
 			try {

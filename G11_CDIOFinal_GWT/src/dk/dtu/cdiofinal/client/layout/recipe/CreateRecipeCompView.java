@@ -133,7 +133,7 @@ public class CreateRecipeCompView extends AbstractView {
 			alert += "Error - net is not okay \n";
 			succes = false;
 		}
-		if(!FieldVerifier.amountValid(Double.parseDouble(txt_tolerance.getText()))){
+		if(!FieldVerifier.toleranceValid(Double.parseDouble(txt_tolerance.getText()))){
 			alert += "Error - tolerance is not okay \n";
 			succes = false;
 		}

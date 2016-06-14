@@ -2,16 +2,13 @@ package dk.dtu.cdiofinal.client.layout.menu;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.*;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
 import dk.dtu.cdiofinal.client.helpers.Stack;
 import dk.dtu.cdiofinal.client.layout.AbstractView;
 import dk.dtu.cdiofinal.client.layout.MainView;
-import dk.dtu.cdiofinal.client.serverconnection.ClientMenuImpl;
 
 public class ProdView extends Composite{
-	private ClientMenuImpl service = new ClientMenuImpl();
 	private static ProdViewUiBinder uiBinder = GWT.create(ProdViewUiBinder.class);
 	private MainView mainView; 
 	private Stack viewStack = new Stack();
@@ -36,7 +33,7 @@ public class ProdView extends Composite{
 		this.menuPanel.add(new MenuView(this)); 
 		this.content.add(new AdminMenuView(this));
 		this.mainView = v;
-		service.isLoggedIn(new LoggedInCallback());
+		//service.isLoggedIn(new LoggedInCallback());
 	}
 
 
@@ -74,17 +71,17 @@ public class ProdView extends Composite{
 		content.add(view);
 	}
 
-	private class LoggedInCallback implements AsyncCallback<Integer>{
-
-		@Override
-		public void onFailure(Throwable caught) {
-		}
-
-		@Override
-		public void onSuccess(Integer result) {
-			if(result == 0){
-				return;
-			}
-		}
-	}
+//	private class LoggedInCallback implements AsyncCallback<Integer>{
+//
+//		@Override
+//		public void onFailure(Throwable caught) {
+//		}
+//
+//		@Override
+//		public void onSuccess(Integer result) {
+//			if(result == 0){
+//				return;
+//			}
+//		}
+//	}
 }

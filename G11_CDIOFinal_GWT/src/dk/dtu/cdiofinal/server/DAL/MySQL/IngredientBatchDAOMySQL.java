@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dk.dtu.cdiofinal.DAO.IngredientBatchDAO;
-import dk.dtu.cdiofinal.DAO.RecipeComponentDAO;
 import dk.dtu.cdiofinal.server.DAL.Connector;
 import dk.dtu.cdiofinal.server.DAL.DALException;
 import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
@@ -14,7 +13,6 @@ import dk.dtu.cdiofinal.shared.IngredientBatchDTO;
 public class IngredientBatchDAOMySQL implements IngredientBatchDAO{
 
 	Connector c = new Connector();
-	RecipeComponentDAO comp = new RecipeCompDAOMySQL();
 	String query;
 
 	@Override

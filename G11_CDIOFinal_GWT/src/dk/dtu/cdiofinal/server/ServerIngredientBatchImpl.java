@@ -30,12 +30,6 @@ public class ServerIngredientBatchImpl extends RemoteServiceServlet implements I
 		return list;
 	}
 
-	//get ingredient batch??
-	@Override
-	public IngredientBatchDTO getIngredientBatch() {
-		return null;
-	}
-
 	//update ingredientbatch
 	@Override
 	public boolean updateIngredientBatch(IngredientBatchDTO inba, int oldID) {

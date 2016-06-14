@@ -22,12 +22,6 @@ public class ClientIngredientBatchImpl implements IngredientBatchServiceAsync{
 		this.service.getIngredientBatches(callback);
 	}
 
-	//get certain ingreidentbatch
-	@Override
-	public void getIngredientBatch(AsyncCallback<IngredientBatchDTO> callback) {
-		this.service.getIngredientBatch(callback);
-	}
-
 	//update ingredientbatch
 	@Override
 	public void updateIngredientBatch(IngredientBatchDTO IngredientBatch, int oldID, AsyncCallback<Boolean> callback) {

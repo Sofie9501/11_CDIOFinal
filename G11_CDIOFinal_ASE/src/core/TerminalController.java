@@ -134,12 +134,10 @@ public class TerminalController extends Thread{
 		String reply = null;
 		long time = System.currentTimeMillis();
 
-		String sData = "RM20 8 \"" + message + "\" \"\" \"&3\"\n";
+		String sData = "RM20 8 \"" + message + "\" \"\" \"&3\"";
 		sendData(sData);
 
-		// Waits 5 seconds to receive "RM20 B"
 		while(System.currentTimeMillis() - time < 5000){
-
 
 			reply = recieveData();
 
@@ -168,6 +166,12 @@ public class TerminalController extends Thread{
 		this.stop();
 		return null;
 	}
+	
+	private void print(String message){
+		String sData = "P111 \"" + message + "\"\n";
+		sendData(sData);
+		recieveData();
+	}
 
 	private String sendTare(){
 		String reply = null;
@@ -193,10 +197,9 @@ public class TerminalController extends Thread{
 		while(true){
 			String msgReceived = waitForReply("Enter OPR ID");
 
-			// tester det er et tal der er modtaget
 			try{
 				oprID = Integer.parseInt(msgReceived);
-				String oprName =db.getOperator(Integer.parseInt(msgReceived));
+				String oprName = db.getOperator(Integer.parseInt(msgReceived));
 				if((waitForReply("opr name: " + oprName + ", press enter")).equals(EXIT_CHAR))
 					return;
 				else{
@@ -215,7 +218,7 @@ public class TerminalController extends Thread{
 	private void productBatchSelection(){
 		while(true){
 			try {
-				String recieve = waitForReply("Enter ProductBatch ID");
+				String recieve = waitForReply("Enter PB ID");
 
 				if(recieve.equalsIgnoreCase(EXIT_CHAR)){
 					state = State.OPERATOR_LOGIN;
@@ -223,9 +226,9 @@ public class TerminalController extends Thread{
 				}
 				pbID = Integer.parseInt(recieve);
 
-				String dbReplay = "Recipe: " + db.getProductRecipeName(pbID) + ", press enter";
-
-				waitForReply(dbReplay);
+				String dbReply = "Recipe: " + db.getProductRecipeName(pbID) + ", press enter";
+				print(dbReply);
+//				waitForReply(dbReplay);
 				state = State.PREPARE_WEIGHT;
 				return;
 			}  catch (DALException e){

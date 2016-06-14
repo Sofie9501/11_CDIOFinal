@@ -19,7 +19,7 @@ public class ProductBatchDAOMySQL implements ProductBatchDAO{
 	@Override
 	public ProductBatchDTO getProductBatch(int ID) throws DALException {
 		// Query and get result
-		query = "Select * from  productbatch_administration where pb_id = " + ID;
+		query = "Select * from  productBatch_administration where pb_id = " + ID;
 		ResultSet result = c.doQuery(query);
 
 		// Throw exception if no results found
@@ -46,7 +46,7 @@ public class ProductBatchDAOMySQL implements ProductBatchDAO{
 
 	@Override
 	public List<ProductBatchDTO> getProductBatchList() throws DALException {
-		query = "select * from productbatch_administration";
+		query = "select * from productBatch_administration";
 		ResultSet result = c.doQuery(query);
 		
 		// Throw exception if no results found

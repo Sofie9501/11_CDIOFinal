@@ -1,4 +1,4 @@
-use final;
+use grp11;
 
 /* must be dropped in this order to avoid constraint violations */
 DROP TABLE IF EXISTS productBatchComponent;
@@ -111,8 +111,8 @@ as select recipe_id,recipe_name, ingredient_id, ingredient_name, tolerance, nom_
 from recipe natural join recipeComponent join ingredient using (ingredient_id); 
 
 create view ingredientBatch_administration
-as select ingredientbatch.ib_id, ingredient_name, ingredient.ingredient_id, amount, ingredientBatch.active, recieveDate
-from ingredient join ingredientBatch on ingredient.ingredient_id = ingredientbatch.ingredient_id
+as select ingredientBatch.ib_id, ingredient_name, ingredient.ingredient_id, amount, ingredientBatch.active, recieveDate
+from ingredient join ingredientBatch on ingredient.ingredient_id = ingredientBatch.ingredient_id
 order by ib_id;
 
 create view number_done as SELECT productBatch.pb_id, COUNT(productBatchComponent.pb_id) as antal_faerdige, recipe_id, startdate, endDate, status, active
@@ -126,7 +126,7 @@ create view productBatch_administration as select pb_id, recipe_id, recipe_name,
 from number_Components natural join number_done left join recipe using (recipe_id);
 
 create view ase_info as select nom_net, tolerance, pb_id, ib_id
-from productbatch natural join ingredientbatch natural join recipecomponent;
+from productBatch natural join ingredientBatch natural join recipeComponent;
 
 /*
 create view weighing as select pb_id, ingredient_id , ingredient_name, nom_netto, tolerance 
@@ -359,48 +359,48 @@ delimiter ;
 
 
 /* User rights */
-drop user 'server_access'@'localhost';
-drop user 'ase_access'@'localhost';
-create user 'server_access'@'localhost' identified by 'qwer1234';
-create user 'ase_access'@'localhost' identified by 'zxcvbnm';
+drop user 'server_access'@'%';
+drop user 'ase_access'@'%';
+create user 'server_access'@'%' identified by 'qwer1234';
+create user 'ase_access'@'%' identified by 'zxcvbnm';
 
 
 /* Stored procedure access rights */
-Grant Execute on procedure create_ingredient to 'server_access' @'localhost';
-Grant Execute on procedure update_opr to 'server_access'@'localhost';
-Grant Execute on procedure update_recipe to 'server_access'@'localhost';
-Grant Execute on procedure create_opr to 'server_access'@'localhost';
-Grant Execute on procedure create_productBatch to 'server_access'@'localhost';
-Grant Execute on procedure update_productBatch to 'server_access'@'localhost';
-Grant Execute on procedure create_ingredientBatch to 'server_access'@'localhost';
-Grant Execute on procedure update_ingredientBatch to 'server_access'@'localhost';
-Grant Execute on procedure create_recipeComponent to 'server_access'@'localhost';
-Grant Execute on procedure update_recipeComponent to 'server_access'@'localhost';
-Grant Execute on procedure create_recipe to 'server_access'@'localhost';
-Grant Execute on procedure update_ingredient to 'server_access'@'localhost';
-Grant Execute on procedure create_productbatchcomponent to 'ase_access'@'localhost';
-Grant Execute on procedure update_productbatchstatus to 'ase_access'@'localhost';
+Grant Execute on procedure create_ingredient to 'server_access' @'%';
+Grant Execute on procedure update_opr to 'server_access'@'%';
+Grant Execute on procedure update_recipe to 'server_access'@'%';
+Grant Execute on procedure create_opr to 'server_access'@'%';
+Grant Execute on procedure create_productBatch to 'server_access'@'%';
+Grant Execute on procedure update_productBatch to 'server_access'@'%';
+Grant Execute on procedure create_ingredientBatch to 'server_access'@'%';
+Grant Execute on procedure update_ingredientBatch to 'server_access'@'%';
+Grant Execute on procedure create_recipeComponent to 'server_access'@'%';
+Grant Execute on procedure update_recipeComponent to 'server_access'@'%';
+Grant Execute on procedure create_recipe to 'server_access'@'%';
+Grant Execute on procedure update_ingredient to 'server_access'@'%';
+Grant Execute on procedure create_productbatchcomponent to 'ase_access'@'%';
+Grant Execute on procedure update_productbatchstatus to 'ase_access'@'%';
 /*Grant Execute on procedure weighing to 'server_access';*/
 
 /* table and view access rights */
-Grant Select on table operator to 'server_access'@'localhost';
-Grant Select on table ingredient to 'server_access'@'localhost';
-Grant Select on table recipe to 'server_access'@'localhost';
-Grant Select on table recipeComponent to 'server_access'@'localhost';
-Grant Select on number_done to 'server_access'@'localhost';
-Grant Select on productBatch_administration to 'server_access'@'localhost';
-Grant Select on ingredientBatch_administration to 'server_access'@'localhost';
-Grant Select on number_Components to 'server_access'@'localhost';
-Grant Select on recipe_administration to 'server_access'@'localhost';
+Grant Select on table operator to 'server_access'@'%';
+Grant Select on table ingredient to 'server_access'@'%';
+Grant Select on table recipe to 'server_access'@'%';
+Grant Select on table recipeComponent to 'server_access'@'%';
+Grant Select on number_done to 'server_access'@'%';
+Grant Select on productBatch_administration to 'server_access'@'%';
+Grant Select on ingredientBatch_administration to 'server_access'@'%';
+Grant Select on number_Components to 'server_access'@'%';
+Grant Select on recipe_administration to 'server_access'@'%';
 
 
-Grant select on table productBatch to 'ase_access'@'localhost';
-Grant select on table recipeComponent to 'ase_access'@'localhost';
-Grant select on ase_info to 'ase_access'@'localhost';
-Grant select on operator to 'ase_access'@'localhost';
-Grant select on productBatch_administration to 'ase_access'@'localhost';
-Grant select on ingredientBatch_administration to 'ase_access'@'localhost';
-Grant select on productbatchcomponent to 'ase_access'@'localhost';
+Grant select on table productBatch to 'ase_access'@'%';
+Grant select on table recipeComponent to 'ase_access'@'%';
+Grant select on ase_info to 'ase_access'@'%';
+Grant select on operator to 'ase_access'@'%';
+Grant select on productBatch_administration to 'ase_access'@'%';
+Grant select on ingredientBatch_administration to 'ase_access'@'%';
+Grant select on productBatchComponent to 'ase_access'@'%';
 
 /*
 Grant Select on weighing to 'server_access';

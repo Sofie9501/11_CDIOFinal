@@ -173,6 +173,13 @@ public class TerminalController extends Thread{
 		System.out.println(reply);
 		return reply;
 	}
+	
+	private String showWeightOnDisplay(){
+		
+		String outPut = "K 3\n";
+		sendData(outPut);
+		return recieveData();
+	}
 
 	private String sendS(){
 		String reply = null;
@@ -301,12 +308,11 @@ public class TerminalController extends Thread{
 		//sendB("2.5");
 		
 		waitForReply("Press ok for weighing");
-		sendData("DW\n");
-		recieveData();
-
+		System.out.println(showWeightOnDisplay());
 		// Gets the net weight
 		net = Float.parseFloat(sendS());
-		
+		//asd
+		System.out.println("asd");
 		// Checks if the net weight meets the tolerance requirements
 		float tolMax = recipeComp.getNet() + recipeComp.getTolerance() * recipeComp.getNet()/100;
 		float tolMin = recipeComp.getNet() - recipeComp.getTolerance() * (recipeComp.getNet()/100);

@@ -211,7 +211,7 @@ public class TerminalController extends Thread{
 				}
 
 			}catch(Exception e){
-				waitForReply("WRONG INPUT, PRESS ENTER" );
+				waitForReply(e.getMessage());
 				return;
 			}
 
@@ -302,7 +302,7 @@ public class TerminalController extends Thread{
 			waitForReply("Id accepted");
 			state = State.REGISTER_WEIGHT;
 		} catch (DALException e) {
-			waitForReply("An error occurred ");
+			waitForReply(e.getMessage());
 		} catch (NumberFormatException e){
 			waitForReply("WRONG INPUT");
 		}

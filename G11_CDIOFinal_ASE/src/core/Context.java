@@ -16,14 +16,14 @@ public class Context implements DatabaseCom{
 	@Override
 	public String getOperator(int operatorId) throws DALException {
 		// Query
-		query = "Select opr_name from operator where opr_id = " + operatorId + ";";
+		query = "Select * from operator where opr_id = " + operatorId + ";";
 		try {
 			ResultSet result = c.doQuery(query);
 			// is there a next row
-			if(result.next() && result.getString(1)!=null){
-				return result.getString(1);
+			if(result.next() && result.getString(2)!=null && result.getBoolean(6)){
+				return result.getString(2);
 			} else {
-				throw new DALException("No operators was found");
+				throw new DALException("No operator was found");
 			}
 		} catch(DALException e) {
 			throw e;
@@ -83,7 +83,6 @@ public class Context implements DatabaseCom{
 			// If there's a result the ingredient batch exist and we get the amount
 				amount = Float.parseFloat(result.getString(1));
 			}
-			
 			
 			// Next we get the net
 			result = c.doQuery(queryNet);

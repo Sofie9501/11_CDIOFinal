@@ -14,6 +14,10 @@ public class FieldVerifier {
 	
 	//used to veridy password input
 	public static boolean passwordValid(String password){
+		
+		// check password length
+		if(password.length() < 5 || password.length() > 8)
+			return false;
 		if(!password.matches("(.*)[^.-_+!?=a-zA-Z0-9](.*)")){
 
 			// 4 rules, 3 should be fulfilled

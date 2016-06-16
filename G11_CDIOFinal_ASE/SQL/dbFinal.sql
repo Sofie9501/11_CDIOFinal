@@ -345,7 +345,11 @@ create procedure create_productbatchcomponent
 begin start transaction;
 set @oldamount = (select amount from ingredientBatch where ib_id = ib_id_input);
 set @newamount = @oldamount - net_input;
-update ingredientBatch set amount = @newamount where ib_id = ib_id_input;			
+update ingredientBatch set amount = @newamount where ib_id = ib_id_input;	
+		
+if((select antal_Comp from productBatch_administration where pb_id = pb_id_input) in (select antal_faerdige from productBatch_administration
+where pb_id = pb_id_input)) then update productBatch set status = 2 where pb_id = pb_id_input;
+end if;
 
 insert into productBatchComponent(pb_id, ib_id, tara, net, opr_id)
 values (pb_id_input, ib_id_input, tara_input, net_input, opr_id_input);

@@ -51,11 +51,11 @@ CREATE TABLE productBatchComponent(pb_id INT, ib_id INT, tara REAL, net REAL, op
    (6, 'Cecilie Lindberg', '1910942222', 'Qwer1234', 2, false);
    
    insert into ingredient values
-   (1, 'Citron', 'Citronland', true),
-   (2, 'Vand', 'Vandland', true),
-   (4, 'Nødder', 'Nødetræ', false),
-   (3, 'Bær', 'Busken', true),
-   (5, 'Soda', 'Brusekilden', true);
+   (1, 'Lemon', 'Lemonland', true),
+   (2, 'Water', 'Waterland', true),
+   (4, 'Nuts', 'Nuttree', false),
+   (3, 'Berry', 'The bush', true),
+   (5, 'Soda', 'Fizzysprings', true);
    
    insert into ingredientBatch values
    (2, 1, 7.5, '2015-06-16', true),
@@ -66,10 +66,10 @@ CREATE TABLE productBatchComponent(pb_id INT, ib_id INT, tara REAL, net REAL, op
    (5, 3, 1, '1990-09-08', true);
    
    insert into recipe values
-   (1, 'Citronvand', true),
-   (3, 'Sodavand', true),
-   (4, 'Bærvand', false),
-   (2, 'Tærte', true);
+   (1, 'Lemonwater', true),
+   (3, 'Sodawater', true),
+   (4, 'Berrywater', false),
+   (2, 'Pie', true);
    
    insert into recipeComponent values
    (1, 1, 0.5, 0.1),
@@ -310,7 +310,7 @@ end; //
 create procedure update_productbatchstatus
 (in pb_id_input int(8), in status_input int(1))
 begin
-update productbatch
+update productBatch
 set status = status_input
 where pb_id = pb_id_input;
 end; //
@@ -347,7 +347,7 @@ set @oldamount = (select amount from ingredientBatch where ib_id = ib_id_input);
 set @newamount = @oldamount - net_input;
 update ingredientBatch set amount = @newamount where ib_id = ib_id_input;			
 
-insert into productbatchcomponent(pb_id, ib_id, tara, net, opr_id)
+insert into productBatchComponent(pb_id, ib_id, tara, net, opr_id)
 values (pb_id_input, ib_id_input, tara_input, net_input, opr_id_input);
 
 if(@oldamount = ((select amount from ingredientBatch where ib_id = ib_id_input) + net_input))
@@ -396,6 +396,7 @@ Grant Select on recipe_administration to 'server_access'@'%';
 
 Grant select on table productBatch to 'ase_access'@'%';
 Grant select on table recipeComponent to 'ase_access'@'%';
+Grant select on table ingredientBatch to 'ase_access'@'%';
 Grant select on ase_info to 'ase_access'@'%';
 Grant select on operator to 'ase_access'@'%';
 Grant select on productBatch_administration to 'ase_access'@'%';

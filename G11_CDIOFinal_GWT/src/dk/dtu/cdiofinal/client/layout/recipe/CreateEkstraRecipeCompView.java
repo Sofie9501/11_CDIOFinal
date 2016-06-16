@@ -123,7 +123,7 @@ public class CreateEkstraRecipeCompView extends AbstractView {
 			alert+="Error - The ingredient is not active \n";
 			succes = false;
 		}
-		if(!FieldVerifier.amountValid(Double.parseDouble(txt_net.getText()))){
+		if(!FieldVerifier.netValid(Double.parseDouble(txt_net.getText()))){
 			alert += "Error - net is not okay \n";
 			succes = false;
 		}

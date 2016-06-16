@@ -11,10 +11,10 @@ public class FieldVerifier {
 		str+= cpr.substring(6);
 		return str;
 	}
-	
+
 	//used to veridy password input
 	public static boolean passwordValid(String password){
-		
+
 		// check password length
 		if(password.length() < 5 || password.length() > 8)
 			return false;
@@ -72,22 +72,31 @@ public class FieldVerifier {
 	}
 
 	//used to veridy amounts input
-	public static boolean amountValid(double i) {
+	public static boolean netValid(double i) {
 		if(i >= 0.05 && i <=20){
 			return true;
 		}else{
 			return false;
 		}
 	}
-	
+
 	//used to veridy tolerance input
-		public static boolean toleranceValid(double i) {
-			if(i >= 0.1 && i <=10){
-				return true;
-			}else{
-				return false;
-			}
+	public static boolean toleranceValid(double i) {
+		if(i >= 0.1 && i <=10){
+			return true;
+		}else{
+			return false;
 		}
+	}
+
+	//used to veridy tolerance input
+	public static boolean amountValid(double i) {
+		if(i >= 0.1){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 	//used to verify avtive input
 	public static boolean active(boolean active){

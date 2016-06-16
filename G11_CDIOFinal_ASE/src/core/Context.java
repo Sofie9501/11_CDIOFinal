@@ -31,7 +31,7 @@ public class Context implements DatabaseCom{
 			e.printStackTrace();
 		}
 		// return the name
-		return "mega fejl";
+		return "Critial error";
 	}
 
 	// Returns the name of a recipe given the product batch ID.

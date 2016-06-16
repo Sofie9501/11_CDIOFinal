@@ -168,33 +168,79 @@ public class TerminalController extends Thread{
 		// waiting for reply
 
 		reply = recieveData();
-		
+
 		reply = reply.substring(8, reply.length()-3);
 		System.out.println(reply);
 		return reply;
 	}
 
+	// This method allows the operator to weight while text is showing on the display
+	private String showWeightOnDisplay(){
+		// The command
+		sendData("K 3\n");
+
+		try {
+
+			// If the first reply is "K A" it means that the command is understood
+			if(recieveData().startsWith("K A")){
+				
+				// If the user presses the right button the weight returns "K C 4"
+				if(recieveData().startsWith("K C 4")){
+					
+					// We now send a new command: stable weighing
+					return sendS();
+					
+					// If the user presses the wrong button
+				}else{	
+					throw new DALException("WRONG INPUT, PRESS ENTER");
+				}
+				
+				// If the command isn't received by the weight
+			}else{	
+				throw new DALException("An error occured");
+			}
+		} catch (DALException e) {
+			waitForReply(e.getMessage());
+		}
+		return "Critical error";
+	}
+
+	// Sends a stable weighing
 	private String sendS(){
 		String reply = null;
+		
+		// Using the command "S"
 		sendData("S\n");
 		reply = recieveData();
+		
+		// The reply is sorted so we only get numbers
 		reply = reply.substring(8,reply.length()-3);
 		System.out.println("reply s: " + reply);
 		return reply;
 	}
-	
 
+
+	// The state where the operator has to log in
 	private void operatorLogin(){
+		
 		while(true){
+			
+			// The operator is asked for an ID
 			String msgReceived = waitForReply("Enter OPR ID");
 
 			try{
+				// The returned value is parsed
 				oprID = Integer.parseInt(msgReceived);
 
+				// We now look in our database for the name
 				String oprName = db.getOperator(Integer.parseInt(msgReceived));
+				
+				// The name is returned. If the next response equals the exit button, the state resets
 				if((waitForReply(oprName)).equals(EXIT_CHAR))
 					return;
 				else{
+					
+					// Next state
 					state = State.PRODUCTBATCH_SELECTION;
 					return;
 				}
@@ -207,26 +253,34 @@ public class TerminalController extends Thread{
 		}
 	}
 
+	// The state where the product batch is decided
 	private void productBatchSelection(){
 		while(true){
 			try {
+				// The operator is asked for an ID
 				String recieve = waitForReply("Enter PB ID");
 
+				// If the response equals the exit button the state will go back to Operator_login
 				if(recieve.equalsIgnoreCase(EXIT_CHAR)){
 					state = State.OPERATOR_LOGIN;
 					return;
 				}
+				
+				// The reply is parsed
 				pbID = Integer.parseInt(recieve);
 
+				// The recipe name is looked up in the database
 				String dbReply = db.getProductRecipeName(pbID);
 
-				String exit = waitForReply(dbReply);
-				if(exit.equals(EXIT_CHAR)){
+				// If the name is accepted (by pressing enter) we continue to the next state
+				String accept = waitForReply(dbReply);
+				if(accept.equals(EXIT_CHAR)){
 					state = State.OPERATOR_LOGIN;
 					return;
 				}
 				state = State.PREPARE_WEIGHT;
 				return;
+				
 			}  catch (DALException e){
 				waitForReply("An error occured");
 			} catch (NumberFormatException e){
@@ -235,28 +289,36 @@ public class TerminalController extends Thread{
 		}
 	}
 
+	// This state takes care of preparing the scale for weighing
 	private void prepareWeight(){
-		String recieve = waitForReply("empty scale");
+		
+		// The operator is asked to clear the scale
+		String recieve = waitForReply("Empty scale");
 
+		// If he/she doesn't reply with the exit button we continue
 		if(recieve.equalsIgnoreCase(EXIT_CHAR)){
 			state = State.OPERATOR_LOGIN;
 			return;
 		}
-
+		
+		// The status of the product batch is set to 1
 		try {
 			db.setPbStatus(pbID);
 		} catch (DALException e) {
-
 			waitForReply("An error occured");
 			System.out.println(e.getMessage());
-			waitForReply("contact supervisor");
+			waitForReply("Contact supervisor");
 			state = State.OPERATOR_LOGIN;
 		}
+		
+		// If successful, we send T to tare
 		sendTare();
+		
+		// Next state
 		state = State.ADD_CONTAINER;
 	}
 
-	// The operator is asked to place the first container so the weight can tare
+	// The operator is asked to place the first container so the weight can save the next tare
 	private void addContainer(){
 		try {
 			//sendB("2.0");
@@ -277,19 +339,26 @@ public class TerminalController extends Thread{
 		}
 	}
 
+	// 
 	private void weighing(){
 		// The ID is checked that it exists
 		try {
 			// The operator is asked to enter an ID for the ingredient batch (raavarebatch)
 			String reply = waitForReply("Enter ingredientbatch");
+			
+			// The reply is parsed
 			ibID = Integer.parseInt(reply);
-			db.checkIbId(ibID, pbID); // Kan lave til en void ? den caster bare fejl ud i stedet.
-			db.setPbStatus(pbID);
+			
+			// We check in our database that the ID's exist, have the right amount and so on
+			db.checkIbId(ibID, pbID); 
+			
+			// We create a new DTO with the given information
 			recipeComp = db.checkWeight(pbID, ibID);
 
 			// The ID is accepted and we move onto "Register Weight"
 			waitForReply("Id accepted");
 			state = State.REGISTER_WEIGHT;
+			
 		} catch (DALException e) {
 			waitForReply(e.getMessage());
 		} catch (NumberFormatException e){
@@ -297,23 +366,20 @@ public class TerminalController extends Thread{
 		}
 	}
 
+	// The actual weighing here
 	private void registerWeight(){
-		//sendB("2.5");
-		
 		waitForReply("Press ok for weighing");
-		sendData("DW\n");
-		recieveData();
 
-		// Gets the net weight
-		net = Float.parseFloat(sendS());
-		
+		// By using the commands "K 3" and "S" we get the weight
+		net = Float.parseFloat(showWeightOnDisplay());
+
 		// Checks if the net weight meets the tolerance requirements
 		float tolMax = recipeComp.getNet() + recipeComp.getTolerance() * recipeComp.getNet()/100;
 		float tolMin = recipeComp.getNet() - recipeComp.getTolerance() * (recipeComp.getNet()/100);
 		System.out.println("tolmax:" + tolMax);
 		System.out.println("tolmin:" + tolMin);
 
-		if(net <= tolMax || net >= tolMin){
+		if(net <= tolMax && net >= tolMin){
 			try {
 				// Create new product batch component
 				db.createProductBatchComp(pbID, ibID, tare, net, oprID);

@@ -301,7 +301,7 @@ public class TerminalController extends Thread{
 		//sendB("2.5");
 		
 		waitForReply("Press ok for weighing");
-		sendData("DW");
+		sendData("DW\n");
 		recieveData();
 
 		// Gets the net weight

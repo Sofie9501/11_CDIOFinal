@@ -24,7 +24,7 @@ import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 public class CreateOprView extends AbstractView {
-	final ProdView prod;
+	private ProdView prod;
 	private static CreateOprViewUiBinder uiBinder = GWT.create(CreateOprViewUiBinder.class);
 	private OperatorDTO opr;
 	private ClientOperatorImpl serviceImpl;

@@ -33,8 +33,8 @@ import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 public class CreateEkstraRecipeCompView extends AbstractView {
 
-	final ProdView prod;
-	protected ClientRecipeImpl serviceImpl;
+	private ProdView prod;
+	private ClientRecipeImpl serviceImpl;
 	private ListDataProvider<RecipeComponentDTO> dataProvider;
 	private static CreateEkstraRecipeCompUiBinder uiBinder = GWT.create(CreateEkstraRecipeCompUiBinder.class);
 	private RecipeDTO recipe;
@@ -127,7 +127,7 @@ public class CreateEkstraRecipeCompView extends AbstractView {
 			alert += "Error - net is not okay \n";
 			succes = false;
 		}
-		if(!FieldVerifier.amountValid(Double.parseDouble(txt_tolerance.getText()))){
+		if(!FieldVerifier.toleranceValid(Double.parseDouble(txt_tolerance.getText()))){
 			alert += "Error - tolerance is not okay \n";
 			succes = false;
 		}

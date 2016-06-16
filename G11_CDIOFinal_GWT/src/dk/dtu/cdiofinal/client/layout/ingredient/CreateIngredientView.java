@@ -27,7 +27,7 @@ public class CreateIngredientView extends AbstractView{
 	private static CreateIngredientViewUiBinder uiBinder = GWT.create(CreateIngredientViewUiBinder.class);
 	private IngredientDTO ingredient;
 	private ClientIngredientImpl serviceImpl;
-	private final ProdView PROD;
+	private ProdView prod;
 	
 	@UiTemplate("createIngredientView.ui.xml")
 	interface CreateIngredientViewUiBinder extends UiBinder<Widget, CreateIngredientView>{
@@ -44,7 +44,7 @@ public class CreateIngredientView extends AbstractView{
 
 	public CreateIngredientView(ProdView prod){
 		initWidget(uiBinder.createAndBindUi(this));
-		this.PROD=prod;
+		this.prod=prod;
 		this.serviceImpl = new ClientIngredientImpl();
 		//Clickhandler
 		btn_save.addClickHandler(new SaveClickHandler());
@@ -100,7 +100,7 @@ public class CreateIngredientView extends AbstractView{
 		@Override
 		public void onClick(ClickEvent event) {
 			popup.toggle();
-			PROD.PreviousView();
+			prod.PreviousView();
 		}
 	}
 	

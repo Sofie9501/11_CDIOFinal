@@ -73,12 +73,21 @@ public class FieldVerifier {
 
 	//used to veridy amounts input
 	public static boolean amountValid(double i) {
-		if(i > 0.0){
+		if(i >= 0.05 && i <=20){
 			return true;
 		}else{
 			return false;
 		}
 	}
+	
+	//used to veridy tolerance input
+		public static boolean toleranceValid(double i) {
+			if(i >= 0.1 && i <=10){
+				return true;
+			}else{
+				return false;
+			}
+		}
 
 	//used to verify avtive input
 	public static boolean active(boolean active){

@@ -32,8 +32,7 @@ import dk.dtu.cdiofinal.shared.ProductBatchDTO;
 
 public class ProductBatchListView extends AbstractView {
 
-	final ProdView prod;
-
+	private ProdView prod;
 	private ClientProductBatchImpl serviceImpl;
 	private List<ProductBatchDTO> productBatchList = new ArrayList<>();
 	private ListDataProvider<ProductBatchDTO> dataProvider;

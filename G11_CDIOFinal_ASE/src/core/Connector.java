@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Connector {
-	private final String HOST = "localhost";
+	private final String HOST = "ec2-52-30-89-247.eu-west-1.compute.amazonaws.com";
 	private final int PORT = 3306;
-	private final String DATABASE = "final";
+	private final String DATABASE = "grp11";
 	private final String USERNAME = "ase_access";
 	private final String PASSWORD = "zxcvbnm";
 	private Connection connection;

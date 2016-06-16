@@ -33,8 +33,7 @@ import dk.dtu.cdiofinal.shared.OperatorDTO;
 
 public class OprListView extends AbstractView {
 	
-	final ProdView prod;
-
+	private ProdView prod;
 	private ClientOperatorImpl serviceImpl;
 	private List<OperatorDTO> oprList = new ArrayList<>();
 	ListDataProvider<OperatorDTO> dataProvider;

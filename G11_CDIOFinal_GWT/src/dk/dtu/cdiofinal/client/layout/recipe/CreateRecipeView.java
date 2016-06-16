@@ -19,14 +19,12 @@ import com.google.gwt.user.client.ui.Widget;
 
 import dk.dtu.cdiofinal.client.layout.AbstractView;
 import dk.dtu.cdiofinal.client.layout.menu.ProdView;
-import dk.dtu.cdiofinal.client.serverconnection.recipe.ClientRecipeImpl;
 import dk.dtu.cdiofinal.shared.FieldVerifier;
 import dk.dtu.cdiofinal.shared.RecipeDTO;
 
 public class CreateRecipeView extends AbstractView {
 
-	final ProdView prod;
-	protected ClientRecipeImpl serviceImpl;
+	private ProdView prod;
 	private static createRecipeUiBinder uiBinder = GWT.create(createRecipeUiBinder.class);
 	private RecipeDTO recipe;
 
@@ -48,7 +46,6 @@ public class CreateRecipeView extends AbstractView {
 	public CreateRecipeView(ProdView prod){
 		initWidget(uiBinder.createAndBindUi(this));
 		this.prod=prod;
-		this.serviceImpl = new ClientRecipeImpl();
 		//Add click and key handler to buttons and last textbox
 		btn_ok.addClickHandler((ClickHandler)new OkClickHandler());
 		btn_add.addClickHandler(new AddClickHandler());

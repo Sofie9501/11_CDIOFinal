@@ -67,18 +67,18 @@ public class Context implements DatabaseCom{
 		try {
 			ResultSet qResult = c.doQuery(query);
 			if(qResult.next())
-				throw new DALException("component already created");
+				throw new DALException("component already exist");
 			// Queries. First gets the amount that is available in the ingredient batch, 
 			// the next gets the needed amount for the recipe
 			String queryAmount = "select amount from ingredientBatch_administration where ib_id = " + ibId + ";";
-			String queryNet = "select nom_net from recipecomponent where recipe_id in (select recipe_id from productbatch where pb_id =" + pbId + ");";
+			String queryNet = "select nom_net from recipeComponent where recipe_id in (select recipe_id from productBatch where pb_id = " + pbId + ") and ingredient_id in (select ingredient_id from ingredientBatch where ib_id = " + ibId + ");";
 		
 		
 			ResultSet result = c.doQuery(queryAmount);
 			
 			// Throw exception if no result is found
 			if(!result.next()){
-				throw new DALException("Ingredient batch not found");
+				throw new DALException("Not enough in batch");
 			}else{
 			// If there's a result the ingredient batch exist and we get the amount
 				amount = Float.parseFloat(result.getString(1));
@@ -90,7 +90,7 @@ public class Context implements DatabaseCom{
 			
 						
 			if(!result.next()){
-				throw new DALException("Recept Component not found");
+				throw new DALException("Recept comp not found");
 			}else{
 			// If there's a result the ingredient batch exist and we get the amount
 				net = Float.parseFloat(result.getString(1));
@@ -99,7 +99,7 @@ public class Context implements DatabaseCom{
 			
 			
 			if(net >= amount){
-				throw new DALException("Ingredient batch does not have the required amount");
+				throw new DALException("Not enough in batch");
 			}
 			
 			

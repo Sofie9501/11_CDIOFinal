@@ -113,6 +113,7 @@ public class Context implements DatabaseCom{
 	@Override
 	public void createProductBatchComp(int pbId, int ibId, float tare, double net, int oprId) throws DALException {
 		// Calls a stored procedure in our database
+		String.format("%.2f", net);
 		query = "call create_productbatchcomponent(" + pbId + ", " + ibId + ", " + tare + ", " + net + ", " + oprId + ");";
 		c.doQuery(query);
 

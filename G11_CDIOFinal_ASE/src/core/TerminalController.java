@@ -239,14 +239,13 @@ public class TerminalController extends Thread{
 				if((waitForReply(oprName)).equals(EXIT_CHAR))
 					return;
 				else{
-					
 					// Next state
 					state = State.PRODUCTBATCH_SELECTION;
 					return;
 				}
 
 			}catch(Exception e){
-				waitForReply(e.getMessage());
+				waitForReply("No operator found");
 				return;
 			}
 

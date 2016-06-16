@@ -368,10 +368,12 @@ public class TerminalController extends Thread{
 	// The actual weighing here
 	private void registerWeight(){
 		waitForReply("Press ok for weighing");
-
+		
 		// By using the commands "K 3" and "S" we get the weight
 		net = Float.parseFloat(showWeightOnDisplay());
-
+		System.out.println("Before round" + net);
+		net = (float) (Math.round (net * 10000.0) / 10000.0); 
+		System.out.println("After round" + net);
 		// Checks if the net weight meets the tolerance requirements
 		float tolMax = recipeComp.getNet() + recipeComp.getTolerance() * recipeComp.getNet()/100;
 		float tolMin = recipeComp.getNet() - recipeComp.getTolerance() * (recipeComp.getNet()/100);

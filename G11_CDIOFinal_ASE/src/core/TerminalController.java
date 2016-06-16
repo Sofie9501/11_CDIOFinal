@@ -339,19 +339,26 @@ public class TerminalController extends Thread{
 		}
 	}
 
+	// 
 	private void weighing(){
 		// The ID is checked that it exists
 		try {
 			// The operator is asked to enter an ID for the ingredient batch (raavarebatch)
 			String reply = waitForReply("Enter ingredientbatch");
+			
+			// The reply is parsed
 			ibID = Integer.parseInt(reply);
-			db.checkIbId(ibID, pbID); // Kan lave til en void ? den caster bare fejl ud i stedet.
-			db.setPbStatus(pbID);
+			
+			// We check in our database that the ID's exist, have the right amount and so on
+			db.checkIbId(ibID, pbID); 
+			
+			// We create a new DTO with the given information
 			recipeComp = db.checkWeight(pbID, ibID);
 
 			// The ID is accepted and we move onto "Register Weight"
 			waitForReply("Id accepted");
 			state = State.REGISTER_WEIGHT;
+			
 		} catch (DALException e) {
 			waitForReply(e.getMessage());
 		} catch (NumberFormatException e){
@@ -359,12 +366,11 @@ public class TerminalController extends Thread{
 		}
 	}
 
+	// The actual weighing here
 	private void registerWeight(){
-		//sendB("2.5");
-
 		waitForReply("Press ok for weighing");
 
-		// Gets the net weight
+		// By using the commands "K 3" and "S" we get the weight
 		net = Float.parseFloat(showWeightOnDisplay());
 
 		// Checks if the net weight meets the tolerance requirements
@@ -373,7 +379,7 @@ public class TerminalController extends Thread{
 		System.out.println("tolmax:" + tolMax);
 		System.out.println("tolmin:" + tolMin);
 
-		if(net <= tolMax || net >= tolMin){
+		if(net <= tolMax && net >= tolMin){
 			try {
 				// Create new product batch component
 				db.createProductBatchComp(pbID, ibID, tare, net, oprID);

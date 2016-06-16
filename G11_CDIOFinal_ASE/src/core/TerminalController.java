@@ -92,11 +92,6 @@ public class TerminalController extends Thread{
 
 	}
 
-	// used to set weight on simulator, from ase
-	private void sendB(String weight){
-		sendData("b "+ weight + "\n");
-		recieveData();
-	}
 
 	// used to send data to weight terminal
 	private void sendData(String data){
@@ -166,12 +161,6 @@ public class TerminalController extends Thread{
 		this.stop();
 		return null;
 	}
-	
-	private void print(String message){
-		String sData = "P111 \"" + message + "\"\n";
-		sendData(sData);
-		recieveData();
-	}
 
 	private String sendTare(){
 		String reply = null;
@@ -193,7 +182,7 @@ public class TerminalController extends Thread{
 		System.out.println("reply s: " + reply);
 		return reply;
 	}
-
+	
 
 	private void operatorLogin(){
 		while(true){
@@ -311,7 +300,9 @@ public class TerminalController extends Thread{
 	private void registerWeight(){
 		//sendB("2.5");
 		
-		waitForReply("Weigh amount");
+		waitForReply("Press ok for weighing");
+		sendData("DW");
+		recieveData();
 
 		// Gets the net weight
 		net = Float.parseFloat(sendS());

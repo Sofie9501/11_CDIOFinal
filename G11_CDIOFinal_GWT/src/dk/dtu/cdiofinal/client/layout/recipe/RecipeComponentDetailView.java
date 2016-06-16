@@ -41,7 +41,7 @@ public class RecipeComponentDetailView extends AbstractView{
 	@UiField Heading txt_Nom; 
 	@UiField Heading txt_tol; 	
 	// Adds the edit buttons
-	@UiField Button btn_recipeId;
+	
 	@UiField Button btn_ingredientId;
 	@UiField Button btn_Nom;
 	@UiField Button btn_tol;
@@ -65,7 +65,7 @@ public class RecipeComponentDetailView extends AbstractView{
 		txt_tol.setText(String.valueOf(comp.getTolerance()));
 
 		//Clickhandlers for all the buttons
-		btn_recipeId.addClickHandler(new EditRecipeIDClickHandler());
+		
 		btn_ingredientId.addClickHandler(new EditIngredientIDClickHandler());
 		btn_Nom.addClickHandler(new EditNetClickHandler());
 		btn_tol.addClickHandler(new EditToleranceClickHandler());
@@ -143,15 +143,7 @@ public class RecipeComponentDetailView extends AbstractView{
 		}	
 	}
 	//Clickhandlers for all the different buttons.
-	private class EditRecipeIDClickHandler implements ClickHandler{
-		@Override
-		public void onClick(ClickEvent event) {
-			popup.setTitle("Change Recipe ID");
-			popup.setId("Recipe ID");
-			txt_edited.setText(String.valueOf(comp.getRecipe_ID()));
-			popup.toggle();		
-		}	
-	}
+	
 	private class EditIngredientIDClickHandler implements ClickHandler{
 		@Override
 		public void onClick(ClickEvent event) {

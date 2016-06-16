@@ -193,15 +193,15 @@ end; //
 create procedure update_ingredient
 (in ingredient_old_id_input int(8), in ingredient_new_id_input int(8), in ingredient_name_input varchar(21), in leverandoer_input varchar(21), in active_input boolean)
 begin
-if (ingredient_old_id_input not in (select ingredient_id from ingredientbatch) 
-	and ingredient_old_id_input not in (select ingredient_id from recipecomponent)
+if (ingredient_old_id_input not in (select ingredient_id from ingredientBatch) 
+	and ingredient_old_id_input not in (select ingredient_id from recipeComponent)
     and ingredient_new_id_input not in (select ingredient_id from ingredient)
     and ingredient_old_id_input <> ingredient_new_id_input) then 
 update ingredient
 set ingredient_id = ingredient_new_id_input,  ingredient_name=ingredient_name_input, supplier = leverandoer_input, active = active_input
 where ingredient_id = ingredient_old_id_input;
-else if(ingredient_old_id_input not in (select ingredient_id from ingredientbatch) 
-	and ingredient_old_id_input not in (select ingredient_id from recipecomponent)) then 
+else if(ingredient_old_id_input not in (select ingredient_id from ingredientBatch) 
+	and ingredient_old_id_input not in (select ingredient_id from recipeComponent)) then 
 update ingredient
 set ingredient_name=ingredient_name_input, supplier = leverandoer_input, active = active_input
 where ingredient_id = ingredient_old_id_input;
@@ -226,14 +226,14 @@ end; //
 create procedure update_recipe
 (in id_old_input int(8), in id_new_input int(8), in name_input varchar(21), in active_input boolean)
 begin
-if(id_old_input not in (select recipe_id from productbatch)
+if(id_old_input not in (select recipe_id from productBatch)
 and id_new_input not in (select recipe_id from recipe)
-and id_old_input not in (select recipe_id from recipecomponent)
+and id_old_input not in (select recipe_id from recipeComponent)
 and id_old_input <> id_new_input) then
 update recipe
 set recipe_name = name_input, active = active_input, recipe_id = id_new_input
 where recipe_id = id_old_input;
-else if(id_old_input not in (select recipe_id from productbatch)) then
+else if(id_old_input not in (select recipe_id from productBatch)) then
 update recipe
 set recipe_name = name_input, active = active_input
 where recipe_id = id_old_input;
@@ -258,18 +258,18 @@ end; //
 create procedure update_ingredientbatch
 (in ib_old_id_input int(8), in ib_new_id_input int(8), in rv_id_input int(8), in amount_input real, in active_input boolean)
 begin
-if (ib_old_id_input not in (select ib_id from productbatchcomponent)
-and ib_new_id_input not in (select ib_id from productbatch)
-and ib_new_id_input <> ib_new_id_input) then
-update ingredientbatch
+if (ib_old_id_input not in (select ib_id from productBatchComponent)
+and ib_new_id_input not in (select ib_id from productBatchComponent)
+and ib_old_id_input <> ib_new_id_input) then
+update ingredientBatch
 set ingredient_id = rv_id_input, amount=amount_input, active = active_input, ib_id = ib_new_id_input
 where ib_id = ib_old_id_input;
-else if(ib_old_id_input not in (select ib_id from productbatchcomponent)) then
-update ingredientbatch
+else if(ib_old_id_input not in (select ib_id from productBatchComponent)) then
+update ingredientBatch
 set ingredient_id = rv_id_input, amount=amount_input, active = active_input
 where ib_id = ib_old_id_input;
 else 
-update ingredientbatch
+update ingredientBatch
 set active = active_input
 where ib_id = ib_old_id_input;
 end if;
@@ -288,18 +288,18 @@ end; //
 create procedure update_productBatch
 (in pb_old_id_input int(8), in pb_new_id_input int(8), in recipe_id_input int(8), in active_input boolean)
 begin
-if (pb_old_id_input not in (select pb_id from productbatchcomponent)
-and pb_new_id_input not in (select pb_id from productbatch)
+if (pb_old_id_input not in (select pb_id from productBatchComponent)
+and pb_new_id_input not in (select pb_id from productBatch)
 and pb_old_id_input <> pb_new_id_input) then
-update productbatch
+update productBatch
 set pb_id = pb_new_id_input, recipe_id = recipe_id_input, active = active_input
 where pb_id = pb_old_id_input;
-else if(pb_old_id_input not in (select pb_id from productbatchcomponent)) then
-update productbatch
+else if(pb_old_id_input not in (select pb_id from productBatchComponent)) then
+update productBatch
 set recipe_id = recipe_id_input, active = active_input
 where pb_id = pb_old_id_input;
 else 
-update productbatch
+update productBatch
 set status = status_input, active = active_input
 where pb_id = pb_old_id_input;
 end if;
@@ -330,10 +330,10 @@ end; //
 create procedure update_recipeComponent
 (in recipe_id_old_input int(8), in recipe_id_new_input int(8), in ingredient_old_id_input int(8), in ingredient_new_id_input int(8), in net_input real, in tolerance_input real)
 begin
-if(recipe_id_old_input not in (select recipe_id from productbatch)
+if(recipe_id_old_input not in (select recipe_id from productBatch)
 and recipe_id_new_input in (select recipe_id from recipe)
 and ingredient_new_id_input in (select ingredient_id from ingredient))then
-update recipecomponent
+update recipeComponent
 set ingredient_id = ingredient_new_id_input, nom_net = net_input, tolerance = tolerance_input,recipe_id = recipe_id_new_input
 where recipe_id = recipe_id_old_input and ingredient_id = ingredient_old_id_input;
 end if;

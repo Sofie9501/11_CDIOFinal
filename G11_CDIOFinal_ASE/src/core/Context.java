@@ -71,7 +71,7 @@ public class Context implements DatabaseCom{
 			// Queries. First gets the amount that is available in the ingredient batch, 
 			// the next gets the needed amount for the recipe
 			String queryAmount = "select amount from ingredientBatch_administration where ib_id = " + ibId + ";";
-			String queryNet = "select nom_net from recipecomponent where recipe_id in (select recipe_id from productbatch where pb_id = " + pbId + ") and ingredient_id in (select ingredient_id from ingredientbatch where ib_id = " + 1 + ");";
+			String queryNet = "select nom_net from recipecomponent where recipe_id in (select recipe_id from productbatch where pb_id = " + pbId + ") and ingredient_id in (select ingredient_id from ingredientbatch where ib_id = " + ibId + ");";
 		
 		
 			ResultSet result = c.doQuery(queryAmount);

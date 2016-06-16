@@ -92,11 +92,6 @@ public class TerminalController extends Thread{
 
 	}
 
-	// used to set weight on simulator, from ase
-	private void sendB(String weight){
-		sendData("b "+ weight + "\n");
-		recieveData();
-	}
 
 	// used to send data to weight terminal
 	private void sendData(String data){
@@ -166,12 +161,6 @@ public class TerminalController extends Thread{
 		this.stop();
 		return null;
 	}
-	
-	private void print(String message){
-		String sData = "P111 \"" + message + "\"\n";
-		sendData(sData);
-		recieveData();
-	}
 
 	private String sendTare(){
 		String reply = null;
@@ -184,6 +173,13 @@ public class TerminalController extends Thread{
 		System.out.println(reply);
 		return reply;
 	}
+	
+	private String showWeightOnDisplay(){
+		
+		String outPut = "K 3\n";
+		sendData(outPut);
+		return recieveData();
+	}
 
 	private String sendS(){
 		String reply = null;
@@ -193,7 +189,7 @@ public class TerminalController extends Thread{
 		System.out.println("reply s: " + reply);
 		return reply;
 	}
-
+	
 
 	private void operatorLogin(){
 		while(true){
@@ -211,7 +207,7 @@ public class TerminalController extends Thread{
 				}
 
 			}catch(Exception e){
-				waitForReply("WRONG INPUT, PRESS ENTER" );
+				waitForReply(e.getMessage());
 				return;
 			}
 
@@ -302,7 +298,7 @@ public class TerminalController extends Thread{
 			waitForReply("Id accepted");
 			state = State.REGISTER_WEIGHT;
 		} catch (DALException e) {
-			waitForReply("An error occurred ");
+			waitForReply(e.getMessage());
 		} catch (NumberFormatException e){
 			waitForReply("WRONG INPUT");
 		}
@@ -311,11 +307,12 @@ public class TerminalController extends Thread{
 	private void registerWeight(){
 		//sendB("2.5");
 		
-		waitForReply("Weigh amount");
-
+		waitForReply("Press ok for weighing");
+		System.out.println(showWeightOnDisplay());
 		// Gets the net weight
 		net = Float.parseFloat(sendS());
-		
+		//asd
+		System.out.println("asd");
 		// Checks if the net weight meets the tolerance requirements
 		float tolMax = recipeComp.getNet() + recipeComp.getTolerance() * recipeComp.getNet()/100;
 		float tolMin = recipeComp.getNet() - recipeComp.getTolerance() * (recipeComp.getNet()/100);

@@ -16,14 +16,14 @@ public class Context implements DatabaseCom{
 	@Override
 	public String getOperator(int operatorId) throws DALException {
 		// Query
-		query = "Select opr_name from operator where opr_id = " + operatorId + ";";
+		query = "Select * from operator where opr_id = " + operatorId + ";";
 		try {
 			ResultSet result = c.doQuery(query);
 			// is there a next row
-			if(result.next() && result.getString(1)!=null){
-				return result.getString(1);
+			if(result.next() && result.getString(2)!=null && result.getBoolean(6)){
+				return result.getString(2);
 			} else {
-				throw new DALException("No operators was found");
+				throw new DALException("No operator was found");
 			}
 		} catch(DALException e) {
 			throw e;
@@ -31,7 +31,7 @@ public class Context implements DatabaseCom{
 			e.printStackTrace();
 		}
 		// return the name
-		return "mega fejl";
+		return "Critial error";
 	}
 
 	// Returns the name of a recipe given the product batch ID.
@@ -84,7 +84,6 @@ public class Context implements DatabaseCom{
 				amount = Float.parseFloat(result.getString(1));
 			}
 			
-			
 			// Next we get the net
 			result = c.doQuery(queryNet);
 			
@@ -114,6 +113,7 @@ public class Context implements DatabaseCom{
 	@Override
 	public void createProductBatchComp(int pbId, int ibId, float tare, double net, int oprId) throws DALException {
 		// Calls a stored procedure in our database
+		String.format("%.2f", net);
 		query = "call create_productbatchcomponent(" + pbId + ", " + ibId + ", " + tare + ", " + net + ", " + oprId + ");";
 		c.doQuery(query);
 
